@@ -111,7 +111,7 @@ func _build_environment() -> void:
     for z in [-11.7,11.7]:
         _box("Cliff", Vector3(0,.65,z), Vector3(44,1.35,2.2), Color("242e2b"))
         for x in range(-18,19,6):
-            _box("CliffStone", Vector3(float(x),1.05,z-sign(z)*.65), Vector3(3.6,.65,.85), Color("3c4742"), Vector3(0,float(x)%9,0))
+            _box("CliffStone", Vector3(float(x),1.05,z-sign(z)*.65), Vector3(3.6,.65,.85), Color("3c4742"), Vector3(0,float(x % 9),0))
     for x in [-14.,-7.,0.,7.,14.]:
         _cylinder("LaneMarker", Vector3(x,.1,0), .48, .05, Color("b58d43"), .4)
 
