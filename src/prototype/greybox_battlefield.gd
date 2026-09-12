@@ -8,6 +8,22 @@ func _ready() -> void:
     _build_lane()
     _build_blue_force()
     _build_red_force()
+    if OS.has_environment("CLOSESEAL_CAPTURE"):
+        _capture_for_ci.call_deferred()
+
+func _capture_for_ci() -> void:
+    await get_tree().process_frame
+    await get_tree().process_frame
+    await RenderingServer.frame_post_draw
+    var image := get_viewport().get_texture().get_image()
+    var output := OS.get_environment("CLOSESEAL_CAPTURE")
+    var error := image.save_png(output)
+    if error != OK:
+        push_error("Failed to save screenshot: %s" % error)
+        get_tree().quit(1)
+        return
+    print("CLOSESEAL_SCREENSHOT_SAVED=" + output)
+    get_tree().quit()
 
 func _mat(color: Color) -> StandardMaterial3D:
     var m := StandardMaterial3D.new()
