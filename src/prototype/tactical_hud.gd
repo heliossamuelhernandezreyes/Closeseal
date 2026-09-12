@@ -4,13 +4,19 @@ var selected_formation := "LINE"
 var selected_squad := 1
 var status_label: Label
 
-const PANEL_TEX = preload("res://assets/ui/ornate_panel.svg")
-const ABILITY_TEX = preload("res://assets/ui/ability_ring.svg")
-const JOYSTICK_TEX = preload("res://assets/ui/joystick_frame.svg")
-const MINIMAP_TEX = preload("res://assets/ui/minimap_frame.svg")
+var panel_tex: Texture2D
+var ability_tex: Texture2D
+var joystick_tex: Texture2D
+var minimap_tex: Texture2D
 
 func _ready() -> void:
     layer = 10
+    # SVG textures are imported resources. Loading them at runtime avoids a
+    # fresh-checkout parser dependency on Godot having imported them already.
+    panel_tex = load("res://assets/ui/ornate_panel.svg") as Texture2D
+    ability_tex = load("res://assets/ui/ability_ring.svg") as Texture2D
+    joystick_tex = load("res://assets/ui/joystick_frame.svg") as Texture2D
+    minimap_tex = load("res://assets/ui/minimap_frame.svg") as Texture2D
     _build_hud()
 
 func _tex(parent: Node, texture: Texture2D, pos: Vector2, size_: Vector2, mouse := Control.MOUSE_FILTER_IGNORE) -> TextureRect:
@@ -65,7 +71,7 @@ func _glass_button(parent: Node, text_: String, pos: Vector2, size_: Vector2) ->
     return b
 
 func _ability(parent: Node, text_: String, pos: Vector2, diameter: float) -> Button:
-    _tex(parent, ABILITY_TEX, pos, Vector2(diameter, diameter))
+    _tex(parent, ability_tex, pos, Vector2(diameter, diameter))
     var b := Button.new()
     b.text = text_
     b.position = pos
@@ -84,18 +90,16 @@ func _panel_art(parent: Node, pos: Vector2, size_: Vector2) -> Control:
     root.position = pos
     root.size = size_
     parent.add_child(root)
-    _tex(root, PANEL_TEX, Vector2.ZERO, size_)
+    _tex(root, panel_tex, Vector2.ZERO, size_)
     return root
 
 func _build_hud() -> void:
     var vp := get_viewport().get_visible_rect().size
 
-    # Objective ribbon / battle identity.
     var objective := _panel_art(self, Vector2(vp.x * .34, 10), Vector2(vp.x * .32, 78))
     _label(objective, "BREAK THE ENEMY SEAL", Vector2(20,10), Vector2(objective.size.x-40,30), 19, HORIZONTAL_ALIGNMENT_CENTER)
     status_label = _label(objective, "SQUAD 1  •  LINE", Vector2(24,40), Vector2(objective.size.x-48,22), 12, HORIZONTAL_ALIGNMENT_CENTER, Color("8ed5ff"))
 
-    # Formation command surface.
     var command := _panel_art(self, Vector2(14, 12), Vector2(304, 252))
     _label(command, "FORMATIONS", Vector2(18,12), Vector2(268,24), 15, HORIZONTAL_ALIGNMENT_CENTER)
     var names := ["LINE", "PHALANX", "WEDGE", "CRESCENT", "SQUARE", "DISPERSE"]
@@ -111,10 +115,9 @@ func _build_hud() -> void:
     var split := _glass_button(command, "SPLIT", Vector2(198,196), Vector2(82,34))
     split.pressed.connect(_on_split_pressed)
 
-    # Left thumb movement control, visually skinned but kept as its own input zone.
     var joy_size := 176.0
     var joy_pos := Vector2(28, vp.y-joy_size-26)
-    _tex(self, JOYSTICK_TEX, joy_pos, Vector2(joy_size,joy_size))
+    _tex(self, joystick_tex, joy_pos, Vector2(joy_size,joy_size))
     var joy_hit := Control.new()
     joy_hit.position = joy_pos
     joy_hit.size = Vector2(joy_size,joy_size)
@@ -122,10 +125,9 @@ func _build_hud() -> void:
     joy_hit.gui_input.connect(_on_joystick_input)
     add_child(joy_hit)
 
-    # Tactical minimap, centered low and intentionally smaller than the concept sheet.
     var map_size := 184.0
     var map_pos := Vector2((vp.x-map_size)/2.0, vp.y-map_size-16)
-    _tex(self, MINIMAP_TEX, map_pos, Vector2(map_size,map_size))
+    _tex(self, minimap_tex, map_pos, Vector2(map_size,map_size))
     var map_hit := Control.new()
     map_hit.position = map_pos + Vector2(18,18)
     map_hit.size = Vector2(map_size-36,map_size-36)
@@ -133,7 +135,6 @@ func _build_hud() -> void:
     map_hit.gui_input.connect(_on_minimap_input)
     add_child(map_hit)
 
-    # Hero action wheel. Art is independent from hitboxes.
     var action_root := Control.new()
     action_root.position = Vector2(vp.x-330, vp.y-244)
     action_root.size = Vector2(310,220)
@@ -150,7 +151,6 @@ func _build_hud() -> void:
     a2.pressed.connect(_action_feedback.bind("ABILITY II"))
     summon.pressed.connect(_action_feedback.bind("SUMMON"))
 
-    # Small hero readout; keeps world readable while adding game identity.
     var hero := _panel_art(self, Vector2(16, vp.y-238), Vector2(260,52))
     _label(hero, "SEALBEARER  •  LV 15", Vector2(18,6), Vector2(224,18), 12)
     _label(hero, "2350 / 2350     620 / 620", Vector2(18,25), Vector2(224,17), 11, HORIZONTAL_ALIGNMENT_CENTER, Color("8fd8ff"))
