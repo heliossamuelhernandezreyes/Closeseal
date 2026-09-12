@@ -3,30 +3,28 @@ extends CanvasLayer
 var selected_formation := "LINE"
 var selected_squad := 1
 var status_label: Label
-var formation_buttons: Array[Button] = []
-var squad_buttons: Array[Button] = []
+
+const PANEL_TEX = preload("res://assets/ui/ornate_panel.svg")
+const ABILITY_TEX = preload("res://assets/ui/ability_ring.svg")
+const JOYSTICK_TEX = preload("res://assets/ui/joystick_frame.svg")
+const MINIMAP_TEX = preload("res://assets/ui/minimap_frame.svg")
 
 func _ready() -> void:
     layer = 10
     _build_hud()
 
-func _panel(rect: Rect2, color: Color, radius := 12.0) -> Panel:
-    var p := Panel.new()
-    p.position = rect.position
-    p.size = rect.size
-    var style := StyleBoxFlat.new()
-    style.bg_color = color
-    style.border_color = Color(0.75, 0.82, 0.86, 0.18)
-    style.set_border_width_all(1)
-    style.corner_radius_top_left = int(radius)
-    style.corner_radius_top_right = int(radius)
-    style.corner_radius_bottom_left = int(radius)
-    style.corner_radius_bottom_right = int(radius)
-    p.add_theme_stylebox_override("panel", style)
-    add_child(p)
-    return p
+func _tex(parent: Node, texture: Texture2D, pos: Vector2, size_: Vector2, mouse := Control.MOUSE_FILTER_IGNORE) -> TextureRect:
+    var t := TextureRect.new()
+    t.texture = texture
+    t.position = pos
+    t.size = size_
+    t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    t.mouse_filter = mouse
+    parent.add_child(t)
+    return t
 
-func _label(parent: Node, text_: String, pos: Vector2, size_: Vector2, font_size := 16, align := HORIZONTAL_ALIGNMENT_LEFT) -> Label:
+func _label(parent: Node, text_: String, pos: Vector2, size_: Vector2, font_size := 16, align := HORIZONTAL_ALIGNMENT_LEFT, color := Color("f3e5bd")) -> Label:
     var l := Label.new()
     l.text = text_
     l.position = pos
@@ -34,115 +32,128 @@ func _label(parent: Node, text_: String, pos: Vector2, size_: Vector2, font_size
     l.horizontal_alignment = align
     l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
     l.add_theme_font_size_override("font_size", font_size)
-    l.add_theme_color_override("font_color", Color("e7edf1"))
+    l.add_theme_color_override("font_color", color)
+    l.add_theme_color_override("font_shadow_color", Color(0,0,0,.75))
+    l.add_theme_constant_override("shadow_offset_x", 1)
+    l.add_theme_constant_override("shadow_offset_y", 2)
     parent.add_child(l)
     return l
 
-func _button(parent: Node, text_: String, pos: Vector2, size_: Vector2) -> Button:
+func _glass_button(parent: Node, text_: String, pos: Vector2, size_: Vector2) -> Button:
     var b := Button.new()
     b.text = text_
     b.position = pos
     b.size = size_
     b.focus_mode = Control.FOCUS_NONE
-    b.add_theme_font_size_override("font_size", 13)
+    b.add_theme_font_size_override("font_size", 12)
+    b.add_theme_color_override("font_color", Color("f5e9c8"))
     var normal := StyleBoxFlat.new()
-    normal.bg_color = Color(0.08,0.11,0.13,0.92)
-    normal.border_color = Color(0.45,0.55,0.60,0.45)
-    normal.set_border_width_all(1)
-    normal.set_corner_radius_all(9)
+    normal.bg_color = Color(0.025,0.055,0.08,0.88)
+    normal.border_color = Color("a87935")
+    normal.set_border_width_all(2)
+    normal.set_corner_radius_all(7)
     var hover := normal.duplicate()
-    hover.bg_color = Color(0.16,0.21,0.24,0.95)
+    hover.bg_color = Color(0.05,0.18,0.29,0.94)
+    hover.border_color = Color("e8c263")
     var pressed := normal.duplicate()
-    pressed.bg_color = Color(0.72,0.53,0.20,0.98)
+    pressed.bg_color = Color(0.04,0.27,0.46,0.98)
+    pressed.border_color = Color("79c9ff")
     b.add_theme_stylebox_override("normal", normal)
     b.add_theme_stylebox_override("hover", hover)
     b.add_theme_stylebox_override("pressed", pressed)
     parent.add_child(b)
     return b
 
+func _ability(parent: Node, text_: String, pos: Vector2, diameter: float) -> Button:
+    _tex(parent, ABILITY_TEX, pos, Vector2(diameter, diameter))
+    var b := Button.new()
+    b.text = text_
+    b.position = pos
+    b.size = Vector2(diameter, diameter)
+    b.focus_mode = Control.FOCUS_NONE
+    b.flat = true
+    b.add_theme_font_size_override("font_size", int(max(10.0, diameter * .13)))
+    b.add_theme_color_override("font_color", Color.WHITE)
+    b.add_theme_color_override("font_hover_color", Color("9cdbff"))
+    b.add_theme_color_override("font_pressed_color", Color("ffd978"))
+    parent.add_child(b)
+    return b
+
+func _panel_art(parent: Node, pos: Vector2, size_: Vector2) -> Control:
+    var root := Control.new()
+    root.position = pos
+    root.size = size_
+    parent.add_child(root)
+    _tex(root, PANEL_TEX, Vector2.ZERO, size_)
+    return root
+
 func _build_hud() -> void:
-    var viewport_size := get_viewport().get_visible_rect().size
+    var vp := get_viewport().get_visible_rect().size
 
-    # Top command/status ribbon.
-    var top := _panel(Rect2(Vector2(viewport_size.x * 0.34, 16), Vector2(viewport_size.x * 0.32, 54)), Color(0.035,0.05,0.06,0.90), 14)
-    _label(top, "CLOSE SEAL", Vector2(14,4), Vector2(140,22), 18)
-    status_label = _label(top, "SQUAD 1  •  LINE", Vector2(14,25), Vector2(top.size.x-28,22), 13, HORIZONTAL_ALIGNMENT_CENTER)
+    # Objective ribbon / battle identity.
+    var objective := _panel_art(self, Vector2(vp.x * .34, 10), Vector2(vp.x * .32, 78))
+    _label(objective, "BREAK THE ENEMY SEAL", Vector2(20,10), Vector2(objective.size.x-40,30), 19, HORIZONTAL_ALIGNMENT_CENTER)
+    status_label = _label(objective, "SQUAD 1  •  LINE", Vector2(24,40), Vector2(objective.size.x-48,22), 12, HORIZONTAL_ALIGNMENT_CENTER, Color("8ed5ff"))
 
-    # Formation command cluster — upper left.
-    var forms := _panel(Rect2(Vector2(20, 22), Vector2(290, 168)), Color(0.035,0.05,0.06,0.88), 14)
-    _label(forms, "FORMATIONS", Vector2(14,8), Vector2(170,24), 14)
+    # Formation command surface.
+    var command := _panel_art(self, Vector2(14, 12), Vector2(304, 252))
+    _label(command, "FORMATIONS", Vector2(18,12), Vector2(268,24), 15, HORIZONTAL_ALIGNMENT_CENTER)
     var names := ["LINE", "PHALANX", "WEDGE", "CRESCENT", "SQUARE", "DISPERSE"]
     for i in range(names.size()):
         var row := i / 2
         var col := i % 2
-        var b := _button(forms, names[i], Vector2(14 + col * 132, 38 + row * 38), Vector2(120, 32))
+        var b := _glass_button(command, names[i], Vector2(20 + col*133, 45 + row*42), Vector2(120,34))
         b.pressed.connect(_on_formation_pressed.bind(names[i]))
-        formation_buttons.append(b)
-
-    # Squad selection / split strip.
-    var squads := _panel(Rect2(Vector2(20, 202), Vector2(290, 112)), Color(0.035,0.05,0.06,0.86), 14)
-    _label(squads, "SQUADS", Vector2(14,6), Vector2(120,22), 13)
+    _label(command, "SQUADS", Vector2(18,174), Vector2(86,18), 11)
     for i in range(3):
-        var sb := _button(squads, "S%d" % (i+1), Vector2(14 + i*64, 34), Vector2(54, 32))
+        var sb := _glass_button(command, "S%d" % (i+1), Vector2(18+i*58,196), Vector2(50,34))
         sb.pressed.connect(_on_squad_pressed.bind(i+1))
-        squad_buttons.append(sb)
-    var split := _button(squads, "SPLIT 1 / 2 / 3", Vector2(14,72), Vector2(178,28))
+    var split := _glass_button(command, "SPLIT", Vector2(198,196), Vector2(82,34))
     split.pressed.connect(_on_split_pressed)
-    var role := _button(squads, "BY ROLE", Vector2(198,72), Vector2(78,28))
-    role.pressed.connect(_on_role_split_pressed)
 
-    # Virtual joystick — lower left.
-    var joy := _panel(Rect2(Vector2(42, viewport_size.y - 184), Vector2(146,146)), Color(0.03,0.045,0.055,0.72), 73)
-    var ring := ColorRect.new()
-    ring.position = Vector2(31,31)
-    ring.size = Vector2(84,84)
-    ring.color = Color(0.25,0.34,0.38,0.36)
-    joy.add_child(ring)
-    var nub := ColorRect.new()
-    nub.position = Vector2(54,54)
-    nub.size = Vector2(38,38)
-    nub.color = Color(0.78,0.84,0.86,0.72)
-    joy.add_child(nub)
-    _label(joy, "MOVE", Vector2(36,112), Vector2(74,22), 12, HORIZONTAL_ALIGNMENT_CENTER)
+    # Left thumb movement control, visually skinned but kept as its own input zone.
+    var joy_size := 176.0
+    var joy_pos := Vector2(28, vp.y-joy_size-26)
+    _tex(self, JOYSTICK_TEX, joy_pos, Vector2(joy_size,joy_size))
+    var joy_hit := Control.new()
+    joy_hit.position = joy_pos
+    joy_hit.size = Vector2(joy_size,joy_size)
+    joy_hit.mouse_filter = Control.MOUSE_FILTER_STOP
+    joy_hit.gui_input.connect(_on_joystick_input)
+    add_child(joy_hit)
 
-    # Tactical minimap — lower center.
-    var map_w := 300.0
-    var minimap := _panel(Rect2(Vector2((viewport_size.x-map_w)/2.0, viewport_size.y-132), Vector2(map_w,104)), Color(0.025,0.038,0.04,0.94), 10)
-    _label(minimap, "TACTICAL MAP", Vector2(8,2), Vector2(map_w-16,18), 11, HORIZONTAL_ALIGNMENT_CENTER)
-    var field := ColorRect.new()
-    field.position = Vector2(12,24)
-    field.size = Vector2(map_w-24,68)
-    field.color = Color("1d322b")
-    minimap.add_child(field)
-    var lane := ColorRect.new()
-    lane.position = Vector2(18,51)
-    lane.size = Vector2(map_w-36,14)
-    lane.color = Color("77684f")
-    minimap.add_child(lane)
-    for px in [34,56,78,100]:
-        var dot := ColorRect.new(); dot.position = Vector2(px,47); dot.size = Vector2(7,7); dot.color = Color("58b8ff"); minimap.add_child(dot)
-    for px in [196,218,240,262]:
-        var dot := ColorRect.new(); dot.position = Vector2(px,57); dot.size = Vector2(7,7); dot.color = Color("ff675f"); minimap.add_child(dot)
-    var cam := ColorRect.new(); cam.position = Vector2(125,38); cam.size = Vector2(52,34); cam.color = Color(1,1,1,0.12); minimap.add_child(cam)
+    # Tactical minimap, centered low and intentionally smaller than the concept sheet.
+    var map_size := 184.0
+    var map_pos := Vector2((vp.x-map_size)/2.0, vp.y-map_size-16)
+    _tex(self, MINIMAP_TEX, map_pos, Vector2(map_size,map_size))
+    var map_hit := Control.new()
+    map_hit.position = map_pos + Vector2(18,18)
+    map_hit.size = Vector2(map_size-36,map_size-36)
+    map_hit.mouse_filter = Control.MOUSE_FILTER_STOP
+    map_hit.gui_input.connect(_on_minimap_input)
+    add_child(map_hit)
 
-    # Hero actions — lower right.
-    var actions := _panel(Rect2(Vector2(viewport_size.x-330, viewport_size.y-206), Vector2(306,180)), Color(0.035,0.05,0.06,0.82), 18)
-    _label(actions, "HERO", Vector2(14,8), Vector2(80,20), 13)
-    var attack := _button(actions, "ATTACK", Vector2(198,82), Vector2(90,72)); attack.add_theme_font_size_override("font_size", 14)
-    var dash := _button(actions, "DASH", Vector2(116,102), Vector2(72,52))
-    var a1 := _button(actions, "A1", Vector2(188,30), Vector2(52,44))
-    var a2 := _button(actions, "A2", Vector2(244,30), Vector2(44,44))
-    var summon := _button(actions, "SUMMON", Vector2(14,114), Vector2(92,40))
+    # Hero action wheel. Art is independent from hitboxes.
+    var action_root := Control.new()
+    action_root.position = Vector2(vp.x-330, vp.y-244)
+    action_root.size = Vector2(310,220)
+    add_child(action_root)
+    _label(action_root, "HERO", Vector2(96,0), Vector2(120,24), 13, HORIZONTAL_ALIGNMENT_CENTER)
+    var attack := _ability(action_root, "ATTACK", Vector2(196,82), 108)
+    var dash := _ability(action_root, "DASH", Vector2(118,118), 72)
+    var a1 := _ability(action_root, "I", Vector2(132,36), 66)
+    var a2 := _ability(action_root, "II", Vector2(202,20), 64)
+    var summon := _ability(action_root, "SUMMON", Vector2(48,104), 76)
     attack.pressed.connect(_action_feedback.bind("ATTACK"))
     dash.pressed.connect(_action_feedback.bind("DASH"))
-    a1.pressed.connect(_action_feedback.bind("ABILITY 1"))
-    a2.pressed.connect(_action_feedback.bind("ABILITY 2"))
+    a1.pressed.connect(_action_feedback.bind("ABILITY I"))
+    a2.pressed.connect(_action_feedback.bind("ABILITY II"))
     summon.pressed.connect(_action_feedback.bind("SUMMON"))
 
-    # Objective/readability marker.
-    var objective := _panel(Rect2(Vector2(viewport_size.x-286, 22), Vector2(262,72)), Color(0.035,0.05,0.06,0.86), 12)
-    _label(objective, "OBJECTIVE", Vector2(12,6), Vector2(100,20), 11)
-    _label(objective, "BREAK THE ENEMY SEAL", Vector2(12,28), Vector2(238,28), 15)
+    # Small hero readout; keeps world readable while adding game identity.
+    var hero := _panel_art(self, Vector2(16, vp.y-238), Vector2(260,52))
+    _label(hero, "SEALBEARER  •  LV 15", Vector2(18,6), Vector2(224,18), 12)
+    _label(hero, "2350 / 2350     620 / 620", Vector2(18,25), Vector2(224,17), 11, HORIZONTAL_ALIGNMENT_CENTER, Color("8fd8ff"))
 
 func _on_formation_pressed(name_: String) -> void:
     selected_formation = name_
@@ -156,11 +167,20 @@ func _on_split_pressed() -> void:
     selected_squad = min(selected_squad + 1, 3)
     status_label.text = "ARMY SPLIT  •  %d SQUADS" % selected_squad
 
-func _on_role_split_pressed() -> void:
-    status_label.text = "ROLE SPLIT  •  FRONT / RANGE / SUPPORT"
-
 func _action_feedback(action_name: String) -> void:
     status_label.text = "HERO  •  " + action_name
+
+func _on_joystick_input(event: InputEvent) -> void:
+    if event is InputEventScreenTouch and event.pressed:
+        status_label.text = "HERO MOVEMENT"
+    elif event is InputEventMouseButton and event.pressed:
+        status_label.text = "HERO MOVEMENT"
+
+func _on_minimap_input(event: InputEvent) -> void:
+    if event is InputEventScreenTouch and event.pressed:
+        status_label.text = "CAMERA  •  MINIMAP"
+    elif event is InputEventMouseButton and event.pressed:
+        status_label.text = "CAMERA  •  MINIMAP"
 
 func _refresh_status() -> void:
     status_label.text = "SQUAD %d  •  %s" % [selected_squad, selected_formation]
