@@ -6,7 +6,7 @@ Reviewed upstream code licenses:
 
 - Terrain3D — MIT — https://github.com/TokisanGames/Terrain3D
 - Cyclops Level Builder — MIT — https://github.com/blackears/cyclopsLevelBuilder
-- ProtonScatter — MIT — https://github.com/deakcor/proton_scatter
+- ProtonScatter — MIT — https://github.com/HungryProton/scatter
 - FuncGodot — MIT — https://github.com/func-godot/func_godot_plugin
 
 Important: demo/sample assets are audited separately from addon source code. Do not copy demo textures, meshes, sounds or other third-party assets into production merely because the addon code uses MIT.
