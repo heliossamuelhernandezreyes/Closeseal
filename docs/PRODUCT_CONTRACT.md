@@ -1,6 +1,6 @@
 # Closeseal Product Contract
 
-Status: BOOTSTRAP / UNDECIDED PRODUCT SHAPE
+Status: PRODUCT DIRECTION LOCKED / TECHNICAL TARGETS PARTIALLY UNDECIDED
 
 This document is the source of truth for product-level constraints that affect architecture. Unknowns stay explicit until decided; they must not be silently inferred from prototypes.
 
@@ -21,19 +21,37 @@ This document is the source of truth for product-level constraints that affect a
 
 | Decision | State | Current value |
 |---|---|---|
-| Genre | UNDECIDED | — |
-| Primary platform | UNDECIDED | — |
-| Secondary platforms | UNDECIDED | — |
-| Camera | UNDECIDED | — |
-| Single-player / multiplayer | UNDECIDED | — |
+| Genre | LOCKED | Mobile-first Hero RTS |
+| Primary platform | LOCKED | Android |
+| Secondary platforms | OPEN | iOS and PC candidates |
+| Camera | LOCKED | Constrained isometric/angled 2.5D presentation |
+| World dimensionality | LOCKED | Real-time 3D world with 2D UI |
+| Core gameplay | LOCKED | Direct hero control plus troops, defensive towers, creeps and objectives |
+| Races/factions | VISION LOCKED | Four asymmetric playable races |
+| Campaign | VISION LOCKED | Yes |
+| Multiplayer | VISION LOCKED | Yes; exact modes pending |
 | Online topology | UNDECIDED | — |
 | Target player count | UNDECIDED | — |
 | World/level scale | UNDECIDED | — |
 | Peak active entities | UNDECIDED | — |
-| Target frame rate | UNDECIDED | — |
+| Target frame rate | TARGET | 60 FPS on representative mid-range Android hardware |
 | Minimum hardware | UNDECIDED | — |
-| Art direction | UNDECIDED | — |
-| Input model | UNDECIDED | — |
+| Art direction | DIRECTION LOCKED | Stylized readable 3D for mobile RTS viewing |
+| Input model | DIRECTION LOCKED | Touch-first hero control plus tactical commands |
+
+## First vertical slice
+
+Before expanding the full vision, prove one complete battle loop with:
+
+- one playable hero;
+- one provisional race;
+- three troop archetypes;
+- two tower archetypes;
+- one creep flow;
+- one compact 3D battlefield;
+- one opposing AI force;
+- touch-first controls;
+- measurable Android performance.
 
 ## Rule
 
