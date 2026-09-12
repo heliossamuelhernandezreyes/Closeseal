@@ -1,9 +1,10 @@
 ; Engine configuration file.
-; Closeseal bootstrap: no gameplay scene is declared yet.
+; Close Seal first visual greybox prototype.
 config_version=5
 
 [application]
 config/name="Closeseal"
+run/main_scene="res://src/prototype/greybox_battlefield.tscn"
 
 [display]
 

@@ -1,0 +1,35 @@
+name: Real Prototype Screenshot
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip
+      - name: Download exact Godot 4.7.2 stable editor
+        run: |
+          curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip -d godot-bin
+          chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+      - name: Render actual project and capture viewport
+        env:
+          CLOSESEAL_CAPTURE: ${{ github.workspace }}/close-seal-real-greybox.png
+        run: |
+          xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor-pid 0
+          test -s close-seal-real-greybox.png
+          file close-seal-real-greybox.png
+          sha256sum close-seal-real-greybox.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: close-seal-real-greybox-${{ github.sha }}
+          path: close-seal-real-greybox.png
+          if-no-files-found: error
