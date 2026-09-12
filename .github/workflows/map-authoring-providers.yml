@@ -1,0 +1,52 @@
+name: Map Authoring Providers
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'addons/close_seal_map_forge/**'
+      - 'third_party/map_authoring.lock.json'
+      - 'tools/install_map_authoring_providers.py'
+      - '.github/workflows/map-authoring-providers.yml'
+      - 'project.godot'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-providers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install editor/runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip git
+      - name: Download exact Godot 4.7.2 stable editor
+        run: |
+          curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip -d godot-bin
+          chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+      - name: Install exact pinned authoring providers
+        run: |
+          python tools/install_map_authoring_providers.py
+          python tools/install_map_authoring_providers.py --check
+      - name: Import project with editor plugins on Godot 4.7.2
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless 2>&1 | tee provider-import.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load|Unable to load addon|GDExtension.*failed' provider-import.log; then
+            echo 'Provider/editor errors detected'
+            exit 1
+          fi
+      - name: Preserve validation log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: map-authoring-provider-validation-${{ github.sha }}
+          path: provider-import.log
+          if-no-files-found: warn
