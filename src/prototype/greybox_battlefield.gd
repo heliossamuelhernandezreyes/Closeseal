@@ -1,5 +1,7 @@
 extends Node3D
 
+const TacticalHUD = preload("res://src/prototype/tactical_hud.gd")
+
 # First authored visual-language pass. Still procedural and lightweight, but now
 # uses role-specific silhouettes, layered terrain and fortifications instead of
 # generic cylinders. Final faction art remains intentionally undecided.
@@ -9,6 +11,8 @@ func _ready() -> void:
     _build_lane()
     _build_blue_force()
     _build_red_force()
+    var hud := TacticalHUD.new()
+    add_child(hud)
     if OS.has_environment("CLOSESEAL_CAPTURE"):
         _capture_for_ci.call_deferred()
 
