@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-09-12",
+  "providers": [
+    {
+      "id": "terrain3d",
+      "name": "Terrain3D",
+      "kind": "release_archive",
+      "repo": "https://github.com/TokisanGames/Terrain3D",
+      "reviewed_source_commit": "e03412444ac3ccb9834292a675f4bebb21474c00",
+      "release_tag": "v1.0.2-stable",
+      "archive_url": "https://github.com/TokisanGames/Terrain3D/releases/download/v1.0.2-stable/Terrain3D_v1.0.2-stable.zip",
+      "sha256": "a071850250ec5e596aa54da61c01d75768774eb379ee997584d426a45f4884a2",
+      "target_addon": "addons/terrain_3d",
+      "license": "MIT",
+      "status": "pinned_pending_godot_4_7_2_runtime_validation"
+    },
+    {
+      "id": "cyclops",
+      "name": "Cyclops Level Builder",
+      "kind": "git_subdir",
+      "repo": "https://github.com/blackears/cyclopsLevelBuilder.git",
+      "commit": "fca8640e3d5e38b1649d503ac62b6dabcbf7b64f",
+      "source_subdir": "godot/addons/cyclops_level_builder",
+      "target_addon": "addons/cyclops_level_builder",
+      "license": "MIT",
+      "status": "pinned_pending_editor_validation"
+    },
+    {
+      "id": "proton_scatter",
+      "name": "ProtonScatter",
+      "kind": "git_subdir",
+      "repo": "https://github.com/HungryProton/scatter.git",
+      "commit": "2ced25f1ebef13648e94d3cc6a643da92a7e33d8",
+      "source_subdir": "addons/proton_scatter",
+      "target_addon": "addons/proton_scatter",
+      "license": "MIT",
+      "status": "pinned_godot_4_7_compat_fix_reviewed_pending_project_validation"
+    },
+    {
+      "id": "func_godot",
+      "name": "FuncGodot",
+      "kind": "git_subdir",
+      "repo": "https://github.com/func-godot/func_godot_plugin.git",
+      "commit": "cdf27e3cd8369b405a0ac48649e141238f5cfad5",
+      "source_subdir": "addons/func_godot",
+      "target_addon": "addons/func_godot",
+      "license": "MIT",
+      "status": "pinned_pending_editor_validation"
+    }
+  ]
+}
