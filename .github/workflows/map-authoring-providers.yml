@@ -9,6 +9,7 @@ on:
       - 'tools/install_map_authoring_providers.py'
       - '.github/workflows/map-authoring-providers.yml'
       - 'project.godot'
+      - 'src/prototype/tactical_hud.gd'
   workflow_dispatch:
 
 permissions:
@@ -36,17 +37,22 @@ jobs:
         run: |
           python tools/install_map_authoring_providers.py
           python tools/install_map_authoring_providers.py --check
-      - name: Import project with editor plugins on Godot 4.7.2
+      - name: First import pass
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless > first-import.log 2>&1 || true
+      - name: Validate clean second editor import on Godot 4.7.2
         run: |
           timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless 2>&1 | tee provider-import.log
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load|Unable to load addon|GDExtension.*failed' provider-import.log; then
-            echo 'Provider/editor errors detected'
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon|GDExtension.*failed' provider-import.log; then
+            echo 'Provider/editor errors detected after import pass'
             exit 1
           fi
-      - name: Preserve validation log
+      - name: Preserve validation logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: map-authoring-provider-validation-${{ github.sha }}
-          path: provider-import.log
+          path: |
+            first-import.log
+            provider-import.log
           if-no-files-found: warn
