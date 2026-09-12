@@ -1,0 +1,44 @@
+name: Closeseal Project Integrity
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate canonical manifest
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          m=json.loads(Path('closeseal.manifest.json').read_text())
+          assert m['schema_version']==1
+          assert m['repository_role']=='production-game'
+          assert m['engine']['version']=='4.7.2-stable'
+          assert m['engine']['commit']=='ed1daf0bf001b61586d9930840f2f1394092c079'
+          assert m['arcont']['runtime_dependency_allowed'] is False
+          assert m['arcont']['copy_experiments_into_production'] is False
+          assert m['bootstrap']['gameplay_implemented'] is False
+          for key in ('product_contract','integration_contract','adr_template'):
+              assert Path(m['bootstrap'][key]).is_file(), m['bootstrap'][key]
+          print('Closeseal manifest integrity: OK')
+          PY
+      - name: Validate Godot shell
+        run: |
+          test -s project.godot
+          grep -q 'config/name="Closeseal"' project.godot
+      - name: Enforce no embedded ARCONT laboratory
+        run: |
+          test ! -d evidence
+          test ! -d benchmarks
+          test ! -d runtime-lab

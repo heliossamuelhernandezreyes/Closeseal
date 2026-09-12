@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "Closeseal",
+  "repository_role": "production-game",
+  "canonical_branch": "main",
+  "engine": {
+    "name": "Godot",
+    "version": "4.7.2-stable",
+    "commit": "ed1daf0bf001b61586d9930840f2f1394092c079"
+  },
+  "arcont": {
+    "knowledge_repository": "heliossamuelhernandezreyes/Arcont",
+    "runtime_lab_repository": "heliossamuelhernandezreyes/Nia-Tech",
+    "runtime_dependency_allowed": false,
+    "copy_experiments_into_production": false,
+    "evidence_required_for_material_architecture_decisions": true
+  },
+  "bootstrap": {
+    "gameplay_implemented": false,
+    "product_contract": "docs/PRODUCT_CONTRACT.md",
+    "integration_contract": "docs/ARCONT_INTEGRATION.md",
+    "adr_template": "docs/decisions/ADR-0000-template.md"
+  }
+}
