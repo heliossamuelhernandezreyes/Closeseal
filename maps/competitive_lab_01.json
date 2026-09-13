@@ -1,54 +1,1298 @@
 {
   "version": 1,
   "id": "competitive_lab_01",
-  "display_name": "Competitive Lab 01",
-  "bounds": {"width": 44.0, "depth": 29.0},
+  "display_name": "Citadel of the Five Roads",
+  "description": "Large symmetric 3D tactical arena with a fortified central seal, three formation lanes, two jungle flanks, resource objectives, defensive towers and readable cover.",
+  "bounds": {
+    "width": 96,
+    "depth": 64
+  },
   "bases": [
-    {"id": "blue_base", "team": "blue", "position": [-13.4, 0.0, 0.0], "hero_spawn": [-10.2, 0.0, 5.0]},
-    {"id": "red_base", "team": "red", "position": [13.4, 0.0, 0.0], "hero_spawn": [10.2, 0.0, -5.0]}
+    {
+      "id": "blue_base",
+      "team": "blue",
+      "position": [
+        -42,
+        0,
+        0
+      ],
+      "hero_spawn": [
+        -38,
+        0,
+        4.5
+      ],
+      "asset": "fortress.blue_citadel",
+      "material": "blue_iron"
+    },
+    {
+      "id": "red_base",
+      "team": "red",
+      "position": [
+        42,
+        0,
+        0
+      ],
+      "hero_spawn": [
+        38,
+        0,
+        -4.5
+      ],
+      "asset": "fortress.red_citadel",
+      "material": "red_iron"
+    }
   ],
   "objectives": [
-    {"id": "center_seal", "type": "seal", "position": [0.0, 0.0, 0.0], "radius": 3.5}
+    {
+      "id": "central_seal",
+      "type": "seal",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "radius": 4.5,
+      "asset": "objective.ancient_seal",
+      "material": "crystal_violet",
+      "capture_seconds": 8
+    },
+    {
+      "id": "north_relic",
+      "type": "relic",
+      "position": [
+        0,
+        0,
+        -20
+      ],
+      "radius": 3,
+      "asset": "objective.relic_obelisk",
+      "material": "crystal_blue",
+      "capture_seconds": 6
+    },
+    {
+      "id": "south_relic",
+      "type": "relic",
+      "position": [
+        0,
+        0,
+        20
+      ],
+      "radius": 3,
+      "asset": "objective.relic_obelisk",
+      "material": "crystal_blue",
+      "capture_seconds": 6
+    },
+    {
+      "id": "blue_ward",
+      "type": "ward",
+      "position": [
+        -20,
+        0,
+        -20
+      ],
+      "radius": 2.5,
+      "asset": "objective.ward_shrine",
+      "material": "ancient_gold",
+      "capture_seconds": 5
+    },
+    {
+      "id": "red_ward",
+      "type": "ward",
+      "position": [
+        20,
+        0,
+        20
+      ],
+      "radius": 2.5,
+      "asset": "objective.ward_shrine",
+      "material": "ancient_gold",
+      "capture_seconds": 5
+    },
+    {
+      "id": "north_watch",
+      "type": "watchpoint",
+      "position": [
+        -25,
+        0,
+        -20
+      ],
+      "radius": 2,
+      "asset": "objective.watch_beacon",
+      "material": "crystal_blue",
+      "capture_seconds": 5
+    },
+    {
+      "id": "south_watch",
+      "type": "watchpoint",
+      "position": [
+        25,
+        0,
+        20
+      ],
+      "radius": 2,
+      "asset": "objective.watch_beacon",
+      "material": "crystal_blue",
+      "capture_seconds": 5
+    }
   ],
   "routes": [
-    {"id": "main_lane", "kind": "primary", "width": 6.6, "points": [[-13.4,0.0,0.0],[0.0,0.0,0.0],[13.4,0.0,0.0]]},
-    {"id": "north_flank", "kind": "flank", "width": 4.0, "points": [[-11.0,0.0,-7.5],[0.0,0.0,-8.5],[11.0,0.0,-7.5]]},
-    {"id": "south_flank", "kind": "flank", "width": 4.0, "points": [[-11.0,0.0,7.5],[0.0,0.0,8.5],[11.0,0.0,7.5]]}
+    {
+      "id": "main_lane",
+      "kind": "primary",
+      "width": 9,
+      "points": [
+        [
+          -42,
+          0,
+          0
+        ],
+        [
+          -30,
+          0,
+          0
+        ],
+        [
+          -16,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          0,
+          0
+        ],
+        [
+          30,
+          0,
+          0
+        ],
+        [
+          42,
+          0,
+          0
+        ]
+      ],
+      "role": "direct_assault",
+      "formation_width": 6
+    },
+    {
+      "id": "north_lane",
+      "kind": "secondary",
+      "width": 8,
+      "points": [
+        [
+          -39,
+          0,
+          -20
+        ],
+        [
+          -27,
+          0,
+          -20
+        ],
+        [
+          -12,
+          0,
+          -20
+        ],
+        [
+          0,
+          0,
+          -20
+        ],
+        [
+          12,
+          0,
+          -20
+        ],
+        [
+          27,
+          0,
+          -20
+        ],
+        [
+          39,
+          0,
+          -20
+        ]
+      ],
+      "role": "objective_pressure",
+      "formation_width": 6
+    },
+    {
+      "id": "south_lane",
+      "kind": "secondary",
+      "width": 8,
+      "points": [
+        [
+          -39,
+          0,
+          20
+        ],
+        [
+          -27,
+          0,
+          20
+        ],
+        [
+          -12,
+          0,
+          20
+        ],
+        [
+          0,
+          0,
+          20
+        ],
+        [
+          12,
+          0,
+          20
+        ],
+        [
+          27,
+          0,
+          20
+        ],
+        [
+          39,
+          0,
+          20
+        ]
+      ],
+      "role": "objective_pressure",
+      "formation_width": 6
+    },
+    {
+      "id": "north_jungle_flank",
+      "kind": "jungle",
+      "width": 6.5,
+      "points": [
+        [
+          -36,
+          0,
+          -28
+        ],
+        [
+          -24,
+          0,
+          -29
+        ],
+        [
+          -8,
+          0,
+          -26
+        ],
+        [
+          8,
+          0,
+          -26
+        ],
+        [
+          24,
+          0,
+          -29
+        ],
+        [
+          36,
+          0,
+          -28
+        ]
+      ],
+      "role": "wide_flank",
+      "formation_width": 4.5
+    },
+    {
+      "id": "south_jungle_flank",
+      "kind": "jungle",
+      "width": 6.5,
+      "points": [
+        [
+          -36,
+          0,
+          28
+        ],
+        [
+          -24,
+          0,
+          29
+        ],
+        [
+          -8,
+          0,
+          26
+        ],
+        [
+          8,
+          0,
+          26
+        ],
+        [
+          24,
+          0,
+          29
+        ],
+        [
+          36,
+          0,
+          28
+        ]
+      ],
+      "role": "wide_flank",
+      "formation_width": 4.5
+    }
   ],
   "regions": [
-    {"id": "center_arena", "kind": "formation_space", "center": [0.0,0.0,0.0], "size": [12.0,0.0,10.0]},
-    {"id": "west_choke", "kind": "choke", "center": [-7.0,0.0,0.0], "width": 6.6},
-    {"id": "east_choke", "kind": "choke", "center": [7.0,0.0,0.0], "width": 6.6}
+    {
+      "id": "central_formation_basin",
+      "kind": "formation_space",
+      "center": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        18,
+        1,
+        14
+      ],
+      "formation_width": 8
+    },
+    {
+      "id": "north_formation_basin",
+      "kind": "formation_space",
+      "center": [
+        0,
+        0,
+        -20
+      ],
+      "size": [
+        16,
+        1,
+        10
+      ],
+      "formation_width": 6
+    },
+    {
+      "id": "south_formation_basin",
+      "kind": "formation_space",
+      "center": [
+        0,
+        0,
+        20
+      ],
+      "size": [
+        16,
+        1,
+        10
+      ],
+      "formation_width": 6
+    },
+    {
+      "id": "west_main_gate",
+      "kind": "choke",
+      "center": [
+        -28,
+        0,
+        0
+      ],
+      "width": 9,
+      "formation_capacity": 2
+    },
+    {
+      "id": "east_main_gate",
+      "kind": "choke",
+      "center": [
+        28,
+        0,
+        0
+      ],
+      "width": 9,
+      "formation_capacity": 2
+    },
+    {
+      "id": "north_gate",
+      "kind": "choke",
+      "center": [
+        0,
+        0,
+        -20
+      ],
+      "width": 8,
+      "formation_capacity": 1
+    },
+    {
+      "id": "south_gate",
+      "kind": "choke",
+      "center": [
+        0,
+        0,
+        20
+      ],
+      "width": 8,
+      "formation_capacity": 1
+    },
+    {
+      "id": "north_relic_zone",
+      "kind": "objective_zone",
+      "center": [
+        0,
+        0,
+        -20
+      ],
+      "width": 6
+    },
+    {
+      "id": "south_relic_zone",
+      "kind": "objective_zone",
+      "center": [
+        0,
+        0,
+        20
+      ],
+      "width": 6
+    },
+    {
+      "id": "blue_spawn_zone",
+      "kind": "spawn_zone",
+      "center": [
+        -37,
+        0,
+        0
+      ],
+      "size": [
+        10,
+        1,
+        16
+      ]
+    },
+    {
+      "id": "red_spawn_zone",
+      "kind": "spawn_zone",
+      "center": [
+        37,
+        0,
+        0
+      ],
+      "size": [
+        10,
+        1,
+        16
+      ]
+    },
+    {
+      "id": "north_ruins_cover",
+      "kind": "cover",
+      "center": [
+        -18,
+        0,
+        -13
+      ],
+      "size": [
+        12,
+        2,
+        6
+      ]
+    },
+    {
+      "id": "south_ruins_cover",
+      "kind": "cover",
+      "center": [
+        18,
+        0,
+        13
+      ],
+      "size": [
+        12,
+        2,
+        6
+      ]
+    },
+    {
+      "id": "north_forest_hazard",
+      "kind": "neutral",
+      "center": [
+        0,
+        0,
+        -29
+      ],
+      "size": [
+        70,
+        1,
+        6
+      ]
+    },
+    {
+      "id": "south_forest_hazard",
+      "kind": "neutral",
+      "center": [
+        0,
+        0,
+        29
+      ],
+      "size": [
+        70,
+        1,
+        6
+      ]
+    }
   ],
   "authoring": {
     "terrain_provider": "terrain3d_preferred",
     "structure_provider": "cyclops_preferred",
     "scatter_provider": "proton_scatter_preferred",
     "import_provider": "func_godot_optional",
+    "visual_style": {
+      "theme": "fortified_ancient_frontier",
+      "presentation": "readable_2_5d",
+      "priority": "legibility_before_realism",
+      "palette": [
+        "blue_iron",
+        "red_iron",
+        "fortress_stone",
+        "weathered_stone",
+        "moss_stone",
+        "ancient_gold",
+        "crystal_blue",
+        "crystal_violet",
+        "obsidian",
+        "wood_dark"
+      ]
+    },
     "terrain": {
       "data_directory": "res://maps/generated/terrain/competitive_lab_01",
-      "vertex_spacing": 1.0,
-      "region_size": 64
+      "vertex_spacing": 1,
+      "region_size": 128,
+      "material": "moss_stone",
+      "height_profile": "low_basin_with_raised_rims",
+      "water_features": [
+        "north_rill",
+        "south_rill"
+      ]
     },
+    "materials": [
+      {
+        "id": "fortress_stone",
+        "shader": "standard_rough_stone",
+        "albedo": "#4A5660",
+        "roughness": 0.92,
+        "metallic": 0.05
+      },
+      {
+        "id": "weathered_stone",
+        "shader": "standard_rough_stone",
+        "albedo": "#777A70",
+        "roughness": 0.88,
+        "metallic": 0.02
+      },
+      {
+        "id": "moss_stone",
+        "shader": "standard_rough_stone",
+        "albedo": "#2E4D35",
+        "roughness": 0.96,
+        "metallic": 0
+      },
+      {
+        "id": "blue_iron",
+        "shader": "team_iron",
+        "albedo": "#173F86",
+        "roughness": 0.58,
+        "metallic": 0.72
+      },
+      {
+        "id": "red_iron",
+        "shader": "team_iron",
+        "albedo": "#8A271A",
+        "roughness": 0.58,
+        "metallic": 0.72
+      },
+      {
+        "id": "ancient_gold",
+        "shader": "emissive_trim",
+        "albedo": "#B47A1C",
+        "roughness": 0.32,
+        "metallic": 0.82
+      },
+      {
+        "id": "crystal_blue",
+        "shader": "emissive_crystal",
+        "albedo": "#2187C4",
+        "roughness": 0.2,
+        "metallic": 0.15,
+        "emission": "#36BFFF"
+      },
+      {
+        "id": "crystal_violet",
+        "shader": "emissive_crystal",
+        "albedo": "#7529AE",
+        "roughness": 0.2,
+        "metallic": 0.15,
+        "emission": "#C66BFF"
+      },
+      {
+        "id": "obsidian",
+        "shader": "polished_dark",
+        "albedo": "#141922",
+        "roughness": 0.28,
+        "metallic": 0.5
+      },
+      {
+        "id": "wood_dark",
+        "shader": "aged_wood",
+        "albedo": "#351C0E",
+        "roughness": 0.9,
+        "metallic": 0
+      }
+    ],
+    "asset_catalog": [
+      {
+        "id": "fortress.blue_citadel",
+        "provider": "cyclops",
+        "class": "fortress",
+        "visual": "modular_keep_blue",
+        "collision": "solid",
+        "material": "blue_iron"
+      },
+      {
+        "id": "fortress.red_citadel",
+        "provider": "cyclops",
+        "class": "fortress",
+        "visual": "modular_keep_red",
+        "collision": "solid",
+        "material": "red_iron"
+      },
+      {
+        "id": "defense.team_tower",
+        "provider": "cyclops",
+        "class": "tower",
+        "visual": "modular_watchtower",
+        "collision": "solid",
+        "material": "fortress_stone"
+      },
+      {
+        "id": "defense.iron_turret",
+        "provider": "cyclops",
+        "class": "turret",
+        "visual": "modular_turret",
+        "collision": "solid",
+        "material": "ancient_gold"
+      },
+      {
+        "id": "ruin.wall_segment",
+        "provider": "cyclops",
+        "class": "ruin",
+        "visual": "broken_wall",
+        "collision": "solid",
+        "material": "weathered_stone"
+      },
+      {
+        "id": "ruin.pillar",
+        "provider": "cyclops",
+        "class": "pillar",
+        "visual": "moss_pillar",
+        "collision": "solid",
+        "material": "moss_stone"
+      },
+      {
+        "id": "objective.ancient_seal",
+        "provider": "cyclops",
+        "class": "objective",
+        "visual": "seal_platform",
+        "collision": "guide_only",
+        "material": "crystal_violet"
+      },
+      {
+        "id": "objective.relic_obelisk",
+        "provider": "cyclops",
+        "class": "objective",
+        "visual": "obelisk",
+        "collision": "guide_only",
+        "material": "crystal_blue"
+      },
+      {
+        "id": "objective.ward_shrine",
+        "provider": "cyclops",
+        "class": "objective",
+        "visual": "shrine",
+        "collision": "guide_only",
+        "material": "ancient_gold"
+      },
+      {
+        "id": "environment.pine_cluster",
+        "provider": "proton_scatter",
+        "class": "forest",
+        "visual": "pine_cluster",
+        "collision": "soft",
+        "material": "moss_stone"
+      },
+      {
+        "id": "environment.dead_tree_cluster",
+        "provider": "proton_scatter",
+        "class": "forest",
+        "visual": "dead_tree_cluster",
+        "collision": "soft",
+        "material": "wood_dark"
+      },
+      {
+        "id": "environment.rock_cluster",
+        "provider": "proton_scatter",
+        "class": "rock",
+        "visual": "rock_cluster",
+        "collision": "solid",
+        "material": "weathered_stone"
+      },
+      {
+        "id": "environment.rune_field",
+        "provider": "proton_scatter",
+        "class": "decoration",
+        "visual": "rune_field",
+        "collision": "guide_only",
+        "material": "crystal_violet"
+      }
+    ],
+    "structure_guides": [
+      {
+        "id": "blue_keep",
+        "kind": "fortress",
+        "asset": "fortress.blue_citadel",
+        "material": "blue_iron",
+        "position": [
+          -42,
+          2,
+          0
+        ],
+        "size": [
+          8,
+          4,
+          14
+        ]
+      },
+      {
+        "id": "red_keep",
+        "kind": "fortress",
+        "asset": "fortress.red_citadel",
+        "material": "red_iron",
+        "position": [
+          42,
+          2,
+          0
+        ],
+        "size": [
+          8,
+          4,
+          14
+        ]
+      },
+      {
+        "id": "blue_gatehouse",
+        "kind": "gate",
+        "asset": "fortress.blue_citadel",
+        "material": "blue_iron",
+        "position": [
+          -35,
+          1.5,
+          0
+        ],
+        "size": [
+          3,
+          3,
+          12
+        ]
+      },
+      {
+        "id": "red_gatehouse",
+        "kind": "gate",
+        "asset": "fortress.red_citadel",
+        "material": "red_iron",
+        "position": [
+          35,
+          1.5,
+          0
+        ],
+        "size": [
+          3,
+          3,
+          12
+        ]
+      },
+      {
+        "id": "blue_main_tower",
+        "kind": "tower",
+        "asset": "defense.team_tower",
+        "material": "blue_iron",
+        "position": [
+          -27,
+          3,
+          0
+        ],
+        "size": [
+          3.5,
+          6,
+          3.5
+        ]
+      },
+      {
+        "id": "red_main_tower",
+        "kind": "tower",
+        "asset": "defense.team_tower",
+        "material": "red_iron",
+        "position": [
+          27,
+          3,
+          0
+        ],
+        "size": [
+          3.5,
+          6,
+          3.5
+        ]
+      },
+      {
+        "id": "blue_north_tower",
+        "kind": "tower",
+        "asset": "defense.team_tower",
+        "material": "blue_iron",
+        "position": [
+          -23,
+          3,
+          -20
+        ],
+        "size": [
+          3.5,
+          6,
+          3.5
+        ]
+      },
+      {
+        "id": "red_north_tower",
+        "kind": "tower",
+        "asset": "defense.team_tower",
+        "material": "red_iron",
+        "position": [
+          23,
+          3,
+          -20
+        ],
+        "size": [
+          3.5,
+          6,
+          3.5
+        ]
+      },
+      {
+        "id": "blue_south_tower",
+        "kind": "tower",
+        "asset": "defense.team_tower",
+        "material": "blue_iron",
+        "position": [
+          -23,
+          3,
+          20
+        ],
+        "size": [
+          3.5,
+          6,
+          3.5
+        ]
+      },
+      {
+        "id": "red_south_tower",
+        "kind": "tower",
+        "asset": "defense.team_tower",
+        "material": "red_iron",
+        "position": [
+          23,
+          3,
+          20
+        ],
+        "size": [
+          3.5,
+          6,
+          3.5
+        ]
+      },
+      {
+        "id": "north_ruin_west",
+        "kind": "ruin",
+        "asset": "ruin.wall_segment",
+        "material": "weathered_stone",
+        "position": [
+          -18,
+          1,
+          -13
+        ],
+        "size": [
+          10,
+          2,
+          1.5
+        ]
+      },
+      {
+        "id": "north_ruin_east",
+        "kind": "ruin",
+        "asset": "ruin.wall_segment",
+        "material": "weathered_stone",
+        "position": [
+          18,
+          1,
+          -13
+        ],
+        "size": [
+          10,
+          2,
+          1.5
+        ]
+      },
+      {
+        "id": "south_ruin_west",
+        "kind": "ruin",
+        "asset": "ruin.wall_segment",
+        "material": "weathered_stone",
+        "position": [
+          -18,
+          1,
+          13
+        ],
+        "size": [
+          10,
+          2,
+          1.5
+        ]
+      },
+      {
+        "id": "south_ruin_east",
+        "kind": "ruin",
+        "asset": "ruin.wall_segment",
+        "material": "weathered_stone",
+        "position": [
+          18,
+          1,
+          13
+        ],
+        "size": [
+          10,
+          2,
+          1.5
+        ]
+      },
+      {
+        "id": "north_obelisk",
+        "kind": "obelisk",
+        "asset": "objective.relic_obelisk",
+        "material": "crystal_blue",
+        "position": [
+          0,
+          2.5,
+          -20
+        ],
+        "size": [
+          2,
+          5,
+          2
+        ]
+      },
+      {
+        "id": "south_obelisk",
+        "kind": "obelisk",
+        "asset": "objective.relic_obelisk",
+        "material": "crystal_blue",
+        "position": [
+          0,
+          2.5,
+          20
+        ],
+        "size": [
+          2,
+          5,
+          2
+        ]
+      },
+      {
+        "id": "west_pillar",
+        "kind": "pillar",
+        "asset": "ruin.pillar",
+        "material": "moss_stone",
+        "position": [
+          -9,
+          2,
+          -8
+        ],
+        "size": [
+          2,
+          4,
+          2
+        ]
+      },
+      {
+        "id": "east_pillar",
+        "kind": "pillar",
+        "asset": "ruin.pillar",
+        "material": "moss_stone",
+        "position": [
+          9,
+          2,
+          8
+        ],
+        "size": [
+          2,
+          4,
+          2
+        ]
+      },
+      {
+        "id": "north_bridge_marker",
+        "kind": "bridge",
+        "asset": "ruin.wall_segment",
+        "material": "obsidian",
+        "position": [
+          0,
+          0.6,
+          -12
+        ],
+        "size": [
+          8,
+          1.2,
+          2
+        ]
+      },
+      {
+        "id": "south_bridge_marker",
+        "kind": "bridge",
+        "asset": "ruin.wall_segment",
+        "material": "obsidian",
+        "position": [
+          0,
+          0.6,
+          12
+        ],
+        "size": [
+          8,
+          1.2,
+          2
+        ]
+      }
+    ],
+    "scatter_zones": [
+      {
+        "id": "north_pine_belt",
+        "kind": "forest",
+        "asset": "environment.pine_cluster",
+        "center": [
+          0,
+          0,
+          -29
+        ],
+        "size": [
+          72,
+          4,
+          5
+        ],
+        "density": 0.62,
+        "blocks_navigation": false
+      },
+      {
+        "id": "south_pine_belt",
+        "kind": "forest",
+        "asset": "environment.pine_cluster",
+        "center": [
+          0,
+          0,
+          29
+        ],
+        "size": [
+          72,
+          4,
+          5
+        ],
+        "density": 0.62,
+        "blocks_navigation": false
+      },
+      {
+        "id": "northwest_deadwood",
+        "kind": "forest",
+        "asset": "environment.dead_tree_cluster",
+        "center": [
+          -28,
+          0,
+          -25
+        ],
+        "size": [
+          12,
+          4,
+          8
+        ],
+        "density": 0.48,
+        "blocks_navigation": false
+      },
+      {
+        "id": "northeast_deadwood",
+        "kind": "forest",
+        "asset": "environment.dead_tree_cluster",
+        "center": [
+          28,
+          0,
+          -25
+        ],
+        "size": [
+          12,
+          4,
+          8
+        ],
+        "density": 0.48,
+        "blocks_navigation": false
+      },
+      {
+        "id": "southwest_deadwood",
+        "kind": "forest",
+        "asset": "environment.dead_tree_cluster",
+        "center": [
+          -28,
+          0,
+          25
+        ],
+        "size": [
+          12,
+          4,
+          8
+        ],
+        "density": 0.48,
+        "blocks_navigation": false
+      },
+      {
+        "id": "southeast_deadwood",
+        "kind": "forest",
+        "asset": "environment.dead_tree_cluster",
+        "center": [
+          28,
+          0,
+          25
+        ],
+        "size": [
+          12,
+          4,
+          8
+        ],
+        "density": 0.48,
+        "blocks_navigation": false
+      },
+      {
+        "id": "northwest_rocks",
+        "kind": "rock_field",
+        "asset": "environment.rock_cluster",
+        "center": [
+          -15,
+          0,
+          -27
+        ],
+        "size": [
+          10,
+          3,
+          5
+        ],
+        "density": 0.38,
+        "blocks_navigation": false
+      },
+      {
+        "id": "northeast_rocks",
+        "kind": "rock_field",
+        "asset": "environment.rock_cluster",
+        "center": [
+          15,
+          0,
+          -27
+        ],
+        "size": [
+          10,
+          3,
+          5
+        ],
+        "density": 0.38,
+        "blocks_navigation": false
+      },
+      {
+        "id": "southwest_rocks",
+        "kind": "rock_field",
+        "asset": "environment.rock_cluster",
+        "center": [
+          -15,
+          0,
+          27
+        ],
+        "size": [
+          10,
+          3,
+          5
+        ],
+        "density": 0.38,
+        "blocks_navigation": false
+      },
+      {
+        "id": "southeast_rocks",
+        "kind": "rock_field",
+        "asset": "environment.rock_cluster",
+        "center": [
+          15,
+          0,
+          27
+        ],
+        "size": [
+          10,
+          3,
+          5
+        ],
+        "density": 0.38,
+        "blocks_navigation": false
+      },
+      {
+        "id": "central_rune_garden",
+        "kind": "rune_field",
+        "asset": "environment.rune_field",
+        "center": [
+          0,
+          0,
+          -7.5
+        ],
+        "size": [
+          12,
+          2,
+          5
+        ],
+        "density": 0.55,
+        "blocks_navigation": false
+      },
+      {
+        "id": "central_south_rune_garden",
+        "kind": "rune_field",
+        "asset": "environment.rune_field",
+        "center": [
+          0,
+          0,
+          7.5
+        ],
+        "size": [
+          12,
+          2,
+          5
+        ],
+        "density": 0.55,
+        "blocks_navigation": false
+      }
+    ],
     "navigation": {
       "agent_radius": 0.45,
       "agent_height": 1.8,
       "agent_max_climb": 0.45,
-      "agent_max_slope": 45.0,
+      "agent_max_slope": 45,
       "cell_size": 0.25,
-      "cell_height": 0.25
-    },
-    "structure_guides": [
-      {"id": "north_wall", "kind": "wall", "position": [0.0, 0.8, -11.7], "size": [38.0, 1.6, 1.2]},
-      {"id": "south_wall", "kind": "wall", "position": [0.0, 0.8, 11.7], "size": [38.0, 1.6, 1.2]},
-      {"id": "west_gate", "kind": "gate", "position": [-18.2, 0.9, 0.0], "size": [1.3, 1.8, 8.0]},
-      {"id": "east_gate", "kind": "gate", "position": [18.2, 0.9, 0.0], "size": [1.3, 1.8, 8.0]}
-    ],
-    "scatter_zones": [
-      {"id": "northwest_forest", "kind": "forest", "center": [-10.5, 0.0, -10.0], "size": [13.0, 4.0, 4.0], "density": 0.68, "blocks_navigation": false},
-      {"id": "northeast_forest", "kind": "forest", "center": [10.5, 0.0, -10.0], "size": [13.0, 4.0, 4.0], "density": 0.68, "blocks_navigation": false},
-      {"id": "southwest_forest", "kind": "forest", "center": [-10.5, 0.0, 10.0], "size": [13.0, 4.0, 4.0], "density": 0.68, "blocks_navigation": false},
-      {"id": "southeast_forest", "kind": "forest", "center": [10.5, 0.0, 10.0], "size": [13.0, 4.0, 4.0], "density": 0.68, "blocks_navigation": false}
-    ]
+      "cell_height": 0.25,
+      "source_depth": 0.25,
+      "edge_connection_margin": 1,
+      "probe_speed": 4,
+      "traffic_cell_size": 1
+    }
   }
 }
