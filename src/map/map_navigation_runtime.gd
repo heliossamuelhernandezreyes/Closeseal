@@ -9,29 +9,63 @@ static func compile_route_surface(map_data: Dictionary) -> Dictionary:
     var polygons: Array[PackedInt32Array] = []
     var segment_count := 0
     var total_area := 0.0
+    var route_surfaces: Dictionary = {}
     for route_value in map_data.get("routes", []):
         if typeof(route_value) != TYPE_DICTIONARY:
             continue
         var route: Dictionary = route_value
         var points: Array = route.get("points", [])
-        var width := maxf(float(route.get("width", 0.0)), 0.25)
-        for i in range(1, points.size()):
-            var a := MAP_CONTRACT.vec3_from(points[i - 1])
-            var b := MAP_CONTRACT.vec3_from(points[i])
-            var delta := b - a
-            delta.y = 0.0
-            var length := delta.length()
-            if length <= 0.001:
-                continue
-            var side := Vector3(-delta.z, 0.0, delta.x).normalized() * width * 0.5
-            var base_index := vertices.size()
-            vertices.append(a - side)
-            vertices.append(a + side)
-            vertices.append(b + side)
-            vertices.append(b - side)
-            polygons.append(PackedInt32Array([base_index, base_index + 1, base_index + 2, base_index + 3]))
+        if points.size() < 2:
+            continue
+        var width: float = maxf(float(route.get("width", 0.0)), 0.25)
+        var route_id := String(route.get("id", "route"))
+        var valid_points: Array[Vector3] = []
+        for point_value in points:
+            var point := MAP_CONTRACT.vec3_from(point_value)
+            if valid_points.is_empty() or valid_points[-1].distance_to(point) > 0.001:
+                valid_points.append(point)
+        if valid_points.size() < 2:
+            continue
+
+        var route_vertex_start := vertices.size()
+        for i in range(valid_points.size()):
+            var center: Vector3 = valid_points[i]
+            var tangent := Vector3.ZERO
+            if i > 0:
+                tangent += (center - valid_points[i - 1]).normalized()
+            if i + 1 < valid_points.size():
+                tangent += (valid_points[i + 1] - center).normalized()
+            tangent.y = 0.0
+            if tangent.length_squared() <= 0.000001:
+                tangent = Vector3.RIGHT
+            tangent = tangent.normalized()
+            var side := Vector3(-tangent.z, 0.0, tangent.x) * width * 0.5
+            vertices.append(center - side)
+            vertices.append(center + side)
+
+        var route_segments := 0
+        var route_area := 0.0
+        for i in range(1, valid_points.size()):
+            var previous_pair := route_vertex_start + (i - 1) * 2
+            var current_pair := route_vertex_start + i * 2
+            polygons.append(PackedInt32Array([
+                previous_pair,
+                previous_pair + 1,
+                current_pair + 1,
+                current_pair
+            ]))
+            var length := valid_points[i - 1].distance_to(valid_points[i])
+            route_segments += 1
             segment_count += 1
+            route_area += length * width
             total_area += length * width
+        route_surfaces[route_id] = {
+            "segments": route_segments,
+            "vertices": valid_points.size() * 2,
+            "width": width,
+            "area_estimate": route_area
+        }
+
     var navmesh := NavigationMesh.new()
     navmesh.vertices = vertices
     for polygon in polygons:
@@ -43,6 +77,8 @@ static func compile_route_surface(map_data: Dictionary) -> Dictionary:
         "polygons": polygons.size(),
         "vertices": vertices.size(),
         "walkable_area_estimate": total_area,
+        "route_surfaces": route_surfaces,
+        "topology": "continuous_shared_vertices_per_route",
         "source": "canonical_route_corridors"
     }
 
@@ -110,6 +146,7 @@ static func format_simulation_report(map_data: Dictionary) -> String:
     var lines: Array[String] = [
         "[b]Compiled Navigation Surface[/b]",
         "Source: canonical route corridors",
+        "Topology: %s" % String(compiled.get("topology", "unknown")),
         "Segments: %d • polygons: %d • vertices: %d" % [int(compiled.get("segments", 0)), int(compiled.get("polygons", 0)), int(compiled.get("vertices", 0))],
         "Walkable corridor area estimate: %.1f m²" % float(compiled.get("walkable_area_estimate", 0.0)),
         "",
