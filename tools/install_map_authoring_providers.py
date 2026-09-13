@@ -54,13 +54,25 @@ def write_marker(target: Path, provider: dict) -> None:
 
 
 def find_addon_dir(root: Path, expected_name: str) -> Path:
+    """Locate an addon in project and release-archive layouts."""
     direct = root / "addons" / expected_name
-    if direct.is_dir():
+    if direct.is_dir() and (direct / "plugin.cfg").is_file():
         return direct
-    matches = [p for p in root.rglob(expected_name) if p.is_dir() and p.parent.name == "addons"]
-    if len(matches) != 1:
-        raise RuntimeError(f"Expected exactly one addons/{expected_name}; found {len(matches)}")
-    return matches[0]
+
+    # Release ZIPs may omit the top-level addons/ directory. The plugin
+    # config identifies the real addon and avoids matching archive wrappers.
+    candidates = [
+        p for p in root.rglob(expected_name)
+        if p.is_dir() and (p / "plugin.cfg").is_file()
+    ]
+    if len(candidates) == 1:
+        return candidates[0]
+    if not candidates:
+        raise RuntimeError(
+            f"Could not find addon {expected_name} with plugin.cfg in archive"
+        )
+    rendered = ", ".join(str(p.relative_to(root)) for p in candidates)
+    raise RuntimeError(f"Expected one addon {expected_name}; found: {rendered}")
 
 
 def install_release(provider: dict, force: bool) -> None:
