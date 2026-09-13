@@ -1292,6 +1292,7 @@
       "source_depth": 0.25,
       "edge_connection_margin": 1,
       "probe_speed": 4,
+      "runtime_probe_stress_max_seconds": 40,
       "traffic_cell_size": 1
     }
   }
