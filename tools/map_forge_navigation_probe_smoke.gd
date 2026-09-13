@@ -67,6 +67,16 @@ func _run() -> void:
         quit(38)
         return
     var results: Dictionary = telemetry.get("query_results", {})
+    var navigation_cfg: Dictionary = map_data.get("authoring", {}).get("navigation", {})
+    var agent_radius := maxf(float(navigation_cfg.get("agent_radius", 0.45)), 0.01)
+    var cell_size := maxf(float(navigation_cfg.get("cell_size", 0.25)), 0.01)
+    var cell_height := maxf(float(navigation_cfg.get("cell_height", 0.25)), 0.01)
+    # Boundary queries are projected onto the eroded, voxelized walkable surface.
+    # Derive the allowed projection from the configured bake resolution and
+    # agent footprint instead of requiring the semantic centerline to be a
+    # vertex of the baked mesh.
+    var endpoint_snap_tolerance := sqrt(pow(agent_radius + cell_size, 2.0) + pow(cell_height * 2.0, 2.0))
+    print("MAP_FORGE_ENDPOINT_SNAP_TOLERANCE meters=%.3f" % endpoint_snap_tolerance)
     for route_id in results.keys():
         var route: Dictionary = results[route_id]
         var ratio := float(route.get("detour_ratio", 0.0))
@@ -74,8 +84,8 @@ func _run() -> void:
             push_error("MAP_FORGE_NAV_PROBE: semantic/physical route divergence too large for %s: %.3f" % [String(route_id), ratio])
             quit(39)
             return
-        if float(route.get("start_snap_distance_m", 999.0)) > 0.05 or float(route.get("finish_snap_distance_m", 999.0)) > 0.05:
-            push_error("MAP_FORGE_NAV_PROBE: endpoint snap unexpectedly large for %s" % String(route_id))
+        if float(route.get("start_snap_distance_m", 999.0)) > endpoint_snap_tolerance or float(route.get("finish_snap_distance_m", 999.0)) > endpoint_snap_tolerance:
+            push_error("MAP_FORGE_NAV_PROBE: endpoint projection exceeds physical tolerance for %s" % String(route_id))
             quit(40)
             return
     var telemetry_path := NAV_PROBE.export_telemetry(map_data, telemetry)
