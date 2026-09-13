@@ -1,12 +1,15 @@
 class_name CloseSealMapAnalyzer
 extends RefCounted
 
+const NAV_ANALYZER = preload("res://src/map/map_navigation_analyzer.gd")
+
 static func analyze(map_data: Dictionary) -> Dictionary:
     var result: Dictionary = {
         "errors": [],
         "warnings": [],
         "metrics": {},
-        "scores": {}
+        "scores": {},
+        "navigation": {}
     }
     if map_data.is_empty():
         result["errors"].append("Map data is empty")
@@ -94,6 +97,14 @@ static func analyze(map_data: Dictionary) -> Dictionary:
         metrics["minimum_choke_width"] = choke_widths.min()
         metrics["maximum_choke_width"] = choke_widths.max()
 
+    var nav_audit: Dictionary = NAV_ANALYZER.analyze(map_data, 6.0)
+    result["navigation"] = nav_audit
+    var nav_metrics: Dictionary = nav_audit.get("metrics", {})
+    metrics["semantic_route_clearance"] = float(nav_metrics.get("route_clear_ratio", 0.0))
+    scores["semantic_route_clearance"] = float(nav_metrics.get("route_clear_ratio", 0.0))
+    for warning in nav_audit.get("warnings", []):
+        warnings.append(String(warning))
+
     var hard_errors: Array[String] = CloseSealMapContract.validate(map_data)
     errors.append_array(hard_errors)
     scores["structural_health"] = 1.0 if errors.is_empty() else 0.0
@@ -111,6 +122,7 @@ static func format_report(map_data: Dictionary) -> String:
     lines.append("• Routes: %d" % int(metrics.get("route_count", 0)))
     lines.append("• Objectives: %d" % int(metrics.get("objective_count", 0)))
     lines.append("• Regions: %d" % int(metrics.get("region_count", 0)))
+    lines.append("• Semantic route clearance: %.1f%%" % (float(metrics.get("semantic_route_clearance", 0.0)) * 100.0))
     var route_lengths: Dictionary = metrics.get("route_lengths", {})
     for id in route_lengths.keys():
         lines.append("  ↳ %s: %.2f m" % [String(id), float(route_lengths[id])])
@@ -119,6 +131,10 @@ static func format_report(map_data: Dictionary) -> String:
     var scores: Dictionary = audit.get("scores", {})
     for key in scores.keys():
         lines.append("• %s: %.1f%%" % [String(key).replace("_", " ").capitalize(), float(scores[key]) * 100.0])
+
+    lines.append("")
+    lines.append(NAV_ANALYZER.format_report(map_data, 6.0))
+
     var warnings: Array = audit.get("warnings", [])
     if not warnings.is_empty():
         lines.append("")
