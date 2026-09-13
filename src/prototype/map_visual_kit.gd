@@ -431,7 +431,7 @@ func _build_map_frame() -> void:
     var depth := float(bounds.get("depth", 64.0))
     for x in range(-int(width * 0.5) + 6, int(width * 0.5) - 5, 8):
         for z_side in [-1.0, 1.0]:
-            var z := z_side * (depth * 0.5 - 1.7)
+            var z: float = float(z_side) * (depth * 0.5 - 1.7)
             _cylinder(layer, "RimPillar_%s_%s" % [x, z_side], Vector3(float(x), 1.05, z), 0.42, 2.1, "weathered_stone", 8, 0.76)
             if x % 16 == 0:
                 _sphere(layer, "RimRune_%s_%s" % [x, z_side], Vector3(float(x), 2.24, z), 0.19, "crystal_blue")
