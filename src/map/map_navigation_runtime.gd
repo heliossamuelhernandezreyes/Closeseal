@@ -100,9 +100,12 @@ static func build_route_source_geometry(map_data: Dictionary, navigation_cfg: Di
                 if area <= 0.000001:
                     errors.append("%s segment %d produced a degenerate source triangle" % [route_id, i - 1])
                     continue
+                # Godot 4.7 add_faces() reverses vertices 1 and 2 before
+                # handing the triangles to Recast. Supply the opposite winding
+                # here so the resulting walkable surface normal points upward.
                 faces.append(triangle[0])
-                faces.append(triangle[1])
                 faces.append(triangle[2])
+                faces.append(triangle[1])
                 triangle_count += 1
                 route_triangles += 1
             var length := valid_points[i - 1].distance_to(valid_points[i])
