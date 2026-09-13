@@ -32,17 +32,14 @@ func _enter_tree() -> void:
     dock = VBoxContainer.new()
     dock.name = "Map Forge"
     dock.custom_minimum_size = Vector2(390, 560)
-
     var title := Label.new()
     title.text = "CLOSE SEAL — MAP FORGE 0.3"
     title.add_theme_font_size_override("font_size", 18)
     dock.add_child(title)
-
     var subtitle := Label.new()
     subtitle.text = "Direct tactical authoring • audit • provider-neutral maps"
     subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     dock.add_child(subtitle)
-
     var toolbar := HBoxContainer.new()
     dock.add_child(toolbar)
     map_picker = OptionButton.new()
@@ -51,14 +48,12 @@ func _enter_tree() -> void:
     toolbar.add_child(map_picker)
     _add_button(toolbar, "Reload", _reload_everything, "Discard unsaved in-memory edits and reload files")
     _add_button(toolbar, "Frame", _frame_map, "Reset tactical preview pan and zoom")
-
     var editbar := HBoxContainer.new()
     dock.add_child(editbar)
     _add_button(editbar, "Save", _save_current_map, "Validate and save canonical JSON")
     _add_button(editbar, "Undo", _undo, "Undo last Map Forge edit")
     _add_button(editbar, "Redo", _redo, "Redo last Map Forge edit")
     _add_button(editbar, "Sym X", _enforce_x_symmetry, "Enforce competitive X-axis symmetry")
-
     var addbar := HBoxContainer.new()
     dock.add_child(addbar)
     _add_button(addbar, "+ Objective", _add_objective, "Add a center objective, then drag it")
@@ -67,27 +62,22 @@ func _enter_tree() -> void:
     dirty_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     dirty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
     addbar.add_child(dirty_label)
-
     var tabs := TabContainer.new()
     tabs.size_flags_vertical = Control.SIZE_EXPAND_FILL
     dock.add_child(tabs)
-
     var map_tab := VBoxContainer.new()
     map_tab.name = "Map"
     tabs.add_child(map_tab)
-
     map_canvas = CANVAS_SCRIPT.new()
     map_canvas.size_flags_vertical = Control.SIZE_EXPAND_FILL
     map_canvas.selection_changed.connect(_on_feature_selected)
     map_canvas.edit_started.connect(_begin_edit)
     map_canvas.feature_moved.connect(_on_feature_moved)
     map_tab.add_child(map_canvas)
-
     selection_label = Label.new()
     selection_label.text = "Selection: none"
     selection_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     map_tab.add_child(selection_label)
-
     var inspect_row := HBoxContainer.new()
     map_tab.add_child(inspect_row)
     var width_label := Label.new()
@@ -101,7 +91,6 @@ func _enter_tree() -> void:
     width_editor.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     width_editor.value_changed.connect(_on_width_changed)
     inspect_row.add_child(width_editor)
-
     var audit_tab := VBoxContainer.new()
     audit_tab.name = "Audit"
     tabs.add_child(audit_tab)
@@ -114,7 +103,6 @@ func _enter_tree() -> void:
     audit_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
     audit_label.fit_content = false
     audit_tab.add_child(audit_label)
-
     var providers_tab := VBoxContainer.new()
     providers_tab.name = "Providers"
     tabs.add_child(providers_tab)
@@ -128,7 +116,6 @@ func _enter_tree() -> void:
     note.text = "Canonical gameplay topology remains provider-neutral. Terrain3D, Cyclops, ProtonScatter and FuncGodot are authoring providers, never owners of Close Seal gameplay data."
     note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     providers_tab.add_child(note)
-
     add_control_to_dock(DOCK_SLOT_LEFT_UL, dock)
     _reload_everything()
 
@@ -210,10 +197,12 @@ func _sync_width_editor() -> void:
     var width := 6.0
     if selected_path.size() >= 2:
         if selected_path[0] == "routes":
-            var route: Dictionary = current_map.get("routes", [])[int(selected_path[1])]
+            var routes: Array = current_map.get("routes", [])
+            var route: Dictionary = routes[int(selected_path[1])]
             width = float(route.get("width", 6.0))
         elif selected_path[0] == "regions":
-            var region: Dictionary = current_map.get("regions", [])[int(selected_path[1])]
+            var regions: Array = current_map.get("regions", [])
+            var region: Dictionary = regions[int(selected_path[1])]
             width = float(region.get("width", 6.0))
     width_editor.value = width
     map_canvas.set_formation_width(width)
@@ -277,20 +266,21 @@ func _on_width_changed(value: float) -> void:
         return
     if selected_path[0] == "routes":
         _push_undo_snapshot()
-        var route: Dictionary = current_map.get("routes", [])[int(selected_path[1])]
+        var routes: Array = current_map.get("routes", [])
+        var route: Dictionary = routes[int(selected_path[1])]
         route["width"] = value
         _mark_dirty()
     elif selected_path[0] == "regions":
         _push_undo_snapshot()
-        var region: Dictionary = current_map.get("regions", [])[int(selected_path[1])]
+        var regions: Array = current_map.get("regions", [])
+        var region: Dictionary = regions[int(selected_path[1])]
         region["width"] = value
         _mark_dirty()
     map_canvas.refresh()
     _refresh_audit()
 
 func _undo() -> void:
-    if _undo_stack.is_empty():
-        return
+    if _undo_stack.is_empty(): return
     _redo_stack.append(current_map.duplicate(true))
     current_map = _undo_stack.pop_back()
     map_canvas.set_map_data(current_map)
@@ -298,8 +288,7 @@ func _undo() -> void:
     _refresh_audit()
 
 func _redo() -> void:
-    if _redo_stack.is_empty():
-        return
+    if _redo_stack.is_empty(): return
     _undo_stack.append(current_map.duplicate(true))
     current_map = _redo_stack.pop_back()
     map_canvas.set_map_data(current_map)
@@ -341,8 +330,7 @@ func _mirror_vector_x(value) -> Array:
     return [-v.x, v.y, v.z]
 
 func _enforce_x_symmetry() -> void:
-    if current_map.is_empty():
-        return
+    if current_map.is_empty(): return
     _push_undo_snapshot()
     var bases: Array = current_map.get("bases", [])
     if bases.size() >= 2 and typeof(bases[0]) == TYPE_DICTIONARY and typeof(bases[1]) == TYPE_DICTIONARY:
@@ -351,20 +339,19 @@ func _enforce_x_symmetry() -> void:
         target["position"] = _mirror_vector_x(source.get("position", []))
         if source.has("hero_spawn"):
             target["hero_spawn"] = _mirror_vector_x(source.get("hero_spawn", []))
-
     var routes: Array = current_map.get("routes", [])
     for route_value in routes:
-        if typeof(route_value) != TYPE_DICTIONARY:
-            continue
+        if typeof(route_value) != TYPE_DICTIONARY: continue
         var route: Dictionary = route_value
         var points: Array = route.get("points", [])
         var count := points.size()
-        for i in range(count / 2):
+        var half_count := int(count / 2)
+        for i in range(half_count):
             points[count - 1 - i] = _mirror_vector_x(points[i])
         if count % 2 == 1:
-            var center := CloseSealMapContract.vec3_from(points[count / 2])
-            points[count / 2] = [0.0, center.y, center.z]
-
+            var center_index := half_count
+            var center := CloseSealMapContract.vec3_from(points[center_index])
+            points[center_index] = [0.0, center.y, center.z]
     var regions: Array = current_map.get("regions", [])
     var by_id: Dictionary = {}
     for region_value in regions:
@@ -380,14 +367,12 @@ func _enforce_x_symmetry() -> void:
                 east["center"] = _mirror_vector_x(west.get("center", []))
                 if west.has("width"):
                     east["width"] = west["width"]
-
     _mark_dirty()
     map_canvas.refresh()
     _refresh_audit()
 
 func _save_current_map() -> void:
-    if current_map_path.is_empty() or current_map.is_empty():
-        return
+    if current_map_path.is_empty() or current_map.is_empty(): return
     var errors := CloseSealMapContract.validate(current_map)
     if not errors.is_empty():
         audit_label.text = "[color=red][b]Save blocked: contract errors[/b][/color]\n• " + "\n• ".join(errors)
@@ -412,8 +397,7 @@ func _update_dirty_label() -> void:
         dirty_label.text = "● UNSAVED" if _dirty else "✓ SAVED"
 
 func _refresh_audit() -> void:
-    if not audit_label:
-        return
+    if not audit_label: return
     if current_map.is_empty():
         audit_label.text = "[color=red]Current map could not be loaded or failed structural validation.[/color]"
         return
@@ -444,20 +428,16 @@ func _validate_all_maps() -> void:
     audit_label.text = "\n".join(lines)
 
 func _provider_available(provider: Dictionary) -> bool:
-    if ClassDB.class_exists(StringName(provider.class)):
-        return true
+    if ClassDB.class_exists(StringName(provider.class)): return true
     return FileAccess.file_exists(provider.path)
 
 func _refresh_provider_status() -> void:
-    if not provider_label:
-        return
-    var lines: Array[String] = []
-    lines.append("[b]Provider status[/b]")
+    if not provider_label: return
+    var lines: Array[String] = ["[b]Provider status[/b]"]
     var ready := 0
     for provider in PROVIDERS:
         var available := _provider_available(provider)
-        if available:
-            ready += 1
+        if available: ready += 1
         var state := "[color=green]READY[/color]" if available else "[color=gray]OPTIONAL / NOT INSTALLED[/color]"
         lines.append("• %s — %s — %s" % [provider.name, provider.role, state])
     lines.append("")
