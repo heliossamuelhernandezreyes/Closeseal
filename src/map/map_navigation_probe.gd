@@ -7,7 +7,8 @@ const MAP_CONTRACT = preload("res://src/map/map_contract.gd")
 static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: Array[int] = [10, 50, 100, 500]) -> Dictionary:
     if navigation_mesh == null:
         return {"ok": false, "error": "navigation mesh is null"}
-    var navigation_cfg: Dictionary = map_data.get("authoring", {}).get("navigation", {})
+    var authoring: Dictionary = map_data.get("authoring", {})
+    var navigation_cfg: Dictionary = authoring.get("navigation", {})
     var probe_speed: float = maxf(float(navigation_cfg.get("probe_speed", 4.0)), 0.1)
     var traffic_cell_size: float = maxf(float(navigation_cfg.get("traffic_cell_size", 1.0)), 0.1)
     var agent_radius: float = maxf(float(navigation_cfg.get("agent_radius", 0.45)), 0.01)
@@ -30,6 +31,7 @@ static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: 
     var route_count := 0
     var queryable_count := 0
     var total_path_length := 0.0
+    var max_snap_distance := 0.0
 
     for route_value in map_data.get("routes", []):
         if typeof(route_value) != TYPE_DICTIONARY:
@@ -40,8 +42,13 @@ static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: 
             continue
         route_count += 1
         var route_id := String(route.get("id", "route"))
-        var start: Vector3 = MAP_CONTRACT.vec3_from(points[0])
-        var finish: Vector3 = MAP_CONTRACT.vec3_from(points[points.size() - 1])
+        var requested_start: Vector3 = MAP_CONTRACT.vec3_from(points[0])
+        var requested_finish: Vector3 = MAP_CONTRACT.vec3_from(points[points.size() - 1])
+        var start: Vector3 = server.map_get_closest_point(map_rid, requested_start)
+        var finish: Vector3 = server.map_get_closest_point(map_rid, requested_finish)
+        var start_snap_distance := requested_start.distance_to(start)
+        var finish_snap_distance := requested_finish.distance_to(finish)
+        max_snap_distance = maxf(max_snap_distance, maxf(start_snap_distance, finish_snap_distance))
         var physical_path: PackedVector3Array = server.map_get_path(map_rid, start, finish, true)
         var queryable := physical_path.size() >= 2
         if not queryable:
@@ -74,6 +81,12 @@ static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: 
         query_results[route_id] = {
             "queryable": queryable,
             "waypoints": physical_path.size(),
+            "requested_start": _encode_point(requested_start),
+            "requested_finish": _encode_point(requested_finish),
+            "snapped_start": _encode_point(start),
+            "snapped_finish": _encode_point(finish),
+            "start_snap_distance_m": start_snap_distance,
+            "finish_snap_distance_m": finish_snap_distance,
             "semantic_length_m": semantic_length,
             "physical_length_m": physical_length,
             "detour_ratio": detour_ratio,
@@ -110,6 +123,7 @@ static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: 
             "cells": traffic_cells
         },
         "total_physical_path_length_m": total_path_length,
+        "max_endpoint_snap_distance_m": max_snap_distance,
         "claim_boundary": "Physical NavigationServer3D path queries plus derived traffic load; not dynamic crowd simulation or avoidance performance."
     }
 
@@ -133,7 +147,8 @@ static func format_report(telemetry: Dictionary) -> String:
         return "[color=red][b]Physical navigation probe failed[/b][/color]\nQueryable routes: %d / %d" % [int(telemetry.get("queryable_routes", 0)), int(telemetry.get("route_count", 0))]
     var lines: Array[String] = [
         "[b]Physical Navigation Probe[/b]",
-        "NavigationServer3D queryable routes: %d / %d" % [int(telemetry.get("queryable_routes", 0)), int(telemetry.get("route_count", 0))]
+        "NavigationServer3D queryable routes: %d / %d" % [int(telemetry.get("queryable_routes", 0)), int(telemetry.get("route_count", 0))],
+        "Max endpoint snap: %.3fm" % float(telemetry.get("max_endpoint_snap_distance_m", 0.0))
     ]
     var results: Dictionary = telemetry.get("query_results", {})
     for route_id in results.keys():
@@ -161,10 +176,13 @@ static func _path_length(path: PackedVector3Array) -> float:
         length += path[i - 1].distance_to(path[i])
     return length
 
+static func _encode_point(point: Vector3) -> Array:
+    return [point.x, point.y, point.z]
+
 static func _encode_path(path: PackedVector3Array) -> Array:
     var encoded: Array = []
     for point in path:
-        encoded.append([point.x, point.y, point.z])
+        encoded.append(_encode_point(point))
     return encoded
 
 static func _accumulate_path_heat(cells: Dictionary, path: PackedVector3Array, cell_size: float, weight: int) -> void:
