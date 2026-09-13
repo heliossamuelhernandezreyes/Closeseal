@@ -105,9 +105,12 @@ static func build_route_source_geometry(map_data: Dictionary, navigation_cfg: Di
                 # corridor surface at y, and add only a minimal vertical envelope
                 # so Recast receives a finite 3D source volume. The envelope
                 # preserves the same walkable top surface and route semantics.
+                # A/B: add_faces() reverses vertices 1 and 2 internally.
+                # This input order yields an upward Recast normal after that
+                # engine-side conversion.
                 faces.append(triangle[0])
-                faces.append(triangle[1])
                 faces.append(triangle[2])
+                faces.append(triangle[1])
                 triangle_count += 1
                 route_triangles += 1
             var a2 := a - Vector3(0.0, source_depth, 0.0)
