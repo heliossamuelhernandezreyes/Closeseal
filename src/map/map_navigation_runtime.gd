@@ -44,6 +44,7 @@ static func build_route_source_geometry(map_data: Dictionary, navigation_cfg: Di
     var min_triangle_area := INF
     var min_edge_length := INF
     var cell_size := maxf(float(navigation_cfg.get("cell_size", 0.25)), 0.001)
+    var source_depth := maxf(float(navigation_cfg.get("source_depth", 0.25)), 0.01)
 
     for route_value in map_data.get("routes", []):
         if typeof(route_value) != TYPE_DICTIONARY:
@@ -100,12 +101,23 @@ static func build_route_source_geometry(map_data: Dictionary, navigation_cfg: Di
                 if area <= 0.000001:
                     errors.append("%s segment %d produced a degenerate source triangle" % [route_id, i - 1])
                     continue
-                # Godot 4.7 add_faces() reverses vertices 1 and 2 before
-                # handing the triangles to Recast. Supply the opposite winding
-                # here so the resulting walkable surface normal points upward.
+                # add_faces() expects clockwise faces. Keep the canonical
+                # corridor surface at y, and add only a minimal vertical envelope
+                # so Recast receives a finite 3D source volume. The envelope
+                # preserves the same walkable top surface and route semantics.
                 faces.append(triangle[0])
-                faces.append(triangle[2])
                 faces.append(triangle[1])
+                faces.append(triangle[2])
+                triangle_count += 1
+                route_triangles += 1
+            var a2 := a - Vector3(0.0, source_depth, 0.0)
+            var b2 := b - Vector3(0.0, source_depth, 0.0)
+            var c2 := c - Vector3(0.0, source_depth, 0.0)
+            var d2 := d - Vector3(0.0, source_depth, 0.0)
+            for side_triangle in [[a, b, b2], [a, b2, a2], [b, c, c2], [b, c2, b2], [c, d, d2], [c, d2, c2], [d, a, a2], [d, a2, d2]]:
+                faces.append(side_triangle[0])
+                faces.append(side_triangle[1])
+                faces.append(side_triangle[2])
                 triangle_count += 1
                 route_triangles += 1
             var length := valid_points[i - 1].distance_to(valid_points[i])
@@ -149,6 +161,7 @@ static func build_route_source_geometry(map_data: Dictionary, navigation_cfg: Di
         "route_surfaces": route_surfaces,
         "diagnostics": {
             "cell_size": cell_size,
+            "source_depth": source_depth,
             "minimum_triangle_area": min_triangle_area,
             "minimum_edge_length": min_edge_length,
             "warnings": warnings,
