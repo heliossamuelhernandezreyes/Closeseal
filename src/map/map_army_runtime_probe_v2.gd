@@ -99,7 +99,10 @@ static func _simulate_load(tree: SceneTree, map_rid: RID, route: Dictionary, pat
     var radius: float = maxf(float(cfg.get("agent_radius", 0.45)), 0.05)
     var speed: float = maxf(float(cfg.get("runtime_probe_speed", cfg.get("probe_speed", 4.0))), 0.25)
     var fixed_dt: float = maxf(float(cfg.get("runtime_probe_step_seconds", 0.10)), 0.02)
-    var max_steps: int = int(ceil(maxf(float(cfg.get("runtime_probe_max_seconds", 75.0)), 10.0) / fixed_dt))
+    var max_seconds_cfg := float(cfg.get("runtime_probe_max_seconds", 75.0))
+    if load > 50:
+        max_seconds_cfg = float(cfg.get("runtime_probe_stress_max_seconds", max_seconds_cfg))
+    var max_steps: int = int(ceil(maxf(max_seconds_cfg, 10.0) / fixed_dt))
     var route_width: float = maxf(float(route.get("width", radius * 2.0)), radius * 2.0)
     var footprint: float = radius * 2.0 + maxf(float(cfg.get("runtime_probe_spawn_spacing", 0.15)), 0.0)
     var columns: int = maxi(1, int(floor(route_width / footprint)))
