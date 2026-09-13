@@ -1,7 +1,7 @@
 extends SceneTree
 
 const MAP_CONTRACT = preload("res://src/map/map_contract.gd")
-const ARMY_RUNTIME = preload("res://src/map/map_army_runtime_probe.gd")
+const ARMY_RUNTIME = preload("res://src/map/map_army_runtime_probe_v2.gd")
 const MAP_PATH := "res://maps/competitive_lab_01.json"
 
 func _initialize() -> void:
@@ -20,48 +20,54 @@ func _run() -> void:
         quit(41)
         return
 
+    var sync: Dictionary = telemetry.get("synchronization", {})
+    if not bool(sync.get("ok", false)) or int(sync.get("iteration", 0)) <= 0:
+        push_error("MAP_FORGE_ARMY_RUNTIME: navigation map did not synchronize")
+        quit(42)
+        return
+
     var routes: Dictionary = telemetry.get("routes", {})
     if routes.size() < 3:
         push_error("MAP_FORGE_ARMY_RUNTIME: expected at least three tested routes")
-        quit(42)
+        quit(43)
         return
 
     for route_id in routes.keys():
         var route: Dictionary = routes[route_id]
         if not bool(route.get("ok", false)):
             push_error("MAP_FORGE_ARMY_RUNTIME: route path unavailable: %s" % String(route_id))
-            quit(43)
+            quit(44)
             return
         var loads: Dictionary = route.get("loads", {})
         for expected in [10, 50, 100, 500]:
             var state: Dictionary = loads.get(str(expected), {})
             if state.is_empty():
                 push_error("MAP_FORGE_ARMY_RUNTIME: missing load %d for %s" % [expected, String(route_id)])
-                quit(44)
+                quit(45)
                 return
             if int(state.get("completed_agents", 0)) != expected or int(state.get("failed_agents", 0)) != 0:
                 push_error("MAP_FORGE_ARMY_RUNTIME: incomplete traversal for %s load %d" % [String(route_id), expected])
-                quit(45)
+                quit(46)
                 return
             if int(state.get("avoidance_callback_count", 0)) <= 0:
                 push_error("MAP_FORGE_ARMY_RUNTIME: no avoidance callbacks for %s load %d" % [String(route_id), expected])
-                quit(46)
+                quit(47)
                 return
             if float(state.get("throughput_agents_per_sim_second", 0.0)) <= 0.0:
                 push_error("MAP_FORGE_ARMY_RUNTIME: invalid throughput for %s load %d" % [String(route_id), expected])
-                quit(47)
+                quit(48)
                 return
             if float(state.get("p95_travel_seconds", 0.0)) <= 0.0:
                 push_error("MAP_FORGE_ARMY_RUNTIME: invalid p95 travel time for %s load %d" % [String(route_id), expected])
-                quit(48)
+                quit(49)
                 return
 
     var output_path := ARMY_RUNTIME.export_telemetry(map_data, telemetry)
     if output_path.is_empty() or not FileAccess.file_exists(output_path):
         push_error("MAP_FORGE_ARMY_RUNTIME: telemetry export failed")
-        quit(49)
+        quit(50)
         return
 
-    print("MAP_FORGE_ARMY_RUNTIME_OK routes=%d telemetry=%s" % [routes.size(), output_path])
+    print("MAP_FORGE_ARMY_RUNTIME_OK routes=%d sync_iteration=%d telemetry=%s" % [routes.size(), int(sync.get("iteration", 0)), output_path])
     print("MAP_FORGE_ARMY_RUNTIME_TELEMETRY=%s" % JSON.stringify(telemetry))
     quit(0)
