@@ -10,6 +10,7 @@ on:
       - 'third_party/map_authoring.lock.json'
       - 'tools/install_map_authoring_providers.py'
       - 'tools/map_forge_provider_smoke.gd'
+      - 'tools/navigation_server_procedural_smoke.gd'
       - 'tools/map_forge_navigation_probe_smoke.gd'
       - 'tools/map_forge_army_runtime_smoke.gd'
       - '.github/workflows/map-authoring-providers.yml'
@@ -56,6 +57,10 @@ jobs:
         run: |
           timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/map_forge_provider_smoke.gd 2>&1 | tee provider-bridge.log
           grep -q 'MAP_FORGE_PROVIDER_BRIDGE_OK' provider-bridge.log
+      - name: Validate minimal procedural NavigationServer3D surface
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/navigation_server_procedural_smoke.gd 2>&1 | tee navigation-minimal.log
+          grep -q 'NAVIGATION_SERVER_PROCEDURAL_OK' navigation-minimal.log
       - name: Query physical navigation and generate traffic telemetry
         run: |
           timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/map_forge_navigation_probe_smoke.gd 2>&1 | tee navigation-probe.log
@@ -73,6 +78,7 @@ jobs:
             first-import.log
             provider-import.log
             provider-bridge.log
+            navigation-minimal.log
             navigation-probe.log
             army-runtime.log
             maps/generated/*.manifest.json
