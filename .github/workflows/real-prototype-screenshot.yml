@@ -33,6 +33,11 @@ jobs:
         run: |
           xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor-pid 0 2>&1 | tee visual-capture.log
           test -s close-seal-real-greybox.png
+          grep -q 'CLOSESEAL_MAP_VISUAL_KIT=' visual-capture.log
+          grep -q '"objectives":7' visual-capture.log
+          grep -q '"route_segments":28' visual-capture.log
+          grep -q '"scatter_instances":154' visual-capture.log
+          grep -q '"structures":20' visual-capture.log
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|No loader found for resource: res://assets/ui/' visual-capture.log; then
             echo 'Visual runtime errors detected during capture'
             exit 1
