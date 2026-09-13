@@ -67,11 +67,11 @@ func _draw() -> void:
 
 func _draw_grid(width: float, depth: float) -> void:
     var step := 4.0
-    var x := -floor(width * 0.5 / step) * step
+    var x: float = -floor(width * 0.5 / step) * step
     while x <= width * 0.5:
         draw_line(_world_to_canvas(Vector3(x, 0, -depth * 0.5)), _world_to_canvas(Vector3(x, 0, depth * 0.5)), Color(0.3, 0.45, 0.5, 0.10), 1.0)
         x += step
-    var z := -floor(depth * 0.5 / step) * step
+    var z: float = -floor(depth * 0.5 / step) * step
     while z <= depth * 0.5:
         draw_line(_world_to_canvas(Vector3(-width * 0.5, 0, z)), _world_to_canvas(Vector3(width * 0.5, 0, z)), Color(0.3, 0.45, 0.5, 0.10), 1.0)
         z += step
@@ -191,7 +191,7 @@ func _world_to_canvas(world: Vector3) -> Vector2:
 
 func _canvas_to_world(point: Vector2) -> Vector3:
     var scale := max(_world_scale(), 0.0001)
-    var local := (point - Vector2(size.x * 0.5, size.y * 0.5) - pan) / scale
+    var local: Vector2 = (point - Vector2(size.x * 0.5, size.y * 0.5) - pan) / scale
     return Vector3(local.x, 0.0, local.y)
 
 func _gui_input(event: InputEvent) -> void:
