@@ -15,7 +15,7 @@ func _run() -> void:
     var source_result: Dictionary = NAV_RUNTIME.build_route_source_geometry(isolated, isolated.get("authoring", {}).get("navigation", {}))
     var source: NavigationMeshSourceGeometryData3D = source_result.get("source_geometry")
     print("NAV_SOURCE_PROBE result=%s triangles=%d vertices=%d indices=%d" % [JSON.stringify(source_result.get("diagnostics", {})), int(source_result.get("source_triangles", 0)), source.get_vertices().size(), source.get_indices().size()])
-    var source_vertices: PackedVector3Array = source.get_vertices()
+    var source_vertices = source.get_vertices()
     var source_indices: PackedInt32Array = source.get_indices()
     for i in range(source_vertices.size()):
         print("NAV_SOURCE_VERTEX i=%d value=%s" % [i, str(source_vertices[i])])
