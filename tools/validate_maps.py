@@ -15,8 +15,74 @@ def vec3(v):
     return isinstance(v, list) and len(v) >= 3 and all(isinstance(x, (int, float)) for x in v[:3])
 
 
+def positive_vec3(v):
+    return vec3(v) and all(float(x) > 0 for x in v[:3])
+
+
 def dist(a, b):
     return math.sqrt(sum((float(a[i]) - float(b[i])) ** 2 for i in range(3)))
+
+
+def validate_authoring(authoring, errors):
+    if authoring is None:
+        return
+    if not isinstance(authoring, dict):
+        errors.append("authoring must be an object")
+        return
+
+    terrain = authoring.get("terrain", {})
+    if not isinstance(terrain, dict):
+        errors.append("authoring.terrain must be an object")
+    else:
+        if "vertex_spacing" in terrain and float(terrain.get("vertex_spacing", 0)) <= 0:
+            errors.append("authoring.terrain.vertex_spacing must be positive")
+        if "region_size" in terrain and int(terrain.get("region_size", 0)) <= 0:
+            errors.append("authoring.terrain.region_size must be positive")
+
+    structures = authoring.get("structure_guides", [])
+    if not isinstance(structures, list):
+        errors.append("authoring.structure_guides must be an array")
+    else:
+        seen = set()
+        for item in structures:
+            if not isinstance(item, dict):
+                errors.append("authoring.structure_guides entries must be objects")
+                continue
+            item_id = item.get("id")
+            if not isinstance(item_id, str) or not item_id.strip():
+                errors.append("authoring structure guide requires id")
+            elif item_id in seen:
+                errors.append(f"duplicate authoring structure guide id '{item_id}'")
+            else:
+                seen.add(item_id)
+            if not vec3(item.get("position")):
+                errors.append(f"authoring structure guide '{item_id or '?'}' requires position [x,y,z]")
+            if not positive_vec3(item.get("size")):
+                errors.append(f"authoring structure guide '{item_id or '?'}' requires positive size [x,y,z]")
+
+    zones = authoring.get("scatter_zones", [])
+    if not isinstance(zones, list):
+        errors.append("authoring.scatter_zones must be an array")
+    else:
+        seen = set()
+        for zone in zones:
+            if not isinstance(zone, dict):
+                errors.append("authoring.scatter_zones entries must be objects")
+                continue
+            zone_id = zone.get("id")
+            if not isinstance(zone_id, str) or not zone_id.strip():
+                errors.append("authoring scatter zone requires id")
+            elif zone_id in seen:
+                errors.append(f"duplicate authoring scatter zone id '{zone_id}'")
+            else:
+                seen.add(zone_id)
+            if not vec3(zone.get("center")):
+                errors.append(f"authoring scatter zone '{zone_id or '?'}' requires center [x,y,z]")
+            if not positive_vec3(zone.get("size")):
+                errors.append(f"authoring scatter zone '{zone_id or '?'}' requires positive size [x,y,z]")
+            density = float(zone.get("density", 0.5))
+            if not 0.0 <= density <= 1.0:
+                errors.append(f"authoring scatter zone '{zone_id or '?'}' density must be between 0 and 1")
 
 
 def validate(data, path):
@@ -91,6 +157,8 @@ def validate(data, path):
                 errors.append(f"region '{rid}' requires center [x,y,z]")
             if region.get("kind") == "choke" and float(region.get("width", 0)) <= 0:
                 errors.append(f"choke '{rid}' width must be positive")
+
+    validate_authoring(data.get("authoring", {}), errors)
 
     if len(bases) >= 2 and all(isinstance(b, dict) and vec3(b.get("position")) for b in bases[:2]):
         midpoint = [(bases[0]["position"][i] + bases[1]["position"][i]) * 0.5 for i in range(3)]
