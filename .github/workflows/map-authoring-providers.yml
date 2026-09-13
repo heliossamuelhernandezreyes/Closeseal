@@ -60,8 +60,12 @@ jobs:
           grep -q 'NAV_SOURCE_PROBE_OK' navigation-source-probe.log
       - name: Build physical Map Forge provider workspace
         run: |
-          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/map_forge_provider_smoke.gd 2>&1 | tee provider-bridge.log
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --script res://tools/map_forge_provider_smoke.gd 2>&1 | tee provider-bridge.log
           grep -q 'MAP_FORGE_PROVIDER_BRIDGE_OK' provider-bridge.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' provider-bridge.log; then
+            echo 'Provider workspace emitted script errors'
+            exit 1
+          fi
       - name: Validate minimal procedural NavigationServer3D surface
         run: |
           timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/navigation_server_procedural_smoke.gd 2>&1 | tee navigation-minimal.log
