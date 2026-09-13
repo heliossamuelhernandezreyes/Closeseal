@@ -19,16 +19,15 @@ static func probe(tree: SceneTree, navigation_mesh: NavigationMesh, map_data: Di
     server.map_set_cell_height(map_rid, maxf(float(navigation_cfg.get("cell_height", 0.25)), 0.01))
     server.map_set_use_edge_connections(map_rid, true)
     server.map_set_edge_connection_margin(map_rid, maxf(float(navigation_cfg.get("edge_connection_margin", 1.0)), 0.01))
-    server.region_set_navigation_mesh(region_rid, navigation_mesh)
-    server.region_set_map(region_rid, map_rid)
     server.map_set_active(map_rid, true)
+    server.region_set_enabled(region_rid, true)
+    server.region_set_map(region_rid, map_rid)
+    server.region_set_navigation_mesh(region_rid, navigation_mesh)
     server.map_force_update(map_rid)
 
     var synchronization: Dictionary = await _wait_for_map_sync(tree, map_rid, 12)
     if not bool(synchronization.get("ok", false)):
-        server.region_set_map(region_rid, RID())
-        server.free_rid(region_rid)
-        server.free_rid(map_rid)
+        _free_navigation_region(server, region_rid, map_rid)
         return {
             "ok": false,
             "error": "navigation map did not synchronize",
@@ -105,9 +104,7 @@ static func probe(tree: SceneTree, navigation_mesh: NavigationMesh, map_data: Di
             "path": _encode_path(physical_path)
         }
 
-    server.region_set_map(region_rid, RID())
-    server.free_rid(region_rid)
-    server.free_rid(map_rid)
+    _free_navigation_region(server, region_rid, map_rid)
 
     var max_cell_load := 0
     var total_cell_load := 0
@@ -143,7 +140,7 @@ static func _wait_for_map_sync(tree: SceneTree, map_rid: RID, max_frames: int) -
     for frame in range(1, max_frames + 1):
         await tree.physics_frame
         var iteration := NavigationServer3D.map_get_iteration_id(map_rid)
-        if iteration > initial_iteration and iteration > 0:
+        if iteration > 0:
             return {
                 "ok": true,
                 "initial_iteration": initial_iteration,
@@ -156,6 +153,11 @@ static func _wait_for_map_sync(tree: SceneTree, map_rid: RID, max_frames: int) -
         "iteration": NavigationServer3D.map_get_iteration_id(map_rid),
         "physics_frames_waited": max_frames
     }
+
+static func _free_navigation_region(server: Object, region_rid: RID, map_rid: RID) -> void:
+    server.region_set_map(region_rid, RID())
+    server.free_rid(region_rid)
+    server.free_rid(map_rid)
 
 static func export_telemetry(map_data: Dictionary, telemetry: Dictionary) -> String:
     var map_id := String(map_data.get("id", "map"))
