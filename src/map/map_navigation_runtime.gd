@@ -233,12 +233,12 @@ static func compile_route_surface_legacy_direct_polygons(map_data: Dictionary) -
     }
 
 static func _configure_navigation_mesh(navmesh: NavigationMesh, navigation_cfg: Dictionary) -> void:
-    navmesh.agent_radius = maxf(float(navigation_cfg.get("agent_radius", 0.45)), 0.01)
-    navmesh.agent_height = maxf(float(navigation_cfg.get("agent_height", 1.8)), 0.1)
-    navmesh.agent_max_climb = maxf(float(navigation_cfg.get("agent_max_climb", 0.45)), 0.0)
-    navmesh.agent_max_slope = clampf(float(navigation_cfg.get("agent_max_slope", 45.0)), 0.0, 90.0)
-    navmesh.cell_size = maxf(float(navigation_cfg.get("cell_size", 0.25)), 0.01)
-    navmesh.cell_height = maxf(float(navigation_cfg.get("cell_height", 0.25)), 0.01)
+    navmesh.set_agent_radius(maxf(float(navigation_cfg.get("agent_radius", 0.45)), 0.01))
+    navmesh.set_agent_height(maxf(float(navigation_cfg.get("agent_height", 1.8)), 0.1))
+    navmesh.set_agent_max_climb(maxf(float(navigation_cfg.get("agent_max_climb", 0.45)), 0.0))
+    navmesh.set_agent_max_slope(clampf(float(navigation_cfg.get("agent_max_slope", 45.0)), 0.0, 90.0))
+    navmesh.set_cell_size(maxf(float(navigation_cfg.get("cell_size", 0.25)), 0.01))
+    navmesh.set_cell_height(maxf(float(navigation_cfg.get("cell_height", 0.25)), 0.01))
 
 static func _is_finite_vec3(value: Vector3) -> bool:
     return is_finite(value.x) and is_finite(value.y) and is_finite(value.z)
