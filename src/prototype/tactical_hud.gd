@@ -94,7 +94,17 @@ func _panel_art(parent: Node, pos: Vector2, size_: Vector2) -> Control:
     parent.add_child(root)
     root.position = pos
     root.size = size_
-    _tex(root, panel_tex, Vector2.ZERO, size_)
+    var art := NinePatchRect.new()
+    art.texture = panel_tex
+    art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    art.custom_minimum_size = Vector2.ZERO
+    art.set_patch_margin(SIDE_LEFT, 28)
+    art.set_patch_margin(SIDE_TOP, 28)
+    art.set_patch_margin(SIDE_RIGHT, 28)
+    art.set_patch_margin(SIDE_BOTTOM, 28)
+    root.add_child(art)
+    art.position = Vector2.ZERO
+    art.size = size_
     return root
 
 func _build_hud() -> void:
