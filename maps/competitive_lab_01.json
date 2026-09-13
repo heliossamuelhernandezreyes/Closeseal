@@ -21,9 +21,26 @@
     {"id": "east_choke", "kind": "choke", "center": [7.0,0.0,0.0], "width": 6.6}
   ],
   "authoring": {
-    "terrain_provider": "native_fallback",
-    "structure_provider": "native_fallback",
-    "scatter_provider": "native_fallback",
-    "import_provider": "none"
+    "terrain_provider": "terrain3d_preferred",
+    "structure_provider": "cyclops_preferred",
+    "scatter_provider": "proton_scatter_preferred",
+    "import_provider": "func_godot_optional",
+    "terrain": {
+      "data_directory": "res://maps/generated/terrain/competitive_lab_01",
+      "vertex_spacing": 1.0,
+      "region_size": 64
+    },
+    "structure_guides": [
+      {"id": "north_wall", "kind": "wall", "position": [0.0, 0.8, -11.7], "size": [38.0, 1.6, 1.2]},
+      {"id": "south_wall", "kind": "wall", "position": [0.0, 0.8, 11.7], "size": [38.0, 1.6, 1.2]},
+      {"id": "west_gate", "kind": "gate", "position": [-18.2, 0.9, 0.0], "size": [1.3, 1.8, 8.0]},
+      {"id": "east_gate", "kind": "gate", "position": [18.2, 0.9, 0.0], "size": [1.3, 1.8, 8.0]}
+    ],
+    "scatter_zones": [
+      {"id": "northwest_forest", "kind": "forest", "center": [-10.5, 0.0, -10.0], "size": [13.0, 4.0, 4.0], "density": 0.68},
+      {"id": "northeast_forest", "kind": "forest", "center": [10.5, 0.0, -10.0], "size": [13.0, 4.0, 4.0], "density": 0.68},
+      {"id": "southwest_forest", "kind": "forest", "center": [-10.5, 0.0, 10.0], "size": [13.0, 4.0, 4.0], "density": 0.68},
+      {"id": "southeast_forest", "kind": "forest", "center": [10.5, 0.0, 10.0], "size": [13.0, 4.0, 4.0], "density": 0.68}
+    ]
   }
 }
