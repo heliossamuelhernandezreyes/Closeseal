@@ -1,16 +1,20 @@
 extends Node3D
 
 const TacticalHUD = preload("res://src/prototype/tactical_hud.gd")
+const MapContract = preload("res://src/map/map_contract.gd")
+const DEFAULT_MAP := "res://maps/competitive_lab_01.json"
 
-# First authored visual-language pass. Still procedural and lightweight, but now
-# uses role-specific silhouettes, layered terrain and fortifications instead of
-# generic cylinders. Final faction art remains intentionally undecided.
+var map_data: Dictionary = {}
 
 func _ready() -> void:
+    map_data = MapContract.load_file(DEFAULT_MAP)
+    if map_data.is_empty():
+        push_warning("Map Forge contract failed to load; prototype will use safe fallback geometry")
     _build_environment()
     _build_lane()
     _build_blue_force()
     _build_red_force()
+    _build_objectives()
     var hud := TacticalHUD.new()
     add_child(hud)
     if OS.has_environment("CLOSESEAL_CAPTURE"):
@@ -29,6 +33,28 @@ func _capture_for_ci() -> void:
         return
     print("CLOSESEAL_SCREENSHOT_SAVED=" + output)
     get_tree().quit()
+
+func _map_bounds() -> Vector2:
+    var bounds: Dictionary = map_data.get("bounds", {})
+    return Vector2(max(float(bounds.get("width", 44.0)), 8.0), max(float(bounds.get("depth", 29.0)), 8.0))
+
+func _base_for_team(team: String) -> Dictionary:
+    for value in map_data.get("bases", []):
+        if typeof(value) == TYPE_DICTIONARY:
+            var base: Dictionary = value
+            if String(base.get("team", "")) == team:
+                return base
+    if team == "blue":
+        return {"position": [-13.4, 0.0, 0.0], "hero_spawn": [-10.2, 0.0, 5.0]}
+    return {"position": [13.4, 0.0, 0.0], "hero_spawn": [10.2, 0.0, -5.0]}
+
+func _primary_route() -> Dictionary:
+    for value in map_data.get("routes", []):
+        if typeof(value) == TYPE_DICTIONARY:
+            var route: Dictionary = value
+            if String(route.get("kind", "")) == "primary":
+                return route
+    return {"width": 6.6, "points": [[-13.4,0.0,0.0],[0.0,0.0,0.0],[13.4,0.0,0.0]]}
 
 func _mat(color: Color, metallic := 0.0, roughness := 0.78, emission := Color.BLACK) -> StandardMaterial3D:
     var m := StandardMaterial3D.new()
@@ -104,21 +130,29 @@ func _tower(name_: String, pos: Vector3, team: Color) -> void:
     _sphere(name_ + "_seal", pos + Vector3(0,2.95,0), .38, team.lightened(.3), team.lightened(.15))
 
 func _build_environment() -> void:
-    _box("Ground", Vector3(0,-.42,0), Vector3(44,.7,29), Color("17221f"))
-    _box("InnerGround", Vector3(0,-.04,0), Vector3(39,.08,23), Color("26342d"))
-    _box("Lane", Vector3(0,.015,0), Vector3(38,.07,6.6), Color("665f50"))
-    _box("LaneCore", Vector3(0,.06,0), Vector3(38,.035,1.1), Color("87734e"))
-    for x in [-18.2,18.2]:
-        _box("Wall", Vector3(x,.75,0), Vector3(1.1,1.6,13.5), Color("303a3b"))
+    var bounds := _map_bounds()
+    var route := _primary_route()
+    var lane_width := max(float(route.get("width", 6.6)), 2.0)
+    var inner_width := max(bounds.x - 5.0, 4.0)
+    var inner_depth := max(bounds.y - 6.0, 4.0)
+    var lane_length := max(bounds.x - 6.0, 6.0)
+    _box("Ground", Vector3(0,-.42,0), Vector3(bounds.x,.7,bounds.y), Color("17221f"))
+    _box("InnerGround", Vector3(0,-.04,0), Vector3(inner_width,.08,inner_depth), Color("26342d"))
+    _box("Lane", Vector3(0,.015,0), Vector3(lane_length,.07,lane_width), Color("665f50"))
+    _box("LaneCore", Vector3(0,.06,0), Vector3(lane_length,.035,max(lane_width * .17, .4)), Color("87734e"))
+    var wall_x := bounds.x * 0.5 - 3.8
+    for x in [-wall_x, wall_x]:
+        _box("Wall", Vector3(x,.75,0), Vector3(1.1,1.6,max(bounds.y - 15.5, 8.0)), Color("303a3b"))
         for z in range(-6,7,3):
             _box("Buttress", Vector3(x-sign(x)*.7,.75,float(z)), Vector3(.65,1.7,1.0), Color("485052"))
-    for z in [-11.7,11.7]:
-        _box("Cliff", Vector3(0,.65,z), Vector3(44,1.35,2.2), Color("242e2b"))
+    var cliff_z := bounds.y * 0.5 - 2.8
+    for z in [-cliff_z, cliff_z]:
+        _box("Cliff", Vector3(0,.65,z), Vector3(bounds.x,1.35,2.2), Color("242e2b"))
         for x in range(-18,19,6):
             _box("CliffStone", Vector3(float(x),1.05,z-sign(z)*.65), Vector3(3.6,.65,.85), Color("3c4742"), Vector3(0,float(x % 9),0))
-    for x in [-14.,-7.,0.,7.,14.]:
-        _cylinder("LaneMarker", Vector3(x,.1,0), .48, .05, Color("b58d43"), .4)
-
+    for i in range(5):
+        var fraction := (float(i) - 2.0) / 2.0
+        _cylinder("LaneMarker", Vector3(fraction * bounds.x * .318,.1,0), .48, .05, Color("b58d43"), .4)
     var light := DirectionalLight3D.new(); light.rotation_degrees = Vector3(-58,-38,0); light.light_energy = 1.45; light.shadow_enabled = true; add_child(light)
     var world := WorldEnvironment.new(); var env := Environment.new()
     env.background_mode = Environment.BG_COLOR; env.background_color = Color("0b1114")
@@ -128,24 +162,48 @@ func _build_environment() -> void:
     var camera := Camera3D.new(); camera.position = Vector3(0,22.5,23.5); camera.rotation_degrees = Vector3(-44,0,0); camera.fov = 44; camera.current = true; add_child(camera)
 
 func _build_lane() -> void:
+    var blue_base := MapContract.vec3_from(_base_for_team("blue").get("position", []), Vector3(-13.4,0,0))
+    var red_base := MapContract.vec3_from(_base_for_team("red").get("position", []), Vector3(13.4,0,0))
+    var center := (blue_base + red_base) * 0.5
+    var span := max(blue_base.distance_to(red_base) * .33, 7.0)
     for i in range(7):
-        _creep("BlueCreep%d" % i, Vector3(-8.8+i*1.12,0,-.72), Color("4aaee8"))
-        _creep("RedCreep%d" % i, Vector3(8.8-i*1.12,0,.72), Color("e95750"))
+        var t := float(i) / 6.0
+        var x := lerp(center.x - span * .5, center.x + span * .5, t)
+        _creep("BlueCreep%d" % i, Vector3(x,0,-.72), Color("4aaee8"))
+        _creep("RedCreep%d" % i, Vector3(-x,0,.72), Color("e95750"))
 
 func _build_blue_force() -> void:
-    _hero(Vector3(-10.2,0,5.0))
+    var base := _base_for_team("blue")
+    var hero_spawn := MapContract.vec3_from(base.get("hero_spawn", []), Vector3(-10.2,0,5.0))
+    var tower_pos := MapContract.vec3_from(base.get("position", []), Vector3(-13.4,0,0))
+    _hero(hero_spawn)
     for row in range(2):
         for col in range(4):
-            _soldier("BlueFront%d_%d" % [row,col], Vector3(-7.4+col*1.3,0,3.4+row*1.45), Color("3f78c9"))
+            _soldier("BlueFront%d_%d" % [row,col], hero_spawn + Vector3(2.8+col*1.3,0,-1.6+row*1.45), Color("3f78c9"))
     for col in range(4):
-        _soldier("BlueRanged%d" % col, Vector3(-7.7+col*1.35,0,7.0), Color("3e9eaa"), true)
-    _soldier("BlueSupport", Vector3(-9.3,0,7.05), Color("7b62b8"), false, true)
-    _tower("BlueTower", Vector3(-13.4,0,0), Color("3469ae"))
+        _soldier("BlueRanged%d" % col, hero_spawn + Vector3(2.5+col*1.35,0,2.0), Color("3e9eaa"), true)
+    _soldier("BlueSupport", hero_spawn + Vector3(.9,0,2.05), Color("7b62b8"), false, true)
+    _tower("BlueTower", tower_pos, Color("3469ae"))
 
 func _build_red_force() -> void:
+    var base := _base_for_team("red")
+    var hero_spawn := MapContract.vec3_from(base.get("hero_spawn", []), Vector3(10.2,0,-5.0))
+    var tower_pos := MapContract.vec3_from(base.get("position", []), Vector3(13.4,0,0))
     for row in range(2):
         for col in range(4):
-            _soldier("RedFront%d_%d" % [row,col], Vector3(7.4-col*1.3,0,-3.4-row*1.45), Color("a84443"))
+            _soldier("RedFront%d_%d" % [row,col], hero_spawn + Vector3(-2.8-col*1.3,0,1.6-row*1.45), Color("a84443"))
     for col in range(4):
-        _soldier("RedRanged%d" % col, Vector3(7.7-col*1.35,0,-7.0), Color("bb6247"), true)
-    _tower("RedTower", Vector3(13.4,0,0), Color("923c42"))
+        _soldier("RedRanged%d" % col, hero_spawn + Vector3(-2.5-col*1.35,0,-2.0), Color("bb6247"), true)
+    _tower("RedTower", tower_pos, Color("923c42"))
+
+func _build_objectives() -> void:
+    var index := 0
+    for value in map_data.get("objectives", []):
+        if typeof(value) != TYPE_DICTIONARY:
+            continue
+        var objective: Dictionary = value
+        var pos := MapContract.vec3_from(objective.get("position", []))
+        var radius := max(float(objective.get("radius", 2.0)), .5)
+        _cylinder("ObjectiveRing%d" % index, pos + Vector3(0,.045,0), radius, .06, Color("8951c8"), .3)
+        _sphere("ObjectiveCore%d" % index, pos + Vector3(0,.45,0), .24, Color("cf8cff"), Color("8f54c9"))
+        index += 1
