@@ -56,12 +56,16 @@ static func build_authoring_scene(map_data: Dictionary) -> Dictionary:
     if save_error != OK:
         return {"ok": false, "errors": ["ResourceSaver.save failed: %s" % save_error]}
 
+    var authoring: Dictionary = map_data.get("authoring", {})
     var manifest := {
         "map_id": map_id,
         "contract_version": int(map_data.get("version", 1)),
         "scene": scene_path,
         "providers": provider_state,
         "generated_layers": ["terrain", "structures", "scatter", "gameplay", "navigation", "import"],
+        "visual_style": authoring.get("visual_style", {}),
+        "materials": authoring.get("materials", []),
+        "asset_catalog": authoring.get("asset_catalog", []),
         "ownership": "Close Seal canonical map contract",
         "generated": true
     }
@@ -220,6 +224,7 @@ static func _build_scatter_layer(root: Node3D, map_data: Dictionary, provider_st
                     shape_node.set("shape", box_resource)
                     shape_node.set_meta("map_forge_role", "scatter_zone")
                     shape_node.set_meta("environment_kind", String(zone.get("kind", "environment")))
+                    shape_node.set_meta("asset_id", String(zone.get("asset", "environment.default")))
                     shape_node.set_meta("density", float(zone.get("density", 0.5)))
                     scatter_node.add_child(shape_node)
                     materialized_shapes += 1
