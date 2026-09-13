@@ -1,7 +1,7 @@
 @tool
 extends "res://addons/close_seal_map_forge/map_forge_plugin_physical_sync.gd"
 
-const ARMY_RUNTIME = preload("res://src/map/map_army_runtime_probe.gd")
+const ARMY_RUNTIME = preload("res://src/map/map_army_runtime_probe_v2.gd")
 
 func _enter_tree() -> void:
     super._enter_tree()
@@ -29,7 +29,7 @@ func _install_army_runtime_controls() -> void:
         return
     var bar := HBoxContainer.new()
     bar.name = "ArmyRuntimeToolbar"
-    _add_button(bar, "Army Runtime", _run_army_runtime, "Run executable NavigationServer3D avoidance agents for 10/50/100/500-unit flow")
+    _add_button(bar, "Army Runtime", _run_army_runtime, "Run synchronized NavigationServer3D avoidance agents for 10/50/100/500-unit flow")
     _add_button(bar, "Export Crowd", _export_army_runtime, "Export executable crowd traversal and congestion telemetry JSON")
     nav_tab.add_child(bar)
     nav_tab.move_child(bar, mini(3, nav_tab.get_child_count() - 1))
@@ -38,7 +38,7 @@ func _run_army_runtime() -> Dictionary:
     if current_map.is_empty():
         return {"ok": false, "error": "no map loaded"}
     if navigation_label:
-        navigation_label.text = "[b]Executable Army Flow[/b]\nRunning 10 / 50 / 100 / 500 avoidance-agent probes..."
+        navigation_label.text = "[b]Executable Army Flow[/b]\nSynchronizing navigation, then running 10 / 50 / 100 / 500 avoidance-agent probes..."
     var telemetry: Dictionary = await ARMY_RUNTIME.run(get_tree(), current_map, [10, 50, 100, 500])
     if navigation_label:
         navigation_label.text = ARMY_RUNTIME.format_report(telemetry)
