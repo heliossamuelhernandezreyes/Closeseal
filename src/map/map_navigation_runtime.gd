@@ -13,7 +13,7 @@ static func compile_route_surface(map_data: Dictionary) -> Dictionary:
     var navmesh := NavigationMesh.new()
     _configure_navigation_mesh(navmesh, navigation_cfg)
     var source_geometry: NavigationMeshSourceGeometryData3D = source_result.get("source_geometry")
-    NavigationServer3D.bake_from_source_geometry_data(navmesh, source_geometry)
+    NavigationMeshGenerator.bake_from_source_geometry_data(navmesh, source_geometry)
 
     var baked_polygons := navmesh.get_polygon_count()
     var baked_vertices := navmesh.vertices.size()
@@ -30,7 +30,7 @@ static func compile_route_surface(map_data: Dictionary) -> Dictionary:
         "diagnostics": source_result.get("diagnostics", {}),
         "topology": "godot_recast_bake_from_procedural_triangle_source_geometry",
         "source": "canonical_route_corridors",
-        "pipeline": "semantic_routes -> procedural_triangle_faces -> NavigationMeshSourceGeometryData3D -> NavigationServer3D.bake_from_source_geometry_data"
+        "pipeline": "semantic_routes -> procedural_triangle_faces -> NavigationMeshSourceGeometryData3D -> NavigationMeshGenerator.bake_from_source_geometry_data (Godot 4.7 public API)"
     }
 
 static func build_route_source_geometry(map_data: Dictionary, navigation_cfg: Dictionary = {}) -> Dictionary:
