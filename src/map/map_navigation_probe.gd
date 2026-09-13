@@ -4,11 +4,10 @@ extends RefCounted
 
 const MAP_CONTRACT = preload("res://src/map/map_contract.gd")
 
-static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: Array[int] = [10, 50, 100, 500]) -> Dictionary:
+static func probe(tree: SceneTree, navigation_mesh: NavigationMesh, map_data: Dictionary, loads: Array[int] = [10, 50, 100, 500]) -> Dictionary:
     if navigation_mesh == null:
         return {"ok": false, "error": "navigation mesh is null"}
-    var authoring: Dictionary = map_data.get("authoring", {})
-    var navigation_cfg: Dictionary = authoring.get("navigation", {})
+    var navigation_cfg: Dictionary = map_data.get("authoring", {}).get("navigation", {})
     var probe_speed: float = maxf(float(navigation_cfg.get("probe_speed", 4.0)), 0.1)
     var traffic_cell_size: float = maxf(float(navigation_cfg.get("traffic_cell_size", 1.0)), 0.1)
     var agent_radius: float = maxf(float(navigation_cfg.get("agent_radius", 0.45)), 0.01)
@@ -25,13 +24,24 @@ static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: 
     server.map_set_active(map_rid, true)
     server.map_force_update(map_rid)
 
+    var synchronization: Dictionary = await _wait_for_map_sync(tree, map_rid, 12)
+    if not bool(synchronization.get("ok", false)):
+        server.region_set_map(region_rid, RID())
+        server.free_rid(region_rid)
+        server.free_rid(map_rid)
+        return {
+            "ok": false,
+            "error": "navigation map did not synchronize",
+            "synchronization": synchronization
+        }
+
     var query_results: Dictionary = {}
     var traffic_cells: Dictionary = {}
     var all_queryable := true
     var route_count := 0
     var queryable_count := 0
     var total_path_length := 0.0
-    var max_snap_distance := 0.0
+    var max_endpoint_snap := 0.0
 
     for route_value in map_data.get("routes", []):
         if typeof(route_value) != TYPE_DICTIONARY:
@@ -48,7 +58,7 @@ static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: 
         var finish: Vector3 = server.map_get_closest_point(map_rid, requested_finish)
         var start_snap_distance := requested_start.distance_to(start)
         var finish_snap_distance := requested_finish.distance_to(finish)
-        max_snap_distance = maxf(max_snap_distance, maxf(start_snap_distance, finish_snap_distance))
+        max_endpoint_snap = maxf(max_endpoint_snap, maxf(start_snap_distance, finish_snap_distance))
         var physical_path: PackedVector3Array = server.map_get_path(map_rid, start, finish, true)
         var queryable := physical_path.size() >= 2
         if not queryable:
@@ -81,16 +91,16 @@ static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: 
         query_results[route_id] = {
             "queryable": queryable,
             "waypoints": physical_path.size(),
-            "requested_start": _encode_point(requested_start),
-            "requested_finish": _encode_point(requested_finish),
-            "snapped_start": _encode_point(start),
-            "snapped_finish": _encode_point(finish),
-            "start_snap_distance_m": start_snap_distance,
-            "finish_snap_distance_m": finish_snap_distance,
             "semantic_length_m": semantic_length,
             "physical_length_m": physical_length,
             "detour_ratio": detour_ratio,
             "estimated_travel_seconds": physical_length / probe_speed if queryable else 0.0,
+            "requested_start": [requested_start.x, requested_start.y, requested_start.z],
+            "requested_finish": [requested_finish.x, requested_finish.y, requested_finish.z],
+            "snapped_start": [start.x, start.y, start.z],
+            "snapped_finish": [finish.x, finish.y, finish.z],
+            "start_snap_distance_m": start_snap_distance,
+            "finish_snap_distance_m": finish_snap_distance,
             "loads": load_states,
             "path": _encode_path(physical_path)
         }
@@ -123,8 +133,28 @@ static func probe(navigation_mesh: NavigationMesh, map_data: Dictionary, loads: 
             "cells": traffic_cells
         },
         "total_physical_path_length_m": total_path_length,
-        "max_endpoint_snap_distance_m": max_snap_distance,
+        "max_endpoint_snap_distance_m": max_endpoint_snap,
+        "synchronization": synchronization,
         "claim_boundary": "Physical NavigationServer3D path queries plus derived traffic load; not dynamic crowd simulation or avoidance performance."
+    }
+
+static func _wait_for_map_sync(tree: SceneTree, map_rid: RID, max_frames: int) -> Dictionary:
+    var initial_iteration := NavigationServer3D.map_get_iteration_id(map_rid)
+    for frame in range(1, max_frames + 1):
+        await tree.physics_frame
+        var iteration := NavigationServer3D.map_get_iteration_id(map_rid)
+        if iteration > initial_iteration and iteration > 0:
+            return {
+                "ok": true,
+                "initial_iteration": initial_iteration,
+                "iteration": iteration,
+                "physics_frames_waited": frame
+            }
+    return {
+        "ok": false,
+        "initial_iteration": initial_iteration,
+        "iteration": NavigationServer3D.map_get_iteration_id(map_rid),
+        "physics_frames_waited": max_frames
     }
 
 static func export_telemetry(map_data: Dictionary, telemetry: Dictionary) -> String:
@@ -144,16 +174,18 @@ static func export_telemetry(map_data: Dictionary, telemetry: Dictionary) -> Str
 
 static func format_report(telemetry: Dictionary) -> String:
     if not bool(telemetry.get("ok", false)):
-        return "[color=red][b]Physical navigation probe failed[/b][/color]\nQueryable routes: %d / %d" % [int(telemetry.get("queryable_routes", 0)), int(telemetry.get("route_count", 0))]
+        var error := String(telemetry.get("error", "physical navigation probe failed"))
+        return "[color=red][b]Physical navigation probe failed[/b][/color]\n%s\nQueryable routes: %d / %d" % [error, int(telemetry.get("queryable_routes", 0)), int(telemetry.get("route_count", 0))]
+    var sync: Dictionary = telemetry.get("synchronization", {})
     var lines: Array[String] = [
         "[b]Physical Navigation Probe[/b]",
         "NavigationServer3D queryable routes: %d / %d" % [int(telemetry.get("queryable_routes", 0)), int(telemetry.get("route_count", 0))],
-        "Max endpoint snap: %.3fm" % float(telemetry.get("max_endpoint_snap_distance_m", 0.0))
+        "Map synchronized at iteration %d after %d physics frame(s)" % [int(sync.get("iteration", 0)), int(sync.get("physics_frames_waited", 0))]
     ]
     var results: Dictionary = telemetry.get("query_results", {})
     for route_id in results.keys():
         var state: Dictionary = results[route_id]
-        lines.append("• %s: %.2fm physical / %.2fm semantic • %.2fs • %d waypoints" % [String(route_id), float(state.get("physical_length_m", 0.0)), float(state.get("semantic_length_m", 0.0)), float(state.get("estimated_travel_seconds", 0.0)), int(state.get("waypoints", 0))])
+        lines.append("• %s: %.2fm physical / %.2fm semantic • %.2fs • %d waypoints • snap %.3fm/%.3fm" % [String(route_id), float(state.get("physical_length_m", 0.0)), float(state.get("semantic_length_m", 0.0)), float(state.get("estimated_travel_seconds", 0.0)), int(state.get("waypoints", 0)), float(state.get("start_snap_distance_m", 0.0)), float(state.get("finish_snap_distance_m", 0.0))])
     var grid: Dictionary = telemetry.get("traffic_grid", {})
     lines.append("")
     lines.append("[b]Derived Traffic Heatmap[/b]")
@@ -176,13 +208,10 @@ static func _path_length(path: PackedVector3Array) -> float:
         length += path[i - 1].distance_to(path[i])
     return length
 
-static func _encode_point(point: Vector3) -> Array:
-    return [point.x, point.y, point.z]
-
 static func _encode_path(path: PackedVector3Array) -> Array:
     var encoded: Array = []
     for point in path:
-        encoded.append(_encode_point(point))
+        encoded.append([point.x, point.y, point.z])
     return encoded
 
 static func _accumulate_path_heat(cells: Dictionary, path: PackedVector3Array, cell_size: float, weight: int) -> void:
