@@ -180,7 +180,7 @@
       "formation_width": 6
     },
     {
-      "id": "north_lane",
+      "id": "north_flank",
       "kind": "secondary",
       "width": 8,
       "points": [
@@ -224,7 +224,7 @@
       "formation_width": 6
     },
     {
-      "id": "south_lane",
+      "id": "south_flank",
       "kind": "secondary",
       "width": 8,
       "points": [
