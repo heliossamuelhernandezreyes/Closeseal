@@ -22,12 +22,16 @@ func _ready() -> void:
 func _tex(parent: Node, texture: Texture2D, pos: Vector2, size_: Vector2, mouse := Control.MOUSE_FILTER_IGNORE) -> TextureRect:
     var t := TextureRect.new()
     t.texture = texture
-    t.position = pos
-    t.size = size_
     t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
     t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     t.mouse_filter = mouse
+    t.custom_minimum_size = Vector2.ZERO
     parent.add_child(t)
+    # Control minimum-size negotiation happens when it enters the tree. Apply
+    # the authored mobile HUD rectangle afterwards so SVG intrinsic dimensions
+    # cannot expand panels and ability rings over the tactical viewport.
+    t.position = pos
+    t.size = size_
     return t
 
 func _label(parent: Node, text_: String, pos: Vector2, size_: Vector2, font_size := 16, align := HORIZONTAL_ALIGNMENT_LEFT, color := Color("f3e5bd")) -> Label:
@@ -87,9 +91,9 @@ func _ability(parent: Node, text_: String, pos: Vector2, diameter: float) -> But
 
 func _panel_art(parent: Node, pos: Vector2, size_: Vector2) -> Control:
     var root := Control.new()
+    parent.add_child(root)
     root.position = pos
     root.size = size_
-    parent.add_child(root)
     _tex(root, panel_tex, Vector2.ZERO, size_)
     return root
 
