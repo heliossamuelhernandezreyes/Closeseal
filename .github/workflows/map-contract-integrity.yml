@@ -1,0 +1,42 @@
+name: Map Contract Integrity
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'maps/**'
+      - 'src/map/**'
+      - 'addons/close_seal_map_forge/**'
+      - 'tools/validate_maps.py'
+      - '.github/workflows/map-contract-integrity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'maps/**'
+      - 'src/map/**'
+      - 'addons/close_seal_map_forge/**'
+      - 'tools/validate_maps.py'
+      - '.github/workflows/map-contract-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-maps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate every canonical map
+        run: python tools/validate_maps.py
+      - name: Verify Map Forge architecture exists
+        run: |
+          test -s addons/close_seal_map_forge/map_forge_plugin.gd
+          test -s addons/close_seal_map_forge/map_forge_canvas.gd
+          test -s src/map/map_contract.gd
+          test -s src/map/map_analyzer.gd
+          grep -q 'CloseSealMapContract' src/map/map_analyzer.gd
+          grep -q 'provider-neutral' addons/close_seal_map_forge/map_forge_plugin.gd
