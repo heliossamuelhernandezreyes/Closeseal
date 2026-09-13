@@ -26,7 +26,7 @@
       "sha256": "1a27ff6b428e629178e2a01ca309e6083f0bb7432ab44348b64170a4a000ad9f",
       "target_addon": "addons/cyclops_level_builder",
       "license": "MIT",
-      "status": "pinned_godot_4_7_release_assets_pending_ci_validation"
+      "status": "pinned_godot_4_7_release_assets_validated_in_ci_run_34761738190"
     },
     {
       "id": "proton_scatter",
