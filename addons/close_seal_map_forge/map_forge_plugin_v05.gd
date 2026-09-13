@@ -3,6 +3,7 @@ extends "res://addons/close_seal_map_forge/map_forge_plugin_v04.gd"
 
 const NAV_ANALYZER = preload("res://src/map/map_navigation_analyzer.gd")
 const NAV_LAYER = preload("res://addons/close_seal_map_forge/map_forge_navigation_layer.gd")
+const NAV_RUNTIME = preload("res://src/map/map_navigation_runtime.gd")
 
 var navigation_label: RichTextLabel
 var formation_width_editor: SpinBox
@@ -14,10 +15,10 @@ func _enter_tree() -> void:
     var children := dock.get_children()
     if children.size() > 0 and children[0] is Label:
         var title: Label = children[0]
-        title.text = "CLOSE SEAL — MAP FORGE 0.5"
+        title.text = "CLOSE SEAL — MAP FORGE 0.6"
     if children.size() > 1 and children[1] is Label:
         var subtitle: Label = children[1]
-        subtitle.text = "World authoring • provider bridge • navigation • formation diagnostics"
+        subtitle.text = "World authoring • compiled navigation surface • formation/army-flow diagnostics"
     _install_navigation_tab()
 
 func _install_navigation_tab() -> void:
@@ -44,11 +45,12 @@ func _install_navigation_tab() -> void:
     formation_width_editor.value = 6.0
     toolbar.add_child(formation_width_editor)
     _add_button(toolbar, "Analyze", _run_navigation_audit, "Analyze route clearance and formation fit against semantic blockers")
+    _add_button(toolbar, "Army Flow", _run_army_flow, "Simulate geometric corridor capacity for 10/50/100/500 units")
 
     var worldbar := HBoxContainer.new()
     nav_tab.add_child(worldbar)
-    _add_button(worldbar, "Build World", _build_world_05, "Build provider workspace and install physical NavigationRegion3D bake target")
-    _add_button(worldbar, "Build + Open", _build_world_and_open_05, "Build the 0.5 world and open the generated authoring scene")
+    _add_button(worldbar, "Compile World", _build_world_06, "Build provider workspace and compile canonical route corridors into a real NavigationMesh surface")
+    _add_button(worldbar, "Compile + Open", _build_world_and_open_06, "Compile the 0.6 world and open the generated authoring scene")
 
     navigation_label = RichTextLabel.new()
     navigation_label.bbcode_enabled = true
@@ -58,7 +60,7 @@ func _install_navigation_tab() -> void:
     nav_tab.add_child(navigation_label)
 
     var note := Label.new()
-    note.text = "Semantic clearance is a design-layer diagnostic. NavigationBakeTarget is a real Godot NavigationRegion3D configured for later bake. Map Forge does not claim physical traversability until a navmesh bake/path query verifies it."
+    note.text = "Map Forge 0.6 compiles canonical route corridors into NavigationMesh polygons and models formation/army capacity. This is stronger than a configured-empty bake target, but it still does not claim dynamic avoidance, device performance or terrain-derived walkability until runtime agent tests exist."
     note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     nav_tab.add_child(note)
     _run_navigation_audit()
@@ -74,7 +76,12 @@ func _run_navigation_audit() -> void:
         formation_width = float(formation_width_editor.value)
     navigation_label.text = NAV_ANALYZER.format_report(current_map, formation_width)
 
-func _build_world_05() -> Dictionary:
+func _run_army_flow() -> void:
+    if navigation_label == null or current_map.is_empty():
+        return
+    navigation_label.text = NAV_RUNTIME.format_simulation_report(current_map)
+
+func _build_world_06() -> Dictionary:
     var result: Dictionary = _build_provider_workspace()
     if not bool(result.get("ok", false)):
         return result
@@ -83,16 +90,16 @@ func _build_world_05() -> Dictionary:
     result["navigation"] = nav_result
     if not bool(nav_result.get("ok", false)):
         if navigation_label:
-            navigation_label.text = "[color=red][b]Navigation layer failed[/b][/color]\n%s" % String(nav_result.get("error", "unknown"))
+            navigation_label.text = "[color=red][b]Navigation compilation failed[/b][/color]\n%s" % String(nav_result.get("error", "unknown"))
         return result
     get_editor_interface().get_resource_filesystem().scan()
-    _run_navigation_audit()
     if navigation_label:
-        navigation_label.text += "\n\n[color=green][b]Physical navigation target ready[/b][/color]\nNavigationRegion3D configured • status: %s • agent radius %.2f • cell size %.2f" % [String(nav_result.get("status", "unknown")), float(nav_result.get("agent_radius", 0.0)), float(nav_result.get("cell_size", 0.0))]
+        navigation_label.text = NAV_RUNTIME.format_simulation_report(current_map)
+        navigation_label.text += "\n\n[color=green][b]Navigation surface compiled[/b][/color]\n%d segments • %d polygons • %d vertices • %.1f m² corridor area" % [int(nav_result.get("segments", 0)), int(nav_result.get("polygons", 0)), int(nav_result.get("vertices", 0)), float(nav_result.get("walkable_area_estimate", 0.0))]
     return result
 
-func _build_world_and_open_05() -> void:
-    var result := _build_world_05()
+func _build_world_and_open_06() -> void:
+    var result := _build_world_06()
     if not bool(result.get("ok", false)):
         return
     var scene_path := String(result.get("scene_path", ""))
