@@ -74,12 +74,19 @@ static func _create_navigation_context(navigation_mesh: NavigationMesh, cfg: Dic
 
 static func _wait_for_map_sync(tree: SceneTree, map_rid: RID, max_frames: int) -> Dictionary:
     var initial_iteration := NavigationServer3D.map_get_iteration_id(map_rid)
+    var first_nonzero_iteration := -1
     for frame in range(1, max_frames + 1):
         await tree.physics_frame
         var iteration := NavigationServer3D.map_get_iteration_id(map_rid)
-        if iteration > 0:
-            return {"ok": true, "initial_iteration": initial_iteration, "iteration": iteration, "physics_frames_waited": frame}
-    return {"ok": false, "initial_iteration": initial_iteration, "iteration": NavigationServer3D.map_get_iteration_id(map_rid), "physics_frames_waited": max_frames}
+        if iteration <= 0:
+            continue
+        # The first iteration can precede region mesh queryability.
+        if first_nonzero_iteration < 0:
+            first_nonzero_iteration = iteration
+            continue
+        if iteration > first_nonzero_iteration:
+            return {"ok": true, "initial_iteration": initial_iteration, "first_nonzero_iteration": first_nonzero_iteration, "iteration": iteration, "physics_frames_waited": frame}
+    return {"ok": false, "initial_iteration": initial_iteration, "first_nonzero_iteration": first_nonzero_iteration, "iteration": NavigationServer3D.map_get_iteration_id(map_rid), "physics_frames_waited": max_frames}
 
 static func _free_navigation_context(map_rid: RID, region_rid: RID) -> void:
     if region_rid.is_valid():
