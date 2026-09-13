@@ -18,13 +18,15 @@
     {
       "id": "cyclops",
       "name": "Cyclops Level Builder",
-      "kind": "git_subdir",
-      "repo": "https://github.com/blackears/cyclopsLevelBuilder.git",
-      "commit": "fca8640e3d5e38b1649d503ac62b6dabcbf7b64f",
-      "source_subdir": "godot/addons/cyclops_level_builder",
+      "kind": "release_archive",
+      "repo": "https://github.com/blackears/cyclopsLevelBuilder",
+      "reviewed_source_commit": "29747a3242fbcc1ba733cd07eee6a39ed3bf81fe",
+      "release_tag": "v1.5.0_dev_3",
+      "archive_url": "https://github.com/blackears/cyclopsLevelBuilder/releases/download/v1.5.0_dev_3/cyclops_level_builder_1.5.0_dev_3_for_Godot_4.7.zip",
+      "sha256": "1a27ff6b428e629178e2a01ca309e6083f0bb7432ab44348b64170a4a000ad9f",
       "target_addon": "addons/cyclops_level_builder",
       "license": "MIT",
-      "status": "pinned_pending_editor_validation"
+      "status": "pinned_godot_4_7_release_assets_pending_ci_validation"
     },
     {
       "id": "proton_scatter",
