@@ -151,9 +151,17 @@ static func _build_structure_layer(root: Node3D, map_data: Dictionary, provider_
         var id := String(item.get("id", "structure"))
         var pos := MAP_CONTRACT.vec3_from(item.get("position", []))
         var size := MAP_CONTRACT.vec3_from(item.get("size", []), Vector3(2.0, 2.0, 2.0))
-        var mesh := _box_mesh(id, pos, size, Color(0.36, 0.42, 0.45, 0.65))
+        var kind := String(item.get("kind", "block"))
+        var mesh: MeshInstance3D
+        if kind in ["tower", "turret", "obelisk", "pillar"]:
+            mesh = _cylinder_mesh(id, pos, maxf(size.x, size.z) * 0.5, size.y, Color(0.36, 0.42, 0.45, 0.65))
+        else:
+            mesh = _box_mesh(id, pos, size, Color(0.36, 0.42, 0.45, 0.65))
+        _apply_material_profile(mesh, String(item.get("material", "stone")))
         mesh.set_meta("map_forge_role", "structure_guide")
-        mesh.set_meta("structure_kind", String(item.get("kind", "block")))
+        mesh.set_meta("structure_kind", kind)
+        mesh.set_meta("asset_id", String(item.get("asset", "procedural.structure")))
+        mesh.set_meta("material_id", String(item.get("material", "stone")))
         mesh.set_meta("provider_target", "cyclops")
         guides.add_child(mesh)
 
@@ -315,6 +323,21 @@ static func _route_segment(node_name: String, a: Vector3, b: Vector3, width: flo
     node.rotation.y = -atan2(delta.z, delta.x)
     return node
 
+static func _apply_material_profile(node: MeshInstance3D, material_id: String) -> void:
+    var palette := {
+        "fortress_stone": Color(0.25, 0.30, 0.34, 1.0),
+        "weathered_stone": Color(0.38, 0.40, 0.38, 1.0),
+        "red_iron": Color(0.48, 0.12, 0.08, 1.0),
+        "blue_iron": Color(0.08, 0.22, 0.48, 1.0),
+        "ancient_gold": Color(0.72, 0.48, 0.12, 1.0),
+        "obsidian": Color(0.06, 0.07, 0.10, 1.0),
+        "moss_stone": Color(0.18, 0.30, 0.18, 1.0),
+        "wood_dark": Color(0.20, 0.10, 0.055, 1.0),
+        "crystal_blue": Color(0.12, 0.48, 0.72, 1.0),
+        "crystal_violet": Color(0.48, 0.16, 0.72, 1.0)
+    }
+    var color: Color = palette.get(material_id, Color(0.36, 0.42, 0.45, 1.0))
+    node.material_override = _material(color)
 static func _box_mesh(node_name: String, position: Vector3, size: Vector3, color: Color) -> MeshInstance3D:
     var node := MeshInstance3D.new()
     node.name = node_name
