@@ -2,6 +2,8 @@ extends SceneTree
 
 const MAP_CONTRACT = preload("res://src/map/map_contract.gd")
 const PROVIDER_BRIDGE = preload("res://addons/close_seal_map_forge/map_forge_provider_bridge.gd")
+const NAV_LAYER = preload("res://addons/close_seal_map_forge/map_forge_navigation_layer.gd")
+const NAV_ANALYZER = preload("res://src/map/map_navigation_analyzer.gd")
 const MAP_PATH := "res://maps/competitive_lab_01.json"
 
 func _initialize() -> void:
@@ -18,6 +20,18 @@ func _initialize() -> void:
         return
 
     var scene_path := String(result.get("scene_path", ""))
+    var nav_result: Dictionary = NAV_LAYER.augment_scene(scene_path, map_data)
+    if not bool(nav_result.get("ok", false)):
+        push_error("MAP_FORGE_SMOKE: navigation layer failed: %s" % nav_result.get("error", "unknown"))
+        quit(20)
+        return
+
+    var nav_audit: Dictionary = NAV_ANALYZER.analyze(map_data, 6.0)
+    if int(nav_audit.get("metrics", {}).get("route_count", 0)) < 3:
+        push_error("MAP_FORGE_SMOKE: navigation analyzer did not inspect all routes")
+        quit(21)
+        return
+
     if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
         push_error("MAP_FORGE_SMOKE: generated scene missing: %s" % scene_path)
         quit(12)
@@ -36,12 +50,19 @@ func _initialize() -> void:
         return
 
     var root: Node = instance
-    for required in ["Terrain", "Structures", "Scatter", "GameplayGuides", "NavigationGuides", "Import"]:
+    for required in ["Terrain", "Structures", "Scatter", "GameplayGuides", "NavigationGuides", "Import", "NavigationBakeTarget"]:
         if root.get_node_or_null(required) == null:
             push_error("MAP_FORGE_SMOKE: missing generated layer %s" % required)
             root.free()
             quit(15)
             return
+
+    var nav_target := root.get_node_or_null("NavigationBakeTarget")
+    if not nav_target is NavigationRegion3D or nav_target.navigation_mesh == null:
+        push_error("MAP_FORGE_SMOKE: physical NavigationRegion3D bake target invalid")
+        root.free()
+        quit(22)
+        return
 
     var providers: Dictionary = result.get("providers", {})
     var required_providers := ["terrain3d", "cyclops", "proton_scatter", "func_godot"]
@@ -73,6 +94,8 @@ func _initialize() -> void:
         return
 
     print("MAP_FORGE_PROVIDER_BRIDGE_OK scene=%s" % scene_path)
+    print("MAP_FORGE_NAVIGATION_TARGET_OK status=%s" % String(nav_result.get("status", "unknown")))
+    print("MAP_FORGE_NAVIGATION_AUDIT=%s" % JSON.stringify(nav_audit))
     print("MAP_FORGE_PROVIDER_STATE=%s" % JSON.stringify(providers))
     root.free()
     quit(0)
