@@ -11,6 +11,7 @@ on:
       - 'tools/install_map_authoring_providers.py'
       - 'tools/map_forge_provider_smoke.gd'
       - 'tools/navigation_server_procedural_smoke.gd'
+      - 'tools/navigation_source_geometry_probe.gd'
       - 'tools/map_forge_navigation_probe_smoke.gd'
       - 'tools/map_forge_army_runtime_smoke.gd'
       - '.github/workflows/map-authoring-providers.yml'
@@ -53,6 +54,10 @@ jobs:
             echo 'Provider/editor errors detected after import pass'
             exit 1
           fi
+      - name: Diagnose Recast source geometry and baked coordinates
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/navigation_source_geometry_probe.gd 2>&1 | tee navigation-source-probe.log
+          grep -q 'NAV_SOURCE_PROBE_OK' navigation-source-probe.log
       - name: Build physical Map Forge provider workspace
         run: |
           timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/map_forge_provider_smoke.gd 2>&1 | tee provider-bridge.log
@@ -78,6 +83,7 @@ jobs:
             first-import.log
             provider-import.log
             provider-bridge.log
+            navigation-source-probe.log
             navigation-minimal.log
             navigation-probe.log
             army-runtime.log
