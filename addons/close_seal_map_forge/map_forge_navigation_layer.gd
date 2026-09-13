@@ -2,6 +2,8 @@
 class_name CloseSealMapForgeNavigationLayer
 extends RefCounted
 
+const NAV_RUNTIME = preload("res://src/map/map_navigation_runtime.gd")
+
 static func augment_scene(scene_path: String, map_data: Dictionary) -> Dictionary:
     if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
         return {"ok": false, "error": "generated authoring scene missing"}
@@ -18,9 +20,14 @@ static func augment_scene(scene_path: String, map_data: Dictionary) -> Dictionar
         root3d.remove_child(existing)
         existing.free()
 
+    var compiled: Dictionary = NAV_RUNTIME.compile_route_surface(map_data)
+    if not bool(compiled.get("ok", false)):
+        root3d.free()
+        return {"ok": false, "error": "canonical route surface could not be compiled"}
+
     var region := NavigationRegion3D.new()
     region.name = "NavigationBakeTarget"
-    var navmesh := NavigationMesh.new()
+    var navmesh: NavigationMesh = compiled.get("navigation_mesh")
     var navigation_cfg: Dictionary = map_data.get("authoring", {}).get("navigation", {})
     navmesh.agent_radius = float(navigation_cfg.get("agent_radius", 0.45))
     navmesh.agent_height = float(navigation_cfg.get("agent_height", 1.8))
@@ -29,9 +36,11 @@ static func augment_scene(scene_path: String, map_data: Dictionary) -> Dictionar
     navmesh.cell_size = float(navigation_cfg.get("cell_size", 0.25))
     navmesh.cell_height = float(navigation_cfg.get("cell_height", 0.25))
     region.navigation_mesh = navmesh
-    region.set_meta("map_forge_role", "navigation_bake_target")
-    region.set_meta("map_forge_status", "configured_not_baked")
+    region.set_meta("map_forge_role", "navigation_surface")
+    region.set_meta("map_forge_status", "compiled_route_surface")
     region.set_meta("semantic_routes", map_data.get("routes", []).size())
+    region.set_meta("compiled_segments", int(compiled.get("segments", 0)))
+    region.set_meta("walkable_area_estimate", float(compiled.get("walkable_area_estimate", 0.0)))
     root3d.add_child(region)
     region.owner = root3d
 
@@ -68,8 +77,12 @@ static func augment_scene(scene_path: String, map_data: Dictionary) -> Dictionar
     return {
         "ok": true,
         "scene_path": scene_path,
-        "status": "configured_not_baked",
+        "status": "compiled_route_surface",
         "agent_radius": navmesh.agent_radius,
         "agent_height": navmesh.agent_height,
-        "cell_size": navmesh.cell_size
+        "cell_size": navmesh.cell_size,
+        "segments": int(compiled.get("segments", 0)),
+        "polygons": int(compiled.get("polygons", 0)),
+        "vertices": int(compiled.get("vertices", 0)),
+        "walkable_area_estimate": float(compiled.get("walkable_area_estimate", 0.0))
     }
