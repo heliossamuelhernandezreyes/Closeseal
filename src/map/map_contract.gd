@@ -122,7 +122,61 @@ static func validate(map_data: Dictionary) -> Array[String]:
             if kind == "choke" and float(region.get("width", 0.0)) <= 0.0:
                 errors.append("choke region '%s' width must be positive" % region_id)
 
+    _validate_authoring(map_data.get("authoring", {}), errors)
     return errors
+
+static func _validate_authoring(value, errors: Array[String]) -> void:
+    if value == null:
+        return
+    if typeof(value) != TYPE_DICTIONARY:
+        errors.append("authoring must be a dictionary")
+        return
+    var authoring: Dictionary = value
+    var terrain = authoring.get("terrain", {})
+    if typeof(terrain) != TYPE_DICTIONARY:
+        errors.append("authoring.terrain must be a dictionary")
+    else:
+        if terrain.has("vertex_spacing") and float(terrain.get("vertex_spacing", 0.0)) <= 0.0:
+            errors.append("authoring.terrain.vertex_spacing must be positive")
+        if terrain.has("region_size") and int(terrain.get("region_size", 0)) <= 0:
+            errors.append("authoring.terrain.region_size must be positive")
+
+    var structure_guides = authoring.get("structure_guides", [])
+    if typeof(structure_guides) != TYPE_ARRAY:
+        errors.append("authoring.structure_guides must be an array")
+    else:
+        for item_value in structure_guides:
+            if typeof(item_value) != TYPE_DICTIONARY:
+                errors.append("authoring.structure_guides entries must be dictionaries")
+                continue
+            var item: Dictionary = item_value
+            var item_id := String(item.get("id", "?")).strip_edges()
+            if item_id.is_empty() or item_id == "?":
+                errors.append("authoring structure guide requires id")
+            if not _is_vec3_array(item.get("position", null)):
+                errors.append("authoring structure guide '%s' requires position [x,y,z]" % item_id)
+            if not _is_positive_vec3(item.get("size", null)):
+                errors.append("authoring structure guide '%s' requires positive size [x,y,z]" % item_id)
+
+    var scatter_zones = authoring.get("scatter_zones", [])
+    if typeof(scatter_zones) != TYPE_ARRAY:
+        errors.append("authoring.scatter_zones must be an array")
+    else:
+        for zone_value in scatter_zones:
+            if typeof(zone_value) != TYPE_DICTIONARY:
+                errors.append("authoring.scatter_zones entries must be dictionaries")
+                continue
+            var zone: Dictionary = zone_value
+            var zone_id := String(zone.get("id", "?")).strip_edges()
+            if zone_id.is_empty() or zone_id == "?":
+                errors.append("authoring scatter zone requires id")
+            if not _is_vec3_array(zone.get("center", null)):
+                errors.append("authoring scatter zone '%s' requires center [x,y,z]" % zone_id)
+            if not _is_positive_vec3(zone.get("size", null)):
+                errors.append("authoring scatter zone '%s' requires positive size [x,y,z]" % zone_id)
+            var density := float(zone.get("density", 0.5))
+            if density < 0.0 or density > 1.0:
+                errors.append("authoring scatter zone '%s' density must be between 0 and 1" % zone_id)
 
 static func _validate_collection_ids(value, label: String, seen_ids: Dictionary, errors: Array[String]) -> void:
     if typeof(value) != TYPE_ARRAY:
@@ -141,6 +195,9 @@ static func _validate_collection_ids(value, label: String, seen_ids: Dictionary,
 
 static func _is_vec3_array(value) -> bool:
     return typeof(value) == TYPE_ARRAY and value.size() >= 3
+
+static func _is_positive_vec3(value) -> bool:
+    return _is_vec3_array(value) and float(value[0]) > 0.0 and float(value[1]) > 0.0 and float(value[2]) > 0.0
 
 static func vec3_from(value, fallback := Vector3.ZERO) -> Vector3:
     if not _is_vec3_array(value):
