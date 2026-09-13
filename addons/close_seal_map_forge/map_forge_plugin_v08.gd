@@ -1,5 +1,5 @@
 @tool
-extends "res://addons/close_seal_map_forge/map_forge_plugin_v07.gd"
+extends "res://addons/close_seal_map_forge/map_forge_plugin_physical_sync.gd"
 
 const ARMY_RUNTIME = preload("res://src/map/map_army_runtime_probe.gd")
 
