@@ -20,16 +20,37 @@ jobs:
           curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
           unzip -q godot.zip -d godot-bin
           chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+      - name: Import visual resources
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless 2>&1 | tee visual-import.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' visual-import.log; then
+            echo 'Project script errors detected during visual import'
+            exit 1
+          fi
       - name: Render actual project and capture viewport
         env:
           CLOSESEAL_CAPTURE: ${{ github.workspace }}/close-seal-real-greybox.png
         run: |
-          xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor-pid 0
+          xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor-pid 0 2>&1 | tee visual-capture.log
           test -s close-seal-real-greybox.png
+          grep -q 'CLOSESEAL_MAP_VISUAL_KIT=' visual-capture.log
+          grep -q '"objectives":7' visual-capture.log
+          grep -q '"route_segments":28' visual-capture.log
+          grep -q '"scatter_instances":154' visual-capture.log
+          grep -q '"structures":20' visual-capture.log
+          grep -q '"landforms":8' visual-capture.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|No loader found for resource: res://assets/ui/' visual-capture.log; then
+            echo 'Visual runtime errors detected during capture'
+            exit 1
+          fi
           file close-seal-real-greybox.png
           sha256sum close-seal-real-greybox.png
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: close-seal-real-greybox-${{ github.sha }}
-          path: close-seal-real-greybox.png
-          if-no-files-found: error
+          path: |
+            close-seal-real-greybox.png
+            visual-import.log
+            visual-capture.log
+          if-no-files-found: warn

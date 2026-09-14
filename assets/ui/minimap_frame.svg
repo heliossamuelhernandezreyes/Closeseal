@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 420 420">
+<defs>
+ <radialGradient id="glass"><stop offset="0" stop-color="#1f4d49" stop-opacity=".9"/><stop offset=".72" stop-color="#0a1a20" stop-opacity=".92"/><stop offset="1" stop-color="#03080c" stop-opacity=".95"/></radialGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3d27c"/><stop offset=".5" stop-color="#9d6426"/><stop offset="1" stop-color="#e5b44a"/></linearGradient>
+ <filter id="g"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<circle cx="210" cy="210" r="188" fill="url(#glass)" stroke="url(#gold)" stroke-width="10"/>
+<circle cx="210" cy="210" r="169" fill="none" stroke="#74c8ff" stroke-opacity=".2" stroke-width="3"/>
+<path d="M210 10l15 27h-30ZM210 410l15-27h-30ZM10 210l27-15v30Zm400 0l-27-15v30Z" fill="url(#gold)"/>
+<text x="210" y="46" text-anchor="middle" font-size="28" font-family="serif" font-weight="700" fill="#f2d27b">N</text>
+<text x="210" y="395" text-anchor="middle" font-size="28" font-family="serif" font-weight="700" fill="#f2d27b">S</text>
+<text x="28" y="220" text-anchor="middle" font-size="28" font-family="serif" font-weight="700" fill="#f2d27b">W</text>
+<text x="392" y="220" text-anchor="middle" font-size="28" font-family="serif" font-weight="700" fill="#f2d27b">E</text>
+<path d="M96 284c42-20 55-58 84-74 25-14 51 11 74-3 28-17 38-49 71-64" fill="none" stroke="#66533d" stroke-width="18" stroke-linecap="round" opacity=".9"/>
+<path d="M111 273c44-22 56-54 82-66 24-11 48 9 69-3 26-15 38-45 66-59" fill="none" stroke="#aa8d59" stroke-width="5" stroke-linecap="round" opacity=".6"/>
+<circle cx="132" cy="265" r="8" fill="#4fb7ff" filter="url(#g)"/><circle cx="160" cy="241" r="7" fill="#4fb7ff"/><circle cx="293" cy="166" r="8" fill="#ff625b" filter="url(#g)"/><circle cx="317" cy="144" r="7" fill="#ff625b"/>
+</svg>

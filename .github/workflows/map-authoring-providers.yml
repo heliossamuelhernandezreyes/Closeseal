@@ -1,0 +1,97 @@
+name: Map Authoring Providers
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'addons/close_seal_map_forge/**'
+      - 'maps/**'
+      - 'src/map/**'
+      - 'third_party/map_authoring.lock.json'
+      - 'tools/install_map_authoring_providers.py'
+      - 'tools/map_forge_provider_smoke.gd'
+      - 'tools/navigation_server_procedural_smoke.gd'
+      - 'tools/navigation_source_geometry_probe.gd'
+      - 'tools/map_forge_navigation_probe_smoke.gd'
+      - 'tools/map_forge_army_runtime_smoke.gd'
+      - '.github/workflows/map-authoring-providers.yml'
+      - 'project.godot'
+      - 'src/prototype/tactical_hud.gd'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-providers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install editor/runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip git
+      - name: Download exact Godot 4.7.2 stable editor
+        run: |
+          curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip -d godot-bin
+          chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+      - name: Install exact pinned authoring providers
+        run: |
+          python tools/install_map_authoring_providers.py
+          python tools/install_map_authoring_providers.py --check
+      - name: First import pass
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless > first-import.log 2>&1 || true
+      - name: Validate clean second editor import on Godot 4.7.2
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless 2>&1 | tee provider-import.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon|GDExtension.*failed' provider-import.log; then
+            echo 'Provider/editor errors detected after import pass'
+            exit 1
+          fi
+      - name: Diagnose Recast source geometry and baked coordinates
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/navigation_source_geometry_probe.gd 2>&1 | tee navigation-source-probe.log
+          grep -q 'NAV_SOURCE_PROBE_OK' navigation-source-probe.log
+      - name: Build physical Map Forge provider workspace
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --script res://tools/map_forge_provider_smoke.gd 2>&1 | tee provider-bridge.log
+          grep -q 'MAP_FORGE_PROVIDER_BRIDGE_OK' provider-bridge.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' provider-bridge.log; then
+            echo 'Provider workspace emitted script errors'
+            exit 1
+          fi
+      - name: Validate minimal procedural NavigationServer3D surface
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/navigation_server_procedural_smoke.gd 2>&1 | tee navigation-minimal.log
+          grep -q 'NAVIGATION_SERVER_PROCEDURAL_OK' navigation-minimal.log
+      - name: Query physical navigation and generate traffic telemetry
+        run: |
+          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/map_forge_navigation_probe_smoke.gd 2>&1 | tee navigation-probe.log
+          grep -q 'MAP_FORGE_PHYSICAL_NAVIGATION_OK' navigation-probe.log
+      - name: Execute avoidance-agent army flow
+        run: |
+          timeout 180 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/map_forge_army_runtime_smoke.gd 2>&1 | tee army-runtime.log
+          grep -q 'MAP_FORGE_ARMY_RUNTIME_OK' army-runtime.log
+      - name: Preserve validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: map-authoring-provider-validation-${{ github.sha }}
+          path: |
+            first-import.log
+            provider-import.log
+            provider-bridge.log
+            navigation-source-probe.log
+            navigation-minimal.log
+            navigation-probe.log
+            army-runtime.log
+            maps/generated/*.manifest.json
+            maps/generated/*_navigation_telemetry.json
+            maps/generated/*_army_runtime_telemetry.json
+          if-no-files-found: warn
