@@ -38,6 +38,7 @@ jobs:
           grep -q '"route_segments":28' visual-capture.log
           grep -q '"scatter_instances":154' visual-capture.log
           grep -q '"structures":20' visual-capture.log
+          grep -q '"landforms":8' visual-capture.log
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|No loader found for resource: res://assets/ui/' visual-capture.log; then
             echo 'Visual runtime errors detected during capture'
             exit 1
