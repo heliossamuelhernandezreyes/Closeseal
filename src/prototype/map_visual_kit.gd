@@ -136,6 +136,59 @@ func _build_terrain() -> void:
         _box(layer, "Rill_%s" % z, Vector3(0, 0.015, z), Vector3(13.0, 0.045, 2.2), "water_dark")
         for x in [-6.8, 6.8]:
             _box(layer, "RillBank_%s_%s" % [z, x], Vector3(x, 0.13, z), Vector3(1.2, 0.28, 3.0), "weathered_stone", Vector3(0, 12.0 * signf(x * z), 0))
+    _build_landforms()
+
+func _build_landforms() -> void:
+    var layer: Node3D = layers["VisualTerrain"]
+    var terrain: Dictionary = map_data.get("authoring", {}).get("terrain", {})
+    for value in terrain.get("landforms", []):
+        if typeof(value) != TYPE_DICTIONARY:
+            continue
+        var landform: Dictionary = value
+        var id := String(landform.get("id", "landform"))
+        var kind := String(landform.get("kind", "ridge"))
+        var center := MapContract.vec3_from(landform.get("center", []))
+        var size := MapContract.vec3_from(landform.get("size", []), Vector3(12, 8, 8))
+        var height := maxf(float(landform.get("height", size.y)), 1.0)
+        var material_id := String(landform.get("material", "moss_stone"))
+        match kind:
+            "ridge":
+                _build_ridge_landform(layer, id, center, size, height, material_id)
+            "peak":
+                _build_peak_landform(layer, id, center, size, height, material_id)
+            "cliff":
+                _build_cliff_landform(layer, id, center, size, height, material_id)
+
+func _build_ridge_landform(layer: Node3D, id: String, center: Vector3, size: Vector3, height: float, material_id: String) -> void:
+    var segments := maxi(5, int(size.x / 10.0))
+    _box(layer, id + "_Foot", Vector3(center.x, 0.16, center.z), Vector3(size.x, 0.32, size.z + 1.2), "earth_dark")
+    for index in range(segments):
+        var phase := float(index) / float(segments - 1)
+        var x := center.x - size.x * 0.5 + phase * size.x
+        var local_height := height * (0.58 + 0.42 * sin(phase * PI))
+        var mountain := _cylinder(layer, "%s_Mass_%02d" % [id, index], Vector3(x, local_height * 0.5, center.z), 1.0, local_height, material_id, 7, 0.04)
+        mountain.scale = Vector3(size.x / float(segments) * 0.68, 1.0, size.z * 0.5)
+        var shoulder := _cylinder(layer, "%s_Shoulder_%02d" % [id, index], Vector3(x, local_height * 0.28, center.z + size.z * 0.12), 1.0, local_height * 0.56, "moss_stone", 7, 0.12)
+        shoulder.scale = Vector3(size.x / float(segments) * 0.82, 1.0, size.z * 0.62)
+
+func _build_peak_landform(layer: Node3D, id: String, center: Vector3, size: Vector3, height: float, material_id: String) -> void:
+    _box(layer, id + "_Foot", Vector3(center.x, 0.18, center.z), Vector3(size.x + 1.4, 0.36, size.z + 1.2), "earth_dark")
+    var main := _cylinder(layer, id + "_Summit", Vector3(center.x, height * 0.5, center.z), 1.0, height, material_id, 8, 0.02)
+    main.scale = Vector3(size.x * 0.5, 1.0, size.z * 0.5)
+    var shoulder := _cylinder(layer, id + "_Shoulder", Vector3(center.x - size.x * 0.22, height * 0.28, center.z + size.z * 0.14), 1.0, height * 0.56, "moss_stone", 7, 0.08)
+    shoulder.scale = Vector3(size.x * 0.43, 1.0, size.z * 0.58)
+    var shoulder_b := _cylinder(layer, id + "_ShoulderB", Vector3(center.x + size.x * 0.24, height * 0.22, center.z - size.z * 0.12), 1.0, height * 0.44, "fortress_stone", 7, 0.08)
+    shoulder_b.scale = Vector3(size.x * 0.38, 1.0, size.z * 0.52)
+    _sphere(layer, id + "_Beacon", Vector3(center.x, height + 0.35, center.z), 0.28, "crystal_blue")
+
+func _build_cliff_landform(layer: Node3D, id: String, center: Vector3, size: Vector3, height: float, material_id: String) -> void:
+    var segments := maxi(5, int(size.z / 5.0))
+    for index in range(segments):
+        var phase := float(index) / float(segments - 1)
+        var z := center.z - size.z * 0.5 + phase * size.z
+        var local_height := height * (0.62 + 0.24 * sin(phase * PI * 2.0))
+        var block := _box(layer, "%s_Block_%02d" % [id, index], Vector3(center.x, local_height * 0.5, z), Vector3(size.x, local_height, size.z / float(segments) * 1.12), material_id, Vector3(0, 0, (phase - 0.5) * 5.0))
+        block.scale = Vector3(1.0, 1.0, 1.0)
 
 func _build_routes() -> void:
     var layer: Node3D = layers["VisualRoutes"]
