@@ -1,8 +1,8 @@
 {
   "version": 1,
   "id": "competitive_lab_01",
-  "display_name": "Citadel of the Five Roads",
-  "description": "Large symmetric 3D tactical arena with a fortified central seal, three formation lanes, two jungle flanks, resource objectives, defensive towers and readable cover.",
+  "display_name": "Citadel of the Five Roads — Mountain Basin",
+  "description": "Large mobile-first Hero RTS arena in a fortified mountain basin. Five routes cross a readable central lowland surrounded by visual ridges, peaks, passes, relics, ruins and controlled forest belts.",
   "bounds": {
     "width": 96,
     "depth": 64
@@ -568,10 +568,208 @@
       "vertex_spacing": 1,
       "region_size": 128,
       "material": "moss_stone",
-      "height_profile": "low_basin_with_raised_rims",
+      "height_profile": "mountain_basin_with_raised_rims_and_passes",
       "water_features": [
         "north_rill",
-        "south_rill"
+        "south_rill",
+        "west_spring",
+        "east_spring"
+      ],
+      "landforms": [
+        {
+          "id": "north_ridge",
+          "kind": "ridge",
+          "center": [
+            0,
+            0,
+            -31
+          ],
+          "size": [
+            80,
+            16,
+            4
+          ],
+          "height": 15,
+          "material": "moss_stone",
+          "blocks_navigation": false,
+          "navigation_role": "visual_boundary"
+        },
+        {
+          "id": "south_ridge",
+          "kind": "ridge",
+          "center": [
+            0,
+            0,
+            31
+          ],
+          "size": [
+            80,
+            16,
+            4
+          ],
+          "height": 15,
+          "material": "moss_stone",
+          "blocks_navigation": false,
+          "navigation_role": "visual_boundary"
+        },
+        {
+          "id": "northwest_peak",
+          "kind": "peak",
+          "center": [
+            -40,
+            0,
+            -29
+          ],
+          "size": [
+            14,
+            12,
+            10
+          ],
+          "height": 19,
+          "material": "weathered_stone",
+          "blocks_navigation": false,
+          "navigation_role": "visual_boundary"
+        },
+        {
+          "id": "northeast_peak",
+          "kind": "peak",
+          "center": [
+            40,
+            0,
+            -29
+          ],
+          "size": [
+            14,
+            12,
+            10
+          ],
+          "height": 19,
+          "material": "weathered_stone",
+          "blocks_navigation": false,
+          "navigation_role": "visual_boundary"
+        },
+        {
+          "id": "southwest_peak",
+          "kind": "peak",
+          "center": [
+            -40,
+            0,
+            29
+          ],
+          "size": [
+            14,
+            12,
+            10
+          ],
+          "height": 19,
+          "material": "weathered_stone",
+          "blocks_navigation": false,
+          "navigation_role": "visual_boundary"
+        },
+        {
+          "id": "southeast_peak",
+          "kind": "peak",
+          "center": [
+            40,
+            0,
+            29
+          ],
+          "size": [
+            14,
+            12,
+            10
+          ],
+          "height": 19,
+          "material": "weathered_stone",
+          "blocks_navigation": false,
+          "navigation_role": "visual_boundary"
+        },
+        {
+          "id": "west_pass_cliff",
+          "kind": "cliff",
+          "center": [
+            -45,
+            0,
+            0
+          ],
+          "size": [
+            5,
+            10,
+            28
+          ],
+          "height": 9,
+          "material": "fortress_stone",
+          "blocks_navigation": false,
+          "navigation_role": "visual_boundary"
+        },
+        {
+          "id": "east_pass_cliff",
+          "kind": "cliff",
+          "center": [
+            45,
+            0,
+            0
+          ],
+          "size": [
+            5,
+            10,
+            28
+          ],
+          "height": 9,
+          "material": "fortress_stone",
+          "blocks_navigation": false,
+          "navigation_role": "visual_boundary"
+        }
+      ],
+      "elevation_zones": [
+        {
+          "id": "central_playable_basin",
+          "kind": "basin",
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            76,
+            2,
+            44
+          ],
+          "elevation": 0,
+          "navigation_role": "walkable_routes"
+        },
+        {
+          "id": "north_ridge_band",
+          "kind": "ridge_band",
+          "center": [
+            0,
+            0,
+            -31
+          ],
+          "size": [
+            80,
+            16,
+            4
+          ],
+          "elevation": 15,
+          "navigation_role": "visual_boundary"
+        },
+        {
+          "id": "south_ridge_band",
+          "kind": "ridge_band",
+          "center": [
+            0,
+            0,
+            31
+          ],
+          "size": [
+            80,
+            16,
+            4
+          ],
+          "elevation": 15,
+          "navigation_role": "visual_boundary"
+        }
       ]
     },
     "materials": [
