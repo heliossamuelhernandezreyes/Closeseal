@@ -11,6 +11,7 @@ var stats := {
     "structures": 0,
     "objectives": 0,
     "scatter_instances": 0,
+    "landforms": 0,
 }
 
 func _init(target: Node3D, contract: Dictionary) -> void:
@@ -158,6 +159,7 @@ func _build_landforms() -> void:
                 _build_peak_landform(layer, id, center, size, height, material_id)
             "cliff":
                 _build_cliff_landform(layer, id, center, size, height, material_id)
+        stats["landforms"] = int(stats["landforms"]) + 1
 
 func _build_ridge_landform(layer: Node3D, id: String, center: Vector3, size: Vector3, height: float, material_id: String) -> void:
     var segments := maxi(5, int(size.x / 10.0))
