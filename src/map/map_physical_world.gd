@@ -4,84 +4,155 @@ extends RefCounted
 
 const MAP_CONTRACT = preload("res://src/map/map_contract.gd")
 
-static func analyze(map_data: Dictionary) -> Dictionary:
+static func profile_path(map_id: String) -> String:
+    return "res://maps/%s.physical.json" % map_id
+
+static func load_profile(map_id: String) -> Dictionary:
+    var path := profile_path(map_id)
+    if not FileAccess.file_exists(path):
+        return {}
+    var file := FileAccess.open(path, FileAccess.READ)
+    if file == null:
+        return {}
+    var parsed = JSON.parse_string(file.get_as_text())
+    return parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+
+static func analyze(map_data: Dictionary, profile: Dictionary = {}) -> Dictionary:
     var errors: Array[String] = []
     var warnings: Array[String] = []
-    var terrain: Dictionary = map_data.get("authoring", {}).get("terrain", {})
-    var landforms: Array = terrain.get("landforms", [])
-    var blocking := 0
-    var tactical := 0
-    var visual_only := 0
-    for value in landforms:
-        if typeof(value) != TYPE_DICTIONARY:
-            errors.append("terrain landform must be a dictionary")
-            continue
-        var landform: Dictionary = value
-        var id := String(landform.get("id", "")).strip_edges()
-        if id.is_empty():
-            errors.append("terrain landform requires id")
-        if not _finite_vec3_array(landform.get("center", null)):
-            errors.append("landform '%s' requires finite center [x,y,z]" % id)
-        if not _positive_vec3_array(landform.get("size", null)):
-            errors.append("landform '%s' requires positive size [x,y,z]" % id)
-        if float(landform.get("height", 0.0)) <= 0.0:
-            errors.append("landform '%s' requires positive height" % id)
-        var blocks := bool(landform.get("blocks_navigation", false))
-        var role := String(landform.get("navigation_role", "visual_boundary"))
-        if blocks:
-            blocking += 1
-        if role in ["tactical_boundary", "blocking_cliff", "pass_wall"]:
-            tactical += 1
-        elif role == "visual_boundary":
-            visual_only += 1
+    var map_id := String(map_data.get("id", ""))
+    if profile.is_empty():
+        profile = load_profile(map_id)
+    if profile.is_empty():
+        errors.append("physical profile missing for '%s'" % map_id)
+        return {"ok": false, "errors": errors, "warnings": warnings}
+    if String(profile.get("map_id", "")) != map_id:
+        errors.append("physical profile map_id does not match canonical map")
 
-    var navigation: Dictionary = map_data.get("authoring", {}).get("navigation", {})
-    var unit_diameter := float(navigation.get("formation_unit_diameter", 0.9))
-    var spacing := float(navigation.get("formation_spacing", 0.25))
-    var footprint := maxf(unit_diameter + spacing, 0.1)
+    var blockers: Array = profile.get("terrain_blockers", [])
+    var passes: Array = profile.get("passes", [])
+    var tactical := 0
+    for value in blockers:
+        if typeof(value) != TYPE_DICTIONARY:
+            errors.append("terrain blocker must be a dictionary")
+            continue
+        var blocker: Dictionary = value
+        var id := String(blocker.get("id", "")).strip_edges()
+        if id.is_empty(): errors.append("terrain blocker requires id")
+        if not _finite_vec3_array(blocker.get("center", null)): errors.append("blocker '%s' requires finite center" % id)
+        if not _positive_vec3_array(blocker.get("size", null)): errors.append("blocker '%s' requires positive size" % id)
+        if String(blocker.get("navigation_role", "")) in ["tactical_boundary", "blocking_cliff", "pass_wall"]:
+            tactical += 1
+    if tactical == 0:
+        errors.append("physical profile has no tactical blocking terrain")
+
+    var route_ids: Dictionary = {}
+    var formation: Dictionary = profile.get("formation", {})
+    var footprint := maxf(float(formation.get("unit_diameter", 0.9)) + float(formation.get("spacing", 0.25)), 0.1)
+    var minimum_columns := maxi(1, int(formation.get("minimum_columns", 3)))
     var route_capacity: Dictionary = {}
     for value in map_data.get("routes", []):
-        if typeof(value) != TYPE_DICTIONARY:
-            continue
+        if typeof(value) != TYPE_DICTIONARY: continue
         var route: Dictionary = value
         var route_id := String(route.get("id", "route"))
+        route_ids[route_id] = true
         var width := float(route.get("width", 0.0))
         var required := float(route.get("formation_width", width))
         var columns := maxi(1, int(floor(width / footprint)))
         route_capacity[route_id] = {"width": width, "formation_width": required, "columns": columns}
-        if width + 0.001 < required:
-            errors.append("route '%s' is narrower than its declared formation width" % route_id)
-        if columns < 3:
-            warnings.append("route '%s' supports fewer than three formation columns" % route_id)
+        if width + 0.001 < required: errors.append("route '%s' is narrower than declared formation width" % route_id)
+        if columns < minimum_columns: errors.append("route '%s' cannot satisfy minimum formation columns" % route_id)
 
-    var budgets: Dictionary = map_data.get("authoring", {}).get("performance_budget", {})
-    if budgets.is_empty():
-        warnings.append("authoring.performance_budget is not declared")
-    else:
-        if int(budgets.get("target_fps", 0)) <= 0:
-            errors.append("performance_budget.target_fps must be positive")
-        if int(budgets.get("max_active_units", 0)) <= 0:
-            errors.append("performance_budget.max_active_units must be positive")
-        if int(budgets.get("max_visible_scatter_instances", 0)) <= 0:
-            errors.append("performance_budget.max_visible_scatter_instances must be positive")
+    for value in passes:
+        if typeof(value) != TYPE_DICTIONARY: continue
+        var pass_data: Dictionary = value
+        var pass_id := String(pass_data.get("id", "pass"))
+        var route_id := String(pass_data.get("connects_route", ""))
+        if not route_ids.has(route_id): errors.append("pass '%s' references unknown route '%s'" % [pass_id, route_id])
+        if float(pass_data.get("width", 0.0)) <= 0.0: errors.append("pass '%s' requires positive width" % pass_id)
+        if float(pass_data.get("max_slope_degrees", 91.0)) > 45.0: warnings.append("pass '%s' exceeds recommended tactical slope" % pass_id)
 
-    if not landforms.is_empty() and tactical == 0 and blocking == 0:
-        warnings.append("all terrain landforms are presentation-only; no tactical terrain is declared")
+    var budgets: Dictionary = profile.get("performance_budget", {})
+    for key in ["target_fps", "max_active_units", "max_visible_scatter_instances"]:
+        if float(budgets.get(key, 0)) <= 0.0: errors.append("performance_budget.%s must be positive" % key)
+    if not bool(budgets.get("require_measured_device_evidence", false)):
+        warnings.append("device evidence is not required by profile")
 
     return {
-        "ok": errors.is_empty(),
-        "errors": errors,
-        "warnings": warnings,
-        "landforms": {"total": landforms.size(), "blocking": blocking, "tactical": tactical, "visual_only": visual_only},
-        "route_capacity": route_capacity,
-        "performance_budget": budgets,
-        "model": "semantic-to-physical readiness gate; runtime benchmark remains required"
+        "ok": errors.is_empty(), "errors": errors, "warnings": warnings,
+        "blockers": blockers.size(), "tactical_blockers": tactical, "passes": passes.size(),
+        "water_crossings": profile.get("water_crossings", []).size(), "biomes": profile.get("biomes", []).size(),
+        "route_capacity": route_capacity, "performance_budget": budgets,
+        "model": "canonical map + provider-neutral physical profile; target-device benchmark remains a separate claim"
     }
 
+static func augment_scene(scene_path: String, map_data: Dictionary, profile: Dictionary = {}) -> Dictionary:
+    if profile.is_empty(): profile = load_profile(String(map_data.get("id", "")))
+    var audit := analyze(map_data, profile)
+    if not bool(audit.get("ok", false)): return audit
+    if scene_path.is_empty() or not ResourceLoader.exists(scene_path): return {"ok": false, "error": "authoring scene missing"}
+    var packed = load(scene_path)
+    if packed == null or not packed is PackedScene: return {"ok": false, "error": "authoring scene is not PackedScene"}
+    var root = packed.instantiate()
+    if root == null or not root is Node3D: return {"ok": false, "error": "authoring scene cannot instantiate"}
+    var root3d: Node3D = root
+    var old := root3d.get_node_or_null("PhysicalWorld")
+    if old != null:
+        root3d.remove_child(old)
+        old.free()
+    var layer := Node3D.new()
+    layer.name = "PhysicalWorld"
+    layer.set_meta("map_forge_role", "canonical_physical_constraints")
+    root3d.add_child(layer)
+    layer.owner = root3d
+    for value in profile.get("terrain_blockers", []):
+        if typeof(value) != TYPE_DICTIONARY: continue
+        var blocker: Dictionary = value
+        var body := StaticBody3D.new()
+        body.name = String(blocker.get("id", "blocker"))
+        body.position = MAP_CONTRACT.vec3_from(blocker.get("center", []))
+        body.set_meta("navigation_role", String(blocker.get("navigation_role", "tactical_boundary")))
+        var shape_node := CollisionShape3D.new()
+        var shape := BoxShape3D.new()
+        shape.size = MAP_CONTRACT.vec3_from(blocker.get("size", []), Vector3.ONE)
+        shape_node.shape = shape
+        body.add_child(shape_node)
+        layer.add_child(body)
+        body.owner = root3d
+        shape_node.owner = root3d
+    for value in profile.get("passes", []):
+        if typeof(value) != TYPE_DICTIONARY: continue
+        var pass_data: Dictionary = value
+        var marker := Marker3D.new()
+        marker.name = String(pass_data.get("id", "pass"))
+        marker.position = MAP_CONTRACT.vec3_from(pass_data.get("center", []))
+        marker.set_meta("map_forge_role", "tactical_pass")
+        marker.set_meta("width", float(pass_data.get("width", 0.0)))
+        marker.set_meta("connects_route", String(pass_data.get("connects_route", "")))
+        layer.add_child(marker)
+        marker.owner = root3d
+    var repacked := PackedScene.new()
+    if repacked.pack(root3d) != OK:
+        root3d.free()
+        return {"ok": false, "error": "physical world repack failed"}
+    var save_error := ResourceSaver.save(repacked, scene_path)
+    root3d.free()
+    if save_error != OK: return {"ok": false, "error": "physical world save failed"}
+    audit["scene_path"] = scene_path
+    audit["materialized_collision_bodies"] = profile.get("terrain_blockers", []).size()
+    return audit
+
+static func format_report(result: Dictionary) -> String:
+    var lines: Array[String] = ["[b]Map Forge 1.0 — Physical World[/b]"]
+    lines.append("[color=green]READY[/color]" if bool(result.get("ok", false)) else "[color=red]BLOCKED[/color]")
+    lines.append("%d tactical blockers • %d passes • %d water crossings • %d biomes" % [int(result.get("tactical_blockers", 0)), int(result.get("passes", 0)), int(result.get("water_crossings", 0)), int(result.get("biomes", 0))])
+    for error in result.get("errors", []): lines.append("[color=red]ERROR[/color] %s" % error)
+    for warning in result.get("warnings", []): lines.append("[color=yellow]WARN[/color] %s" % warning)
+    lines.append("Android FPS remains unproven until measured on target hardware.")
+    return "\n".join(lines)
+
 static func _finite_vec3_array(value) -> bool:
-    if typeof(value) != TYPE_ARRAY or value.size() < 3:
-        return false
-    return is_finite(float(value[0])) and is_finite(float(value[1])) and is_finite(float(value[2]))
+    return typeof(value) == TYPE_ARRAY and value.size() >= 3 and is_finite(float(value[0])) and is_finite(float(value[1])) and is_finite(float(value[2]))
 
 static func _positive_vec3_array(value) -> bool:
     return _finite_vec3_array(value) and float(value[0]) > 0.0 and float(value[1]) > 0.0 and float(value[2]) > 0.0
