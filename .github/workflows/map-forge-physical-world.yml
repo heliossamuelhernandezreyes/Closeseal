@@ -1,0 +1,60 @@
+name: Map Forge Physical World
+
+on:
+  pull_request:
+    branches: [art/first-visual-pass, main]
+    paths:
+      - 'maps/**'
+      - 'src/map/**'
+      - 'addons/close_seal_map_forge/**'
+      - 'tools/validate_physical_world.py'
+      - 'tools/map_forge_physical_world_smoke.gd'
+      - '.github/workflows/map-forge-physical-world.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  physical-world:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate canonical map contracts
+        run: python tools/validate_maps.py
+      - name: Validate physical profiles and mobile budgets
+        run: python tools/validate_physical_world.py
+      - name: Install Godot runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip git
+      - name: Download exact Godot 4.7.2 stable editor
+        run: |
+          curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip -d godot-bin
+          chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+      - name: Install pinned Map Forge providers
+        run: python tools/install_map_authoring_providers.py
+      - name: Import project and reject script errors
+        run: |
+          timeout 120 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless 2>&1 | tee physical-import.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon' physical-import.log; then exit 1; fi
+      - name: Materialize tactical collision world and navigation
+        run: |
+          timeout 150 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --script res://tools/map_forge_physical_world_smoke.gd 2>&1 | tee physical-world.log
+          grep -q 'MAP_FORGE_PHYSICAL_WORLD_OK' physical-world.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' physical-world.log; then exit 1; fi
+      - name: Preserve physical-world evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: map-forge-physical-world-${{ github.sha }}
+          path: |
+            physical-import.log
+            physical-world.log
+            maps/generated/*.manifest.json
+          if-no-files-found: warn
