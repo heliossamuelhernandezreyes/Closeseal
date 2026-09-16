@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "map_id": "competitive_lab_01",
+  "source_of_truth": "maps/competitive_lab_01.json",
+  "intent": "provider-neutral physical constraints derived from canonical Citadel semantics",
+  "terrain_blockers": [
+    {"id":"north_ridge_wall_w","kind":"ridge","center":[-25,7.5,-31],"size":[30,15,3.5],"navigation_role":"tactical_boundary"},
+    {"id":"north_ridge_wall_e","kind":"ridge","center":[25,7.5,-31],"size":[30,15,3.5],"navigation_role":"tactical_boundary"},
+    {"id":"south_ridge_wall_w","kind":"ridge","center":[-25,7.5,31],"size":[30,15,3.5],"navigation_role":"tactical_boundary"},
+    {"id":"south_ridge_wall_e","kind":"ridge","center":[25,7.5,31],"size":[30,15,3.5],"navigation_role":"tactical_boundary"},
+    {"id":"northwest_peak_body","kind":"peak","center":[-43,9.5,-30],"size":[10,19,8],"navigation_role":"blocking_cliff"},
+    {"id":"northeast_peak_body","kind":"peak","center":[43,9.5,-30],"size":[10,19,8],"navigation_role":"blocking_cliff"},
+    {"id":"southwest_peak_body","kind":"peak","center":[-43,9.5,30],"size":[10,19,8],"navigation_role":"blocking_cliff"},
+    {"id":"southeast_peak_body","kind":"peak","center":[43,9.5,30],"size":[10,19,8],"navigation_role":"blocking_cliff"}
+  ],
+  "passes": [
+    {"id":"north_crown_pass","center":[0,0,-28],"width":9,"max_slope_degrees":18,"connects_route":"north_jungle_flank"},
+    {"id":"south_crown_pass","center":[0,0,28],"width":9,"max_slope_degrees":18,"connects_route":"south_jungle_flank"},
+    {"id":"west_basin_gate","center":[-43,0,0],"width":10,"max_slope_degrees":12,"connects_route":"main_lane"},
+    {"id":"east_basin_gate","center":[43,0,0],"width":10,"max_slope_degrees":12,"connects_route":"main_lane"}
+  ],
+  "water_crossings": [
+    {"id":"north_rill_bridge","center":[0,0,-12],"width":8,"walkable":true},
+    {"id":"south_rill_bridge","center":[0,0,12],"width":8,"walkable":true}
+  ],
+  "biomes": [
+    {"id":"basin_lowland","kind":"grassland","max_visible_instances":180,"lod_near":22,"lod_far":55},
+    {"id":"north_pine_belt","kind":"conifer","max_visible_instances":140,"lod_near":18,"lod_far":48},
+    {"id":"south_pine_belt","kind":"conifer","max_visible_instances":140,"lod_near":18,"lod_far":48},
+    {"id":"ridge_rock","kind":"rock","max_visible_instances":96,"lod_near":25,"lod_far":65}
+  ],
+  "formation": {"unit_diameter":0.9,"spacing":0.25,"minimum_columns":3},
+  "performance_budget": {
+    "target_platform":"representative_mid_range_android",
+    "target_fps":60,
+    "frame_budget_ms":16.67,
+    "max_active_units":200,
+    "max_visible_scatter_instances":556,
+    "max_dynamic_shadow_lights":1,
+    "max_material_variants_visible":32,
+    "require_measured_device_evidence":true
+  },
+  "claim_boundary":"This profile defines collision/navigation intent and budgets. It is not measured Android performance or final balance evidence."
+}
