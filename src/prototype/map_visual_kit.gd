@@ -7,6 +7,7 @@ var root: Node3D
 var map_data: Dictionary
 var layers: Dictionary = {}
 var materials: Dictionary = {}
+var errors: Array[String] = []
 var stats := {
     "custom_meshes": 0,
     "asset_instances": 0,
@@ -32,6 +33,7 @@ func build() -> Dictionary:
     _build_map_frame()
     _build_custom_geometry()
     _build_asset_instances()
+    stats["errors"] = errors.duplicate()
     return stats.duplicate(true)
 
 func _build_custom_geometry() -> void:
@@ -84,14 +86,17 @@ func _build_asset_instances() -> void:
         var definition: Dictionary = value
         var path := String(definition.get("scene", ""))
         if not ResourceLoader.exists(path):
+            errors.append("Map Forge asset scene missing: " + path)
             push_error("Map Forge asset scene missing: " + path)
             continue
         var packed = load(path)
         if not packed is PackedScene:
+            errors.append("Map Forge asset must be a PackedScene: " + path)
             push_error("Map Forge asset must be a PackedScene: " + path)
             continue
         var instance = packed.instantiate()
         if not instance is Node3D:
+            errors.append("Map Forge asset root must be Node3D: " + path)
             push_error("Map Forge asset root must be Node3D: " + path)
             instance.free()
             continue

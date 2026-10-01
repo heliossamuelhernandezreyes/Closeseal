@@ -117,7 +117,7 @@ def validate_world_extensions(authoring, errors):
                 vertices, indices = item.get("vertices"), item.get("indices")
                 if not isinstance(vertices, list) or len(vertices) < 3 or not all(vec3(v) for v in vertices):
                     errors.append(f"geometry {identity} requires at least three vertices")
-                if not isinstance(indices, list) or len(indices) < 3 or len(indices) % 3 or not isinstance(vertices, list) or not all(type(i) is int and 0 <= i < len(vertices) for i in indices):
+                if not isinstance(indices, list) or len(indices) < 3 or len(indices) % 3 or not isinstance(vertices, list) or not all(type(i) in (int, float) and math.isfinite(i) and i == int(i) and 0 <= i < len(vertices) for i in indices):
                     errors.append(f"geometry {identity} requires triangle indices within vertex bounds")
             if label in {"geometry", "instances"}:
                 for field in ("position", "rotation_degrees"):

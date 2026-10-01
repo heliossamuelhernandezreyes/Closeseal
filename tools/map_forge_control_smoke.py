@@ -41,7 +41,7 @@ def main():
     state["map"]["display_name"] = "Editor control — deliberately authored geometry"
     state["physical"]["map_id"] = map_id
     state["physical"]["source_of_truth"] = "maps/" + map_id + ".json"
-    state["map"]["authoring"]["geometry"] = [{"id": "authored_ramp", "position": [0, 0, 9], "vertices": [[-7, 0, -3], [-7, 0, 3], [7, 4, 3], [7, 4, -3]], "indices": [0, 1, 2, 0, 2, 3], "material": "ancient_gold", "collision": True}]
+    state["map"]["authoring"]["geometry"] = [{"id": "authored_ramp", "position": [0, 0, 9], "vertices": [[-7, 0, -3], [-7, 0, 3], [7, 4, 3], [7, 4, -3]], "indices": [0.0, 1.0, 2.0, 0.0, 2.0, 3.0], "material": "ancient_gold", "collision": True}]
     state["map"]["authoring"]["instances"] = [{"id": "placed_asset", "scene": "res://tests/fixtures/editor_asset.tscn", "position": [8, 1.5, 10], "rotation_degrees": [0, 35, 0], "scale": [1, 1, 1]}]
     try:
         dry = control("create", map_id=map_id, state=state)
@@ -53,6 +53,9 @@ def main():
         assert control("inspect", map_id=map_id)["revision"] == created["revision"]
         changed = control("patch", map_id=map_id, if_revision=created["revision"], patch=[{"op": "replace", "path": "/map/authoring/geometry/@authored_ramp/position", "value": [0, 0, 12]}, {"op": "replace", "path": "/map/authoring/instances/@placed_asset/rotation_degrees/1", "value": 75}], dry_run=False)
         if args.engine:
+            missing = control("patch", map_id=map_id, if_revision=changed["revision"], patch=[{"op": "replace", "path": "/map/authoring/instances/@placed_asset/scene", "value": "res://tests/fixtures/missing_asset.tscn"}], dry_run=False)
+            control("materialize", expected=False, map_id=map_id)
+            control("restore", map_id=map_id, if_revision=missing["revision"], restore_revision=changed["revision"], dry_run=False)
             built = control("materialize", map_id=map_id)
             assert built["navigation"]["polygons"] > 0
             assert built["physical"]["materialized_collision_bodies"] >= 8

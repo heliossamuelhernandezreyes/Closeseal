@@ -57,6 +57,9 @@ func _run() -> void:
     root.add_child(world)
     var kit = VISUAL_KIT.new(world, data)
     var stats: Dictionary = kit.build()
+    if not stats.get("errors", []).is_empty():
+        _finish({"ok": false, "errors": stats["errors"]})
+        return
     var sun := DirectionalLight3D.new()
     sun.rotation_degrees = Vector3(-48, -32, 0)
     sun.light_energy = 1.5

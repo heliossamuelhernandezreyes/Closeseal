@@ -45,6 +45,9 @@ static func build_authoring_scene(map_data: Dictionary) -> Dictionary:
     root.add_child(visual_root)
     var visual_kit = VISUAL_KIT.new(visual_root, map_data)
     var visual_stats: Dictionary = visual_kit.build()
+    if not visual_stats.get("errors", []).is_empty():
+        root.free()
+        return {"ok": false, "errors": visual_stats["errors"]}
 
     for child in [terrain_root, structures_root, scatter_root, gameplay_root, navigation_root, import_root, visual_root]:
         if child != null:
