@@ -5,6 +5,11 @@ extends RefCounted
 const NAV_RUNTIME = preload("res://src/map/map_navigation_runtime.gd")
 
 static func augment_scene(scene_path: String, map_data: Dictionary) -> Dictionary:
+    var mode := String(map_data.get("authoring", {}).get("navigation", {}).get("mode", "none" if map_data.get("purpose", "competitive") == "environment" else "routes"))
+    if mode == "none":
+        return {"ok": true, "status": "navigation_not_requested", "polygons": 0}
+    if mode == "world":
+        return _augment_world(scene_path, map_data)
     if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
         return {"ok": false, "error": "generated authoring scene missing"}
     var packed = load(scene_path)
@@ -86,3 +91,34 @@ static func augment_scene(scene_path: String, map_data: Dictionary) -> Dictionar
         "vertices": int(compiled.get("vertices", 0)),
         "walkable_area_estimate": float(compiled.get("walkable_area_estimate", 0.0))
     }
+
+static func _augment_world(scene_path: String, data: Dictionary) -> Dictionary:
+    var packed = load(scene_path)
+    if not packed is PackedScene:
+        return {"ok": false, "error": "world navigation requires a saved scene"}
+    var root3d: Node3D = packed.instantiate()
+    var loop: SceneTree = Engine.get_main_loop()
+    loop.root.add_child(root3d)
+    var mesh := NavigationMesh.new()
+    var settings: Dictionary = data.get("authoring", {}).get("navigation", {})
+    for key in ["agent_radius", "agent_height", "agent_max_climb", "agent_max_slope", "cell_size", "cell_height"]:
+        if settings.has(key):
+            mesh.set(key, settings[key])
+    mesh.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
+    mesh.region_min_size = 0.5
+    var source := NavigationMeshSourceGeometryData3D.new()
+    NavigationServer3D.parse_source_geometry_data(mesh, source, root3d)
+    NavigationServer3D.bake_from_source_geometry_data(mesh, source)
+    var region := NavigationRegion3D.new()
+    region.name = "NavigationBakeTarget"
+    region.navigation_mesh = mesh
+    root3d.add_child(region)
+    region.owner = root3d
+    var polygons := mesh.get_polygon_count()
+    var result := {"ok": polygons > 0, "status": "baked_actual_world_colliders", "polygons": polygons, "vertices": mesh.get_vertices().size()}
+    var repacked := PackedScene.new()
+    if repacked.pack(root3d) != OK or ResourceSaver.save(repacked, scene_path) != OK:
+        result = {"ok": false, "error": "world navigation scene save failed"}
+    loop.root.remove_child(root3d)
+    root3d.free()
+    return result

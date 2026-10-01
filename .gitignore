@@ -6,3 +6,9 @@ export_presets.cfg
 *.log
 .DS_Store
 Thumbs.db
+.mapforge/
+__pycache__/
+
+# Ephemeral maps used by the public control smoke test
+maps/control_authored_demo.json
+maps/physical/control_authored_demo.json

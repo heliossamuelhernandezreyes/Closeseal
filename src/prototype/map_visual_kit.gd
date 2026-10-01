@@ -1,12 +1,18 @@
+@tool
 extends RefCounted
 
 const MapContract = preload("res://src/map/map_contract.gd")
+const ENVIRONMENT = preload("res://src/map/map_environment.gd")
+var environment_builder: RefCounted
 
 var root: Node3D
 var map_data: Dictionary
 var layers: Dictionary = {}
 var materials: Dictionary = {}
+var errors: Array[String] = []
 var stats := {
+    "custom_meshes": 0,
+    "asset_instances": 0,
     "route_segments": 0,
     "structures": 0,
     "objectives": 0,
@@ -21,13 +27,109 @@ func _init(target: Node3D, contract: Dictionary) -> void:
 func build() -> Dictionary:
     _create_layers()
     _load_materials()
-    _build_terrain()
-    _build_routes()
-    _build_structures()
-    _build_objectives()
-    _build_scatter()
-    _build_map_frame()
+    if map_data.get("purpose", "competitive") == "competitive":
+        _build_terrain()
+        _build_routes()
+        _build_structures()
+        _build_objectives()
+        _build_scatter()
+        _build_map_frame()
+    environment_builder = ENVIRONMENT.new(root, map_data.get("authoring", {}), materials)
+    stats.merge(environment_builder.build(), true)
+    if map_data.get("purpose", "competitive") == "environment":
+        ENVIRONMENT.configure_world(root, map_data.get("authoring", {}))
+    _build_custom_geometry()
+    _build_asset_instances()
+    stats["errors"] = errors.duplicate()
     return stats.duplicate(true)
+
+func _build_custom_geometry() -> void:
+    for value in map_data.get("authoring", {}).get("geometry", []):
+        if not value is Dictionary:
+            continue
+        var definition: Dictionary = value
+        var vertices := PackedVector3Array()
+        for point in definition.get("vertices", []):
+            vertices.append(MapContract.vec3_from(point))
+        var indices := PackedInt32Array()
+        for index in definition.get("indices", []):
+            indices.append(int(index))
+        if vertices.size() < 3 or indices.size() < 3:
+            continue
+        var normals := PackedVector3Array()
+        normals.resize(vertices.size())
+        for triangle in range(0, indices.size(), 3):
+            var a := indices[triangle]
+            var b := indices[triangle + 1]
+            var c := indices[triangle + 2]
+            # Godot's front faces use clockwise winding.
+            var normal := (vertices[c] - vertices[a]).cross(vertices[b] - vertices[a]).normalized()
+            normals[a] += normal
+            normals[b] += normal
+            normals[c] += normal
+        for index in range(normals.size()):
+            normals[index] = normals[index].normalized()
+        var arrays: Array = []
+        arrays.resize(Mesh.ARRAY_MAX)
+        arrays[Mesh.ARRAY_VERTEX] = vertices
+        arrays[Mesh.ARRAY_NORMAL] = normals
+        arrays[Mesh.ARRAY_INDEX] = indices
+        if definition.has("uvs"):
+            var uvs := PackedVector2Array()
+            for uv in definition["uvs"]:
+                uvs.append(Vector2(float(uv[0]), float(uv[1])))
+            arrays[Mesh.ARRAY_TEX_UV] = uvs
+        var mesh := ArrayMesh.new()
+        mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+        mesh.surface_set_material(0, _material(String(definition.get("material", "earth_dark"))))
+        if definition.has("uvs"):
+            mesh = ENVIRONMENT.with_tangents(mesh)
+        var instance := MeshInstance3D.new()
+        instance.name = String(definition.get("id", "custom_geometry"))
+        instance.mesh = mesh
+        instance.position = MapContract.vec3_from(definition.get("position", [0, 0, 0]))
+        instance.rotation_degrees = MapContract.vec3_from(definition.get("rotation_degrees", [0, 0, 0]))
+        instance.scale = MapContract.vec3_from(definition.get("scale", [1, 1, 1]), Vector3.ONE)
+        environment_builder.parent_for(definition, layers["VisualTerrain"]).add_child(instance)
+        if bool(definition.get("collision", false)):
+            instance.create_trimesh_collision()
+        stats["custom_meshes"] = int(stats["custom_meshes"]) + 1
+
+func _build_asset_instances() -> void:
+    for value in map_data.get("authoring", {}).get("instances", []):
+        if not value is Dictionary:
+            continue
+        var definition: Dictionary = value
+        var path := String(definition.get("scene", ""))
+        if not ResourceLoader.exists(path):
+            errors.append("Map Forge asset scene missing: " + path)
+            push_error("Map Forge asset scene missing: " + path)
+            continue
+        var packed = load(path)
+        if not packed is PackedScene:
+            errors.append("Map Forge asset must be a PackedScene: " + path)
+            push_error("Map Forge asset must be a PackedScene: " + path)
+            continue
+        var instance = packed.instantiate()
+        if not instance is Node3D:
+            errors.append("Map Forge asset root must be Node3D: " + path)
+            push_error("Map Forge asset root must be Node3D: " + path)
+            instance.free()
+            continue
+        instance.name = String(definition.get("id", "asset"))
+        instance.position = MapContract.vec3_from(definition.get("position", [0, 0, 0]))
+        instance.rotation_degrees = MapContract.vec3_from(definition.get("rotation_degrees", [0, 0, 0]))
+        instance.scale = MapContract.vec3_from(definition.get("scale", [1, 1, 1]))
+        if definition.has("material"):
+            _override_material_recursive(instance, _material(String(definition["material"])))
+        environment_builder.parent_for(definition, layers["VisualStructures"]).add_child(instance)
+        stats["asset_instances"] = int(stats["asset_instances"]) + 1
+
+func _override_material_recursive(node: Node, material: Material) -> void:
+    if node is MeshInstance3D:
+        node.material_override = material
+    for child in node.get_children():
+        _override_material_recursive(child, material)
 
 func _create_layers() -> void:
     for layer_name in ["VisualTerrain", "VisualRoutes", "VisualStructures", "VisualObjectives", "VisualScatter", "VisualDetails"]:
@@ -43,10 +145,32 @@ func _load_materials() -> void:
             continue
         var definition: Dictionary = value
         var id := String(definition.get("id", "material"))
+        if definition.has("resource"):
+            var resource = load(String(definition["resource"])) if ResourceLoader.exists(String(definition["resource"])) else null
+            if resource is Material:
+                materials[id] = resource
+            else:
+                errors.append("Material resource missing or invalid: " + String(definition["resource"]))
+            continue
         var material := StandardMaterial3D.new()
         material.albedo_color = Color(String(definition.get("albedo", "#808080")))
         material.roughness = float(definition.get("roughness", 0.8))
         material.metallic = float(definition.get("metallic", 0.0))
+        if float(definition.get("opacity", 1)) < 1:
+            material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+            material.albedo_color.a = float(definition["opacity"])
+        material.cull_mode = BaseMaterial3D.CULL_DISABLED if bool(definition.get("double_sided", false)) else BaseMaterial3D.CULL_BACK
+        material.uv1_scale = MapContract.vec3_from(definition.get("uv_scale", [1, 1, 1]), Vector3.ONE)
+        for key in ["albedo_texture", "normal_texture", "roughness_texture", "metallic_texture"]:
+            if not definition.has(key):
+                continue
+            var texture = load(String(definition[key])) if ResourceLoader.exists(String(definition[key])) else null
+            if not texture is Texture2D:
+                errors.append("Material texture missing or invalid: " + String(definition[key]))
+                continue
+            material.set(key, texture)
+            if key == "normal_texture":
+                material.normal_enabled = true
         if definition.has("emission"):
             material.emission_enabled = true
             material.emission = Color(String(definition.get("emission", "#000000")))
@@ -75,7 +199,7 @@ func _ensure_material(id: String, color: Color, roughness: float, metallic: floa
         material.emission_energy_multiplier = 1.8
     materials[id] = material
 
-func _material(id: String) -> StandardMaterial3D:
+func _material(id: String) -> Material:
     if materials.has(id):
         return materials[id]
     return materials.get("weathered_stone", materials.get("earth_dark"))

@@ -3,6 +3,7 @@ import json
 import math
 import sys
 from pathlib import Path
+from validate_environment import validate as validate_environment
 
 ROOT = Path(__file__).resolve().parents[1]
 MAP_DIR = ROOT / "maps"
@@ -12,7 +13,7 @@ REGION_KINDS = {"formation_space", "choke", "objective_zone", "spawn_zone", "haz
 
 
 def vec3(v):
-    return isinstance(v, list) and len(v) >= 3 and all(isinstance(x, (int, float)) for x in v[:3])
+    return isinstance(v, list) and len(v) >= 3 and all(type(x) in (int, float) and math.isfinite(x) for x in v[:3])
 
 
 def positive_vec3(v):
@@ -24,12 +25,12 @@ def dist(a, b):
 
 
 def validate_authoring(authoring, errors):
-    if authoring is None:
-        return
     if not isinstance(authoring, dict):
         errors.append("authoring must be an object")
         return
 
+    validate_world_extensions(authoring, errors)
+    errors.extend(validate_environment(authoring))
     terrain = authoring.get("terrain", {})
     if not isinstance(terrain, dict):
         errors.append("authoring.terrain must be an object")
@@ -85,6 +86,51 @@ def validate_authoring(authoring, errors):
                 errors.append(f"authoring scatter zone '{zone_id or '?'}' density must be between 0 and 1")
 
 
+
+def validate_world_extensions(authoring, errors):
+    groups = {
+        "landforms": authoring.get("terrain", {}).get("landforms", []) if isinstance(authoring.get("terrain", {}), dict) else [],
+        "geometry": authoring.get("geometry", []),
+        "instances": authoring.get("instances", []),
+        "materials": authoring.get("materials", []),
+    }
+    for label, values in groups.items():
+        if not isinstance(values, list):
+            errors.append(f"authoring.{label} must be an array")
+            continue
+        seen = set()
+        for item in values:
+            if not isinstance(item, dict):
+                errors.append(f"authoring.{label} entries must be objects")
+                continue
+            identity = item.get("id")
+            if not isinstance(identity, str) or not identity.strip() or identity in seen:
+                errors.append(f"authoring.{label} requires unique non-empty ids")
+            else:
+                seen.add(identity)
+            if label == "landforms":
+                if not vec3(item.get("center")) or not positive_vec3(item.get("size")):
+                    errors.append(f"landform {identity} requires center and positive size")
+                if not isinstance(item.get("height"), (int, float)) or item["height"] <= 0:
+                    errors.append(f"landform {identity} requires positive height")
+            if label == "geometry":
+                vertices, indices = item.get("vertices"), item.get("indices")
+                if not isinstance(vertices, list) or len(vertices) < 3 or not all(vec3(v) for v in vertices):
+                    errors.append(f"geometry {identity} requires at least three vertices")
+                if not isinstance(indices, list) or len(indices) < 3 or len(indices) % 3 or not isinstance(vertices, list) or not all(type(i) in (int, float) and math.isfinite(i) and i == int(i) and 0 <= i < len(vertices) for i in indices):
+                    errors.append(f"geometry {identity} requires triangle indices within vertex bounds")
+            if label in {"geometry", "instances"}:
+                for field in ("position", "rotation_degrees"):
+                    if field in item and not vec3(item[field]):
+                        errors.append(f"{label} {identity} has invalid {field}")
+            if label == "instances":
+                scene = item.get("scene", "")
+                if not isinstance(scene, str) or not scene.startswith("res://") or ".." in scene.split("/"):
+                    errors.append(f"instance {identity} requires a project scene path")
+                if "scale" in item and not positive_vec3(item["scale"]):
+                    errors.append(f"instance {identity} requires positive scale")
+
+
 def validate(data, path):
     errors = []
     warnings = []
@@ -123,7 +169,7 @@ def validate(data, path):
 
     bases = data.get("bases", [])
     if isinstance(bases, list):
-        if len(bases) < 2:
+        if len(bases) < 2 and data.get("purpose", "competitive") != "environment":
             errors.append("at least two bases are required")
         for base in bases:
             if isinstance(base, dict) and not vec3(base.get("position")):
@@ -159,6 +205,8 @@ def validate(data, path):
                 errors.append(f"choke '{rid}' width must be positive")
 
     validate_authoring(data.get("authoring", {}), errors)
+    if data.get("purpose", "competitive") not in ("competitive", "environment"):
+        errors.append("purpose must be competitive or environment")
 
     if len(bases) >= 2 and all(isinstance(b, dict) and vec3(b.get("position")) for b in bases[:2]):
         midpoint = [(bases[0]["position"][i] + bases[1]["position"][i]) * 0.5 for i in range(3)]

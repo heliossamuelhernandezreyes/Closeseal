@@ -3,6 +3,7 @@ class_name CloseSealMapForgeProviderBridge
 extends RefCounted
 
 const MAP_CONTRACT = preload("res://src/map/map_contract.gd")
+const VISUAL_KIT = preload("res://src/prototype/map_visual_kit.gd")
 
 const TERRAIN3D_PLUGIN := "res://addons/terrain_3d/plugin.cfg"
 const CYCLOPS_ROOT_SCRIPT := "res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd"
@@ -39,8 +40,16 @@ static func build_authoring_scene(map_data: Dictionary) -> Dictionary:
     var gameplay_root := _build_gameplay_guides(root, map_data)
     var navigation_root := _build_navigation_guides(root, map_data)
     var import_root := _build_import_socket(root, provider_state)
+    var visual_root := Node3D.new()
+    visual_root.name = "MapVisuals"
+    root.add_child(visual_root)
+    var visual_kit = VISUAL_KIT.new(visual_root, map_data)
+    var visual_stats: Dictionary = visual_kit.build()
+    if not visual_stats.get("errors", []).is_empty():
+        root.free()
+        return {"ok": false, "errors": visual_stats["errors"]}
 
-    for child in [terrain_root, structures_root, scatter_root, gameplay_root, navigation_root, import_root]:
+    for child in [terrain_root, structures_root, scatter_root, gameplay_root, navigation_root, import_root, visual_root]:
         if child != null:
             _assign_owner_recursive(child, root)
 
@@ -67,7 +76,8 @@ static func build_authoring_scene(map_data: Dictionary) -> Dictionary:
         "materials": authoring.get("materials", []),
         "asset_catalog": authoring.get("asset_catalog", []),
         "ownership": "Close Seal canonical map contract",
-        "generated": true
+        "generated": true,
+        "visual_stats": visual_stats
     }
     _write_json(generated_manifest_path(map_id), manifest)
 
@@ -85,6 +95,9 @@ static func _build_terrain_layer(root: Node3D, map_data: Dictionary, map_id: Str
 
     var authoring: Dictionary = map_data.get("authoring", {})
     var terrain_cfg: Dictionary = authoring.get("terrain", {})
+    if map_data.get("purpose", "competitive") == "environment" and terrain_cfg.get("provider", "native") == "native":
+        provider_state["terrain3d"] = {"available": ClassDB.class_exists(&"Terrain3D"), "materialized": false, "mode": "authored_native_heightfields"}
+        return layer
     var bounds: Dictionary = map_data.get("bounds", {})
     var width := float(bounds.get("width", 44.0))
     var depth := float(bounds.get("depth", 29.0))
@@ -94,13 +107,20 @@ static func _build_terrain_layer(root: Node3D, map_data: Dictionary, map_id: Str
         if terrain_object is Node:
             var terrain_node: Node = terrain_object
             terrain_node.name = "Terrain3D"
+            if map_data.get("purpose", "competitive") == "environment":
+                terrain_node.visible = false
             var data_dir := String(terrain_cfg.get("data_directory", "res://maps/generated/terrain/%s" % map_id))
-            if _has_property(terrain_node, "data_directory"):
-                terrain_node.set("data_directory", data_dir)
             if _has_property(terrain_node, "vertex_spacing"):
                 terrain_node.set("vertex_spacing", float(terrain_cfg.get("vertex_spacing", 1.0)))
-            if _has_property(terrain_node, "region_size"):
-                terrain_node.set("region_size", int(terrain_cfg.get("region_size", 64)))
+            # Terrain3D 1.0.2 creates an uninitialized data object when an existing
+            # directory is assigned outside the SceneTree. Its region_size setter
+            # would then dereference an unset terrain pointer. Disk regions supply
+            # their size on enter_tree; the synchronizer sizes new data after init.
+            terrain_node.set_meta("map_forge_region_size", int(terrain_cfg.get("region_size", 64)))
+            if _has_property(terrain_node, "save_16_bit"):
+                terrain_node.set("save_16_bit", false)
+            if _has_property(terrain_node, "data_directory"):
+                terrain_node.set("data_directory", data_dir)
             terrain_node.set_meta("map_forge_role", "terrain_provider")
             terrain_node.set_meta("map_forge_bounds", Vector2(width, depth))
             layer.add_child(terrain_node)
@@ -113,6 +133,9 @@ static func _build_terrain_layer(root: Node3D, map_data: Dictionary, map_id: Str
         _add_terrain_envelope(layer, width, depth)
 
     var boundary := _box_mesh("TerrainBoundsGuide", Vector3(0.0, -0.34, 0.0), Vector3(width, 0.08, depth), Color(0.16, 0.33, 0.24, 0.18))
+    if map_data.get("purpose", "competitive") == "environment":
+        boundary.free()
+        return layer
     boundary.set_meta("map_forge_role", "terrain_bounds_guide")
     layer.add_child(boundary)
     return layer

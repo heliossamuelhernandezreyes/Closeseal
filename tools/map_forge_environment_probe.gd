@@ -1,0 +1,83 @@
+extends SceneTree
+const BRUSH = preload("res://src/map/map_terrain_brush.gd")
+
+func _initialize() -> void:
+    _run.call_deferred()
+
+func _crosses_obstacle(start: Vector3, finish: Vector3) -> bool:
+    # Exact X/Z segment-versus-box test, including a 0.2 m agent clearance.
+    var low := 0.0
+    var high := 1.0
+    for axis in [0, 2]:
+        var delta: float = finish[axis] - start[axis]
+        if absf(delta) < 0.000001:
+            if absf(start[axis]) > 2.2:
+                return false
+        else:
+            var first: float = (-2.2 - start[axis]) / delta
+            var last: float = (2.2 - start[axis]) / delta
+            low = maxf(low, minf(first, last))
+            high = minf(high, maxf(first, last))
+            if low > high:
+                return false
+    return true
+
+func _run() -> void:
+    var file := FileAccess.open("res://tests/fixtures/terrain_brush_parity.json", FileAccess.READ)
+    var fixture: Dictionary = JSON.parse_string(file.get_as_text())
+    var actual: Dictionary = fixture["initial"]
+    for operation in fixture["operations"]:
+        actual = BRUSH.apply(actual, operation)
+    var field: Dictionary = actual["authoring"]["heightfields"][0]
+    var expected: Dictionary = fixture["expected"]["authoring"]["heightfields"][0]
+    for index in range(field["heights"].size()):
+        if absf(float(field["heights"][index]) - float(expected["heights"][index])) > 0.000001:
+            push_error("BRUSH_PARITY: height mismatch")
+            quit(1)
+            return
+    if field["paint"] != expected["paint"] or field["holes"] != expected["holes"]:
+        push_error("BRUSH_PARITY: paint or holes mismatch")
+        quit(2)
+        return
+    var packed: PackedScene = load("res://maps/generated/environment_interior_lab_authoring.tscn")
+    var scene: Node3D = packed.instantiate()
+    root.add_child(scene)
+    await physics_frame
+    var region: NavigationRegion3D = scene.get_node("NavigationBakeTarget")
+    var map_rid := region.get_navigation_map()
+    # The first map iteration can describe an empty world before the region's
+    # queued mesh is synchronized. Flush those commands before querying it.
+    await physics_frame
+    NavigationServer3D.map_force_update(map_rid)
+    for _attempt in range(60):
+        await physics_frame
+        var ready_point := NavigationServer3D.map_get_closest_point(map_rid, Vector3(-9, 0, 0))
+        if NavigationServer3D.map_get_iteration_id(map_rid) > 0 and ready_point.distance_to(Vector3(-9, 0, 0)) < 1:
+            break
+    var from := NavigationServer3D.map_get_closest_point(map_rid, Vector3(-9, 0, 0))
+    var to := NavigationServer3D.map_get_closest_point(map_rid, Vector3(9, 0, 0))
+    var path := NavigationServer3D.map_get_path(map_rid, from, to, true)
+    var centre := NavigationServer3D.map_get_closest_point(map_rid, Vector3.ZERO)
+    print("WORLD_NAVIGATION_QUERY " + JSON.stringify({"path": Array(path), "centre": centre, "iteration": NavigationServer3D.map_get_iteration_id(map_rid), "editor": Engine.is_editor_hint(), "polygons": region.navigation_mesh.get_polygon_count(), "regions": NavigationServer3D.map_get_regions(map_rid).size()}))
+    var minimum_distance := INF
+    var intersects := path.size() <= 2
+    for index in range(path.size() - 1):
+        intersects = intersects or _crosses_obstacle(path[index], path[index + 1])
+        var nearest := Geometry2D.get_closest_point_to_segment(Vector2.ZERO, Vector2(path[index].x, path[index].z), Vector2(path[index + 1].x, path[index + 1].z))
+        minimum_distance = minf(minimum_distance, nearest.length())
+    if intersects:
+        push_error("WORLD_NAVIGATION: path did not avoid the actual central collider")
+        quit(3)
+        return
+    var query := PhysicsRayQueryParameters3D.create(Vector3(0, 10, 0), Vector3(0, -2, 0))
+    var hit := scene.get_world_3d().direct_space_state.intersect_ray(query)
+    if hit.is_empty() or String(hit["collider"].get_parent().name) != "centre_pillar":
+        push_error("WORLD_COLLISION: authored collider missing")
+        quit(4)
+        return
+    var output := {"ok": true, "brush_modes": fixture["operations"].size(), "path_points": path.size(), "minimum_path_distance_from_centre": minimum_distance, "path_excludes_expanded_obstacle": true, "collision_hit": "centre_pillar"}
+    var evidence := FileAccess.open("res://.mapforge/environment-probe.json", FileAccess.WRITE)
+    evidence.store_string(JSON.stringify(output, "  "))
+    print("MAP_FORGE_ENVIRONMENT_PROBE_OK " + JSON.stringify(output))
+    scene.free()
+    quit(0)

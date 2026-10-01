@@ -1,0 +1,53 @@
+{
+  "protocol_version": 1,
+  "editor": "Close Seal Map Forge",
+  "map_directory": "maps",
+  "physical_directory": "maps/physical",
+  "adapter_command": [
+    "python3",
+    "tools/map_forge_adapter.py"
+  ],
+  "adapter_timeout_seconds": 240,
+  "arcont_tool_environment": "ARCONT_ROOT",
+  "creative_configuration": {
+    "presets_required": false,
+    "all_contract_fields_editable": true,
+    "geometry_decided_by_author": true,
+    "model_service_required": false,
+    "coordinate_system": "Godot metres; Y up; X/Z ground plane",
+    "editable_layers": [
+      "bases",
+      "objectives",
+      "routes",
+      "regions",
+      "terrain",
+      "structures",
+      "scatter",
+      "materials",
+      "physical",
+      "extensions",
+      "heightfields",
+      "primitive_objects",
+      "lights",
+      "environment",
+      "resource_instances"
+    ],
+    "purposes": [
+      "competitive",
+      "environment"
+    ],
+    "terrain_brush_modes": [
+      "raise",
+      "lower",
+      "flatten",
+      "smooth",
+      "paint",
+      "hole",
+      "fill"
+    ]
+  },
+  "godot_bridge": "res://tools/map_forge_control_worker.gd",
+  "editor_actions": [
+    "terrain_pull"
+  ]
+}

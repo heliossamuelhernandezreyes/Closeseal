@@ -1,0 +1,90 @@
+name: Map Forge Editor Control
+
+on:
+  pull_request:
+    branches: [art/first-visual-pass, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  control:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: heliossamuelhernandezreyes/Arcont
+          ref: c59ad6b748814ce01c56aac360060c58b8534ba8
+          path: arcont-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate authored contracts and control transactions
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+        run: |
+          python tools/validate_maps.py
+          python tools/validate_physical_world.py
+          python tools/map_forge_control_smoke.py
+          python -m unittest discover -s tests -q
+          python tools/map_forge_environment_smoke.py
+      - name: Install render dependencies and exact Godot
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip git
+          curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip -d godot-bin
+          chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+          python tools/install_map_authoring_providers.py
+      - name: Import the editor and reject script errors
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 120 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --import 2>&1 | tee editor-control-import.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon' editor-control-import.log; then exit 1; fi
+      - name: Exercise World 3D selection and validated edits
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 120 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --script res://tools/map_forge_world_view_smoke.gd 2>&1 | tee editor-world-view.log
+          grep -q 'MAP_FORGE_WORLD_VIEW_OK' editor-world-view.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' editor-world-view.log; then exit 1; fi
+      - name: Operate the editor and inspect five real rendered views
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/map_forge_control_smoke.py --engine
+      - name: Author and render three different environments
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: xvfb-run -a python tools/map_forge_environment_smoke.py --engine
+      - name: Query real world navigation and brush parity
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 120 godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/map_forge_environment_probe.gd 2>&1 | tee environment-probe.log
+          grep -q MAP_FORGE_ENVIRONMENT_PROBE_OK environment-probe.log
+          if grep -E "SCRIPT ERROR|Parse Error|Failed to load script" environment-probe.log; then exit 1; fi
+      - name: Preserve editor evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: map-forge-editor-control-${{ github.sha }}
+          include-hidden-files: true
+          path: |
+            editor-control-import.log
+            editor-world-view.log
+            .mapforge/control-smoke.json
+            .mapforge/environment-smoke.json
+            .mapforge/environment-probe.json
+            environment-probe.log
+            maps/generated/terrain/environment_alpine_lab/
+            maps/generated/environment_*_authoring.tscn
+            maps/generated/environment_*_authoring.manifest.json
+            .mapforge/evidence/
+          if-no-files-found: warn
+          retention-days: 30
