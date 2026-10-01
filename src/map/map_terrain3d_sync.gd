@@ -25,7 +25,6 @@ static func synchronize(state: Dictionary, pull := false) -> Dictionary:
     DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
     var terrain = ClassDB.instantiate(&"Terrain3D")
     terrain.set("vertex_spacing", spacing)
-    terrain.set("region_size", 64)
     terrain.set("save_16_bit", false)
     terrain.set("data_directory", directory)
     terrain.visible = false
@@ -36,6 +35,12 @@ static func synchronize(state: Dictionary, pull := false) -> Dictionary:
     if provider == null:
         terrain.free()
         return {"ok": false, "error": "Terrain3D data did not initialize"}
+    # In 1.0.2 the region_size property invokes change_region_size; before the
+    # data object exists that setter is a no-op. Set it after initialization.
+    provider.call("change_region_size", 64)
+    if int(terrain.get("region_size")) != 64:
+        terrain.free()
+        return {"ok": false, "error": "Terrain3D region size did not initialize as 64"}
     var util = ClassDB.instantiate(&"Terrain3DUtil")
     if not pull:
         # The pinned 1.0.2 importer snaps image origins to region boundaries.

@@ -55,12 +55,13 @@ func _run() -> void:
             result["terrain3d"] = await TERRAIN_SYNC.synchronize(state)
             result["ok"] = bool(result["terrain3d"].get("ok", false))
         if bool(result.get("ok", false)):
+            if not physical.is_empty():
+                result["physical"] = PHYSICAL.augment_scene(String(result["scene_path"]), data, physical)
+                result["ok"] = bool(result["physical"].get("ok", false))
+        if bool(result.get("ok", false)):
             var navigation := NAVIGATION.augment_scene(String(result.get("scene_path", "")), data)
             result["navigation"] = navigation
             result["ok"] = bool(navigation.get("ok", false))
-            if not physical.is_empty() and bool(result["ok"]):
-                result["physical"] = PHYSICAL.augment_scene(String(result["scene_path"]), data, physical)
-                result["ok"] = bool(result["physical"].get("ok", false))
         _finish(result)
         return
     var world := Node3D.new()

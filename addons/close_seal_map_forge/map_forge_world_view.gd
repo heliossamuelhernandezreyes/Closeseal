@@ -208,7 +208,7 @@ func _rebuild_tree() -> void:
     root_item.set_metadata(0, [])
     if selected_object.is_empty():
         root_item.select(0)
-    for collection_path in [["bases"], ["objectives"], ["routes"], ["regions"], ["authoring", "structure_guides"], ["authoring", "scatter_zones"], ["authoring", "terrain", "landforms"], ["authoring", "materials"], ["authoring", "heightfields"], ["authoring", "objects"], ["authoring", "lights"], ["authoring", "heightfields"], ["authoring", "objects"], ["authoring", "lights"], ["authoring", "geometry"], ["authoring", "instances"]]:
+    for collection_path in [["bases"], ["objectives"], ["routes"], ["regions"], ["authoring", "structure_guides"], ["authoring", "scatter_zones"], ["authoring", "terrain", "landforms"], ["authoring", "materials"], ["authoring", "heightfields"], ["authoring", "objects"], ["authoring", "lights"], ["authoring", "geometry"], ["authoring", "instances"]]:
         var values = _get_at(document, collection_path)
         if not values is Array:
             continue
