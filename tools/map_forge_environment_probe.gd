@@ -4,6 +4,24 @@ const BRUSH = preload("res://src/map/map_terrain_brush.gd")
 func _initialize() -> void:
     _run.call_deferred()
 
+func _crosses_obstacle(start: Vector3, finish: Vector3) -> bool:
+    # Exact X/Z segment-versus-box test, including a 0.2 m agent clearance.
+    var low := 0.0
+    var high := 1.0
+    for axis in [0, 2]:
+        var delta: float = finish[axis] - start[axis]
+        if absf(delta) < 0.000001:
+            if absf(start[axis]) > 2.2:
+                return false
+        else:
+            var first: float = (-2.2 - start[axis]) / delta
+            var last: float = (2.2 - start[axis]) / delta
+            low = maxf(low, minf(first, last))
+            high = minf(high, maxf(first, last))
+            if low > high:
+                return false
+    return true
+
 func _run() -> void:
     var file := FileAccess.open("res://tests/fixtures/terrain_brush_parity.json", FileAccess.READ)
     var fixture: Dictionary = JSON.parse_string(file.get_as_text())
@@ -41,7 +59,13 @@ func _run() -> void:
     var path := NavigationServer3D.map_get_path(map_rid, from, to, true)
     var centre := NavigationServer3D.map_get_closest_point(map_rid, Vector3.ZERO)
     print("WORLD_NAVIGATION_QUERY " + JSON.stringify({"path": Array(path), "centre": centre, "iteration": NavigationServer3D.map_get_iteration_id(map_rid), "editor": Engine.is_editor_hint(), "polygons": region.navigation_mesh.get_polygon_count(), "regions": NavigationServer3D.map_get_regions(map_rid).size()}))
-    if path.size() <= 2 or Vector2(centre.x, centre.z).length() < 2.2:
+    var minimum_distance := INF
+    var intersects := path.size() <= 2
+    for index in range(path.size() - 1):
+        intersects = intersects or _crosses_obstacle(path[index], path[index + 1])
+        var nearest := Geometry2D.get_closest_point_to_segment(Vector2.ZERO, Vector2(path[index].x, path[index].z), Vector2(path[index + 1].x, path[index + 1].z))
+        minimum_distance = minf(minimum_distance, nearest.length())
+    if intersects:
         push_error("WORLD_NAVIGATION: path did not avoid the actual central collider")
         quit(3)
         return
@@ -51,7 +75,7 @@ func _run() -> void:
         push_error("WORLD_COLLISION: authored collider missing")
         quit(4)
         return
-    var output := {"ok": true, "brush_modes": fixture["operations"].size(), "path_points": path.size(), "centre_obstacle_clearance": Vector2(centre.x, centre.z).length(), "collision_hit": "centre_pillar"}
+    var output := {"ok": true, "brush_modes": fixture["operations"].size(), "path_points": path.size(), "minimum_path_distance_from_centre": minimum_distance, "path_excludes_expanded_obstacle": true, "collision_hit": "centre_pillar"}
     var evidence := FileAccess.open("res://.mapforge/environment-probe.json", FileAccess.WRITE)
     evidence.store_string(JSON.stringify(output, "  "))
     print("MAP_FORGE_ENVIRONMENT_PROBE_OK " + JSON.stringify(output))

@@ -180,7 +180,16 @@ func build() -> Dictionary:
             node.mesh = primitive(v)
             node.material_override = materials.get(v.get("material", "earth_dark"))
             if bool(v.get("collision", false)):
-                node.create_trimesh_collision()
+                if v["type"] == "box":
+                    var body := StaticBody3D.new()
+                    var collider := CollisionShape3D.new()
+                    var shape := BoxShape3D.new()
+                    shape.size = vec(v.get("size", [1, 1, 1]), Vector3.ONE)
+                    collider.shape = shape
+                    body.add_child(collider)
+                    node.add_child(body)
+                else:
+                    node.create_trimesh_collision()
             stats["environment_objects"] += 1
     for v in authoring.get("objects", []):
         var node: Node3D = nodes[v["id"]]
