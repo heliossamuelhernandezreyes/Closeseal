@@ -1,0 +1,55 @@
+{
+  "bridge_position": "(175.3732, 8.000851, 216.0)",
+  "collision_hits": [
+    "fountain_base",
+    "block_01_office_0_collision",
+    "block_04_home_0_collision",
+    "viaduct_deck"
+  ],
+  "curb_position": "(-128.075, 0.20084, 108.0)",
+  "explorer_stopped_x": 11.8504428863525,
+  "explorer_walked_m": 6.00000381469727,
+  "fountain_detour_offset": 12.0,
+  "fountain_detour_points": 14,
+  "navigation_polygons": 3919,
+  "ok": true,
+  "routes": [
+    {
+      "destination": "comercial",
+      "head_ray_clear": true,
+      "highest_m": 0.600000023841858,
+      "length_m": 168.182250824757,
+      "points": 39
+    },
+    {
+      "destination": "industrial",
+      "head_ray_clear": true,
+      "highest_m": 0.600000023841858,
+      "length_m": 194.403641421348,
+      "points": 46
+    },
+    {
+      "destination": "residencial",
+      "head_ray_clear": true,
+      "highest_m": 0.600000023841858,
+      "length_m": 199.012028180063,
+      "points": 44
+    },
+    {
+      "destination": "parque",
+      "head_ray_clear": true,
+      "highest_m": 0.600000023841858,
+      "length_m": 120.298456132412,
+      "points": 18
+    },
+    {
+      "destination": "viaducto",
+      "head_ray_clear": true,
+      "highest_m": 8.40000057220459,
+      "length_m": 558.256567303091,
+      "points": 51
+    }
+  ],
+  "tested_code_commit": "7ceea016aca18d4258ee8f655e9b11b90db89030",
+  "workflow_run": "https://github.com/heliossamuelhernandezreyes/Closeseal/actions/runs/36881895542"
+}

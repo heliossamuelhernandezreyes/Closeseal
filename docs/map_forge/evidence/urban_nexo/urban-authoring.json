@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "calls": [
+    {
+      "operation": "capabilities",
+      "revision": null,
+      "committed": false
+    },
+    {
+      "operation": "list",
+      "revision": null,
+      "committed": false
+    },
+    {
+      "operation": "inspect",
+      "revision": "473b689d2a4913256821ac2137188bea3d0d40ca8484d17df0887323e3bbc7bb",
+      "committed": false
+    },
+    {
+      "operation": "replace",
+      "revision": "473b689d2a4913256821ac2137188bea3d0d40ca8484d17df0887323e3bbc7bb",
+      "committed": true
+    },
+    {
+      "operation": "inspect",
+      "revision": "473b689d2a4913256821ac2137188bea3d0d40ca8484d17df0887323e3bbc7bb",
+      "committed": false
+    },
+    {
+      "operation": "validate",
+      "revision": "473b689d2a4913256821ac2137188bea3d0d40ca8484d17df0887323e3bbc7bb",
+      "committed": false
+    }
+  ],
+  "revision": "473b689d2a4913256821ac2137188bea3d0d40ca8484d17df0887323e3bbc7bb",
+  "tested_code_commit": "7ceea016aca18d4258ee8f655e9b11b90db89030",
+  "workflow_run": "https://github.com/heliossamuelhernandezreyes/Closeseal/actions/runs/36881895542"
+}

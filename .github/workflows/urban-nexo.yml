@@ -1,0 +1,75 @@
+name: Urban Nexo Map
+on:
+  pull_request:
+    branches: [map-forge/editor-control-world-3d, art/first-visual-pass, main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  urban:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: heliossamuelhernandezreyes/Arcont
+          ref: c59ad6b748814ce01c56aac360060c58b8534ba8
+          path: arcont-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate canonical city and committed asset checksums
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+        run: |
+          python tools/validate_maps.py
+          python tools/validate_physical_world.py
+          python tools/author_urban_nexo.py
+          git diff --exit-code -- maps/urban_nexo_01.json
+          python tools/urban_nexo_build.py
+          python -m unittest discover -s tests -q
+      - name: Install pinned Godot and authoring providers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip git
+          curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip -d godot-bin
+          chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+          python tools/install_map_authoring_providers.py
+      - name: Import real assets and scripts
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 180 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --import 2>&1 | tee urban-import.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon|Error importing' urban-import.log; then exit 1; fi
+      - name: Materialize city and capture eight authored cameras through Arcont
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/urban_nexo_build.py --engine
+      - name: Query district paths, bridge ascent and real player collision
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 150 godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/urban_nexo_probe.gd 2>&1 | tee urban-probe.log
+          grep -q URBAN_NEXO_PROBE_OK urban-probe.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' urban-probe.log; then exit 1; fi
+      - name: Launch playable scene
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 60 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless res://src/urban/urban_nexo.tscn --quit-after 120 2>&1 | tee urban-runtime.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' urban-runtime.log; then exit 1; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: urban-nexo-${{ github.sha }}
+          include-hidden-files: true
+          path: |
+            urban-*.log
+            .mapforge/urban-*.json
+            .mapforge/evidence/
+            maps/generated/urban_nexo_01_authoring.tscn
+            maps/generated/urban_nexo_01_authoring.manifest.json
+          retention-days: 30
