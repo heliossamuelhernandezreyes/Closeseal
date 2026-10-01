@@ -50,7 +50,7 @@ jobs:
           timeout 120 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --script res://tools/map_forge_world_view_smoke.gd 2>&1 | tee editor-world-view.log
           grep -q 'MAP_FORGE_WORLD_VIEW_OK' editor-world-view.log
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' editor-world-view.log; then exit 1; fi
-      - name: Operate the editor and inspect four real rendered views
+      - name: Operate the editor and inspect five real rendered views
         env:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
           GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64

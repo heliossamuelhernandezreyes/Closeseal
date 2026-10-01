@@ -55,7 +55,8 @@ func _build_custom_geometry() -> void:
             var a := indices[triangle]
             var b := indices[triangle + 1]
             var c := indices[triangle + 2]
-            var normal := (vertices[b] - vertices[a]).cross(vertices[c] - vertices[a]).normalized()
+            # Godot's front faces use clockwise winding.
+            var normal := (vertices[c] - vertices[a]).cross(vertices[b] - vertices[a]).normalized()
             normals[a] += normal
             normals[b] += normal
             normals[c] += normal

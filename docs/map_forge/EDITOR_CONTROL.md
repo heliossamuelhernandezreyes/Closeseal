@@ -38,7 +38,8 @@ result before it is saved. Dry-run is the default. Set `dry_run: false` to commi
 
 `authoring.geometry` accepts authored indexed triangle meshes: id, vertices,
 indices, material, optional position/rotation_degrees and collision. Indices
-must form triangles and reference valid vertices. This can represent custom
+must form triangles and reference valid vertices. Use Godot's clockwise front
+face winding; generated normals follow that convention. This can represent custom
 terrain, ramps, bridges or arbitrary authored geometry.
 
 `authoring.instances` accepts id, scene (`res://` PackedScene/GLB), position,
@@ -54,7 +55,16 @@ gates; a rendered obstacle alone is not proof of blocked pathfinding.
 
 `materialize` uses the provider bridge, native visual kit, navigation and optional
 physical profile. `capture` renders tactical/north/east/top camera views from
-the provided state. Captures need a rendering/display environment (Xvfb in CI).
+the provided state. `options.cameras` also accepts any authored camera position,
+target, perspective/orthogonal projection, field of view and orthogonal size:
+
+```json
+{"views": ["top"], "cameras": [{"name": "detail", "position": [18, 14, 24], "target": [0, 2, 6], "projection": "perspective", "fov": 55}]}
+```
+
+Set `views` to an empty array to capture only custom cameras. Missing or invalid
+scene resources make materialization/capture fail instead of silently omitting
+the asset. Captures need a rendering/display environment (Xvfb in CI).
 Responses include output paths, counts and logs in `.mapforge/evidence`.
 
 The 1.0 import blocker in the physical report formatter is corrected. This does
@@ -70,5 +80,7 @@ python tools/map_forge_control_smoke.py --arcont "$ARCONT_ROOT" --engine
 
 The smoke test exercises the public CLI: inspect, create, invalid-edit rejection,
 stale revision rejection, stable-ID patching, analysis and restoration. The
-engine variant adds physical materialization and four actual rendered views of
-an authored custom ramp and a placed scene resource.
+engine variant adds missing-resource rejection, physical materialization and
+five actual rendered views (including an authored detail camera) of an authored
+custom ramp and a placed scene resource. Integral numeric indices round-trip
+between Python and Godot JSON without a type mismatch.

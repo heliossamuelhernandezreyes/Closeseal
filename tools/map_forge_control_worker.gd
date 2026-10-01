@@ -84,20 +84,54 @@ func _run() -> void:
     root.size = Vector2i(1280, 720)
     var options: Dictionary = request.get("options", {})
     var views: Array = options.get("views", ["tactical", "north", "east", "top"])
+    var cameras: Array = options.get("cameras", [])
     var images: Array[String] = []
     var directions := {"tactical": Vector3(0.62, 1.1, 0.9), "north": Vector3(0, 0.8, -1), "east": Vector3(1, 0.8, 0), "top": Vector3(0, 1.4, 0.001)}
+    var definitions: Array[Dictionary] = []
     for value in views:
         var view := String(value)
         if not directions.has(view):
             _finish({"ok": false, "error": "unknown capture view: " + view})
             return
-        camera.position = directions[view] * span
-        camera.look_at(Vector3.ZERO, Vector3.UP)
+        definitions.append({"name": view, "position": directions[view] * span, "target": Vector3.ZERO})
+    var names: Dictionary = {}
+    for definition in definitions:
+        names[definition["name"]] = true
+    for value in cameras:
+        if not value is Dictionary:
+            _finish({"ok": false, "error": "camera must be an object"})
+            return
+        var name := String(value.get("name", ""))
+        var safe_name := RegEx.new()
+        safe_name.compile("^[A-Za-z0-9_-]+$")
+        if safe_name.search(name) == null or names.has(name) or not CONTRACT._is_vec3_array(value.get("position")) or not CONTRACT._is_vec3_array(value.get("target")):
+            _finish({"ok": false, "error": "camera requires a unique safe name, position and target"})
+            return
+        names[name] = true
+        var position := CONTRACT.vec3_from(value["position"])
+        var target := CONTRACT.vec3_from(value["target"])
+        var projection := String(value.get("projection", "perspective"))
+        var fov := float(value.get("fov", 60))
+        var size := float(value.get("size", span * 0.82))
+        if position.distance_to(target) < 0.001 or projection not in ["perspective", "orthogonal"] or fov <= 1 or fov >= 179 or size <= 0:
+            _finish({"ok": false, "error": "invalid camera projection or dimensions"})
+            return
+        definitions.append({"name": name, "position": position, "target": target, "projection": projection, "fov": fov, "size": size})
+    for definition in definitions:
+        camera.projection = Camera3D.PROJECTION_PERSPECTIVE if definition.get("projection", "orthogonal") == "perspective" else Camera3D.PROJECTION_ORTHOGONAL
+        camera.fov = float(definition.get("fov", 60))
+        camera.size = float(definition.get("size", span * 0.82))
+        camera.position = definition["position"]
+        var target: Vector3 = definition["target"]
+        var up := Vector3.UP
+        if absf((target - camera.position).normalized().dot(up)) > 0.9999:
+            up = Vector3.FORWARD
+        camera.look_at(target, up)
         await process_frame
         await process_frame
         await RenderingServer.frame_post_draw
         var image := root.get_texture().get_image()
-        var output := response_path.get_base_dir().path_join(view + ".png")
+        var output := response_path.get_base_dir().path_join(String(definition["name"]) + ".png")
         if image.save_png(output) != OK:
             _finish({"ok": false, "error": "image could not be saved"})
             return
