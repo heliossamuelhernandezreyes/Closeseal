@@ -66,7 +66,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          timeout 120 godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --script res://tools/map_forge_environment_probe.gd 2>&1 | tee environment-probe.log
+          timeout 120 godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/map_forge_environment_probe.gd 2>&1 | tee environment-probe.log
           grep -q MAP_FORGE_ENVIRONMENT_PROBE_OK environment-probe.log
           if grep -E "SCRIPT ERROR|Parse Error|Failed to load script" environment-probe.log; then exit 1; fi
       - name: Preserve editor evidence

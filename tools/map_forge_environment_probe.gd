@@ -35,6 +35,7 @@ func _run() -> void:
     var to := NavigationServer3D.map_get_closest_point(map_rid, Vector3(9, 0, 0))
     var path := NavigationServer3D.map_get_path(map_rid, from, to, true)
     var centre := NavigationServer3D.map_get_closest_point(map_rid, Vector3.ZERO)
+    print("WORLD_NAVIGATION_QUERY " + JSON.stringify({"path": Array(path), "centre": centre, "iteration": NavigationServer3D.map_get_iteration_id(map_rid), "editor": Engine.is_editor_hint()}))
     if path.size() <= 2 or Vector2(centre.x, centre.z).length() < 2.2:
         push_error("WORLD_NAVIGATION: path did not avoid the actual central collider")
         quit(3)
