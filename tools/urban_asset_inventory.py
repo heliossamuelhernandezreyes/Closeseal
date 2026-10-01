@@ -15,6 +15,14 @@ PACKS = [
     ("cars", "ARC-ASSET-KENNEY-7A4676B8BFAC85F4", "car-kit", "https://kenney.nl/media/pages/assets/car-kit/1a312ec241-1775131960/kenney_car-kit.zip"),
 ]
 
+PINNED_ARCHIVES = {
+    "commercial": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
+    "industrial": "5b381164e5760f3830a2dbee43b972deee38b2a695d091b56e238ab2910c96d2",
+    "suburban": "5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39",
+    "nature": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
+    "cars": "fac7dacac5c7874348cf19729af3ef205f3d366493edaf0a827d93f4fdf3d0c4",
+}
+
 
 def main():
     root = Path("urban-source-packs")
@@ -24,6 +32,9 @@ def main():
         request = urllib.request.Request(url, headers={"User-Agent": "CloseSeal/urban-asset-review"})
         with urllib.request.urlopen(request, timeout=120) as response:
             raw = response.read()
+        actual_hash = hashlib.sha256(raw).hexdigest()
+        if actual_hash != PINNED_ARCHIVES[name]:
+            raise RuntimeError(f"Source archive changed for {name}: {actual_hash}")
         archive = zipfile.ZipFile(io.BytesIO(raw))
         names = archive.namelist()
         retained = []

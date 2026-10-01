@@ -15,3 +15,11 @@ Bootstrap phase. Product decisions are intentionally explicit and unresolved unt
 ## Engine
 
 Godot 4.7.2-stable is the initial canonical engine target, aligned with the current ARCONT Godot pin. Engine upgrades must be deliberate and documented.
+
+
+## Urban environment
+
+[Distrito Nexo](docs/map_forge/URBAN_NEXO.md) is the first explorable urban map:
+512 × 512 metres, four districts and 32 blocks, authored with Arcont Map Forge
+and committed Kenney assets. Run `src/urban/urban_nexo.tscn` in Godot (F6).
+The documentation includes controls, source checksums and eight real captures.

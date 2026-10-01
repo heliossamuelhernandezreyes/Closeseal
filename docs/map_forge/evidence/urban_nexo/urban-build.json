@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "revision": "473b689d2a4913256821ac2137188bea3d0d40ca8484d17df0887323e3bbc7bb",
+  "engine_tested": true,
+  "source_models": 33,
+  "asset_instances": 301,
+  "source_bytes": 3301056,
+  "calls": [
+    {
+      "operation": "inspect",
+      "ok": true
+    },
+    {
+      "operation": "validate",
+      "ok": true
+    },
+    {
+      "operation": "materialize",
+      "ok": true
+    },
+    {
+      "operation": "capture",
+      "ok": true
+    }
+  ],
+  "navigation": {
+    "ok": true,
+    "polygons": 3919,
+    "status": "baked_actual_world_colliders",
+    "vertices": 3549
+  },
+  "visual_stats": {
+    "asset_instances": 301,
+    "authored_lights": 1,
+    "custom_meshes": 2,
+    "environment_objects": 812,
+    "errors": [],
+    "heightfields": 0,
+    "landforms": 0,
+    "objectives": 0,
+    "route_segments": 0,
+    "scatter_instances": 0,
+    "structures": 0,
+    "terrain_triangles": 0
+  },
+  "images": [
+    "city_overview.png",
+    "plaza.png",
+    "downtown_street.png",
+    "industrial.png",
+    "residential.png",
+    "park.png",
+    "viaduct.png",
+    "plan.png"
+  ],
+  "tested_code_commit": "7ceea016aca18d4258ee8f655e9b11b90db89030",
+  "workflow_run": "https://github.com/heliossamuelhernandezreyes/Closeseal/actions/runs/36881895542"
+}

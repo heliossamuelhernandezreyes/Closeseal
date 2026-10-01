@@ -87,3 +87,39 @@ has not yet been balanced for a particular combat mode, populated with enemies,
 or measured on an Android device. The desktop exploration controls and CI
 renderer do not establish mobile controls or frame rate. Art detail, interiors,
 streaming/LOD, objectives and encounters should follow a concrete game design.
+
+## Verified evidence
+
+[Godot/Arcont run 36881895542](https://github.com/heliossamuelhernandezreyes/Closeseal/actions/runs/36881895542)
+passed on code commit `7ceea016aca18d4258ee8f655e9b11b90db89030`.
+The source map revision is
+`473b689d2a4913256821ac2137188bea3d0d40ca8484d17df0887323e3bbc7bb`.
+All eight images below are actual Godot captures of that revision.
+
+| Check | Observed result |
+| --- | --- |
+| Reproduce design through Arcont | Revision-checked replacement reproduces identical canonical JSON |
+| Assets | 33 source models, 301 placed instances, all 42 third-party file hashes match |
+| World navigation | 3,919 polygons baked from actual static colliders |
+| District connections | Plaza connects to all four districts and the viaduct; segment head rays are clear |
+| Fountain avoidance | 14-point navigation detour reaches 12 m lateral clearance |
+| Physical colliders | Rays hit the fountain, office, house and viaduct deck |
+| Player movement | Actual 1.8 m capsule walks 6 m and stops at fountain x = 11.85 m |
+| Sidewalk access | Controller crosses the 0.2 m curb and stands at y = 0.20084 m |
+| Elevated access | Controller climbs the east ramp and reaches deck y = 8.00085 m |
+| Import/runtime | No script errors; standalone exploration scene launches |
+
+[Build report](evidence/urban_nexo/urban-build.json),
+[traversal report](evidence/urban_nexo/urban-probe.json) and
+[Arcont authoring transactions](evidence/urban_nexo/urban-authoring.json)
+are preserved alongside the images. Tests cover these specific authored routes
+and controller situations; they are not a mobile benchmark or combat balance test.
+
+![City overview](evidence/urban_nexo/city_overview.png)
+![Plaza Nexo](evidence/urban_nexo/plaza.png)
+![Downtown street](evidence/urban_nexo/downtown_street.png)
+![Industrial district](evidence/urban_nexo/industrial.png)
+![Residential district](evidence/urban_nexo/residential.png)
+![Civic park](evidence/urban_nexo/park.png)
+![Viaduct](evidence/urban_nexo/viaduct.png)
+![City plan](evidence/urban_nexo/plan.png)
