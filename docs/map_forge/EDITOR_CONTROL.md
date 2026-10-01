@@ -15,6 +15,8 @@ where that executable name is unavailable.
 Open the project in Godot to finish importing assets before external control.
 For a clean command-line checkout, run `godot --path . --editor --headless --import`
 with the pinned engine; `--quit` alone may leave textures unimported.
+Direct `.blend` import is disabled so unattended import does not depend on a
+local Blender installation. Export Blender assets as GLB before placement.
 
 ```bash
 python "$ARCONT_ROOT/tools/map_forge_control.py" --project . --request request.json --output response.json
