@@ -286,7 +286,7 @@ func _viewport_input(event: InputEvent) -> void:
             distance *= 1.12
             _update_camera()
         elif event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-            var pixel := event.position * Vector2(viewport.size) / container.size
+            var pixel: Vector2 = event.position * Vector2(viewport.size) / container.size
             var best := 18.0
             for handle in handles:
                 var position: Vector3 = handle["position"]
