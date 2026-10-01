@@ -95,6 +95,9 @@ static func _build_terrain_layer(root: Node3D, map_data: Dictionary, map_id: Str
 
     var authoring: Dictionary = map_data.get("authoring", {})
     var terrain_cfg: Dictionary = authoring.get("terrain", {})
+    if map_data.get("purpose", "competitive") == "environment" and terrain_cfg.get("provider", "native") == "native":
+        provider_state["terrain3d"] = {"available": ClassDB.class_exists(&"Terrain3D"), "materialized": false, "mode": "authored_native_heightfields"}
+        return layer
     var bounds: Dictionary = map_data.get("bounds", {})
     var width := float(bounds.get("width", 44.0))
     var depth := float(bounds.get("depth", 29.0))

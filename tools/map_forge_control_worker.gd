@@ -5,6 +5,7 @@ const BRIDGE = preload("res://addons/close_seal_map_forge/map_forge_provider_bri
 const NAVIGATION = preload("res://addons/close_seal_map_forge/map_forge_navigation_layer.gd")
 const PHYSICAL = preload("res://src/map/map_physical_world.gd")
 const VISUAL_KIT = preload("res://src/prototype/map_visual_kit.gd")
+const TERRAIN_SYNC = preload("res://src/map/map_terrain3d_sync.gd")
 
 var response_path := ""
 
@@ -42,8 +43,17 @@ func _run() -> void:
         return
     var physical_value = state.get("physical", null)
     var physical: Dictionary = physical_value if physical_value is Dictionary else {}
+    if request.get("operation", "") == "edit":
+        if request.get("options", {}).get("action", "") != "terrain_pull":
+            _finish({"ok": false, "error": "unsupported editor action"})
+            return
+        _finish(await TERRAIN_SYNC.synchronize(state, true))
+        return
     if String(request.get("operation", "")) == "materialize":
         var result := BRIDGE.build_authoring_scene(data)
+        if bool(result.get("ok", false)) and data.get("authoring", {}).get("terrain", {}).get("provider", "native") == "terrain3d" and not data.get("authoring", {}).get("heightfields", []).is_empty():
+            result["terrain3d"] = await TERRAIN_SYNC.synchronize(state)
+            result["ok"] = bool(result["terrain3d"].get("ok", false))
         if bool(result.get("ok", false)):
             var navigation := NAVIGATION.augment_scene(String(result.get("scene_path", "")), data)
             result["navigation"] = navigation
@@ -60,19 +70,9 @@ func _run() -> void:
     if not stats.get("errors", []).is_empty():
         _finish({"ok": false, "errors": stats["errors"]})
         return
-    var sun := DirectionalLight3D.new()
-    sun.rotation_degrees = Vector3(-48, -32, 0)
-    sun.light_energy = 1.5
-    world.add_child(sun)
-    var environment_node := WorldEnvironment.new()
-    var environment := Environment.new()
-    environment.background_mode = Environment.BG_COLOR
-    environment.background_color = Color("17212d")
-    environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-    environment.ambient_light_color = Color("b8c8d7")
-    environment.ambient_light_energy = 0.6
-    environment_node.environment = environment
-    world.add_child(environment_node)
+    if data.get("purpose", "competitive") != "environment":
+        var environment_script = load("res://src/map/map_environment.gd")
+        environment_script.configure_world(world, data.get("authoring", {}))
     var camera := Camera3D.new()
     world.add_child(camera)
     camera.current = true

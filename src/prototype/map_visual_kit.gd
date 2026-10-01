@@ -2,6 +2,8 @@
 extends RefCounted
 
 const MapContract = preload("res://src/map/map_contract.gd")
+const ENVIRONMENT = preload("res://src/map/map_environment.gd")
+var environment_builder: RefCounted
 
 var root: Node3D
 var map_data: Dictionary
@@ -25,12 +27,17 @@ func _init(target: Node3D, contract: Dictionary) -> void:
 func build() -> Dictionary:
     _create_layers()
     _load_materials()
-    _build_terrain()
-    _build_routes()
-    _build_structures()
-    _build_objectives()
-    _build_scatter()
-    _build_map_frame()
+    if map_data.get("purpose", "competitive") == "competitive":
+        _build_terrain()
+        _build_routes()
+        _build_structures()
+        _build_objectives()
+        _build_scatter()
+        _build_map_frame()
+    environment_builder = ENVIRONMENT.new(root, map_data.get("authoring", {}), materials)
+    stats.merge(environment_builder.build(), true)
+    if map_data.get("purpose", "competitive") == "environment":
+        ENVIRONMENT.configure_world(root, map_data.get("authoring", {}))
     _build_custom_geometry()
     _build_asset_instances()
     stats["errors"] = errors.duplicate()
@@ -67,6 +74,11 @@ func _build_custom_geometry() -> void:
         arrays[Mesh.ARRAY_VERTEX] = vertices
         arrays[Mesh.ARRAY_NORMAL] = normals
         arrays[Mesh.ARRAY_INDEX] = indices
+        if definition.has("uvs"):
+            var uvs := PackedVector2Array()
+            for uv in definition["uvs"]:
+                uvs.append(Vector2(float(uv[0]), float(uv[1])))
+            arrays[Mesh.ARRAY_TEX_UV] = uvs
         var mesh := ArrayMesh.new()
         mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
         mesh.surface_set_material(0, _material(String(definition.get("material", "earth_dark"))))
@@ -75,7 +87,8 @@ func _build_custom_geometry() -> void:
         instance.mesh = mesh
         instance.position = MapContract.vec3_from(definition.get("position", [0, 0, 0]))
         instance.rotation_degrees = MapContract.vec3_from(definition.get("rotation_degrees", [0, 0, 0]))
-        layers["VisualTerrain"].add_child(instance)
+        instance.scale = MapContract.vec3_from(definition.get("scale", [1, 1, 1]), Vector3.ONE)
+        environment_builder.parent_for(definition, layers["VisualTerrain"]).add_child(instance)
         if bool(definition.get("collision", false)):
             instance.create_trimesh_collision()
         stats["custom_meshes"] = int(stats["custom_meshes"]) + 1
@@ -105,8 +118,16 @@ func _build_asset_instances() -> void:
         instance.position = MapContract.vec3_from(definition.get("position", [0, 0, 0]))
         instance.rotation_degrees = MapContract.vec3_from(definition.get("rotation_degrees", [0, 0, 0]))
         instance.scale = MapContract.vec3_from(definition.get("scale", [1, 1, 1]))
-        layers["VisualStructures"].add_child(instance)
+        if definition.has("material"):
+            _override_material_recursive(instance, _material(String(definition["material"])))
+        environment_builder.parent_for(definition, layers["VisualStructures"]).add_child(instance)
         stats["asset_instances"] = int(stats["asset_instances"]) + 1
+
+func _override_material_recursive(node: Node, material: Material) -> void:
+    if node is MeshInstance3D:
+        node.material_override = material
+    for child in node.get_children():
+        _override_material_recursive(child, material)
 
 func _create_layers() -> void:
     for layer_name in ["VisualTerrain", "VisualRoutes", "VisualStructures", "VisualObjectives", "VisualScatter", "VisualDetails"]:
@@ -126,6 +147,21 @@ func _load_materials() -> void:
         material.albedo_color = Color(String(definition.get("albedo", "#808080")))
         material.roughness = float(definition.get("roughness", 0.8))
         material.metallic = float(definition.get("metallic", 0.0))
+        if float(definition.get("opacity", 1)) < 1:
+            material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+            material.albedo_color.a = float(definition["opacity"])
+        material.cull_mode = BaseMaterial3D.CULL_DISABLED if bool(definition.get("double_sided", false)) else BaseMaterial3D.CULL_BACK
+        material.uv1_scale = MapContract.vec3_from(definition.get("uv_scale", [1, 1, 1]), Vector3.ONE)
+        for key in ["albedo_texture", "normal_texture", "roughness_texture", "metallic_texture"]:
+            if not definition.has(key):
+                continue
+            var texture = load(String(definition[key])) if ResourceLoader.exists(String(definition[key])) else null
+            if not texture is Texture2D:
+                errors.append("Material texture missing or invalid: " + String(definition[key]))
+                continue
+            material.set(key, texture)
+            if key == "normal_texture":
+                material.normal_enabled = true
         if definition.has("emission"):
             material.emission_enabled = true
             material.emission = Color(String(definition.get("emission", "#000000")))

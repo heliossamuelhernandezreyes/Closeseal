@@ -23,15 +23,19 @@ func _enter_tree() -> void:
     if tabs == null:
         return
     world_view = WORLD_VIEW.new()
-    world_view.name = "World 3D"
     world_view.document_edited.connect(_accept_world_edit)
-    tabs.add_child(world_view)
+    var world_tab := ScrollContainer.new()
+    world_tab.name = "World 3D"
+    world_tab.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+    tabs.add_child(world_tab)
+    world_view.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    world_tab.add_child(world_view)
     world_view.set_document(current_map)
     world_view.frame_map()
     _install_control_tab(tabs)
     var heading := dock.get_child(0)
     if heading is Label:
-        heading.text = "CLOSE SEAL — MAP FORGE 1.1"
+        heading.text = "CLOSE SEAL — MAP FORGE 1.2"
 
 func _load_map(path: String) -> void:
     super._load_map(path)

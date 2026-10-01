@@ -3,6 +3,7 @@ import json
 import math
 import sys
 from pathlib import Path
+from validate_environment import validate as validate_environment
 
 ROOT = Path(__file__).resolve().parents[1]
 MAP_DIR = ROOT / "maps"
@@ -31,6 +32,7 @@ def validate_authoring(authoring, errors):
         return
 
     validate_world_extensions(authoring, errors)
+    errors.extend(validate_environment(authoring))
     terrain = authoring.get("terrain", {})
     if not isinstance(terrain, dict):
         errors.append("authoring.terrain must be an object")
@@ -169,7 +171,7 @@ def validate(data, path):
 
     bases = data.get("bases", [])
     if isinstance(bases, list):
-        if len(bases) < 2:
+        if len(bases) < 2 and data.get("purpose", "competitive") != "environment":
             errors.append("at least two bases are required")
         for base in bases:
             if isinstance(base, dict) and not vec3(base.get("position")):
@@ -205,6 +207,8 @@ def validate(data, path):
                 errors.append(f"choke '{rid}' width must be positive")
 
     validate_authoring(data.get("authoring", {}), errors)
+    if data.get("purpose", "competitive") not in ("competitive", "environment"):
+        errors.append("purpose must be competitive or environment")
 
     if len(bases) >= 2 and all(isinstance(b, dict) and vec3(b.get("position")) for b in bases[:2]):
         midpoint = [(bases[0]["position"][i] + bases[1]["position"][i]) * 0.5 for i in range(3)]

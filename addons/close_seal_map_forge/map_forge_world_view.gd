@@ -5,6 +5,13 @@ signal document_edited(document: Dictionary)
 
 const CONTRACT = preload("res://src/map/map_contract.gd")
 const VISUAL_KIT = preload("res://src/prototype/map_visual_kit.gd")
+const BRUSH = preload("res://src/map/map_terrain_brush.gd")
+var brush_enabled: CheckButton
+var brush_mode: OptionButton
+var brush_radius: SpinBox
+var brush_strength: SpinBox
+var brush_height: SpinBox
+var brush_material: LineEdit
 
 var document: Dictionary = {}
 var tree: Tree
@@ -33,12 +40,17 @@ func _ready() -> void:
     _button(toolbar, "Frame", frame_map)
     _button(toolbar, "Refresh 3D", _rebuild_scene)
     _button(toolbar, "Apply JSON", _apply_json)
+    var creation := HBoxContainer.new()
+    add_child(creation)
+    _button(creation, "+ Box", _add_primitive)
+    _button(creation, "+ Light", _add_light)
+    _button(creation, "+ Terrain", _add_heightfield)
     var help := Label.new()
     help.text = "Select a marker • right-drag: orbit • wheel: zoom"
     help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     add_child(help)
     container = SubViewportContainer.new()
-    container.custom_minimum_size = Vector2(340, 260)
+    container.custom_minimum_size = Vector2(340, 230)
     container.size_flags_vertical = Control.SIZE_EXPAND_FILL
     container.stretch = true
     add_child(container)
@@ -66,9 +78,10 @@ func _ready() -> void:
     environment.ambient_light_color = Color("b8c8d7")
     environment.ambient_light_energy = 0.65
     environment_node.environment = environment
+    environment_node.set_meta("default_environment", environment)
     world.add_child(environment_node)
     tree = Tree.new()
-    tree.custom_minimum_size = Vector2(340, 155)
+    tree.custom_minimum_size = Vector2(340, 100)
     tree.hide_root = false
     tree.item_selected.connect(_tree_selected)
     add_child(tree)
@@ -87,13 +100,91 @@ func _ready() -> void:
         position_bar.add_child(editor)
         position_editors.append(editor)
     json_editor = TextEdit.new()
-    json_editor.custom_minimum_size = Vector2(340, 150)
+    json_editor.custom_minimum_size = Vector2(340, 100)
     json_editor.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
     add_child(json_editor)
     status = Label.new()
     status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     add_child(status)
+    _install_brush_controls()
     set_document(document)
+
+func _install_brush_controls() -> void:
+    var row := HBoxContainer.new()
+    add_child(row)
+    brush_enabled = CheckButton.new()
+    brush_enabled.text = "Terrain brush"
+    row.add_child(brush_enabled)
+    brush_mode = OptionButton.new()
+    for mode in ["raise", "lower", "flatten", "smooth", "paint", "hole", "fill"]:
+        brush_mode.add_item(mode)
+    row.add_child(brush_mode)
+    var parameters := HBoxContainer.new()
+    add_child(parameters)
+    for label in ["Radius", "Strength", "Height"]:
+        var editor := SpinBox.new()
+        editor.prefix = label + " "
+        editor.min_value = -10000 if label == "Height" else 0.01
+        editor.max_value = 10000
+        editor.step = 0.25
+        editor.value = 4 if label == "Radius" else 1
+        editor.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+        parameters.add_child(editor)
+        if label == "Radius": brush_radius = editor
+        elif label == "Strength": brush_strength = editor
+        else: brush_height = editor
+    brush_material = LineEdit.new()
+    brush_material.placeholder_text = "Paint: material id"
+    add_child(brush_material)
+
+func _add_authored(collection: String, value: Dictionary) -> void:
+    var next := document.duplicate(true)
+    if not next.has("authoring"): next["authoring"] = {}
+    if not next["authoring"].has(collection): next["authoring"][collection] = []
+    value["id"] = collection + "_" + str(Time.get_ticks_usec())
+    next["authoring"][collection].append(value)
+    selected_object = ["authoring", collection, next["authoring"][collection].size() - 1]
+    _commit(next)
+
+func _add_primitive() -> void:
+    _add_authored("objects", {"type": "box", "size": [4, 4, 4], "position": [0, 2, 0], "material": "earth_dark", "collision": true})
+
+func _add_light() -> void:
+    _add_authored("lights", {"type": "omni", "position": [0, 5, 0], "color": "ffffff", "energy": 3, "range": 20})
+
+func _add_heightfield() -> void:
+    var heights: Array = []
+    heights.resize(17 * 17)
+    heights.fill(0)
+    var next := document.duplicate(true)
+    if not next.has("authoring"): next["authoring"] = {}
+    if not next["authoring"].has("materials"): next["authoring"]["materials"] = []
+    if next["authoring"]["materials"].is_empty():
+        next["authoring"]["materials"].append({"id": "soil", "albedo": "705640"})
+    var material := String(next["authoring"]["materials"][0]["id"])
+    if not next["authoring"].has("heightfields"): next["authoring"]["heightfields"] = []
+    next["authoring"]["heightfields"].append({"id": "terrain_" + str(Time.get_ticks_usec()), "columns": 17, "rows": 17, "spacing": [2, 2], "position": [-16, 0, -16], "heights": heights, "material": material, "collision": true})
+    selected_object = ["authoring", "heightfields", next["authoring"]["heightfields"].size() - 1]
+    _commit(next)
+
+func _brush_at(pixel: Vector2) -> void:
+    var selected = _get_at(document, selected_object)
+    if not selected is Dictionary or not selected.has("heights"):
+        status.text = "Select a heightfield before brushing."
+        return
+    var origin := camera.project_ray_origin(pixel)
+    var direction := camera.project_ray_normal(pixel)
+    var hit = Plane(Vector3.UP, float(selected.get("position", [0, 0, 0])[1])).intersects_ray(origin, direction)
+    var query := PhysicsRayQueryParameters3D.create(origin, origin + direction * 10000)
+    var intersection := viewport.world_3d.direct_space_state.intersect_ray(query)
+    if not intersection.is_empty():
+        hit = intersection["position"]
+    if hit == null:
+        return
+    var options := {"heightfield_id": selected["id"], "center": [hit.x, hit.z], "radius": brush_radius.value, "strength": brush_strength.value, "height": brush_height.value, "mode": brush_mode.get_item_text(brush_mode.selected), "material": brush_material.text}
+    var next := BRUSH.apply(document, options)
+    if not next.is_empty():
+        _commit(next)
 
 func _button(parent: Node, label: String, callback: Callable) -> void:
     var button := Button.new()
@@ -117,7 +208,7 @@ func _rebuild_tree() -> void:
     root_item.set_metadata(0, [])
     if selected_object.is_empty():
         root_item.select(0)
-    for collection_path in [["bases"], ["objectives"], ["routes"], ["regions"], ["authoring", "structure_guides"], ["authoring", "scatter_zones"], ["authoring", "terrain", "landforms"], ["authoring", "materials"], ["authoring", "geometry"], ["authoring", "instances"]]:
+    for collection_path in [["bases"], ["objectives"], ["routes"], ["regions"], ["authoring", "structure_guides"], ["authoring", "scatter_zones"], ["authoring", "terrain", "landforms"], ["authoring", "materials"], ["authoring", "heightfields"], ["authoring", "objects"], ["authoring", "lights"], ["authoring", "heightfields"], ["authoring", "objects"], ["authoring", "lights"], ["authoring", "geometry"], ["authoring", "instances"]]:
         var values = _get_at(document, collection_path)
         if not values is Array:
             continue
@@ -226,8 +317,13 @@ func _rebuild_scene() -> void:
     world.add_child(content)
     var kit = VISUAL_KIT.new(content, document)
     kit.build()
+    for child in world.get_children():
+        if child is DirectionalLight3D:
+            child.visible = document.get("purpose", "competitive") != "environment"
+        if child is WorldEnvironment:
+            child.environment = null if document.get("purpose", "competitive") == "environment" else child.get_meta("default_environment", child.environment)
     handles.clear()
-    for collection_path in [["bases"], ["objectives"], ["regions"], ["authoring", "structure_guides"], ["authoring", "scatter_zones"], ["authoring", "terrain", "landforms"], ["authoring", "geometry"], ["authoring", "instances"]]:
+    for collection_path in [["bases"], ["objectives"], ["regions"], ["authoring", "structure_guides"], ["authoring", "scatter_zones"], ["authoring", "terrain", "landforms"], ["authoring", "heightfields"], ["authoring", "objects"], ["authoring", "lights"], ["authoring", "geometry"], ["authoring", "instances"]]:
         var values = _get_at(document, collection_path)
         if not values is Array:
             continue
@@ -287,6 +383,9 @@ func _viewport_input(event: InputEvent) -> void:
             _update_camera()
         elif event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
             var pixel: Vector2 = event.position * Vector2(viewport.size) / container.size
+            if brush_enabled.button_pressed:
+                _brush_at(pixel)
+                return
             var best := 18.0
             for handle in handles:
                 var position: Vector3 = handle["position"]

@@ -2,6 +2,7 @@ class_name CloseSealMapContract
 extends RefCounted
 
 const VERSION := 1
+const ENVIRONMENT = preload("res://src/map/map_environment.gd")
 const REQUIRED_TOP_LEVEL := ["version", "id", "bounds", "bases", "objectives", "routes", "regions"]
 const VALID_ROUTE_KINDS := ["primary", "flank", "secondary", "jungle", "connector"]
 const VALID_REGION_KINDS := ["formation_space", "choke", "objective_zone", "spawn_zone", "hazard", "cover", "neutral"]
@@ -53,7 +54,7 @@ static func validate(map_data: Dictionary) -> Array[String]:
     _validate_collection_ids(map_data.get("regions", []), "region", seen_ids, errors)
 
     var bases = map_data.get("bases", [])
-    if typeof(bases) != TYPE_ARRAY or bases.size() < 2:
+    if typeof(bases) != TYPE_ARRAY or (bases.size() < 2 and map_data.get("purpose", "competitive") != "environment"):
         errors.append("at least two bases are required")
     else:
         for i in range(bases.size()):
@@ -123,6 +124,8 @@ static func validate(map_data: Dictionary) -> Array[String]:
                 errors.append("choke region '%s' width must be positive" % region_id)
 
     _validate_authoring(map_data.get("authoring", {}), errors)
+    if map_data.get("purpose", "competitive") not in ["competitive", "environment"]:
+        errors.append("purpose must be competitive or environment")
     return errors
 
 static func _validate_authoring(value, errors: Array[String]) -> void:
@@ -133,6 +136,7 @@ static func _validate_authoring(value, errors: Array[String]) -> void:
         return
     var authoring: Dictionary = value
     _validate_world_extensions(authoring, errors)
+    errors.append_array(ENVIRONMENT.validate(authoring))
     var terrain = authoring.get("terrain", {})
     if typeof(terrain) != TYPE_DICTIONARY:
         errors.append("authoring.terrain must be a dictionary")

@@ -78,7 +78,7 @@ def execute(request):
         return validation
     if operation == "analyze":
         return analyze(state)
-    if operation in ("materialize", "capture"):
+    if operation in ("materialize", "capture", "edit"):
         return engine(operation, state, request.get("options", {}))
     return {"ok": False, "error": "unsupported adapter operation"}
 
