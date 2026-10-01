@@ -53,13 +53,16 @@ static func validate(a: Dictionary) -> Array[String]:
                 errors.append(label + " entries must be objects")
                 continue
             var identity := String(v.get("id", ""))
-            if identity.is_empty() or ids.has(identity):
+            if not v.get("id") is String or identity.is_empty() or ids.has(identity):
                 errors.append(label + " requires unique nonempty ids")
             ids[identity] = true
             for key in ["position", "rotation_degrees", "scale"]:
                 if v.has(key) and not valid_vector(v[key], 3, key == "scale"):
                     errors.append(identity + " has invalid " + key)
             if label == "heightfields":
+                if typeof(v.get("columns")) not in [TYPE_INT, TYPE_FLOAT] or typeof(v.get("rows")) not in [TYPE_INT, TYPE_FLOAT]:
+                    errors.append("heightfield dimensions must be numeric")
+                    continue
                 var columns := int(v.get("columns", 0))
                 var rows := int(v.get("rows", 0))
                 if columns < 2 or rows < 2 or columns > 2049 or rows > 2049 or float(columns) != float(v.get("columns", 0)) or float(rows) != float(v.get("rows", 0)):
@@ -97,6 +100,8 @@ static func validate(a: Dictionary) -> Array[String]:
                 if v.get("type", "") not in ["group", "box", "sphere", "cylinder", "capsule", "plane", "prism", "torus"] or not valid_vector(v.get("size", [1, 1, 1]), 3, true):
                     errors.append("invalid primitive type or size")
             if label == "lights":
+                if v.has("color") and not valid_color(v["color"]):
+                    errors.append("light colors must be RGB/RGBA hex")
                 if v.get("type", "") not in ["directional", "omni", "spot"]:
                     errors.append("unsupported light type")
                 for key in ["energy", "range", "angle"]:

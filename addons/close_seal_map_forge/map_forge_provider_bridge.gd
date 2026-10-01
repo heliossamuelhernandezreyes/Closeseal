@@ -110,12 +110,17 @@ static func _build_terrain_layer(root: Node3D, map_data: Dictionary, map_id: Str
             if map_data.get("purpose", "competitive") == "environment":
                 terrain_node.visible = false
             var data_dir := String(terrain_cfg.get("data_directory", "res://maps/generated/terrain/%s" % map_id))
-            if _has_property(terrain_node, "data_directory"):
-                terrain_node.set("data_directory", data_dir)
             if _has_property(terrain_node, "vertex_spacing"):
                 terrain_node.set("vertex_spacing", float(terrain_cfg.get("vertex_spacing", 1.0)))
-            if _has_property(terrain_node, "region_size"):
-                terrain_node.set("region_size", int(terrain_cfg.get("region_size", 64)))
+            # Terrain3D 1.0.2 creates an uninitialized data object when an existing
+            # directory is assigned outside the SceneTree. Its region_size setter
+            # would then dereference an unset terrain pointer. Disk regions supply
+            # their size on enter_tree; the synchronizer sizes new data after init.
+            terrain_node.set_meta("map_forge_region_size", int(terrain_cfg.get("region_size", 64)))
+            if _has_property(terrain_node, "save_16_bit"):
+                terrain_node.set("save_16_bit", false)
+            if _has_property(terrain_node, "data_directory"):
+                terrain_node.set("data_directory", data_dir)
             terrain_node.set_meta("map_forge_role", "terrain_provider")
             terrain_node.set_meta("map_forge_bounds", Vector2(width, depth))
             layer.add_child(terrain_node)

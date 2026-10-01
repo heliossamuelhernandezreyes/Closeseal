@@ -129,8 +129,6 @@ static func validate(map_data: Dictionary) -> Array[String]:
     return errors
 
 static func _validate_authoring(value, errors: Array[String]) -> void:
-    if value == null:
-        return
     if typeof(value) != TYPE_DICTIONARY:
         errors.append("authoring must be a dictionary")
         return

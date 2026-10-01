@@ -67,7 +67,7 @@ def engine(operation, state, options):
     fatal = any(x in run.stdout + run.stderr for x in ("SCRIPT ERROR", "Parse Error", "Failed to load script"))
     if run.returncode or fatal or not response.exists():
         structured = json.loads(response.read_text(encoding="utf-8")) if response.exists() else None
-        diagnostic = [line for line in (run.stdout + run.stderr).splitlines() if any(token in line for token in ("SCRIPT ERROR", "ERROR:", "MAP_FORGE_CONTROL_RESULT"))]
+        diagnostic = [line for line in (run.stdout + run.stderr).splitlines() if any(token in line for token in ("SCRIPT ERROR", "ERROR:", "MAP_FORGE_CONTROL_RESULT", "handle_crash", "res://", "libterrain"))]
         return {"ok": False, "error": "Godot control worker failed", "worker_result": structured, "exit_code": run.returncode, "log": str(directory / "godot.log"), "details": "\n".join(diagnostic)[:3000]}
     result = json.loads(response.read_text(encoding="utf-8"))
     result["evidence_directory"] = str(directory)

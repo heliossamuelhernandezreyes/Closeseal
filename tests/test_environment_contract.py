@@ -47,3 +47,6 @@ class EnvironmentContractTests(unittest.TestCase):
     def test_invalid_navigation_dimensions_rejected(self):
         self.data['authoring']['navigation']={'mode':'world','agent_height':-1}
         self.assertTrue(self.errors())
+    def test_authoring_null_rejected(self):
+        self.data['authoring']=None
+        self.assertTrue(self.errors())

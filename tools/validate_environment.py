@@ -61,6 +61,8 @@ def validate(a):
                     errors.append("primitive size must be positive xyz")
                 objects[identity] = v
             if label == "lights":
+                if 'color' in v and (not isinstance(v['color'], str) or not re.fullmatch(r'#?(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{8})',v['color'])):
+                    errors.append('light colors must be RGB/RGBA hex')
                 if v.get("type") not in {"directional", "omni", "spot"}:
                     errors.append("unsupported light type")
                 for key in ("energy", "range", "angle"):

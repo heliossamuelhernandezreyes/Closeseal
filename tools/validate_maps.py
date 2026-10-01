@@ -25,8 +25,6 @@ def dist(a, b):
 
 
 def validate_authoring(authoring, errors):
-    if authoring is None:
-        return
     if not isinstance(authoring, dict):
         errors.append("authoring must be an object")
         return
