@@ -132,6 +132,7 @@ static func _validate_authoring(value, errors: Array[String]) -> void:
         errors.append("authoring must be a dictionary")
         return
     var authoring: Dictionary = value
+    _validate_world_extensions(authoring, errors)
     var terrain = authoring.get("terrain", {})
     if typeof(terrain) != TYPE_DICTIONARY:
         errors.append("authoring.terrain must be a dictionary")
@@ -194,7 +195,12 @@ static func _validate_collection_ids(value, label: String, seen_ids: Dictionary,
             seen_ids[id] = true
 
 static func _is_vec3_array(value) -> bool:
-    return typeof(value) == TYPE_ARRAY and value.size() >= 3
+    if typeof(value) != TYPE_ARRAY or value.size() < 3:
+        return false
+    for axis in range(3):
+        if typeof(value[axis]) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(value[axis])):
+            return false
+    return true
 
 static func _is_positive_vec3(value) -> bool:
     return _is_vec3_array(value) and float(value[0]) > 0.0 and float(value[1]) > 0.0 and float(value[2]) > 0.0
@@ -203,3 +209,53 @@ static func vec3_from(value, fallback := Vector3.ZERO) -> Vector3:
     if not _is_vec3_array(value):
         return fallback
     return Vector3(float(value[0]), float(value[1]), float(value[2]))
+
+
+static func _validate_world_extensions(authoring: Dictionary, errors: Array[String]) -> void:
+    var terrain = authoring.get("terrain", {})
+    var landforms: Array = []
+    if terrain is Dictionary and terrain.get("landforms", []) is Array:
+        landforms = terrain.get("landforms", [])
+    var groups := {"landforms": landforms, "geometry": authoring.get("geometry", []), "instances": authoring.get("instances", []), "materials": authoring.get("materials", []), "structure_guides": authoring.get("structure_guides", []), "scatter_zones": authoring.get("scatter_zones", [])}
+    for label in groups:
+        var values = groups[label]
+        if not values is Array:
+            errors.append("authoring.%s must be an array" % label)
+            continue
+        var seen: Dictionary = {}
+        for item in values:
+            if not item is Dictionary:
+                errors.append("authoring.%s entries must be objects" % label)
+                continue
+            var identity := String(item.get("id", "")).strip_edges()
+            if identity.is_empty() or seen.has(identity):
+                errors.append("authoring.%s requires unique non-empty ids" % label)
+            seen[identity] = true
+            if label == "landforms":
+                if not _is_vec3_array(item.get("center")) or not _is_positive_vec3(item.get("size")) or float(item.get("height", 0)) <= 0:
+                    errors.append("landform %s requires center, positive size and height" % identity)
+            if label == "geometry":
+                var vertices = item.get("vertices")
+                var indices = item.get("indices")
+                if not vertices is Array or vertices.size() < 3:
+                    errors.append("geometry %s requires at least three vertices" % identity)
+                    continue
+                for point in vertices:
+                    if not _is_vec3_array(point):
+                        errors.append("geometry %s contains an invalid vertex" % identity)
+                if not indices is Array or indices.size() < 3 or indices.size() % 3 != 0:
+                    errors.append("geometry %s requires triangle indices" % identity)
+                    continue
+                for index in indices:
+                    if typeof(index) not in [TYPE_INT, TYPE_FLOAT] or float(index) != floor(float(index)) or int(index) < 0 or int(index) >= vertices.size():
+                        errors.append("geometry %s index outside vertex bounds" % identity)
+            if label in ["geometry", "instances"]:
+                for field in ["position", "rotation_degrees"]:
+                    if item.has(field) and not _is_vec3_array(item[field]):
+                        errors.append("%s %s has invalid %s" % [label, identity, field])
+            if label == "instances":
+                var path := String(item.get("scene", ""))
+                if not path.begins_with("res://") or path.split("/").has(".."):
+                    errors.append("instance %s requires a project scene path" % identity)
+                if item.has("scale") and not _is_positive_vec3(item["scale"]):
+                    errors.append("instance %s requires positive scale" % identity)

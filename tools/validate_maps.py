@@ -12,7 +12,7 @@ REGION_KINDS = {"formation_space", "choke", "objective_zone", "spawn_zone", "haz
 
 
 def vec3(v):
-    return isinstance(v, list) and len(v) >= 3 and all(isinstance(x, (int, float)) for x in v[:3])
+    return isinstance(v, list) and len(v) >= 3 and all(type(x) in (int, float) and math.isfinite(x) for x in v[:3])
 
 
 def positive_vec3(v):
@@ -30,6 +30,7 @@ def validate_authoring(authoring, errors):
         errors.append("authoring must be an object")
         return
 
+    validate_world_extensions(authoring, errors)
     terrain = authoring.get("terrain", {})
     if not isinstance(terrain, dict):
         errors.append("authoring.terrain must be an object")
@@ -83,6 +84,51 @@ def validate_authoring(authoring, errors):
             density = float(zone.get("density", 0.5))
             if not 0.0 <= density <= 1.0:
                 errors.append(f"authoring scatter zone '{zone_id or '?'}' density must be between 0 and 1")
+
+
+
+def validate_world_extensions(authoring, errors):
+    groups = {
+        "landforms": authoring.get("terrain", {}).get("landforms", []) if isinstance(authoring.get("terrain", {}), dict) else [],
+        "geometry": authoring.get("geometry", []),
+        "instances": authoring.get("instances", []),
+        "materials": authoring.get("materials", []),
+    }
+    for label, values in groups.items():
+        if not isinstance(values, list):
+            errors.append(f"authoring.{label} must be an array")
+            continue
+        seen = set()
+        for item in values:
+            if not isinstance(item, dict):
+                errors.append(f"authoring.{label} entries must be objects")
+                continue
+            identity = item.get("id")
+            if not isinstance(identity, str) or not identity.strip() or identity in seen:
+                errors.append(f"authoring.{label} requires unique non-empty ids")
+            else:
+                seen.add(identity)
+            if label == "landforms":
+                if not vec3(item.get("center")) or not positive_vec3(item.get("size")):
+                    errors.append(f"landform {identity} requires center and positive size")
+                if not isinstance(item.get("height"), (int, float)) or item["height"] <= 0:
+                    errors.append(f"landform {identity} requires positive height")
+            if label == "geometry":
+                vertices, indices = item.get("vertices"), item.get("indices")
+                if not isinstance(vertices, list) or len(vertices) < 3 or not all(vec3(v) for v in vertices):
+                    errors.append(f"geometry {identity} requires at least three vertices")
+                if not isinstance(indices, list) or len(indices) < 3 or len(indices) % 3 or not isinstance(vertices, list) or not all(type(i) is int and 0 <= i < len(vertices) for i in indices):
+                    errors.append(f"geometry {identity} requires triangle indices within vertex bounds")
+            if label in {"geometry", "instances"}:
+                for field in ("position", "rotation_degrees"):
+                    if field in item and not vec3(item[field]):
+                        errors.append(f"{label} {identity} has invalid {field}")
+            if label == "instances":
+                scene = item.get("scene", "")
+                if not isinstance(scene, str) or not scene.startswith("res://") or ".." in scene.split("/"):
+                    errors.append(f"instance {identity} requires a project scene path")
+                if "scale" in item and not positive_vec3(item["scale"]):
+                    errors.append(f"instance {identity} requires positive scale")
 
 
 def validate(data, path):

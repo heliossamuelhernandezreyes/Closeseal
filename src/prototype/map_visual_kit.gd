@@ -1,3 +1,4 @@
+@tool
 extends RefCounted
 
 const MapContract = preload("res://src/map/map_contract.gd")
@@ -7,6 +8,8 @@ var map_data: Dictionary
 var layers: Dictionary = {}
 var materials: Dictionary = {}
 var stats := {
+    "custom_meshes": 0,
+    "asset_instances": 0,
     "route_segments": 0,
     "structures": 0,
     "objectives": 0,
@@ -27,7 +30,77 @@ func build() -> Dictionary:
     _build_objectives()
     _build_scatter()
     _build_map_frame()
+    _build_custom_geometry()
+    _build_asset_instances()
     return stats.duplicate(true)
+
+func _build_custom_geometry() -> void:
+    for value in map_data.get("authoring", {}).get("geometry", []):
+        if not value is Dictionary:
+            continue
+        var definition: Dictionary = value
+        var vertices := PackedVector3Array()
+        for point in definition.get("vertices", []):
+            vertices.append(MapContract.vec3_from(point))
+        var indices := PackedInt32Array()
+        for index in definition.get("indices", []):
+            indices.append(int(index))
+        if vertices.size() < 3 or indices.size() < 3:
+            continue
+        var normals := PackedVector3Array()
+        normals.resize(vertices.size())
+        for triangle in range(0, indices.size(), 3):
+            var a := indices[triangle]
+            var b := indices[triangle + 1]
+            var c := indices[triangle + 2]
+            var normal := (vertices[b] - vertices[a]).cross(vertices[c] - vertices[a]).normalized()
+            normals[a] += normal
+            normals[b] += normal
+            normals[c] += normal
+        for index in range(normals.size()):
+            normals[index] = normals[index].normalized()
+        var arrays: Array = []
+        arrays.resize(Mesh.ARRAY_MAX)
+        arrays[Mesh.ARRAY_VERTEX] = vertices
+        arrays[Mesh.ARRAY_NORMAL] = normals
+        arrays[Mesh.ARRAY_INDEX] = indices
+        var mesh := ArrayMesh.new()
+        mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+        mesh.surface_set_material(0, _material(String(definition.get("material", "earth_dark"))))
+        var instance := MeshInstance3D.new()
+        instance.name = String(definition.get("id", "custom_geometry"))
+        instance.mesh = mesh
+        instance.position = MapContract.vec3_from(definition.get("position", [0, 0, 0]))
+        instance.rotation_degrees = MapContract.vec3_from(definition.get("rotation_degrees", [0, 0, 0]))
+        layers["VisualTerrain"].add_child(instance)
+        if bool(definition.get("collision", false)):
+            instance.create_trimesh_collision()
+        stats["custom_meshes"] = int(stats["custom_meshes"]) + 1
+
+func _build_asset_instances() -> void:
+    for value in map_data.get("authoring", {}).get("instances", []):
+        if not value is Dictionary:
+            continue
+        var definition: Dictionary = value
+        var path := String(definition.get("scene", ""))
+        if not ResourceLoader.exists(path):
+            push_error("Map Forge asset scene missing: " + path)
+            continue
+        var packed = load(path)
+        if not packed is PackedScene:
+            push_error("Map Forge asset must be a PackedScene: " + path)
+            continue
+        var instance = packed.instantiate()
+        if not instance is Node3D:
+            push_error("Map Forge asset root must be Node3D: " + path)
+            instance.free()
+            continue
+        instance.name = String(definition.get("id", "asset"))
+        instance.position = MapContract.vec3_from(definition.get("position", [0, 0, 0]))
+        instance.rotation_degrees = MapContract.vec3_from(definition.get("rotation_degrees", [0, 0, 0]))
+        instance.scale = MapContract.vec3_from(definition.get("scale", [1, 1, 1]))
+        layers["VisualStructures"].add_child(instance)
+        stats["asset_instances"] = int(stats["asset_instances"]) + 1
 
 func _create_layers() -> void:
     for layer_name in ["VisualTerrain", "VisualRoutes", "VisualStructures", "VisualObjectives", "VisualScatter", "VisualDetails"]:

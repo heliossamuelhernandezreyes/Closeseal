@@ -65,7 +65,16 @@ static func augment_scene(scene_path:String,map_data:Dictionary,profile:Dictiona
     var save_error:=ResourceSaver.save(repacked,scene_path);root3d.free()
     if save_error!=OK:return {"ok":false,"error":"physical world save failed"}
     audit["scene_path"]=scene_path;audit["materialized_collision_bodies"]=profile.get("terrain_blockers",[]).size();return audit
-static func format_report(result:Dictionary)->String:
-    var lines:Array[String]=["[b]Map Forge 1.0 — Physical World[/b]"];lines.append("[color=green]READY[/color]" if bool(result.get("ok",false)) else "[color=red]BLOCKED[/color]");lines.append("%d tactical blockers • %d passes • %d water crossings • %d biomes"%[int(result.get("tactical_blockers",0)),int(result.get("passes",0)),int(result.get("water_crossings",0)),int(result.get("biomes",0))]);for error in result.get("errors",[]):lines.append("[color=red]ERROR[/color] %s"%error);for warning in result.get("warnings",[]):lines.append("[color=yellow]WARN[/color] %s"%warning);lines.append("Android FPS remains unproven until measured on target hardware.");return "\n".join(lines)
+static func format_report(result: Dictionary) -> String:
+    var lines: Array[String] = ["[b]Map Forge — Physical World[/b]"]
+    lines.append("[color=green]READY[/color]" if bool(result.get("ok", false)) else "[color=red]BLOCKED[/color]")
+    lines.append("%d tactical blockers • %d passes • %d water crossings • %d biomes" % [int(result.get("tactical_blockers", 0)), int(result.get("passes", 0)), int(result.get("water_crossings", 0)), int(result.get("biomes", 0))])
+    for error in result.get("errors", []):
+        lines.append("[color=red]ERROR[/color] %s" % error)
+    for warning in result.get("warnings", []):
+        lines.append("[color=yellow]WARN[/color] %s" % warning)
+    lines.append("Android FPS remains unproven until measured on target hardware.")
+    return "\n".join(lines)
 static func _finite_vec3_array(value)->bool:return typeof(value)==TYPE_ARRAY and value.size()>=3 and is_finite(float(value[0])) and is_finite(float(value[1])) and is_finite(float(value[2]))
 static func _positive_vec3_array(value)->bool:return _finite_vec3_array(value) and float(value[0])>0.0 and float(value[1])>0.0 and float(value[2])>0.0
+

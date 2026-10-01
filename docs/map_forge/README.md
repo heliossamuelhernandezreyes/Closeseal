@@ -43,12 +43,21 @@ Editor convenience data may be provider-specific, but gameplay-critical semantic
 
 ## Current implementation status
 
+Map Forge 1.1 adds native World 3D authoring and a complete editor-control
+interface. Read [EDITOR_CONTROL.md](EDITOR_CONTROL.md) for configuration, public
+commands and the distinction between authored data and generated projections.
+
 - EditorPlugin scaffold: implemented.
 - Provider discovery: implemented.
 - Canonical contract loader/validator: implemented.
 - First competitive laboratory map contract: implemented.
-- Native fallback: declared architecture path.
-- Terrain3D/Cyclops/ProtonScatter/FuncGodot binaries/source: not vendored yet.
+- Native fallback: implemented provider guides and runtime visual projection.
+- Exact provider acquisition: external installation through the pinned lockfile.
+- World 3D selection/JSON/position editing: implemented.
+- ARCONT control protocol and game adapter: implemented; no generative service.
+- Arbitrary triangle geometry and imported scene placement: implemented.
 - Runtime performance/mobile compatibility: not yet validated; no performance claim is made.
 
-The next milestone is adapter-by-adapter installation/pinning and reproducible editor/import tests before any provider is marked production-ready.
+Editor import, native editing, materialization and rendered views are tested as
+separate gates. Terrain sculpt/paint persistence and device performance remain
+independent production milestones.

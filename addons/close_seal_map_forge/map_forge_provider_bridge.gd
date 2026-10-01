@@ -3,6 +3,7 @@ class_name CloseSealMapForgeProviderBridge
 extends RefCounted
 
 const MAP_CONTRACT = preload("res://src/map/map_contract.gd")
+const VISUAL_KIT = preload("res://src/prototype/map_visual_kit.gd")
 
 const TERRAIN3D_PLUGIN := "res://addons/terrain_3d/plugin.cfg"
 const CYCLOPS_ROOT_SCRIPT := "res://addons/cyclops_level_builder/nodes/cyclops_blocks.gd"
@@ -39,8 +40,13 @@ static func build_authoring_scene(map_data: Dictionary) -> Dictionary:
     var gameplay_root := _build_gameplay_guides(root, map_data)
     var navigation_root := _build_navigation_guides(root, map_data)
     var import_root := _build_import_socket(root, provider_state)
+    var visual_root := Node3D.new()
+    visual_root.name = "MapVisuals"
+    root.add_child(visual_root)
+    var visual_kit = VISUAL_KIT.new(visual_root, map_data)
+    var visual_stats: Dictionary = visual_kit.build()
 
-    for child in [terrain_root, structures_root, scatter_root, gameplay_root, navigation_root, import_root]:
+    for child in [terrain_root, structures_root, scatter_root, gameplay_root, navigation_root, import_root, visual_root]:
         if child != null:
             _assign_owner_recursive(child, root)
 
@@ -67,7 +73,8 @@ static func build_authoring_scene(map_data: Dictionary) -> Dictionary:
         "materials": authoring.get("materials", []),
         "asset_catalog": authoring.get("asset_catalog", []),
         "ownership": "Close Seal canonical map contract",
-        "generated": true
+        "generated": true,
+        "visual_stats": visual_stats
     }
     _write_json(generated_manifest_path(map_id), manifest)
 
