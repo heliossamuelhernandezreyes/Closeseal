@@ -92,7 +92,7 @@ def validate(a):
         for key in ("roughness", "metallic", "opacity"):
             if key in v and (not num(v[key]) or not 0 <= v[key] <= 1):
                 errors.append("material " + key + " must be in [0,1]")
-        for key in ("albedo_texture", "normal_texture", "roughness_texture", "metallic_texture"):
+        for key in ("resource", "albedo_texture", "normal_texture", "roughness_texture", "metallic_texture"):
             if key in v and (not isinstance(v[key], str) or not v[key].startswith("res://") or ".." in v[key].split("/")):
                 errors.append("texture must be a project resource")
         if "uv_scale" in v and not vector(v["uv_scale"], positive=True):

@@ -1,4 +1,4 @@
-# Map Forge 1.1 — editor control and World 3D
+# Map Forge 1.2 — editor control and World 3D
 
 The assistant operates the map editor. There is no prompt-to-map generator,
 model endpoint or API key. Every map decision remains explicit authored data.
@@ -68,8 +68,9 @@ the asset. Captures need a rendering/display environment (Xvfb in CI).
 Responses include output paths, counts and logs in `.mapforge/evidence`.
 
 The 1.0 import blocker in the physical report formatter is corrected. This does
-not establish device performance. Terrain3D sculpt/paint round-trip, dynamic
-avoidance quality and target Android measurements remain independent gates.
+not establish device performance. Terrain3D grid synchronization and world collision navigation are documented in
+[ENVIRONMENT_AUTHORING.md](ENVIRONMENT_AUTHORING.md). Dynamic avoidance quality
+and target Android measurements remain independent gates.
 
 ## Verification
 
@@ -84,3 +85,6 @@ engine variant adds missing-resource rejection, physical materialization and
 five actual rendered views (including an authored detail camera) of an authored
 custom ramp and a placed scene resource. Integral numeric indices round-trip
 between Python and Godot JSON without a type mismatch.
+
+General environment composition, terrain brushes, custom material resources
+and world navigation: [ENVIRONMENT_AUTHORING.md](ENVIRONMENT_AUTHORING.md).

@@ -26,6 +26,7 @@ static func synchronize(state: Dictionary, pull := false) -> Dictionary:
     var terrain = ClassDB.instantiate(&"Terrain3D")
     terrain.set("vertex_spacing", spacing)
     terrain.set("region_size", 64)
+    terrain.set("save_16_bit", false)
     terrain.set("data_directory", directory)
     terrain.visible = false
     var loop: SceneTree = Engine.get_main_loop()
@@ -37,16 +38,35 @@ static func synchronize(state: Dictionary, pull := false) -> Dictionary:
         return {"ok": false, "error": "Terrain3D data did not initialize"}
     var util = ClassDB.instantiate(&"Terrain3DUtil")
     if not pull:
+        # The pinned 1.0.2 importer snaps image origins to region boundaries.
+        # Pad one combined image to those boundaries before importing; importing
+        # separate off-grid chunks would silently shift or overwrite data.
+        var minimum := Vector2(100000000, 100000000)
+        var maximum := Vector2(-100000000, -100000000)
+        for f in fields:
+            var position: Array = f.get("position", [0, 0, 0])
+            var start := Vector2(float(position[0]) / spacing, float(position[2]) / spacing)
+            minimum = minimum.min(start)
+            maximum = maximum.max(start + Vector2(int(f["columns"]) - 1, int(f["rows"]) - 1))
+        var region_start := Vector2i(floori(minimum.x / 64.0) * 64, floori(minimum.y / 64.0) * 64)
+        var region_end := Vector2i(floori(maximum.x / 64.0) * 64 + 64, floori(maximum.y / 64.0) * 64 + 64)
+        if region_start.x < -1024 or region_start.y < -1024 or region_end.x > 1024 or region_end.y > 1024:
+            util.free()
+            terrain.free()
+            return {"ok": false, "error": "Terrain3D region_size 64 supports vertex-grid coordinates [-1024,1023]; use native chunks outside that extent"}
+        var size := region_end - region_start
+        var height := Image.create(size.x, size.y, false, Image.FORMAT_RF)
+        var control := Image.create(size.x, size.y, false, Image.FORMAT_RF)
+        var color := Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
+        control.fill(Color(float(util.call("as_float", util.call("enc_hole", true))), 0, 0, 1))
         for f in fields:
             var columns := int(f["columns"])
             var rows := int(f["rows"])
             var heights: Array = f["heights"]
             var paint: Array = f.get("paint", [])
             var holes: Array = f.get("holes", [])
-            var origin := Vector3(float(f.get("position", [0, 0, 0])[0]), 0, float(f.get("position", [0, 0, 0])[2]))
-            var height := Image.create(columns, rows, false, Image.FORMAT_RF)
-            var control := Image.create(columns, rows, false, Image.FORMAT_RF)
-            var color := Image.create(columns, rows, false, Image.FORMAT_RGBA8)
+            var origin: Array = f.get("position", [0, 0, 0])
+            var offset := Vector2i(roundi(float(origin[0]) / spacing), roundi(float(origin[2]) / spacing)) - region_start
             for z in range(rows):
                 for x in range(columns):
                     var cell := mini(z, rows - 2) * (columns - 1) + mini(x, columns - 2)
@@ -54,11 +74,11 @@ static func synchronize(state: Dictionary, pull := false) -> Dictionary:
                     var bits: int = util.call("enc_base", palette.find(material)) | util.call("enc_nav", true)
                     if not holes.is_empty() and holes[cell]:
                         bits |= int(util.call("enc_hole", true))
-                    height.set_pixel(x, z, Color(float(heights[z * columns + x]) + float(f.get("position", [0, 0, 0])[1]), 0, 0, 1))
-                    control.set_pixel(x, z, Color(float(util.call("as_float", bits)), 0, 0, 1))
-                    color.set_pixel(x, z, colors[material])
-            var images: Array[Image] = [height, control, color]
-            provider.call("import_images", images, origin)
+                    height.set_pixel(x + offset.x, z + offset.y, Color(float(heights[z * columns + x]) + float(origin[1]), 0, 0, 1))
+                    control.set_pixel(x + offset.x, z + offset.y, Color(float(util.call("as_float", bits)), 0, 0, 1))
+                    color.set_pixel(x + offset.x, z + offset.y, colors[material])
+        var images: Array[Image] = [height, control, color]
+        provider.call("import_images", images, Vector3(region_start.x * spacing, 0, region_start.y * spacing))
         provider.call("save_directory", directory)
     else:
         provider.call("load_directory", directory)
@@ -79,6 +99,10 @@ static func synchronize(state: Dictionary, pull := false) -> Dictionary:
                 if not is_finite(sampled):
                     var pixel: Color = provider.call("get_pixel", 0, point)
                     sampled = pixel.r
+                if not is_finite(sampled):
+                    util.free()
+                    terrain.free()
+                    return {"ok": false, "error": "Terrain3D has no stored height at canonical grid point " + str(point)}
                 sampled -= float(position[1])
                 maximum_error = maxf(maximum_error, absf(sampled - float(f["heights"][index])))
                 if pull:
@@ -109,4 +133,12 @@ static func synchronize(state: Dictionary, pull := false) -> Dictionary:
     var reloaded := await synchronize(state, true)
     if not reloaded.get("ok", false):
         return reloaded
+    for index in range(fields.size()):
+        var original: Dictionary = fields[index]
+        var loaded: Dictionary = reloaded["state"]["map"]["authoring"]["heightfields"][index]
+        for vertex in range(original["heights"].size()):
+            maximum_error = maxf(maximum_error, absf(float(original["heights"][vertex]) - float(loaded["heights"][vertex])))
+        var expected_paint: Array = original.get("paint", [])
+        if not expected_paint.is_empty() and expected_paint != loaded["paint"]:
+            paint_matches = false
     return {"ok": maximum_error < 0.001 and paint_matches, "provider_directory": directory, "region_files": Array(files), "maximum_height_error": maximum_error, "paint_preserved": paint_matches, "reloaded_state": reloaded["state"]}

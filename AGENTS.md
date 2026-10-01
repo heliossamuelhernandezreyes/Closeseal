@@ -16,3 +16,9 @@ Run `tools/validate_maps.py`, `tools/validate_physical_world.py` and the control
 smoke test for editor changes. Godot import must contain no script errors.
 Changes belong on reviewable branches. Do not merge Close Seal PRs without the
 user's explicit authorization.
+
+Read `docs/map_forge/ENVIRONMENT_AUTHORING.md` for environment work. Use
+`purpose: environment` when competitive topology is not requested. Brushes and
+provider pulls are explicit revision-checked editor operations. Inspect captures
+and test actual collision/navigation when changing traversal. Preserve authored
+JSON; provider region files are generated data.

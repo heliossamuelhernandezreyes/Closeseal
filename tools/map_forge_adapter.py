@@ -9,6 +9,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import uuid
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,7 +52,7 @@ def analyze(state):
 def engine(operation, state, options):
     godot = os.environ.get("GODOT_BIN", "godot")
     digest = hashlib.sha256(json.dumps(state, sort_keys=True, allow_nan=False).encode()).hexdigest()
-    directory = ROOT / ".mapforge" / "evidence" / state["map"]["id"] / digest
+    directory = ROOT / ".mapforge" / "evidence" / state["map"]["id"] / digest / (operation + "-" + uuid.uuid4().hex)
     directory.mkdir(parents=True, exist_ok=True)
     request = directory / "request.json"
     request.write_text(json.dumps({"operation": operation, "state": state, "options": options}, allow_nan=False), encoding="utf-8")
@@ -65,7 +66,9 @@ def engine(operation, state, options):
     (directory / "godot.log").write_text(run.stdout + run.stderr, encoding="utf-8")
     fatal = any(x in run.stdout + run.stderr for x in ("SCRIPT ERROR", "Parse Error", "Failed to load script"))
     if run.returncode or fatal or not response.exists():
-        return {"ok": False, "error": "Godot control worker failed", "exit_code": run.returncode, "log": str(directory / "godot.log"), "details": (run.stdout + run.stderr)[-3000:]}
+        structured = json.loads(response.read_text(encoding="utf-8")) if response.exists() else None
+        diagnostic = [line for line in (run.stdout + run.stderr).splitlines() if any(token in line for token in ("SCRIPT ERROR", "ERROR:", "MAP_FORGE_CONTROL_RESULT"))]
+        return {"ok": False, "error": "Godot control worker failed", "worker_result": structured, "exit_code": run.returncode, "log": str(directory / "godot.log"), "details": "\n".join(diagnostic)[:3000]}
     result = json.loads(response.read_text(encoding="utf-8"))
     result["evidence_directory"] = str(directory)
     return result

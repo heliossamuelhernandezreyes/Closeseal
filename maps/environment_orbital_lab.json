@@ -21,7 +21,8 @@
       {
         "id": "signal",
         "albedo": "32c5e5",
-        "emission": "16accc"
+        "emission": "16accc",
+        "resource": "res://tests/fixtures/environment_signal.tres"
       },
       {
         "id": "glass",

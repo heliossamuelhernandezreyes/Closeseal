@@ -82,6 +82,8 @@ func _build_custom_geometry() -> void:
         var mesh := ArrayMesh.new()
         mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
         mesh.surface_set_material(0, _material(String(definition.get("material", "earth_dark"))))
+        if definition.has("uvs"):
+            mesh = ENVIRONMENT.with_tangents(mesh)
         var instance := MeshInstance3D.new()
         instance.name = String(definition.get("id", "custom_geometry"))
         instance.mesh = mesh
@@ -143,6 +145,13 @@ func _load_materials() -> void:
             continue
         var definition: Dictionary = value
         var id := String(definition.get("id", "material"))
+        if definition.has("resource"):
+            var resource = load(String(definition["resource"])) if ResourceLoader.exists(String(definition["resource"])) else null
+            if resource is Material:
+                materials[id] = resource
+            else:
+                errors.append("Material resource missing or invalid: " + String(definition["resource"]))
+            continue
         var material := StandardMaterial3D.new()
         material.albedo_color = Color(String(definition.get("albedo", "#808080")))
         material.roughness = float(definition.get("roughness", 0.8))

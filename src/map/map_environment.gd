@@ -33,7 +33,7 @@ static func validate(a: Dictionary) -> Array[String]:
             for key in ["albedo", "emission"]:
                 if m.has(key) and not valid_color(m[key]):
                     errors.append("material colors must be RGB/RGBA hex")
-            for key in ["albedo_texture", "normal_texture", "roughness_texture", "metallic_texture"]:
+            for key in ["resource", "albedo_texture", "normal_texture", "roughness_texture", "metallic_texture"]:
                 if m.has(key) and (not m[key] is String or not m[key].begins_with("res://") or m[key].split("/").has("..")):
                     errors.append("texture must be a project resource")
             if m.has("uv_scale") and not valid_vector(m["uv_scale"], 3, true):
@@ -273,6 +273,7 @@ func heightfield(v: Dictionary) -> void:
         arrays[Mesh.ARRAY_TEX_UV] = surfaces[material]["uvs"]
         mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
         mesh.surface_set_material(mesh.get_surface_count() - 1, materials.get(material))
+    mesh = with_tangents(mesh)
     var node := MeshInstance3D.new()
     node.name = String(v["id"])
     node.mesh = mesh
@@ -281,6 +282,15 @@ func heightfield(v: Dictionary) -> void:
     if bool(v.get("collision", true)) and mesh.get_surface_count() > 0:
         node.create_trimesh_collision()
     stats["heightfields"] += 1
+
+static func with_tangents(mesh: ArrayMesh) -> ArrayMesh:
+    var result := ArrayMesh.new()
+    for index in range(mesh.get_surface_count()):
+        var tool := SurfaceTool.new()
+        tool.create_from(mesh, index)
+        tool.generate_tangents()
+        tool.commit(result)
+    return result
 
 static func configure_world(target: Node3D, a: Dictionary) -> void:
     var settings: Dictionary = a.get("environment", {})

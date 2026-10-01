@@ -61,3 +61,8 @@ commands and the distinction between authored data and generated projections.
 Editor import, native editing, materialization and rendered views are tested as
 separate gates. Terrain sculpt/paint persistence and device performance remain
 independent production milestones.
+
+## Environment authoring 1.2
+
+See [ENVIRONMENT_AUTHORING.md](ENVIRONMENT_AUTHORING.md) for free scene composition,
+canonical terrain brushes, provider persistence, lighting and collision navigation.
