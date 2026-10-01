@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "id": "environment_orbital_lab",
+  "purpose": "environment",
+  "bounds": {
+    "width": 40,
+    "depth": 40
+  },
+  "bases": [],
+  "objectives": [],
+  "routes": [],
+  "regions": [],
+  "authoring": {
+    "materials": [
+      {
+        "id": "metal",
+        "albedo": "586b83",
+        "metallic": 0.7,
+        "roughness": 0.3
+      },
+      {
+        "id": "signal",
+        "albedo": "32c5e5",
+        "emission": "16accc"
+      },
+      {
+        "id": "glass",
+        "albedo": "79cde8",
+        "opacity": 0.4,
+        "double_sided": true,
+        "roughness": 0.05
+      }
+    ],
+    "objects": [
+      {
+        "id": "platform",
+        "type": "box",
+        "size": [
+          22,
+          1,
+          22
+        ],
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "material": "metal",
+        "collision": true
+      },
+      {
+        "id": "reactor",
+        "type": "sphere",
+        "size": [
+          6,
+          6,
+          6
+        ],
+        "position": [
+          0,
+          5,
+          0
+        ],
+        "material": "glass"
+      },
+      {
+        "id": "ring_a",
+        "type": "torus",
+        "size": [
+          10,
+          2,
+          10
+        ],
+        "position": [
+          0,
+          5,
+          0
+        ],
+        "material": "signal"
+      },
+      {
+        "id": "ring_b",
+        "type": "torus",
+        "size": [
+          10,
+          2,
+          10
+        ],
+        "position": [
+          0,
+          5,
+          0
+        ],
+        "material": "signal",
+        "rotation_degrees": [
+          70,
+          0,
+          30
+        ]
+      },
+      {
+        "id": "beacon_0",
+        "type": "cylinder",
+        "size": [
+          1,
+          5,
+          1
+        ],
+        "position": [
+          -8,
+          3,
+          -8
+        ],
+        "material": "signal"
+      },
+      {
+        "id": "beacon_1",
+        "type": "cylinder",
+        "size": [
+          1,
+          5,
+          1
+        ],
+        "position": [
+          8,
+          3,
+          -8
+        ],
+        "material": "signal"
+      },
+      {
+        "id": "beacon_2",
+        "type": "cylinder",
+        "size": [
+          1,
+          5,
+          1
+        ],
+        "position": [
+          -8,
+          3,
+          8
+        ],
+        "material": "signal"
+      },
+      {
+        "id": "beacon_3",
+        "type": "cylinder",
+        "size": [
+          1,
+          5,
+          1
+        ],
+        "position": [
+          8,
+          3,
+          8
+        ],
+        "material": "signal"
+      }
+    ],
+    "lights": [
+      {
+        "id": "blue",
+        "type": "omni",
+        "position": [
+          0,
+          7,
+          0
+        ],
+        "color": "73ddff",
+        "energy": 5,
+        "range": 30
+      },
+      {
+        "id": "rim",
+        "type": "directional",
+        "rotation_degrees": [
+          -40,
+          50,
+          0
+        ],
+        "color": "9aafff",
+        "energy": 1.2
+      }
+    ],
+    "heightfields": [],
+    "geometry": [],
+    "instances": [
+      {
+        "id": "resource_console",
+        "scene": "res://tests/fixtures/editor_asset.tscn",
+        "position": [
+          6,
+          1,
+          2
+        ],
+        "rotation_degrees": [
+          0,
+          35,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "material": "signal"
+      }
+    ],
+    "navigation": {
+      "mode": "none"
+    },
+    "environment": {
+      "background_color": "080e23",
+      "ambient_color": "7189b7",
+      "ambient_energy": 0.35
+    }
+  },
+  "evidence_camera": {
+    "name": "orbital",
+    "position": [
+      28,
+      20,
+      28
+    ],
+    "target": [
+      0,
+      3,
+      0
+    ],
+    "projection": "perspective",
+    "fov": 48
+  }
+}

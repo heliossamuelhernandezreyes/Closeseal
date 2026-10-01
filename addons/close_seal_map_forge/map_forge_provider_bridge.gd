@@ -107,6 +107,8 @@ static func _build_terrain_layer(root: Node3D, map_data: Dictionary, map_id: Str
         if terrain_object is Node:
             var terrain_node: Node = terrain_object
             terrain_node.name = "Terrain3D"
+            if map_data.get("purpose", "competitive") == "environment":
+                terrain_node.visible = false
             var data_dir := String(terrain_cfg.get("data_directory", "res://maps/generated/terrain/%s" % map_id))
             if _has_property(terrain_node, "data_directory"):
                 terrain_node.set("data_directory", data_dir)
@@ -126,6 +128,9 @@ static func _build_terrain_layer(root: Node3D, map_data: Dictionary, map_id: Str
         _add_terrain_envelope(layer, width, depth)
 
     var boundary := _box_mesh("TerrainBoundsGuide", Vector3(0.0, -0.34, 0.0), Vector3(width, 0.08, depth), Color(0.16, 0.33, 0.24, 0.18))
+    if map_data.get("purpose", "competitive") == "environment":
+        boundary.free()
+        return layer
     boundary.set_meta("map_forge_role", "terrain_bounds_guide")
     layer.add_child(boundary)
     return layer

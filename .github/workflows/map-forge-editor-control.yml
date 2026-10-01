@@ -29,6 +29,8 @@ jobs:
           python tools/validate_maps.py
           python tools/validate_physical_world.py
           python tools/map_forge_control_smoke.py
+          python -m unittest discover -s tests -q
+          python tools/map_forge_environment_smoke.py
       - name: Install render dependencies and exact Godot
         run: |
           sudo apt-get update
@@ -55,6 +57,18 @@ jobs:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
           GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
         run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/map_forge_control_smoke.py --engine
+      - name: Author and render three different environments
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: xvfb-run -a python tools/map_forge_environment_smoke.py --engine
+      - name: Query real world navigation and brush parity
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 120 godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --script res://tools/map_forge_environment_probe.gd 2>&1 | tee environment-probe.log
+          grep -q MAP_FORGE_ENVIRONMENT_PROBE_OK environment-probe.log
+          if grep -E "SCRIPT ERROR|Parse Error|Failed to load script" environment-probe.log; then exit 1; fi
       - name: Preserve editor evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -65,6 +79,10 @@ jobs:
             editor-control-import.log
             editor-world-view.log
             .mapforge/control-smoke.json
+            .mapforge/environment-smoke.json
+            .mapforge/environment-probe.json
+            environment-probe.log
+            maps/generated/terrain/environment_alpine_lab/
             .mapforge/evidence/
           if-no-files-found: warn
           retention-days: 30

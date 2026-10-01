@@ -333,13 +333,28 @@ func _rebuild_scene() -> void:
                 continue
             var path: Array = collection_path.duplicate()
             path.append(index)
-            _handle(path, CONTRACT.vec3_from(value.get("position", value.get("center", []))))
+            var object_position := CONTRACT.vec3_from(value.get("position", value.get("center", [])))
+            var authored_node := _find_authored_node(content, String(value.get("id", "")))
+            if authored_node != null:
+                object_position = authored_node.global_position
+            _handle(path, object_position)
     var routes: Array = document.get("routes", [])
     for index in range(routes.size()):
         var points: Array = routes[index].get("points", [])
         for point_index in range(points.size()):
             _handle(["routes", index], CONTRACT.vec3_from(points[point_index]))
     _update_camera()
+
+func _find_authored_node(parent: Node, identity: String) -> Node3D:
+    if identity.is_empty():
+        return null
+    for child in parent.get_children():
+        if child is Node3D and String(child.name) == identity:
+            return child
+        var found := _find_authored_node(child, identity)
+        if found != null:
+            return found
+    return null
 
 func _handle(path: Array, position: Vector3) -> void:
     var marker := MeshInstance3D.new()

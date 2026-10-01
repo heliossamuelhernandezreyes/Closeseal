@@ -1,5 +1,6 @@
 """Validate the authored environment extension before saving or rendering."""
 import math
+import re
 
 
 def num(x):
@@ -12,6 +13,10 @@ def vector(x, length=3, positive=False):
 
 def validate(a):
     errors, ids, objects = [], set(), {}
+    for label in ("geometry", "instances"):
+        for v in a.get(label, []) if isinstance(a.get(label, []), list) else []:
+            if isinstance(v, dict) and isinstance(v.get('id'), str):
+                ids.add(v['id'])
     for label in ("heightfields", "objects", "lights"):
         values = a.get(label, [])
         if not isinstance(values, list):
@@ -29,6 +34,8 @@ def validate(a):
             for key in ("position", "rotation_degrees", "scale"):
                 if key in v and not vector(v[key], positive=key == "scale"):
                     errors.append(str(identity) + " has invalid " + key)
+            if label == "objects" and 'top_radius' in v and (not num(v['top_radius']) or v['top_radius'] < 0):
+                errors.append('top_radius must be finite and nonnegative')
             if label == "heightfields":
                 c, r = v.get("columns"), v.get("rows")
                 if not all(num(n) and n == int(n) and 2 <= n <= 2049 for n in (c, r)):
@@ -97,6 +104,19 @@ def validate(a):
         for key in ("ambient_energy", "fog_density"):
             if key in world and (not num(world[key]) or world[key] < 0):
                 errors.append("invalid environment " + key)
+    for v in materials if isinstance(materials, list) else []:
+        if isinstance(v, dict):
+            for key in ('albedo', 'emission'):
+                if key in v and (not isinstance(v[key], str) or not re.fullmatch(r'#?(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{8})', v[key])):
+                    errors.append('material colors must be RGB/RGBA hex')
+    for key in ('background_color', 'ambient_color', 'fog_color'):
+        if isinstance(world, dict) and key in world and (not isinstance(world[key], str) or not re.fullmatch(r'#?(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{8})',world[key])):
+            errors.append('environment colors must be RGB/RGBA hex')
+    navigation = a.get('navigation', {})
+    if not isinstance(navigation, dict) or navigation.get('mode', 'routes') not in ('none', 'routes', 'world'):
+        errors.append('unsupported navigation mode')
+    elif any(key in navigation and (not num(navigation[key]) or navigation[key] <= 0) for key in ('agent_height','agent_radius','agent_max_climb','agent_max_slope','cell_size','cell_height')):
+        errors.append('navigation agent dimensions must be positive and finite')
     for g in a.get("geometry", []) if isinstance(a.get("geometry", []), list) else []:
         if isinstance(g, dict) and "uvs" in g:
             if not isinstance(g["uvs"], list) or len(g["uvs"]) != len(g.get("vertices", [])) or not all(vector(uv, 2) for uv in g["uvs"]):

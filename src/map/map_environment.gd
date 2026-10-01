@@ -23,9 +23,26 @@ static func validate(a: Dictionary) -> Array[String]:
     var ids: Dictionary = {}
     var objects: Dictionary = {}
     var material_ids: Dictionary = {}
-    for m in a.get("materials", []):
+    var material_values: Array = a.get("materials", []) if a.get("materials", []) is Array else []
+    for m in material_values:
         if m is Dictionary:
             material_ids[m.get("id", "")] = true
+            for key in ["roughness", "metallic", "opacity"]:
+                if m.has(key) and (typeof(m[key]) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(m[key])) or float(m[key]) < 0 or float(m[key]) > 1):
+                    errors.append("material " + key + " must be in [0,1]")
+            for key in ["albedo", "emission"]:
+                if m.has(key) and not valid_color(m[key]):
+                    errors.append("material colors must be RGB/RGBA hex")
+            for key in ["albedo_texture", "normal_texture", "roughness_texture", "metallic_texture"]:
+                if m.has(key) and (not m[key] is String or not m[key].begins_with("res://") or m[key].split("/").has("..")):
+                    errors.append("texture must be a project resource")
+            if m.has("uv_scale") and not valid_vector(m["uv_scale"], 3, true):
+                errors.append("uv_scale must be positive xyz")
+    for label in ["geometry", "instances"]:
+        if a.get(label, []) is Array:
+            for v in a.get(label, []):
+                if v is Dictionary:
+                    ids[v.get("id", "")] = true
     for label in ["heightfields", "objects", "lights"]:
         var values = a.get(label, [])
         if not values is Array:
@@ -75,6 +92,8 @@ static func validate(a: Dictionary) -> Array[String]:
                             break
             if label == "objects":
                 objects[identity] = v
+                if v.has("top_radius") and (typeof(v["top_radius"]) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(v["top_radius"])) or float(v["top_radius"]) < 0):
+                    errors.append("top_radius must be finite and nonnegative")
                 if v.get("type", "") not in ["group", "box", "sphere", "cylinder", "capsule", "plane", "prism", "torus"] or not valid_vector(v.get("size", [1, 1, 1]), 3, true):
                     errors.append("invalid primitive type or size")
             if label == "lights":
@@ -100,7 +119,23 @@ static func validate(a: Dictionary) -> Array[String]:
                 errors.append(label + " parent must name an authored object")
     if not a.get("environment", {}) is Dictionary:
         errors.append("environment must be an object")
-    for g in a.get("geometry", []):
+    else:
+        var settings: Dictionary = a.get("environment", {})
+        for key in ["ambient_energy", "fog_density"]:
+            if settings.has(key) and (typeof(settings[key]) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(settings[key])) or float(settings[key]) < 0):
+                errors.append("invalid environment " + key)
+        for key in ["background_color", "ambient_color", "fog_color"]:
+            if settings.has(key) and not valid_color(settings[key]):
+                errors.append("environment colors must be RGB/RGBA hex")
+    var navigation = a.get("navigation", {})
+    if not navigation is Dictionary or navigation.get("mode", "routes") not in ["none", "routes", "world"]:
+        errors.append("unsupported navigation mode")
+    else:
+        for key in ["agent_height", "agent_radius", "agent_max_climb", "agent_max_slope", "cell_size", "cell_height"]:
+            if navigation.has(key) and (typeof(navigation[key]) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(navigation[key])) or float(navigation[key]) <= 0):
+                errors.append("navigation agent dimensions must be positive")
+    var geometry_values: Array = a.get("geometry", []) if a.get("geometry", []) is Array else []
+    for g in geometry_values:
         if g is Dictionary and g.has("uvs"):
             if not g["uvs"] is Array or g["uvs"].size() != g.get("vertices", []).size():
                 errors.append("geometry uvs must match vertices")
@@ -109,6 +144,12 @@ static func validate(a: Dictionary) -> Array[String]:
                     if not valid_vector(uv, 2):
                         errors.append("invalid geometry uv")
     return errors
+
+static func valid_color(value) -> bool:
+    if not value is String:
+        return false
+    var text: String = value.trim_prefix("#")
+    return text.length() in [6, 8] and Color.html_is_valid(text)
 
 func _init(target: Node3D, definitions: Dictionary, material_library: Dictionary) -> void:
     root = target

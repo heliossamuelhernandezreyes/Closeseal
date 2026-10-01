@@ -1,0 +1,178 @@
+{
+  "initial": {
+    "authoring": {
+      "materials": [
+        {
+          "id": "soil"
+        },
+        {
+          "id": "grass"
+        }
+      ],
+      "heightfields": [
+        {
+          "id": "ground",
+          "columns": 3,
+          "rows": 3,
+          "spacing": [
+            2,
+            2
+          ],
+          "position": [
+            10,
+            0,
+            -4
+          ],
+          "heights": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "material": "soil"
+        }
+      ]
+    }
+  },
+  "operations": [
+    {
+      "heightfield_id": "ground",
+      "center": [
+        12,
+        -2
+      ],
+      "radius": 3,
+      "strength": 1.5,
+      "mode": "raise"
+    },
+    {
+      "heightfield_id": "ground",
+      "center": [
+        12,
+        -2
+      ],
+      "radius": 3,
+      "strength": 1.5,
+      "mode": "lower"
+    },
+    {
+      "heightfield_id": "ground",
+      "center": [
+        12,
+        -2
+      ],
+      "radius": 3,
+      "strength": 1.5,
+      "mode": "raise"
+    },
+    {
+      "heightfield_id": "ground",
+      "center": [
+        12,
+        -2
+      ],
+      "radius": 3,
+      "strength": 0.5,
+      "mode": "flatten",
+      "height": 2
+    },
+    {
+      "heightfield_id": "ground",
+      "center": [
+        12,
+        -2
+      ],
+      "radius": 3,
+      "strength": 1.5,
+      "mode": "smooth"
+    },
+    {
+      "heightfield_id": "ground",
+      "center": [
+        12,
+        -2
+      ],
+      "radius": 3,
+      "strength": 1.5,
+      "mode": "paint",
+      "material": "grass"
+    },
+    {
+      "heightfield_id": "ground",
+      "center": [
+        12,
+        -2
+      ],
+      "radius": 3,
+      "strength": 1.5,
+      "mode": "hole"
+    },
+    {
+      "heightfield_id": "ground",
+      "center": [
+        12,
+        -2
+      ],
+      "radius": 3,
+      "strength": 1.5,
+      "mode": "fill"
+    }
+  ],
+  "expected": {
+    "authoring": {
+      "materials": [
+        {
+          "id": "soil"
+        },
+        {
+          "id": "grass"
+        }
+      ],
+      "heightfields": [
+        {
+          "id": "ground",
+          "columns": 3,
+          "rows": 3,
+          "spacing": [
+            2,
+            2
+          ],
+          "position": [
+            10,
+            0,
+            -4
+          ],
+          "heights": [
+            0.18096440627115054,
+            0.7378360324168077,
+            0.18096440627115054,
+            0.7378360324168077,
+            0.5902330185561198,
+            0.7378360324168077,
+            0.18096440627115054,
+            0.7378360324168077,
+            0.18096440627115054
+          ],
+          "material": "soil",
+          "paint": [
+            "grass",
+            "grass",
+            "grass",
+            "grass"
+          ],
+          "holes": [
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    }
+  }
+}
