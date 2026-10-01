@@ -126,7 +126,7 @@ def compose():
                 for stripe in range(8):
                     box(f'{ident}_crosswalk_{stripe}',[x+stripe*1.1-4,0.12,z-36],[0.55,0.02,16],'white')
 
-    box('civic_plaza',[0,0.1,0],[132,0.2,132],'paving',True)
+    box('civic_plaza',[0,0.1,0],[132,0.2,132],'plaza_pavers',True)
     box('plaza_axis_x',[0,0.211,0],[132,0.02,10],'concrete')
     box('plaza_axis_z',[0,0.212,0],[10,0.02,132],'concrete')
     objects.append(dict(id='fountain_base',type='cylinder',position=[0,0.45,0],size=[23,0.5,23],material='concrete',collision=True))
@@ -168,7 +168,7 @@ def compose():
             box(f'boundary_{axis}_{side}',pos,size,'grass',True,visible=False)
 
     cameras=[
-        dict(name='city_overview',position=[470,370,470],target=[0,10,0],projection='perspective',fov=52),
+        dict(name='city_overview',position=[400,320,400],target=[0,-35,0],projection='perspective',fov=54),
         dict(name='plaza',position=[64,34,83],target=[-10,8,-15],projection='perspective',fov=62),
         dict(name='downtown_street',position=[-72,2.1,-132],target=[-72,10,-45],projection='perspective',fov=74),
         dict(name='industrial',position=[178,38,-42],target=[108,4,-130],projection='perspective',fov=65),
@@ -180,7 +180,7 @@ def compose():
     checkpoints=[dict(id='plaza',label='Plaza Nexo',position=[25,0.3,25]),dict(id='comercial',label='Distrito comercial',position=[-72,0.3,-108]),dict(id='industrial',label='Zona industrial',position=[144,0.3,-108]),dict(id='residencial',label='Barrio residencial',position=[-144,0.3,108]),dict(id='parque',label='Parque civico',position=[108,0.3,108]),dict(id='viaducto',label='Viaducto sur',position=[0,8.1,216])]
     return dict(version=1,id=MAP_ID,display_name='Distrito Nexo',purpose='environment',bounds=dict(width=512,depth=512),bases=[],objectives=[],routes=[],regions=[],
         urban_design=dict(area_m2=262144,street_width=18,block_spacing=72,blocks=32,districts=['comercial','industrial','residencial','civico'],asset_sources='res://assets/urban/sources.lock.json',spawn=[25,0.35,25],checkpoints=checkpoints,building_interiors=False),evidence_cameras=cameras,
-        authoring=dict(materials=[dict(id=k,albedo=v,roughness=0.85) for k,v in {'asphalt':'29333d','concrete':'b7b5aa','paving':'d6c9ad','grass':'527b57','grass_light':'739563','white':'ece6cf','yellow':'e8b957','steel':'344753','wood':'906342','copper':'c88441','water':'3cabb9'}.items()],objects=objects,instances=instances,geometry=geometry,lights=[dict(id='afternoon_sun',type='directional',color='ffe4c1',energy=1.1,rotation_degrees=[-48,-32,0],shadows=True)],environment=dict(background_color='9ebace',ambient_color='d1e1ee',ambient_energy=0.65,fog_enabled=True,fog_color='b3cbd9',fog_density=0.0006),navigation=dict(mode='world',agent_radius=0.45,agent_height=1.8,agent_max_climb=0.3,agent_max_slope=40,cell_size=0.5,cell_height=0.2)))
+        authoring=dict(materials=[dict(id=k,albedo=v,roughness=0.85) for k,v in {'asphalt':'29333d','concrete':'b7b5aa','paving':'d6c9ad','grass':'527b57','grass_light':'739563','white':'ece6cf','yellow':'e8b957','steel':'344753','wood':'906342','copper':'c88441','water':'3cabb9'}.items()]+[dict(id='plaza_pavers',albedo='ffffff',roughness=0.95,albedo_texture='res://assets/urban/plaza_pavers.svg',uv_scale=[66,66,66])],objects=objects,instances=instances,geometry=geometry,lights=[dict(id='afternoon_sun',type='directional',color='ffe4c1',energy=0.7,rotation_degrees=[-48,-32,0],shadows=True)],environment=dict(background_color='819db6',ambient_color='b4c7da',ambient_energy=0.22,fog_enabled=True,fog_color='b3cbd9',fog_density=0.0003),navigation=dict(mode='world',agent_radius=0.45,agent_height=1.8,agent_max_climb=0.3,agent_max_slope=40,cell_size=0.5,cell_height=0.2)))
 
 
 def main():

@@ -2,9 +2,7 @@
 """Select unchanged Kenney GLBs, atlas dependencies and licenses for Urban Nexo."""
 import argparse
 import hashlib
-import itertools
 import json
-import math
 import shutil
 import struct
 from pathlib import Path

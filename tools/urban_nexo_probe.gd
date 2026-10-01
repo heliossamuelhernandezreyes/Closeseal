@@ -63,7 +63,9 @@ func _run() -> void:
         if node==null:
             _fail("collider fixture missing: "+identity)
             return
-        var hit := direct.intersect_ray(PhysicsRayQueryParameters3D.create(node.global_position+Vector3(0,150,0),node.global_position-Vector3(0,150,0)))
+        # Sample the fountain rim, away from the sculpture stacked above its centre.
+        var sample := node.global_position + (Vector3(8,0,0) if identity=="fountain_base" else Vector3.ZERO)
+        var hit := direct.intersect_ray(PhysicsRayQueryParameters3D.create(sample+Vector3(0,150,0),sample-Vector3(0,150,0)))
         if hit.is_empty() or String(hit["collider"].get_parent().name)!=identity:
             _fail("collision ray did not hit "+identity)
             return
@@ -75,7 +77,7 @@ func _run() -> void:
     for frame in range(45):
         await physics_frame
         actor.velocity = Vector3(0,-4,0)
-        actor.move_and_slide()
+        actor.move_with_steps(1.0/60.0)
     if not actor.is_on_floor() or absf(actor.position.y-0.2)>0.1:
         _fail("explorer cannot stand on plaza")
         return
@@ -83,7 +85,7 @@ func _run() -> void:
     for frame in range(60):
         await physics_frame
         actor.velocity = Vector3(6,-4,0)
-        actor.move_and_slide()
+        actor.move_with_steps(1.0/60.0)
     var walked := actor.position.distance_to(origin)
     if walked<4.5 or not actor.is_on_floor():
         _fail("explorer failed walking collision test")
@@ -92,11 +94,37 @@ func _run() -> void:
     for frame in range(120):
         await physics_frame
         actor.velocity = Vector3(-6,-4,0)
-        actor.move_and_slide()
+        actor.move_with_steps(1.0/60.0)
     if actor.position.x<11.6:
         _fail("explorer entered fountain collider")
         return
-    var report := {"ok":true,"navigation_polygons":region.navigation_mesh.get_polygon_count(),"routes":routes,"fountain_detour_points":detour.size(),"fountain_detour_offset":lateral,"collision_hits":hits,"explorer_walked_m":walked,"explorer_stopped_x":actor.position.x}
+    var stopped_x := actor.position.x
+    actor.position = Vector3(-140,0.5,108)
+    for frame in range(45):
+        await physics_frame
+        actor.velocity = Vector3(0,-4,0)
+        actor.move_with_steps(1.0/60.0)
+    for frame in range(120):
+        await physics_frame
+        actor.velocity = Vector3(6,-4,0)
+        actor.move_with_steps(1.0/60.0)
+    if actor.position.x < -129 or absf(actor.position.y-0.2)>0.1:
+        _fail("explorer could not step onto 0.2 metre sidewalk")
+        return
+    var curb_position := actor.position
+    actor.position = Vector3(241,1,216)
+    for frame in range(45):
+        await physics_frame
+        actor.velocity = Vector3(0,-4,0)
+        actor.move_with_steps(1.0/60.0)
+    for frame in range(660):
+        await physics_frame
+        actor.velocity = Vector3(-6,-4,0)
+        actor.move_with_steps(1.0/60.0)
+    if actor.position.x>180 or actor.position.y<7.8 or not actor.is_on_floor():
+        _fail("explorer could not climb bridge collision ramp")
+        return
+    var report := {"ok":true,"navigation_polygons":region.navigation_mesh.get_polygon_count(),"routes":routes,"fountain_detour_points":detour.size(),"fountain_detour_offset":lateral,"collision_hits":hits,"explorer_walked_m":walked,"explorer_stopped_x":stopped_x,"curb_position":curb_position,"bridge_position":actor.position}
     var out := FileAccess.open("res://.mapforge/urban-probe.json",FileAccess.WRITE)
     out.store_string(JSON.stringify(report,"  "))
     print("URBAN_NEXO_PROBE_OK "+JSON.stringify(report))

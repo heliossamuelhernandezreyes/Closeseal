@@ -27,11 +27,11 @@ func _ready() -> void:
     player.rotation.y = deg_to_rad(45)
     aerial = Camera3D.new()
     aerial.name = "CityOverview"
-    aerial.position = Vector3(470,370,470)
-    aerial.fov = 52
+    aerial.position = Vector3(400,320,400)
+    aerial.fov = 54
     aerial.far = 1800
     add_child(aerial)
-    aerial.look_at(Vector3(0,10,0))
+    aerial.look_at(Vector3(0,-35,0))
     var ui := CanvasLayer.new()
     add_child(ui)
     var panel := PanelContainer.new()

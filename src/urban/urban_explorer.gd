@@ -45,6 +45,24 @@ func _physics_process(delta: float) -> void:
     var speed := RUN_SPEED if Input.is_physical_key_pressed(KEY_SHIFT) else WALK_SPEED
     velocity.x = direction.x*speed
     velocity.z = direction.z*speed
+    move_with_steps(delta)
+
+func move_with_steps(delta: float) -> void:
+    # Explicit 0.3 m curb stepping, matching the authored navigation agent.
+    var horizontal := Vector3(velocity.x,0,velocity.z)*delta
+    if is_on_floor() and velocity.y<=0 and horizontal.length()>0.0001 and test_move(global_transform,horizontal):
+        var lift := Vector3(0,0.31,0)
+        var raised := global_transform
+        raised.origin += lift
+        if not test_move(global_transform,lift) and not test_move(raised,horizontal):
+            var sample := raised.origin+horizontal+horizontal.normalized()*0.45
+            var ray := PhysicsRayQueryParameters3D.create(sample,sample-Vector3(0,0.42,0))
+            ray.exclude = [get_rid()]
+            var hit := get_world_3d().direct_space_state.intersect_ray(ray)
+            if not hit.is_empty():
+                var rise: float = hit["position"].y-global_position.y
+                if rise>0.01 and rise<=0.3 and hit["normal"].y>0.7:
+                    global_position.y = hit["position"].y+0.01
     move_and_slide()
 
 func teleport(point: Vector3) -> void:

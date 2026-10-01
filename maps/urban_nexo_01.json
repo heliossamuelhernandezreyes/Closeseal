@@ -90,17 +90,17 @@
     {
       "name": "city_overview",
       "position": [
-        470,
-        370,
-        470
+        400,
+        320,
+        400
       ],
       "target": [
         0,
-        10,
+        -35,
         0
       ],
       "projection": "perspective",
-      "fov": 52
+      "fov": 54
     },
     {
       "name": "plaza",
@@ -264,6 +264,17 @@
         "id": "water",
         "albedo": "3cabb9",
         "roughness": 0.85
+      },
+      {
+        "id": "plaza_pavers",
+        "albedo": "ffffff",
+        "roughness": 0.95,
+        "albedo_texture": "res://assets/urban/plaza_pavers.svg",
+        "uv_scale": [
+          66,
+          66,
+          66
+        ]
       }
     ],
     "objects": [
@@ -12047,7 +12058,7 @@
           0.2,
           132
         ],
-        "material": "paving",
+        "material": "plaza_pavers",
         "collision": true
       },
       {
@@ -19391,7 +19402,7 @@
         "id": "afternoon_sun",
         "type": "directional",
         "color": "ffe4c1",
-        "energy": 1.1,
+        "energy": 0.7,
         "rotation_degrees": [
           -48,
           -32,
@@ -19401,12 +19412,12 @@
       }
     ],
     "environment": {
-      "background_color": "9ebace",
-      "ambient_color": "d1e1ee",
-      "ambient_energy": 0.65,
+      "background_color": "819db6",
+      "ambient_color": "b4c7da",
+      "ambient_energy": 0.22,
       "fog_enabled": true,
       "fog_color": "b3cbd9",
-      "fog_density": 0.0006
+      "fog_density": 0.0003
     },
     "navigation": {
       "mode": "world",

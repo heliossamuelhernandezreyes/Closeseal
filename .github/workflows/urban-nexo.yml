@@ -25,6 +25,8 @@ jobs:
         run: |
           python tools/validate_maps.py
           python tools/validate_physical_world.py
+          python tools/author_urban_nexo.py
+          git diff --exit-code -- maps/urban_nexo_01.json
           python tools/urban_nexo_build.py
           python -m unittest discover -s tests -q
       - name: Install pinned Godot and authoring providers
