@@ -12,6 +12,10 @@ For Windows, configure the appropriate Python executable in `adapter_command`;
 the dock currently launches `python3`, so the portable CLI is the supported path
 where that executable name is unavailable.
 
+Open the project in Godot to finish importing assets before external control.
+For a clean command-line checkout, run `godot --path . --editor --headless --import`
+with the pinned engine; `--quit` alone may leave textures unimported.
+
 ```bash
 python "$ARCONT_ROOT/tools/map_forge_control.py" --project . --request request.json --output response.json
 ```

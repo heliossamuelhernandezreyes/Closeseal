@@ -199,7 +199,7 @@ func _ensure_material(id: String, color: Color, roughness: float, metallic: floa
         material.emission_energy_multiplier = 1.8
     materials[id] = material
 
-func _material(id: String) -> StandardMaterial3D:
+func _material(id: String) -> Material:
     if materials.has(id):
         return materials[id]
     return materials.get("weathered_stone", materials.get("earth_dark"))
