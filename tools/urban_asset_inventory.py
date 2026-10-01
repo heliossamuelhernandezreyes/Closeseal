@@ -32,7 +32,7 @@ def main():
             if p.is_absolute() or ".." in p.parts or path.endswith("/"):
                 continue
             # Retain the glTF export and its atlas dependencies, plus source license.
-            if p.suffix.lower() in (".glb", ".gltf", ".bin") or (p.suffix.lower() in (".png", ".jpg") and "gltf" in path.lower()) or "license" in p.name.lower():
+            if p.suffix.lower() in (".glb", ".gltf", ".bin") or (p.suffix.lower() in (".png", ".jpg") and any(f in path.lower() for f in ("gltf", "glb"))) or "license" in p.name.lower():
                 data = archive.read(path)
                 target = root / name / p
                 target.parent.mkdir(parents=True, exist_ok=True)

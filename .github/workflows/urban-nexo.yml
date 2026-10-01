@@ -15,9 +15,13 @@ jobs:
         with:
           python-version: '3.12'
       - name: Acquire and inventory official Arcont catalogue selections
-        run: python tools/urban_asset_inventory.py
+        run: |
+          python tools/urban_asset_inventory.py
+          python tools/prepare_urban_assets.py urban-source-packs
       - uses: actions/upload-artifact@v4
         with:
           name: urban-source-packs
-          path: urban-source-packs/
+          path: |
+            urban-source-packs/
+            assets/urban/
           retention-days: 30
