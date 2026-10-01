@@ -27,15 +27,20 @@ func _run() -> void:
     await physics_frame
     var region: NavigationRegion3D = scene.get_node("NavigationBakeTarget")
     var map_rid := region.get_navigation_map()
+    # The first map iteration can describe an empty world before the region's
+    # queued mesh is synchronized. Flush those commands before querying it.
+    await physics_frame
+    NavigationServer3D.map_force_update(map_rid)
     for _attempt in range(60):
         await physics_frame
-        if NavigationServer3D.map_get_iteration_id(map_rid) > 0:
+        var ready_point := NavigationServer3D.map_get_closest_point(map_rid, Vector3(-9, 0, 0))
+        if NavigationServer3D.map_get_iteration_id(map_rid) > 0 and ready_point.distance_to(Vector3(-9, 0, 0)) < 1:
             break
     var from := NavigationServer3D.map_get_closest_point(map_rid, Vector3(-9, 0, 0))
     var to := NavigationServer3D.map_get_closest_point(map_rid, Vector3(9, 0, 0))
     var path := NavigationServer3D.map_get_path(map_rid, from, to, true)
     var centre := NavigationServer3D.map_get_closest_point(map_rid, Vector3.ZERO)
-    print("WORLD_NAVIGATION_QUERY " + JSON.stringify({"path": Array(path), "centre": centre, "iteration": NavigationServer3D.map_get_iteration_id(map_rid), "editor": Engine.is_editor_hint()}))
+    print("WORLD_NAVIGATION_QUERY " + JSON.stringify({"path": Array(path), "centre": centre, "iteration": NavigationServer3D.map_get_iteration_id(map_rid), "editor": Engine.is_editor_hint(), "polygons": region.navigation_mesh.get_polygon_count(), "regions": NavigationServer3D.map_get_regions(map_rid).size()}))
     if path.size() <= 2 or Vector2(centre.x, centre.z).length() < 2.2:
         push_error("WORLD_NAVIGATION: path did not avoid the actual central collider")
         quit(3)
