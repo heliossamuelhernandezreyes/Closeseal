@@ -20,9 +20,11 @@ jobs:
           curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
           unzip -q godot.zip -d godot-bin
           chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+      - name: Install pinned authoring providers
+        run: python tools/install_map_authoring_providers.py
       - name: Import visual resources
         run: |
-          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless 2>&1 | tee visual-import.log
+          xvfb-run -a python tools/import_authoring_project.py --godot "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64" > visual-import.log 2>&1
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' visual-import.log; then exit 1; fi
       - name: Render Citadel and capture viewport
         env:
@@ -48,3 +50,4 @@ jobs:
             visual-import.log
             visual-capture.log
           if-no-files-found: warn
+

@@ -19,7 +19,7 @@ providers, then import the project before authoring:
 
 ```bash
 python tools/install_map_authoring_providers.py
-"$GODOT_BIN" --path . --editor --headless --import
+python tools/import_authoring_project.py --godot "$GODOT_BIN"
 python "$ARCONT_ROOT/tools/godot_authoring_control.py" --project . --request request.json
 ```
 

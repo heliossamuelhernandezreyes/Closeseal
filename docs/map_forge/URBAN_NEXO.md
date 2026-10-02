@@ -28,7 +28,7 @@ Use the Map Forge 1.2 branch dependency and Godot 4.7.2. Install providers with
 `src/urban/urban_nexo.tscn` (F6 in the editor):
 
 ```bash
-godot --path . --editor --headless --import
+python tools/import_authoring_project.py --godot godot
 godot --path . res://src/urban/urban_nexo.tscn
 ```
 

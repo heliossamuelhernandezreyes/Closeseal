@@ -44,16 +44,9 @@ jobs:
         run: |
           python tools/install_map_authoring_providers.py
           python tools/install_map_authoring_providers.py --check
-      - name: First import pass
+      - name: Import caches and enabled editor plugins without engine errors
         run: |
-          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless > first-import.log 2>&1 || true
-      - name: Validate clean second editor import on Godot 4.7.2
-        run: |
-          timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless 2>&1 | tee provider-import.log
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon|GDExtension.*failed' provider-import.log; then
-            echo 'Provider/editor errors detected after import pass'
-            exit 1
-          fi
+          xvfb-run -a python tools/import_authoring_project.py --godot "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64" > provider-import.log 2>&1
       - name: Diagnose Recast source geometry and baked coordinates
         run: |
           timeout 120 xvfb-run -a -s '-screen 0 1280x720x24' godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --headless --script res://tools/navigation_source_geometry_probe.gd 2>&1 | tee navigation-source-probe.log

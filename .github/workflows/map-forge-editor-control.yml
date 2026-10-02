@@ -43,7 +43,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          timeout 120 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --import 2>&1 | tee editor-control-import.log
+          xvfb-run -a python tools/import_authoring_project.py --godot "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64" > editor-control-import.log 2>&1
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon' editor-control-import.log; then exit 1; fi
       - name: Exercise World 3D selection and validated edits
         shell: bash

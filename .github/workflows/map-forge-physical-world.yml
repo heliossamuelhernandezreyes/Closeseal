@@ -41,7 +41,7 @@ jobs:
         run: python tools/install_map_authoring_providers.py
       - name: Import project and reject script errors
         run: |
-          timeout 120 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --quit --headless 2>&1 | tee physical-import.log
+          xvfb-run -a python tools/import_authoring_project.py --godot "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64" > physical-import.log 2>&1
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon' physical-import.log; then exit 1; fi
       - name: Materialize tactical collision world and navigation
         run: |
@@ -58,3 +58,4 @@ jobs:
             physical-world.log
             maps/generated/*.manifest.json
           if-no-files-found: warn
+

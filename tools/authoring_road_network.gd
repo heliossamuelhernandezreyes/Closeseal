@@ -113,6 +113,7 @@ func _save(context, arguments: Dictionary) -> Dictionary:
     var manager: RoadManager = context.object("road_manager")
     var source_path: String = context.output_path("scenes/urban_roads_editable.tscn")
     var baked_path: String = context.output_path("scenes/urban_roads_baked.tscn")
+    _expand_instances(world)
     if _write_scene(world, source_path, true) != OK:
         return {"ok": false, "error": "editable road scene save failed"}
     var baked := Node3D.new()
@@ -167,3 +168,11 @@ func _save(context, arguments: Dictionary) -> Dictionary:
     return {"ok": error == OK, "editable_scene": source_path, "baked_scene": baked_path,
             "baked_lanes": lane_index, "editable_source_retained": true,
             "baked_lane_metadata": "provider-relative links retained as metadata; no traffic simulation"}
+
+func _expand_instances(node: Node) -> void:
+    # Bundle owns the authored tree. Pack expanded imported nodes exactly once;
+    # retaining external instances plus reassigned owners serializes duplicates.
+    if not node.scene_file_path.is_empty():
+        node.set_meta("arcont_source_scene", node.scene_file_path)
+        node.scene_file_path = ""
+    for child in node.get_children(): _expand_instances(child)
