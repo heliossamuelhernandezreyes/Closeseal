@@ -22,8 +22,10 @@ def main():
     disabled = re.sub(r"(?m)^enabled=PackedStringArray\([^\n]*\)$", "enabled=PackedStringArray()", section[1])
     bootstrap = text[:section.start(1)] + disabled + text[section.end(1):]
     if bootstrap == text: raise SystemExit("cannot temporarily disable editor plugins")
-    def run(name):
-        result = subprocess.run([args.godot, "--path", str(ROOT), "--editor", "--headless", "--import"],
+    def run(name, verbose=False):
+        command = [args.godot, "--path", str(ROOT), "--editor", "--headless", "--import"]
+        if verbose: command.append("--verbose")
+        result = subprocess.run(command,
                                 text=True, capture_output=True, timeout=180)
         log = result.stdout + result.stderr
         (ROOT / name).write_text(log)
@@ -35,7 +37,7 @@ def main():
         run("authoring-bootstrap-import.log")
     finally:
         project.write_bytes(original)
-    run("authoring-import.log")
+    run("authoring-import.log", verbose=True)
     print("ARCONT_PLUGIN_IMPORT_OK source_configuration_restored=true")
 
 
