@@ -26,6 +26,7 @@ const PROVIDERS := [
     {"name":"Cyclops", "class":"CyclopsLevelBuilder", "path":"res://addons/cyclops_level_builder/plugin.cfg", "role":"Structures"},
     {"name":"ProtonScatter", "class":"ProtonScatter", "path":"res://addons/proton_scatter/plugin.cfg", "role":"Scatter"},
     {"name":"FuncGodot", "class":"FuncGodotMap", "path":"res://addons/func_godot/plugin.cfg", "role":"Import"},
+    {"name":"RoadGenerator", "class":"RoadManager", "path":"res://addons/road-generator/plugin.cfg", "role":"Curved roads"},
 ]
 
 func _enter_tree() -> void:

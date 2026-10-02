@@ -17,7 +17,7 @@ the dock currently launches `python3`, so the portable CLI is the supported path
 where that executable name is unavailable.
 
 Open the project in Godot to finish importing assets before external control.
-For a clean command-line checkout, run `godot --path . --editor --headless --import`
+For a clean command-line checkout, run `python tools/import_authoring_project.py --godot godot`
 with the pinned engine; `--quit` alone may leave textures unimported.
 Direct `.blend` import is disabled so unattended import does not depend on a
 local Blender installation. Export Blender assets as GLB before placement.

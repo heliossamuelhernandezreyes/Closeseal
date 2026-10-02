@@ -1,0 +1,32 @@
+{
+  "engine": "Godot 4.7.2-stable",
+  "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "arcont_source_commit": "c136eda4e1348603acb2670dc6c6e2814a33c4c5",
+  "game_source_commit": "1e6b9513f4064986cb974348d129c85dc356ca5a",
+  "provider_commit": "9d144dc4a28dd6bee870895d2b77d69174356281",
+  "run_id": 36971901418,
+  "job_id": 110727420071,
+  "artifact_id": 11212022882,
+  "artifact_zip_sha256": "54139456f43f5724820fd2d8c868e2dd835f16a3eb98c197fbf3d751e0d48b7d",
+  "files": {
+    "roads_underpass.png": {
+      "bytes": 152847,
+      "sha256": "9ca6885fa57d08c21f92660ef9b1f96996d6d2435a2f2afa45df4f88a565cd61"
+    },
+    "road-network-smoke.json": {
+      "bytes": 7848,
+      "sha256": "f4a4b469f1125f14bbe4bddccddb21adeda1c303ef22e255a72ebad98a2c7b25"
+    },
+    "roads_overview.png": {
+      "bytes": 154203,
+      "sha256": "2978e2d2abdce28b339c08114b891c12d23c55326dadb4f81819280b44e6236f"
+    }
+  },
+  "capture_method": "actual rendered Godot viewport; no image generation",
+  "editor_acceptance": "normal editor lifecycle, installed Map Forge panel; actual point-width edit rebuilds provider mesh",
+  "limits": [
+    "Separate 250m technical urban study; original Nexo JSON unchanged",
+    "RoadGenerator texture/material resources and game asset sources remain distribution dependencies",
+    "No traffic/intersection/terrain-flattening or target-device FPS claim"
+  ]
+}

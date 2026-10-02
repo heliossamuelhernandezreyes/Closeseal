@@ -19,7 +19,7 @@ providers, then import the project before authoring:
 
 ```bash
 python tools/install_map_authoring_providers.py
-"$GODOT_BIN" --path . --editor --headless --import
+python tools/import_authoring_project.py --godot "$GODOT_BIN"
 python "$ARCONT_ROOT/tools/godot_authoring_control.py" --project . --request request.json
 ```
 
@@ -93,6 +93,10 @@ checks that the 812 authored native objects and original map bytes are preserved
 It is a lighting study, not a new canonical layout or a finished art pass.
 
 ## Verified output
+
+The next provider workflow is documented in [ROAD_NETWORK.md](ROAD_NETWORK.md):
+explicit curved roads, raised decks, source-point edits and separate editable /
+baked output, operated through this same writer.
 
 Acceptance run [36952147375](https://github.com/heliossamuelhernandezreyes/Closeseal/actions/runs/36952147375)
 passed with the pinned engine and provider. [provenance.json](evidence/general_authoring/provenance.json)

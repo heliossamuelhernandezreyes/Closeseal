@@ -10,6 +10,7 @@ Thumbs.db
 __pycache__/
 .arcont/
 authoring/documents/urban_workbench.json
+authoring/documents/urban_roads.json
 
 # Ephemeral maps used by the public control smoke test
 maps/control_authored_demo.json

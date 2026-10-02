@@ -39,6 +39,12 @@ func _enter_tree() -> void:
     var heading := dock.get_child(0)
     if heading is Label:
         heading.text = "CLOSE SEAL — MAP FORGE 1.3"
+    if OS.get_environment("ARCONT_EDITOR_ACCEPTANCE") in ["world", "general", "roads"]:
+        _run_editor_acceptance.call_deferred()
+
+func _run_editor_acceptance() -> void:
+    var acceptance = load("res://tools/editor_authoring_acceptance.gd").new()
+    await acceptance.run(get_tree(), self, OS.get_environment("ARCONT_EDITOR_ACCEPTANCE"))
 
 func _load_map(path: String) -> void:
     super._load_map(path)

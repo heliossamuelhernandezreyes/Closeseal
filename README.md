@@ -31,3 +31,10 @@ provider APIs through ARCONT's CLI and optional MCP stdio server. Explicit scene
 recipes can create/edit nodes and resources, run provider methods, save/reopen,
 capture, query collision/navigation, author spatial sound and collect measurements.
 Canonical map editing remains available through the existing map contract control.
+
+[Curved roads](docs/map_forge/ROAD_NETWORK.md) integrate pinned RoadGenerator:
+explicit control points, ordered lanes, shoulders, raised decks, real collision
+and navigation, editable source scenes and native baked output. The same Arcont
+writer edits and restores road recipes. Install pinned providers and run
+`python tools/import_authoring_project.py --godot godot` before opening a clean
+checkout; this imports caches before enabling the editor plugins.

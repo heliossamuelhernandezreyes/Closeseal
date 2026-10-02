@@ -49,6 +49,27 @@
       "target_addon": "addons/func_godot",
       "license": "MIT",
       "status": "pinned_pending_editor_validation"
+    },
+    {
+      "id": "road_generator",
+      "name": "Godot Road Generator",
+      "kind": "git_subdir",
+      "repo": "https://github.com/TheDuckCow/godot-road-generator.git",
+      "commit": "9d144dc4a28dd6bee870895d2b77d69174356281",
+      "source_subdir": "addons/road-generator",
+      "target_addon": "addons/road-generator",
+      "license": "MIT",
+      "status": "validated_explicit_road_network_godot_4_7_2_run_36971901418",
+      "patches": [
+        {
+          "patch": "third_party/patches/road-generator-gizmo-cleanup.patch",
+          "patch_sha256": "fdb64b5549041fc323886f025d8cd15d5eb836ce034c75a8c6c52095602f74bf",
+          "file": "plugin.gd",
+          "source_sha256": "04a866d7e4f40e4753fff44ea403ac7f89ff798f5ccde5b857a35f1c3e238860",
+          "result_sha256": "8cda3fb6e35368ad6d23a0e74e948e4579e7048731fa63788eba09b5cc1afc9f"
+        }
+      ],
+      "reviewed_at": "2026-10-02"
     }
   ]
 }
