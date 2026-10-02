@@ -36,7 +36,7 @@ def authored_recipe():
         steps.append({"op": "call", "target": target, "method": method, "args": list(args)})
 
     steps.append({"op": "set", "target": "navmesh", "properties": {"geometry_collision_mask": 5,
-                  "agent_max_climb": 0.25, "cell_height": 0.1, "cell_size": 0.15}})
+                  "agent_max_climb": 0.2, "cell_height": 0.1, "cell_size": 0.15}})
     new("workshop", "Node3D", "navigation", "Workshop")
     for identifier, color in [("workshop_wall", (0.29, 0.34, 0.39)), ("workshop_floor", (0.50, 0.53, 0.52)),
                                ("workshop_trim", (0.96, 0.47, 0.09)), ("workshop_glass", (0.10, 0.58, 0.64))]:

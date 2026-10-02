@@ -18,6 +18,8 @@ func run(context, arguments: Dictionary) -> Dictionary:
     var region: NavigationRegion3D = world.get_node_or_null("Navigation")
     var navigation := {"available": false}
     if region != null:
+        NavigationServer3D.map_set_cell_size(region.get_navigation_map(), region.navigation_mesh.cell_size)
+        NavigationServer3D.map_set_cell_height(region.get_navigation_map(), region.navigation_mesh.cell_height)
         region.bake_navigation_mesh(false)
         NavigationServer3D.map_force_update(region.get_navigation_map())
         for _frame in range(3): await context.physics_frame
@@ -73,6 +75,8 @@ func run(context, arguments: Dictionary) -> Dictionary:
     _release(held)
     actor.call("end_playtest")
     context.paused = prior_pause
+    # Leave the actor's tick signal stack before the worker frees the reopened scene.
+    await context.process_frame
     trace.flush()
     trace.close()
     var final_state: Dictionary = actor.call("playtest_snapshot")
