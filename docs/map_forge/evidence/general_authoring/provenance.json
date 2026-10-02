@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-02",
+  "arcont_commit": "63a6a35db7bc28131b3ae3acd8b94a17969f58aa",
+  "game_commit": "4d5bbeb57665e9447ce208d21328409e398f0bbd",
+  "workflow_run": 36952147375,
+  "workflow_job": 110667206175,
+  "artifact_id": 11203888321,
+  "artifact_zip_sha256": "dc3610e5421737d201829a4de68c5b29e98bff93109442bca9d08d01217e1673",
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "proton_scatter_commit": "3a9c5c1640d0270097370fc3a300bb96348bcfb6",
+  "acceptance": {
+    "audio_limit": "source PCM verified; speaker/room acoustics unmeasured",
+    "capsule_walked_m": 4.00000047683716,
+    "deterministic_rebuild": true,
+    "navigation_polygons": 44,
+    "ok": true,
+    "path_points": 4,
+    "provider": "ProtonScatter",
+    "rendered_instances": 24,
+    "reopened_audio_bytes": 44100,
+    "reopened_instances": 24,
+    "reopened_material_roughness": 0.379999995231628,
+    "sound_seconds": 1.0,
+    "spatial_audio_playing": true,
+    "transforms": 24
+  },
+  "city": {
+    "source": {
+      "map_id": "urban_nexo_01",
+      "ok": true,
+      "ownership": "derived scene; canonical source unchanged",
+      "source": "res://maps/urban_nexo_01.json",
+      "source_sha256": "ced74c877f58ecf0b9285576da4d0a5842ff4f4761da8ff43846363d2f510a7f",
+      "stats": {
+        "asset_instances": 301,
+        "authored_lights": 1,
+        "custom_meshes": 2,
+        "environment_objects": 812,
+        "errors": [],
+        "heightfields": 0,
+        "landforms": 0,
+        "objectives": 0,
+        "route_segments": 0,
+        "scatter_instances": 0,
+        "structures": 0,
+        "terrain_triangles": 0
+      }
+    },
+    "evidence_directory": ".arcont/runs/urban_nexo_lighting/e476c9769a71409cb5b152d70808919f",
+    "canonical_bytes_unchanged": true
+  },
+  "captures_visually_inspected": true,
+  "files": [
+    {
+      "path": "authoring-smoke.json",
+      "sha256": "ee383f8a44bd00d65037168a5e741da8bd61ef40c6593fe6d842da8afaa6db73",
+      "bytes": 3254
+    },
+    {
+      "path": "gallery_detail.png",
+      "sha256": "17ebc3245a2ac8973d6e7ec4a5216b7ea809055e03c03e44d7329067cbf9b16e",
+      "bytes": 83712
+    },
+    {
+      "path": "industrial_hum.wav",
+      "sha256": "47d5961f23bb98d2088939d9527d564fed8353db621241429d7f4f995e4439f5",
+      "bytes": 44144
+    },
+    {
+      "path": "urban_nexo_plaza.png",
+      "sha256": "6e523e645cc47bfc7c19a4f95679c5bc062c2022a6fadb0f0976f57e028be79a",
+      "bytes": 404400
+    },
+    {
+      "path": "urban_nexo_street.png",
+      "sha256": "97ea3cab7c25705e44f62c8201ae03baf28e9f6eff8638a5a019dc20b55b2162",
+      "bytes": 156570
+    },
+    {
+      "path": "urban_workbench.png",
+      "sha256": "3909610cbc2036fdf9797db7cc4ef25a427a46e25213ee2da60a324367c926ff",
+      "bytes": 42920
+    }
+  ],
+  "limits": [
+    "CPU software rendering in Linux CI; no Android or AAA art-quality claim"
+  ]
+}

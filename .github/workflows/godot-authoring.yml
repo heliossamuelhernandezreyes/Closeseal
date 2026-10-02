@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 63a6a35db7bc28131b3ae3acd8b94a17969f58aa
+          ref: 144062e16d7efea70035c88401f5d79c1274b49a
           path: arcont-source
       - uses: actions/setup-python@v5
         with:
@@ -62,6 +62,16 @@ jobs:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
           GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
         run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/godot_authoring_smoke.py
+      - name: Open accepted output in the actual editor through its control panel
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 120 xvfb-run -a "$GODOT_BIN" --path . --editor --headless --script res://tools/godot_authoring_dock_smoke.gd 2>&1 | tee authoring-dock.log
+          grep -q ARCONT_AUTHORING_DOCK_OK authoring-dock.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' authoring-dock.log; then exit 1; fi
       - name: Preserve scenes, audio, captures, metadata and logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -71,6 +81,7 @@ jobs:
           path: |
             authoring-import.log
             authoring-world-view.log
+            authoring-dock.log
             .arcont/
             .mapforge/control-smoke.json
           retention-days: 30

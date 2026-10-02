@@ -1,0 +1,117 @@
+{
+  "ok": true,
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "calls": [
+    {
+      "operation": "capabilities",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "operation": "discover",
+      "ok": true,
+      "evidence": ".arcont/runs/discovery/a8f35448a3344253b37cf122befbbb33"
+    },
+    {
+      "operation": "discover",
+      "ok": true,
+      "evidence": ".arcont/runs/discovery/fe4d032469f14301b1ab611fd2043624"
+    },
+    {
+      "operation": "create",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_workbench/18705181b7b244488d5f5f39cf187ca8"
+    },
+    {
+      "operation": "create",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_workbench/6d11d5abe7584523a98fea6d133a2665"
+    },
+    {
+      "operation": "patch",
+      "ok": false,
+      "evidence": null
+    },
+    {
+      "operation": "replace",
+      "ok": false,
+      "evidence": ".arcont/runs/urban_workbench/30c157cf159745a1aad876dee397b61b"
+    },
+    {
+      "operation": "patch",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_workbench/67a3ff06962c4793a73d03310ba2e5bb"
+    },
+    {
+      "operation": "restore",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_workbench/92678051cde941339b4146faaa8d5dcc"
+    },
+    {
+      "operation": "replace",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_workbench/96a31d5b22134370bda81564fab15288"
+    },
+    {
+      "operation": "create",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_nexo_lighting/e476c9769a71409cb5b152d70808919f"
+    }
+  ],
+  "acceptance": {
+    "audio_limit": "source PCM verified; speaker/room acoustics unmeasured",
+    "capsule_walked_m": 4.00000047683716,
+    "deterministic_rebuild": true,
+    "navigation_polygons": 44,
+    "ok": true,
+    "path_points": 4,
+    "provider": "ProtonScatter",
+    "rendered_instances": 24,
+    "reopened_audio_bytes": 44100,
+    "reopened_instances": 24,
+    "reopened_material_roughness": 0.379999995231628,
+    "sound_seconds": 1.0,
+    "spatial_audio_playing": true,
+    "transforms": 24
+  },
+  "captures_directory": ".arcont/runs/urban_workbench/96a31d5b22134370bda81564fab15288",
+  "mcp_stdio_verified": true,
+  "city": {
+    "source": {
+      "map_id": "urban_nexo_01",
+      "ok": true,
+      "ownership": "derived scene; canonical source unchanged",
+      "source": "res://maps/urban_nexo_01.json",
+      "source_sha256": "ced74c877f58ecf0b9285576da4d0a5842ff4f4761da8ff43846363d2f510a7f",
+      "stats": {
+        "asset_instances": 301,
+        "authored_lights": 1,
+        "custom_meshes": 2,
+        "environment_objects": 812,
+        "errors": [],
+        "heightfields": 0,
+        "landforms": 0,
+        "objectives": 0,
+        "route_segments": 0,
+        "scatter_instances": 0,
+        "structures": 0,
+        "terrain_triangles": 0
+      }
+    },
+    "evidence_directory": ".arcont/runs/urban_nexo_lighting/e476c9769a71409cb5b152d70808919f",
+    "canonical_bytes_unchanged": true
+  },
+  "limits": [
+    "CPU software rendering in Linux CI; no Android or AAA art-quality claim"
+  ]
+}

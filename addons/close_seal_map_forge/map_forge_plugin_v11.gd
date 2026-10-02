@@ -11,6 +11,8 @@ var control_timer: Timer
 var control_pid := -1
 var control_output := ""
 var control_mode: OptionButton
+var control_response: TextEdit
+var control_last_result: Dictionary = {}
 
 func _enter_tree() -> void:
     super._enter_tree()
@@ -84,10 +86,17 @@ func _install_control_tab(tabs: TabContainer) -> void:
     panel.add_child(bar)
     _add_button(bar, "Run request", _run_control_request)
     _add_button(bar, "Inspect map", _inspect_control_map)
-    _add_button(bar, "Discover tools", _discover_authoring_tools)
+    var tool_bar := HBoxContainer.new()
+    panel.add_child(tool_bar)
+    _add_button(tool_bar, "Discover tools", _discover_authoring_tools)
+    _add_button(tool_bar, "Open built scene", _open_authoring_scene)
     control_status = Label.new()
     control_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     panel.add_child(control_status)
+    control_response = TextEdit.new()
+    control_response.editable = false
+    control_response.custom_minimum_size = Vector2(340, 220)
+    panel.add_child(control_response)
     control_timer = Timer.new()
     control_timer.wait_time = 0.25
     control_timer.timeout.connect(_poll_control_request)
@@ -110,6 +119,16 @@ func _discover_authoring_tools() -> void:
     _select_control_mode(1)
     control_request.text = JSON.stringify({"protocol_version": 1, "operation": "discover"}, "  ")
     _run_control_request()
+
+func _open_authoring_scene() -> void:
+    if control_pid > 0:
+        return
+    var result: Dictionary = control_last_result.get("result", {})
+    for path in result.get("artifacts", []):
+        if String(path).ends_with(".tscn") and FileAccess.file_exists(String(path)):
+            get_editor_interface().open_scene_from_path(ProjectSettings.localize_path(String(path)))
+            return
+    control_status.text = "Run a successful scene recipe with a save step first."
 
 func _inspect_control_map() -> void:
     if control_pid > 0:
@@ -166,7 +185,12 @@ func _poll_control_request() -> void:
     if not result is Dictionary:
         control_status.text = "Invalid control response."
         return
-    control_status.text = JSON.stringify(result, "  ")
+    control_last_result = result
+    control_response.text = JSON.stringify(result, "  ")
+    if result.get("ok", false):
+        control_status.text = "Completed. " + ("Published revision." if result.get("committed", false) else "Source unchanged.")
+    else:
+        control_status.text = String(result.get("error", "Request failed; read the response."))
     if bool(result.get("committed", false)):
         get_editor_interface().get_resource_filesystem().scan()
         _reload_everything()

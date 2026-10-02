@@ -24,6 +24,8 @@ python "$ARCONT_ROOT/tools/godot_authoring_control.py" --project . --request req
 ```
 
 The panel chooses the correct tool file automatically when ARCONT_ROOT is set.
+Responses are scrollable and copyable. Open built scene opens the first saved
+scene from a successful recipe in the visual editor, including preview bundles.
 It inherits the running editor executable when GODOT_BIN is absent. Python 3's
 `python3` executable must be available or configured in the project adapter.
 Engine jobs run in a separate process and write fresh output bundles; they do
@@ -50,6 +52,8 @@ protocol, transaction guarantees and MCP setup.
 `options.render: true` requires a display (Xvfb in CI); headless is the default.
 `options.editor: true` enters editor context for APIs requiring it. A screenshot
 requires rendering and an attached Camera3D. Resource saves are bundle-relative.
+Editor-context jobs remain experimental and are outside this milestone's
+acceptance coverage; standalone editor startup/teardown may produce errors.
 Captures, scene/resource files, WAV samples, metadata and logs are returned as
 real files under `.arcont/runs`, each with artifact hashes. Open an accepted
 scene path in Godot to continue manual work; export/copy its entire referenced
@@ -87,6 +91,20 @@ Urban Nexo map through this bridge: it composes the actual canonical JSON and
 collision, saves a separate scene and captures the plaza and street. The test
 checks that the 812 authored native objects and original map bytes are preserved.
 It is a lighting study, not a new canonical layout or a finished art pass.
+
+## Verified output
+
+Acceptance run [36952147375](https://github.com/heliossamuelhernandezreyes/Closeseal/actions/runs/36952147375)
+passed with the pinned engine and provider. [provenance.json](evidence/general_authoring/provenance.json)
+records source commits and file hashes; [authoring-smoke.json](evidence/general_authoring/authoring-smoke.json)
+records public operations and actual checks. The complete scene bundles and logs
+are in the workflow artifact. These are real engine captures:
+
+![Urban Nexo plaza, derived late-afternoon lighting](evidence/general_authoring/urban_nexo_plaza.png)
+![Urban Nexo street](evidence/general_authoring/urban_nexo_street.png)
+![Native/provider integration workbench with placeholder instances](evidence/general_authoring/urban_workbench.png)
+
+[One-second authored industrial hum](evidence/general_authoring/industrial_hum.wav).
 
 Terrain3D's map-specific grid/brush path remains the existing tested integration.
 Cyclops and FuncGodot now have generic API access, but complete block/CSG/import
