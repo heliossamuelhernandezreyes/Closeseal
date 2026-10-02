@@ -619,7 +619,7 @@
         "position": {
           "$type": "Vector3",
           "value": [
-            -25,
+            -20,
             0,
             40
           ]

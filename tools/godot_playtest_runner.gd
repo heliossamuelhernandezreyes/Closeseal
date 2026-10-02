@@ -92,6 +92,8 @@ func _event(action: String, strength: float) -> void:
     event.pressed = strength > 0
     event.strength = strength
     Input.parse_input_event(event)
+    # Apply the event before the next measured tick, including release while paused.
+    Input.flush_buffered_events()
 
 func _release(actions: Dictionary) -> void:
     for action in actions: _event(action, 0)

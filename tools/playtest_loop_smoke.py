@@ -20,6 +20,10 @@ def authored_recipe():
     recipe["description"] = "Editable workshop on existing roads; input-driven entrance/stair/interaction acceptance"
     end = next(index for index, step in enumerate(recipe["steps"]) if step.get("id") == "roads") + 1
     steps = recipe["steps"][:end]
+    # The workshop occupies this former tree lot; keep the imported prop outside its walls.
+    for step in steps:
+        if step.get("id") == "tree_2":
+            step["properties"]["position"] = variant("Vector3", -20, 0, 40)
 
     def new(identifier, klass=None, parent=None, name=None, script=None, **properties):
         step = {"op": "new", "id": identifier, "name": name or identifier, "properties": properties}
@@ -147,7 +151,11 @@ def main():
         return result
 
     def play(created):
-        return control("playtest", if_revision=created["revision"], scene="scenes/urban_roads_editable.tscn", session=session, options=options)
+        result = control("playtest", if_revision=created["revision"], scene="scenes/urban_roads_editable.tscn", session=session, options=options)
+        observed = result["report"]
+        print("ARCONT_PLAYTEST_OBSERVED " + json.dumps({key: observed[key] for key in
+              ["passed", "physics_frames", "input_released", "final_state", "navigation"]}), flush=True)
+        return result
 
     def contacts(result):
         trace = ROOT / result["evidence"]["directory"] / "playtest/trace.jsonl"
