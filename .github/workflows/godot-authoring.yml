@@ -80,6 +80,7 @@ jobs:
         if: always()
         shell: bash
         env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
           GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
         run: |
           if test -f .arcont/road-network-smoke.json && python -c 'import json; assert json.load(open(".arcont/road-network-smoke.json"))["ok"]'; then
