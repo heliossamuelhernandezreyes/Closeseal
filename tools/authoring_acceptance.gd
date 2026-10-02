@@ -107,6 +107,7 @@ func run(context, arguments: Dictionary) -> Dictionary:
         if packed == null: return {"ok": false, "error": "saved scene cannot reopen"}
         var reopened: Node3D = packed.instantiate()
         context.root.add_child(reopened)
+        _collision_layer(reopened, 2)
         await context.physics_frame
         await context.physics_frame
         var fresh_scatter = reopened.get_node("Navigation/PocketTrees")
@@ -115,9 +116,9 @@ func run(context, arguments: Dictionary) -> Dictionary:
         var reopened_count := 0
         for node in fresh_output: reopened_count += node.multimesh.instance_count
         var fresh_audio: AudioStreamPlayer3D = reopened.get_node("Navigation/IndustrialHum")
-        var reopened_ray := reopened.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 4, 8), Vector3(0, -2, 8)))
+        var reopened_ray := reopened.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 4, 8), Vector3(0, -2, 8), 2))
         var ground: MeshInstance3D = reopened.get_node("Navigation/Ground")
-        if reopened_count != 24 or fresh_audio.stream == null or fresh_audio.stream.data.size() != 44100 or reopened_ray.is_empty() or ground.material_override == null:
+        if reopened_count != 24 or fresh_audio.stream == null or fresh_audio.stream.data.size() != 44100 or reopened_ray.is_empty() or not reopened.is_ancestor_of(reopened_ray["collider"]) or ground.material_override == null:
             reopened.free()
             return {"ok": false, "error": "save/reopen lost scatter, sound, material or collision"}
         result["reopened_instances"] = reopened_count
@@ -129,3 +130,7 @@ func run(context, arguments: Dictionary) -> Dictionary:
 func _multimeshes(node: Node, result: Array) -> void:
     if node is MultiMeshInstance3D: result.append(node)
     for child in node.get_children(): _multimeshes(child, result)
+
+func _collision_layer(node: Node, layer: int) -> void:
+    if node is CollisionObject3D: node.collision_layer = layer
+    for child in node.get_children(): _collision_layer(child, layer)

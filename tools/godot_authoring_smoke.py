@@ -39,8 +39,8 @@ def authored_recipe():
 
     new("city", "Node3D", name="UrbanWorkbench")
     new("navigation", "NavigationRegion3D", parent="city", name="Navigation")
-    new("navmesh", "NavigationMesh", agent_radius=0.4, agent_height=1.8,
-        geometry_parsed_geometry_type=2, cell_size=0.3, cell_height=0.2)
+    new("navmesh", "NavigationMesh", agent_radius=0.5, agent_height=2.0, agent_max_climb=0.5,
+        geometry_parsed_geometry_type=1, cell_size=0.25, cell_height=0.25)
     steps.append({"op": "set", "target": "navigation", "properties": {"navigation_mesh": reference("navmesh")}})
     new("pavement", "StandardMaterial3D", albedo_color=variant("Color", 0.15, 0.20, 0.23, 1), roughness=0.38)
     new("concrete", "StandardMaterial3D", albedo_color=variant("Color", 0.34, 0.39, 0.42, 1), roughness=0.82)
@@ -151,7 +151,7 @@ def main():
         recipe = json.loads((ROOT / "authoring/recipes/urban_workbench.json").read_text(encoding="utf-8"))
         dependency_paths = ["third_party/map_authoring.lock.json", "tools/authoring_acceptance.gd", "tests/fixtures/editor_asset.tscn"]
         recipe["dependencies"] = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in dependency_paths}
-        options = {"render": True}
+        options = {"render": True, "audio_driver": "Dummy"}
         dry = control("create", document_id=identifier, recipe=recipe, options=options)
         assert not dry["committed"] and not head.exists()
         created = control("create", document_id=identifier, recipe=recipe, options=options, dry_run=False)

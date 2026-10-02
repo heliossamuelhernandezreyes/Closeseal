@@ -21,6 +21,8 @@ def execute(payload):
     request.write_text(json.dumps(payload, ensure_ascii=False, allow_nan=False), encoding="utf-8")
     options = payload.get("options", {})
     command = [os.environ.get("GODOT_BIN", "godot"), "--path", str(ROOT)]
+    if options.get("audio_driver"):
+        command += ["--audio-driver", str(options["audio_driver"])]
     if options.get("editor", False):
         command.append("--editor")
     if not options.get("render", False):

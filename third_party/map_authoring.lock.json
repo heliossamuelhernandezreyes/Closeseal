@@ -33,11 +33,11 @@
       "name": "ProtonScatter",
       "kind": "git_subdir",
       "repo": "https://github.com/HungryProton/scatter.git",
-      "commit": "2ced25f1ebef13648e94d3cc6a643da92a7e33d8",
+      "commit": "3a9c5c1640d0270097370fc3a300bb96348bcfb6",
       "source_subdir": "addons/proton_scatter",
       "target_addon": "addons/proton_scatter",
       "license": "MIT",
-      "status": "pinned_godot_4_7_compat_fix_reviewed_pending_project_validation"
+      "status": "pinned_typed_property_list_fix_pending_general_authoring_validation"
     },
     {
       "id": "func_godot",

@@ -65,6 +65,10 @@ The fixture asset is a mechanical placeholder, not production vegetation.
 ProtonScatter creates 24 seeded MultiMesh instances; its output is checked for
 deterministic rebuild and after scene reopening. Source is MIT and pinned by
 the existing provider installer; no upstream plugin code is copied into ARCONT.
+The pin advances by one upstream commit to `3a9c5c1640d0270097370fc3a300bb96348bcfb6`,
+which types the property-list arrays required by Godot 4.7.2. CI uses the Dummy
+audio driver because its runner has no sound hardware; the authored PCM/WAV
+and AudioStreamPlayer3D resource/playback state are checked separately.
 
 ```bash
 python tools/godot_authoring_smoke.py --arcont "$ARCONT_ROOT"
