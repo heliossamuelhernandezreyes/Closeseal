@@ -36,6 +36,13 @@ The acceptance test explicitly requires:
 Each session records held input, completed physics ticks, position, velocity,
 floor status, source-identified contacts, stair-step count and interactions in
 `playtest/trace.jsonl`; checkpoint images and JSON remain in immutable run bundles.
+Input events are flushed before the next measured tick, including releases while
+the tree is paused. Before replay, navigation uses matching map/mesh voxel sizes
+and waits for a newer synchronized region iteration, bounded to 120 physics
+frames. Preparation frames are separate from the actor's replay tick count.
+`playtest/navigation.tres` preserves the baked mesh; the report records its actual
+route points and synchronization iterations. The actor is disabled before the
+runner leaves its final tick signal, so cleanup cannot free an emitting actor.
 `checkpoint.json` records the last completed command for diagnosis. It is not a
 checkpoint that resumes a resident process. `report.json` distinguishes runner
 completion (`ok`) from expectation outcome (`passed`). The same distinction is
@@ -46,3 +53,9 @@ writer. The accepted scene source is hash-checked before/after replay; dependenc
 closure extends only to explicitly pinned files. The Linux fixture test does not
 establish Android performance, cross-platform physics determinism, general audio
 recording or complete production gameplay coverage.
+
+Verified engine/editor results and actual captures are preserved under
+[evidence/playtest_loop](evidence/playtest_loop/README.md). The corrected and
+reopened sessions each complete 485 actor ticks, twelve step-ups and one terminal
+interaction. The blocked/restored sessions stop at the source-identified door
+obstacle after 300 ticks. The measured corrected navigation path has 36 points.

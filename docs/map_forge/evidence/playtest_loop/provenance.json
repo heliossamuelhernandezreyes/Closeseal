@@ -1,0 +1,75 @@
+{
+  "engine": "4.7.2-stable (official)",
+  "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "arcont_source_commit": "12c0a739a9dfd56af5af42241cc0188961ddcec2",
+  "game_source_commit": "bd6ba460d524f75c829ebd8639ad253164a77d9a",
+  "game_checkout_merge_commit": "c8fac1d4614a29c2d58ef2439c1a08c741081f35",
+  "run_id": 36989569913,
+  "job_id": 110782361508,
+  "artifact_id": 11218499749,
+  "artifact_zip_sha256": "88094296040cc3be01f92ce84cdafb3777b939ead2f29554d26604abf953e49a",
+  "files": {
+    "playtest-loop-smoke.json": {
+      "source_path": ".arcont/playtest-loop-smoke.json",
+      "bytes": 34278,
+      "sha256": "43b54bc36482505678ab1a0a6ad56a7e05f3aa05d3898a8e2391ad8127f45ea3"
+    },
+    "editor-acceptance.log": {
+      "source_path": "playtest-dock.log",
+      "bytes": 1694,
+      "sha256": "62ba598be4c6e17c77f8085b08b346761c79194ca587b91c80da2b4c0025aa25"
+    },
+    "workshop_overview.png": {
+      "source_path": ".arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/settle.png",
+      "bytes": 186147,
+      "sha256": "fd6914b339f83c2f680f5ebfd4064fd1c3dac591a21b95677aa33f72a16ace92"
+    },
+    "blocked_entrance.png": {
+      "source_path": ".arcont/runs/urban_playtest/299d22181a314c2abdb75a020c2cd7f9/playtest/entrance.png",
+      "bytes": 48160,
+      "sha256": "88afbd53603bc60f8d8afba1f1b0a74b1c855b8e9fa6d2aa33eaab3d69d55c73"
+    },
+    "corrected_entrance.png": {
+      "source_path": ".arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/entrance.png",
+      "bytes": 74661,
+      "sha256": "e18e01f00e5deb100f7f3391212bf79a5ac4b93931d5fefe6e7cb5829c38e69b"
+    },
+    "corrected_landing.png": {
+      "source_path": ".arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/interact.png",
+      "bytes": 134500,
+      "sha256": "e7e6cfe0872399481c54493447f83bf45fe619aeafa870dc7539645a077ee154"
+    },
+    "blocked_trace.jsonl": {
+      "source_path": ".arcont/runs/urban_playtest/299d22181a314c2abdb75a020c2cd7f9/playtest/trace.jsonl",
+      "bytes": 154055,
+      "sha256": "d69a24834f8d5686538322aff5f4568d42383bf8ad036bbc77d503a0c01d4087"
+    },
+    "corrected_trace.jsonl": {
+      "source_path": ".arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/trace.jsonl",
+      "bytes": 252630,
+      "sha256": "44b5d7cb6db4e917c8c56e54134d8b5c60be7e2447a8b0efcffff1ea7b5ebeb2"
+    },
+    "corrected_navigation.tres": {
+      "source_path": ".arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/navigation.tres",
+      "bytes": 12329,
+      "sha256": "549e7818f3b9f0b66f19f702e4ecac358f2ea01710ab45ae8c08c5f36cca442c"
+    }
+  },
+  "accepted_recipe_dependencies": {
+    "third_party/map_authoring.lock.json": "344bd8d3d5fcadcb767da89639b5ac91490a5626a9a31fc3b18f974ee7cc9ed1",
+    "tools/authoring_road_network.gd": "7f1ae68db8a59dc57c46827e6b9016dad8746642d0ec0f2f9e8d8b7b14af99f5",
+    "tools/godot_playtest_runner.gd": "f8c70175f071dc2a8294a0609048cbb9c3c1c8e2a6560be9d052a0a9baf03691",
+    "tools/playtest_explorer.gd": "4a0075a7c43c9ab6e236ad448c7f53ad7e5eee41718bb3a9b5027b56ddb0740e",
+    "assets/urban/sources.lock.json": "3d4716b7fa09ea4c8b9dca0a7c298c9b08aa9d8a6bccae579303dd46dde6b089"
+  },
+  "replay_dependencies": {
+    ".arcont/runs/urban_playtest/262963a233e541ffb7d6e893073600af/scenes/urban_roads_editable.tscn": "a2ed12d4b672377b71831b09e06d1d8f6d8d330012adfbd9b82ed61251f87f5e",
+    "tools/godot_playtest_runner.gd": "f8c70175f071dc2a8294a0609048cbb9c3c1c8e2a6560be9d052a0a9baf03691"
+  },
+  "capture_method": "actual rendered Godot viewport; no image generation",
+  "editor_acceptance": "installed Map Forge panel; accepted scene opened and source wall edited/restored",
+  "limits": [
+    "Input-driven fixture controller, not production combat/AI",
+    "Linux runner; no target-device performance or cross-platform determinism claim"
+  ]
+}

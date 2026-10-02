@@ -1,0 +1,1436 @@
+{
+  "ok": true,
+  "calls": [
+    {
+      "operation": "create",
+      "ok": true,
+      "passed": null,
+      "evidence": ".arcont/runs/urban_playtest/aabd8ab1eea14905ab8dcec8066be75c"
+    },
+    {
+      "operation": "playtest",
+      "ok": true,
+      "passed": false,
+      "evidence": ".arcont/runs/urban_playtest/299d22181a314c2abdb75a020c2cd7f9"
+    },
+    {
+      "operation": "playtest",
+      "ok": false,
+      "passed": null,
+      "evidence": null
+    },
+    {
+      "operation": "patch",
+      "ok": true,
+      "passed": null,
+      "evidence": ".arcont/runs/urban_playtest/262963a233e541ffb7d6e893073600af"
+    },
+    {
+      "operation": "playtest",
+      "ok": true,
+      "passed": true,
+      "evidence": ".arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580"
+    },
+    {
+      "operation": "playtest",
+      "ok": true,
+      "passed": true,
+      "evidence": ".arcont/runs/urban_playtest/977c07127f9b4b07bfa956432fdcc54a"
+    },
+    {
+      "operation": "restore",
+      "ok": true,
+      "passed": null,
+      "evidence": ".arcont/runs/urban_playtest/5ed4300183a54fa38cdf552077cb7238"
+    },
+    {
+      "operation": "playtest",
+      "ok": true,
+      "passed": false,
+      "evidence": ".arcont/runs/urban_playtest/71473b067a5f4fd8bb774d01895b86b1"
+    }
+  ],
+  "blocked": {
+    "captures": [
+      {
+        "camera": "Cameras/Exterior",
+        "checkpoint": "settle",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/299d22181a314c2abdb75a020c2cd7f9/playtest/settle.png",
+        "physics_tick": 30
+      },
+      {
+        "camera": "Cameras/Entrance",
+        "checkpoint": "entrance",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/299d22181a314c2abdb75a020c2cd7f9/playtest/entrance.png",
+        "physics_tick": 300
+      }
+    ],
+    "checkpoints": [
+      {
+        "checks": {
+          "passed": true
+        },
+        "id": "settle",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/approach/approach_col",
+              "source_id": "approach"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 0,
+          "position": [
+            -30.0,
+            0.149850517511368,
+            8.0
+          ],
+          "terminal_active": false,
+          "tick": 30,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "passed": false,
+          "position_distance_m": 2.55093574523926
+        },
+        "id": "entrance",
+        "passed": false,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "path": "Navigation/Workshop/DoorBlocker",
+              "source_id": "door_blocker"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/approach/approach_col",
+              "source_id": "approach"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 0,
+          "position": [
+            -30.0000686645508,
+            0.149793118238449,
+            23.4490642547607
+          ],
+          "terminal_active": false,
+          "tick": 300,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "final_state": {
+      "contacts": [
+        {
+          "normal": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "path": "Navigation/Workshop/DoorBlocker",
+          "source_id": "door_blocker"
+        },
+        {
+          "normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "path": "Navigation/Workshop/approach/approach_col",
+          "source_id": "approach"
+        }
+      ],
+      "interactions": 0,
+      "on_floor": true,
+      "physical_step_ups": 0,
+      "position": [
+        -30.0000686645508,
+        0.149793118238449,
+        23.4490642547607
+      ],
+      "terminal_active": false,
+      "tick": 300,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "input_method": "Input.parse_input_event(InputEventAction)",
+    "input_released": true,
+    "navigation": {
+      "available": true,
+      "map_iteration": 4,
+      "path": [
+        [
+          -30.0002422332764,
+          0.26950341463089,
+          8.00044822692871
+        ],
+        [
+          -29.9745502471924,
+          0.271247535943985,
+          8.32792377471924
+        ],
+        [
+          -29.8518543243408,
+          0.270486623048782,
+          9.89193820953369
+        ],
+        [
+          -29.8410396575928,
+          0.264809280633926,
+          10.0298051834106
+        ],
+        [
+          -29.8405342102051,
+          0.236167713999748,
+          10.0362300872803
+        ],
+        [
+          -29.6981334686279,
+          0.232516393065453,
+          11.8514270782471
+        ],
+        [
+          -29.6936931610107,
+          0.280000001192093,
+          11.9080295562744
+        ],
+        [
+          -29.6519298553467,
+          0.280000001192093,
+          12.4403915405273
+        ],
+        [
+          -29.382884979248,
+          0.280000001192093,
+          15.8699131011963
+        ],
+        [
+          -28.7999992370605,
+          0.280000001192093,
+          23.3000030517578
+        ]
+      ],
+      "path_points": 10,
+      "polygons": 196,
+      "reaches_terminal": false,
+      "region_iteration": 2,
+      "sync_physics_frames": 13
+    },
+    "ok": true,
+    "passed": false,
+    "physics_frames": 300,
+    "physics_hz": 60,
+    "scope": "instrumented fixture, bounded batch input replay; no cross-platform determinism/device FPS claim",
+    "seed": 41.0,
+    "session_id": "workshop_route",
+    "source_scene_reopened": true
+  },
+  "corrected": {
+    "captures": [
+      {
+        "camera": "Cameras/Exterior",
+        "checkpoint": "settle",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/settle.png",
+        "physics_tick": 30
+      },
+      {
+        "camera": "Cameras/Entrance",
+        "checkpoint": "entrance",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/entrance.png",
+        "physics_tick": 300
+      },
+      {
+        "camera": "Cameras/Landing",
+        "checkpoint": "stairs",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/stairs.png",
+        "physics_tick": 480
+      },
+      {
+        "camera": "Cameras/Landing",
+        "checkpoint": "interact",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580/playtest/interact.png",
+        "physics_tick": 483
+      }
+    ],
+    "checkpoints": [
+      {
+        "checks": {
+          "passed": true
+        },
+        "id": "settle",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/approach/approach_col",
+              "source_id": "approach"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 0,
+          "position": [
+            -30.0,
+            0.149850517511368,
+            8.0
+          ],
+          "terminal_active": false,
+          "tick": 30,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "passed": true,
+          "position_distance_m": 0.000837787927594036
+        },
+        "id": "entrance",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/ground_floor/ground_floor_col",
+              "source_id": "ground_floor"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/ground_floor/ground_floor_col",
+              "source_id": "ground_floor"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/ground_floor/ground_floor_col",
+              "source_id": "ground_floor"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 0,
+          "position": [
+            -30.0000686645508,
+            0.150834798812866,
+            26.0000171661377
+          ],
+          "terminal_active": false,
+          "tick": 300,
+          "velocity": [
+            0.0,
+            0.0,
+            4.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "height_reached": true,
+          "passed": true,
+          "position_distance_m": 0.107554845511913
+        },
+        "id": "stairs",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 12,
+          "position": [
+            -30.0000686645508,
+            2.55083584785461,
+            37.892448425293
+          ],
+          "terminal_active": false,
+          "tick": 480,
+          "velocity": [
+            0.0,
+            0.0,
+            4.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "interaction_reached": true,
+          "passed": true
+        },
+        "id": "interact",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            }
+          ],
+          "interactions": 1,
+          "on_floor": true,
+          "physical_step_ups": 12,
+          "position": [
+            -30.0000686645508,
+            2.55083584785461,
+            37.892448425293
+          ],
+          "terminal_active": true,
+          "tick": 483,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "passed": true
+        },
+        "id": "release",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            }
+          ],
+          "interactions": 1,
+          "on_floor": true,
+          "physical_step_ups": 12,
+          "position": [
+            -30.0000686645508,
+            2.55083584785461,
+            37.892448425293
+          ],
+          "terminal_active": true,
+          "tick": 485,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "final_state": {
+      "contacts": [
+        {
+          "normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+          "source_id": "upper_landing"
+        }
+      ],
+      "interactions": 1,
+      "on_floor": true,
+      "physical_step_ups": 12,
+      "position": [
+        -30.0000686645508,
+        2.55083584785461,
+        37.892448425293
+      ],
+      "terminal_active": true,
+      "tick": 485,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "input_method": "Input.parse_input_event(InputEventAction)",
+    "input_released": true,
+    "navigation": {
+      "available": true,
+      "map_iteration": 4,
+      "path": [
+        [
+          -30.0002422332764,
+          0.26950341463089,
+          8.00044822692871
+        ],
+        [
+          -29.9974784851074,
+          0.27137491106987,
+          8.33843231201172
+        ],
+        [
+          -29.9853134155273,
+          0.271234273910522,
+          9.82576942443848
+        ],
+        [
+          -29.984317779541,
+          0.266082882881165,
+          9.94765853881836
+        ],
+        [
+          -29.9842720031738,
+          0.239853262901306,
+          9.9533052444458
+        ],
+        [
+          -29.9681549072266,
+          0.239440023899078,
+          11.9241247177124
+        ],
+        [
+          -29.967752456665,
+          0.280000001192093,
+          11.9732818603516
+        ],
+        [
+          -29.964054107666,
+          0.280000001192093,
+          12.4255275726318
+        ],
+        [
+          -29.9208030700684,
+          0.280000001192093,
+          17.7142066955566
+        ],
+        [
+          -29.8751220703125,
+          0.280000001192093,
+          23.3000030517578
+        ],
+        [
+          -29.8735103607178,
+          0.280000001192093,
+          23.4972381591797
+        ],
+        [
+          -29.8726711273193,
+          0.280000001192093,
+          23.6000061035156
+        ],
+        [
+          -29.8710269927979,
+          0.280000001192093,
+          23.8010120391846
+        ],
+        [
+          -29.868989944458,
+          0.280000001192093,
+          24.0500030517578
+        ],
+        [
+          -29.8676280975342,
+          0.280000001192093,
+          24.2165241241455
+        ],
+        [
+          -29.865592956543,
+          0.280000001192093,
+          24.4654159545898
+        ],
+        [
+          -29.8331832885742,
+          0.280000001192093,
+          28.4285144805908
+        ],
+        [
+          -29.8321800231934,
+          0.280000001192093,
+          28.5512390136719
+        ],
+        [
+          -29.8304252624512,
+          0.288121312856674,
+          28.7657375335693
+        ],
+        [
+          -29.8301582336426,
+          0.291683316230774,
+          28.7983417510986
+        ],
+        [
+          -29.8191356658936,
+          0.480000048875809,
+          30.146167755127
+        ],
+        [
+          -29.8186950683594,
+          0.480000048875809,
+          30.2000122070312
+        ],
+        [
+          -29.8137855529785,
+          0.82299017906189,
+          30.8002376556396
+        ],
+        [
+          -29.8101081848145,
+          1.08000004291534,
+          31.25
+        ],
+        [
+          -29.8025379180908,
+          1.61664426326752,
+          32.1757125854492
+        ],
+        [
+          -29.8019161224365,
+          1.63752996921539,
+          32.2515563964844
+        ],
+        [
+          -29.8000144958496,
+          1.76636970043182,
+          32.4841918945312
+        ],
+        [
+          -29.7865562438965,
+          2.48000001907349,
+          34.1300048828125
+        ],
+        [
+          -29.7841110229492,
+          2.56303238868713,
+          34.4289207458496
+        ],
+        [
+          -29.780668258667,
+          2.6800000667572,
+          34.8500061035156
+        ],
+        [
+          -29.7587299346924,
+          2.6800000667572,
+          37.532543182373
+        ],
+        [
+          -29.7586803436279,
+          2.6800000667572,
+          37.5384292602539
+        ],
+        [
+          -29.75,
+          2.6800000667572,
+          38.6000061035156
+        ],
+        [
+          -29.75,
+          2.6800000667572,
+          38.6000061035156
+        ],
+        [
+          -29.75,
+          2.6800000667572,
+          38.6000061035156
+        ],
+        [
+          -29.0750045776367,
+          2.6800000667572,
+          38.825008392334
+        ]
+      ],
+      "path_points": 36,
+      "polygons": 206,
+      "reaches_terminal": true,
+      "region_iteration": 2,
+      "sync_physics_frames": 14
+    },
+    "ok": true,
+    "passed": true,
+    "physics_frames": 485,
+    "physics_hz": 60,
+    "scope": "instrumented fixture, bounded batch input replay; no cross-platform determinism/device FPS claim",
+    "seed": 41.0,
+    "session_id": "workshop_route",
+    "source_scene_reopened": true
+  },
+  "repeated": {
+    "captures": [
+      {
+        "camera": "Cameras/Exterior",
+        "checkpoint": "settle",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/977c07127f9b4b07bfa956432fdcc54a/playtest/settle.png",
+        "physics_tick": 30
+      },
+      {
+        "camera": "Cameras/Entrance",
+        "checkpoint": "entrance",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/977c07127f9b4b07bfa956432fdcc54a/playtest/entrance.png",
+        "physics_tick": 300
+      },
+      {
+        "camera": "Cameras/Landing",
+        "checkpoint": "stairs",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/977c07127f9b4b07bfa956432fdcc54a/playtest/stairs.png",
+        "physics_tick": 480
+      },
+      {
+        "camera": "Cameras/Landing",
+        "checkpoint": "interact",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/977c07127f9b4b07bfa956432fdcc54a/playtest/interact.png",
+        "physics_tick": 483
+      }
+    ],
+    "checkpoints": [
+      {
+        "checks": {
+          "passed": true
+        },
+        "id": "settle",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/approach/approach_col",
+              "source_id": "approach"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 0,
+          "position": [
+            -30.0,
+            0.149850517511368,
+            8.0
+          ],
+          "terminal_active": false,
+          "tick": 30,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "passed": true,
+          "position_distance_m": 0.000837787927594036
+        },
+        "id": "entrance",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/ground_floor/ground_floor_col",
+              "source_id": "ground_floor"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/ground_floor/ground_floor_col",
+              "source_id": "ground_floor"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/ground_floor/ground_floor_col",
+              "source_id": "ground_floor"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 0,
+          "position": [
+            -30.0000686645508,
+            0.150834798812866,
+            26.0000171661377
+          ],
+          "terminal_active": false,
+          "tick": 300,
+          "velocity": [
+            0.0,
+            0.0,
+            4.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "height_reached": true,
+          "passed": true,
+          "position_distance_m": 0.107554845511913
+        },
+        "id": "stairs",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 12,
+          "position": [
+            -30.0000686645508,
+            2.55083584785461,
+            37.892448425293
+          ],
+          "terminal_active": false,
+          "tick": 480,
+          "velocity": [
+            0.0,
+            0.0,
+            4.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "interaction_reached": true,
+          "passed": true
+        },
+        "id": "interact",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            }
+          ],
+          "interactions": 1,
+          "on_floor": true,
+          "physical_step_ups": 12,
+          "position": [
+            -30.0000686645508,
+            2.55083584785461,
+            37.892448425293
+          ],
+          "terminal_active": true,
+          "tick": 483,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "passed": true
+        },
+        "id": "release",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+              "source_id": "upper_landing"
+            }
+          ],
+          "interactions": 1,
+          "on_floor": true,
+          "physical_step_ups": 12,
+          "position": [
+            -30.0000686645508,
+            2.55083584785461,
+            37.892448425293
+          ],
+          "terminal_active": true,
+          "tick": 485,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "final_state": {
+      "contacts": [
+        {
+          "normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "path": "Navigation/Workshop/upper_landing/upper_landing_col",
+          "source_id": "upper_landing"
+        }
+      ],
+      "interactions": 1,
+      "on_floor": true,
+      "physical_step_ups": 12,
+      "position": [
+        -30.0000686645508,
+        2.55083584785461,
+        37.892448425293
+      ],
+      "terminal_active": true,
+      "tick": 485,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "input_method": "Input.parse_input_event(InputEventAction)",
+    "input_released": true,
+    "navigation": {
+      "available": true,
+      "map_iteration": 4,
+      "path": [
+        [
+          -30.0002422332764,
+          0.26950341463089,
+          8.00044822692871
+        ],
+        [
+          -29.9974784851074,
+          0.27137491106987,
+          8.33843231201172
+        ],
+        [
+          -29.9853134155273,
+          0.271234273910522,
+          9.82576942443848
+        ],
+        [
+          -29.984317779541,
+          0.266082882881165,
+          9.94765853881836
+        ],
+        [
+          -29.9842720031738,
+          0.239853262901306,
+          9.9533052444458
+        ],
+        [
+          -29.9681549072266,
+          0.239440023899078,
+          11.9241247177124
+        ],
+        [
+          -29.967752456665,
+          0.280000001192093,
+          11.9732818603516
+        ],
+        [
+          -29.964054107666,
+          0.280000001192093,
+          12.4255275726318
+        ],
+        [
+          -29.9208030700684,
+          0.280000001192093,
+          17.7142066955566
+        ],
+        [
+          -29.8751220703125,
+          0.280000001192093,
+          23.3000030517578
+        ],
+        [
+          -29.8735103607178,
+          0.280000001192093,
+          23.4972381591797
+        ],
+        [
+          -29.8726711273193,
+          0.280000001192093,
+          23.6000061035156
+        ],
+        [
+          -29.8710269927979,
+          0.280000001192093,
+          23.8010120391846
+        ],
+        [
+          -29.868989944458,
+          0.280000001192093,
+          24.0500030517578
+        ],
+        [
+          -29.8676280975342,
+          0.280000001192093,
+          24.2165241241455
+        ],
+        [
+          -29.865592956543,
+          0.280000001192093,
+          24.4654159545898
+        ],
+        [
+          -29.8331832885742,
+          0.280000001192093,
+          28.4285144805908
+        ],
+        [
+          -29.8321800231934,
+          0.280000001192093,
+          28.5512390136719
+        ],
+        [
+          -29.8304252624512,
+          0.288121312856674,
+          28.7657375335693
+        ],
+        [
+          -29.8301582336426,
+          0.291683316230774,
+          28.7983417510986
+        ],
+        [
+          -29.8191356658936,
+          0.480000048875809,
+          30.146167755127
+        ],
+        [
+          -29.8186950683594,
+          0.480000048875809,
+          30.2000122070312
+        ],
+        [
+          -29.8137855529785,
+          0.82299017906189,
+          30.8002376556396
+        ],
+        [
+          -29.8101081848145,
+          1.08000004291534,
+          31.25
+        ],
+        [
+          -29.8025379180908,
+          1.61664426326752,
+          32.1757125854492
+        ],
+        [
+          -29.8019161224365,
+          1.63752996921539,
+          32.2515563964844
+        ],
+        [
+          -29.8000144958496,
+          1.76636970043182,
+          32.4841918945312
+        ],
+        [
+          -29.7865562438965,
+          2.48000001907349,
+          34.1300048828125
+        ],
+        [
+          -29.7841110229492,
+          2.56303238868713,
+          34.4289207458496
+        ],
+        [
+          -29.780668258667,
+          2.6800000667572,
+          34.8500061035156
+        ],
+        [
+          -29.7587299346924,
+          2.6800000667572,
+          37.532543182373
+        ],
+        [
+          -29.7586803436279,
+          2.6800000667572,
+          37.5384292602539
+        ],
+        [
+          -29.75,
+          2.6800000667572,
+          38.6000061035156
+        ],
+        [
+          -29.75,
+          2.6800000667572,
+          38.6000061035156
+        ],
+        [
+          -29.75,
+          2.6800000667572,
+          38.6000061035156
+        ],
+        [
+          -29.0750045776367,
+          2.6800000667572,
+          38.825008392334
+        ]
+      ],
+      "path_points": 36,
+      "polygons": 206,
+      "reaches_terminal": true,
+      "region_iteration": 2,
+      "sync_physics_frames": 14
+    },
+    "ok": true,
+    "passed": true,
+    "physics_frames": 485,
+    "physics_hz": 60,
+    "scope": "instrumented fixture, bounded batch input replay; no cross-platform determinism/device FPS claim",
+    "seed": 41.0,
+    "session_id": "workshop_route",
+    "source_scene_reopened": true
+  },
+  "restored": {
+    "captures": [
+      {
+        "camera": "Cameras/Exterior",
+        "checkpoint": "settle",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/71473b067a5f4fd8bb774d01895b86b1/playtest/settle.png",
+        "physics_tick": 30
+      },
+      {
+        "camera": "Cameras/Entrance",
+        "checkpoint": "entrance",
+        "path": "/home/runner/work/Closeseal/Closeseal/.arcont/runs/urban_playtest/71473b067a5f4fd8bb774d01895b86b1/playtest/entrance.png",
+        "physics_tick": 300
+      }
+    ],
+    "checkpoints": [
+      {
+        "checks": {
+          "passed": true
+        },
+        "id": "settle",
+        "passed": true,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/approach/approach_col",
+              "source_id": "approach"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 0,
+          "position": [
+            -30.0,
+            0.149850517511368,
+            8.0
+          ],
+          "terminal_active": false,
+          "tick": 30,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "checks": {
+          "passed": false,
+          "position_distance_m": 2.55093574523926
+        },
+        "id": "entrance",
+        "passed": false,
+        "state": {
+          "contacts": [
+            {
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "path": "Navigation/Workshop/DoorBlocker",
+              "source_id": "door_blocker"
+            },
+            {
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "path": "Navigation/Workshop/approach/approach_col",
+              "source_id": "approach"
+            }
+          ],
+          "interactions": 0,
+          "on_floor": true,
+          "physical_step_ups": 0,
+          "position": [
+            -30.0000686645508,
+            0.149793118238449,
+            23.4490642547607
+          ],
+          "terminal_active": false,
+          "tick": 300,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "final_state": {
+      "contacts": [
+        {
+          "normal": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "path": "Navigation/Workshop/DoorBlocker",
+          "source_id": "door_blocker"
+        },
+        {
+          "normal": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "path": "Navigation/Workshop/approach/approach_col",
+          "source_id": "approach"
+        }
+      ],
+      "interactions": 0,
+      "on_floor": true,
+      "physical_step_ups": 0,
+      "position": [
+        -30.0000686645508,
+        0.149793118238449,
+        23.4490642547607
+      ],
+      "terminal_active": false,
+      "tick": 300,
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "input_method": "Input.parse_input_event(InputEventAction)",
+    "input_released": true,
+    "navigation": {
+      "available": true,
+      "map_iteration": 4,
+      "path": [
+        [
+          -30.0002422332764,
+          0.26950341463089,
+          8.00044822692871
+        ],
+        [
+          -29.9745502471924,
+          0.271247535943985,
+          8.32792377471924
+        ],
+        [
+          -29.8518543243408,
+          0.270486623048782,
+          9.89193820953369
+        ],
+        [
+          -29.8410396575928,
+          0.264809280633926,
+          10.0298051834106
+        ],
+        [
+          -29.8405342102051,
+          0.236167713999748,
+          10.0362300872803
+        ],
+        [
+          -29.6981334686279,
+          0.232516393065453,
+          11.8514270782471
+        ],
+        [
+          -29.6936931610107,
+          0.280000001192093,
+          11.9080295562744
+        ],
+        [
+          -29.6519298553467,
+          0.280000001192093,
+          12.4403915405273
+        ],
+        [
+          -29.382884979248,
+          0.280000001192093,
+          15.8699131011963
+        ],
+        [
+          -28.7999992370605,
+          0.280000001192093,
+          23.3000030517578
+        ]
+      ],
+      "path_points": 10,
+      "polygons": 196,
+      "reaches_terminal": false,
+      "region_iteration": 2,
+      "sync_physics_frames": 13
+    },
+    "ok": true,
+    "passed": false,
+    "physics_frames": 300,
+    "physics_hz": 60,
+    "scope": "instrumented fixture, bounded batch input replay; no cross-platform determinism/device FPS claim",
+    "seed": 41.0,
+    "session_id": "workshop_route",
+    "source_scene_reopened": true
+  },
+  "blocked_bundle": ".arcont/runs/urban_playtest/299d22181a314c2abdb75a020c2cd7f9",
+  "corrected_bundle": ".arcont/runs/urban_playtest/4c2ebeba2f0a44b386a90d9fa810c580",
+  "accepted_scene_bundle": ".arcont/runs/urban_playtest/262963a233e541ffb7d6e893073600af",
+  "repeat_position_tolerance_m": 0.001,
+  "same_session_reused": true,
+  "document_unchanged_during_playtest": true,
+  "original_bundle_immutable": true,
+  "canonical_maps_unchanged": true,
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "limits": [
+    "Input-driven fixture controller, not production combat/AI",
+    "Linux runner; no target-device performance or cross-platform determinism claim"
+  ]
+}
