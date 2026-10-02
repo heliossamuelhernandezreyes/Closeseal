@@ -189,8 +189,20 @@ def main():
         assert mcp.returncode == 0 and len(responses) == 3
         assert json.loads(responses[-1]["result"]["content"][0]["text"])["revision"] == created["revision"]
         acceptance = next(s["value"] for s in captured["result"]["steps"] if s["id"] == "reopen")
+        # The bridge also operates the actual existing large city, not only a
+        # small fixture. Compose it directly from the unchanged canonical JSON.
+        city_path = ROOT / "maps/urban_nexo_01.json"
+        city_before = city_path.read_bytes()
+        city_recipe = json.loads((ROOT / "authoring/recipes/urban_nexo_lighting.json").read_text())
+        city_recipe["dependencies"] = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in
+                                       ["maps/urban_nexo_01.json", "assets/urban/sources.lock.json", "tools/authoring_map_source.gd"]}
+        city = control("create", document_id="urban_nexo_lighting", recipe=city_recipe, options=options)
+        assert not city["committed"] and city_path.read_bytes() == city_before
+        source = next(s["value"] for s in city["result"]["steps"] if s["id"] == "source")
+        assert source["stats"]["asset_instances"] == 301 and source["stats"]["environment_objects"] == 812
         report = {"ok": True, "engine": captured["result"]["engine"], "calls": calls, "acceptance": acceptance,
                   "captures_directory": str(directory.relative_to(ROOT)), "mcp_stdio_verified": True,
+                  "city": {"source": source, "evidence_directory": city["evidence"]["directory"], "canonical_bytes_unchanged": True},
                   "limits": ["CPU software rendering in Linux CI; no Android or AAA art-quality claim"]}
         report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
         print("ARCONT_AUTHORING_SMOKE_OK " + json.dumps(report))

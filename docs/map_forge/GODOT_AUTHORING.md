@@ -81,6 +81,13 @@ extension verifies real navigation baking, a path across the scene, collision,
 capsule walking, PCM audio/resource playback and save/reopen preservation.
 Frame/render/memory measurements describe the authoring process on the runner.
 
+`authoring/recipes/urban_nexo_lighting.json` also operates the existing 512m
+Urban Nexo map through this bridge: it composes the actual canonical JSON and
+301 asset placements, edits native sun/environment properties, tests plaza
+collision, saves a separate scene and captures the plaza and street. The test
+checks that the 812 authored native objects and original map bytes are preserved.
+It is a lighting study, not a new canonical layout or a finished art pass.
+
 Terrain3D's map-specific grid/brush path remains the existing tested integration.
 Cyclops and FuncGodot now have generic API access, but complete block/CSG/import
 workflows still require their own acceptance scenes. Discovery alone is not a
