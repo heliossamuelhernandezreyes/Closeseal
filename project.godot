@@ -14,7 +14,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/close_seal_map_forge/plugin.cfg")
+enabled=PackedStringArray("res://addons/close_seal_map_forge/plugin.cfg", "res://addons/road-generator/plugin.cfg")
 
 [filesystem]
 

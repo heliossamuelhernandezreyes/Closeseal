@@ -94,6 +94,10 @@ It is a lighting study, not a new canonical layout or a finished art pass.
 
 ## Verified output
 
+The next provider workflow is documented in [ROAD_NETWORK.md](ROAD_NETWORK.md):
+explicit curved roads, raised decks, source-point edits and separate editable /
+baked output, operated through this same writer.
+
 Acceptance run [36952147375](https://github.com/heliossamuelhernandezreyes/Closeseal/actions/runs/36952147375)
 passed with the pinned engine and provider. [provenance.json](evidence/general_authoring/provenance.json)
 records source commits and file hashes; [authoring-smoke.json](evidence/general_authoring/authoring-smoke.json)

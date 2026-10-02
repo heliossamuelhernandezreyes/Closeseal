@@ -1,0 +1,1119 @@
+{
+  "version": 1,
+  "id": "urban_roads",
+  "description": "Authored curved boulevard and grade-separated ramp, real RoadGenerator output",
+  "steps": [
+    {
+      "op": "new",
+      "id": "world",
+      "class": "Node3D",
+      "properties": {},
+      "name": "UrbanRoads"
+    },
+    {
+      "op": "new",
+      "id": "navigation",
+      "class": "NavigationRegion3D",
+      "properties": {},
+      "parent": "world",
+      "name": "Navigation"
+    },
+    {
+      "op": "new",
+      "id": "navmesh",
+      "class": "NavigationMesh",
+      "properties": {
+        "agent_radius": 0.45,
+        "agent_height": 1.8,
+        "agent_max_climb": 0.35,
+        "geometry_parsed_geometry_type": 1,
+        "geometry_collision_mask": 4,
+        "cell_size": 0.25,
+        "cell_height": 0.2
+      }
+    },
+    {
+      "op": "set",
+      "target": "navigation",
+      "properties": {
+        "navigation_mesh": {
+          "$ref": "navmesh"
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "scenery",
+      "class": "Node3D",
+      "properties": {},
+      "parent": "world",
+      "name": "Scenery"
+    },
+    {
+      "op": "new",
+      "id": "concrete",
+      "class": "StandardMaterial3D",
+      "properties": {
+        "albedo_color": {
+          "$type": "Color",
+          "value": [
+            0.44,
+            0.46,
+            0.43,
+            1
+          ]
+        },
+        "roughness": 0.88
+      }
+    },
+    {
+      "op": "new",
+      "id": "ground_material",
+      "class": "StandardMaterial3D",
+      "properties": {
+        "albedo_color": {
+          "$type": "Color",
+          "value": [
+            0.32,
+            0.38,
+            0.31,
+            1
+          ]
+        },
+        "roughness": 1.0
+      }
+    },
+    {
+      "op": "new",
+      "id": "district_ground_mesh",
+      "class": "BoxMesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            250,
+            0.5,
+            250
+          ]
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "district_ground",
+      "class": "MeshInstance3D",
+      "properties": {
+        "mesh": {
+          "$ref": "district_ground_mesh"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            -0.25,
+            0
+          ]
+        },
+        "material_override": {
+          "$ref": "ground_material"
+        }
+      },
+      "parent": "scenery"
+    },
+    {
+      "op": "call",
+      "target": "district_ground",
+      "method": "create_trimesh_collision",
+      "args": []
+    },
+    {
+      "op": "new",
+      "id": "pier_0_west_mesh",
+      "class": "BoxMesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            0.8,
+            7,
+            2.5
+          ]
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "pier_0_west",
+      "class": "MeshInstance3D",
+      "properties": {
+        "mesh": {
+          "$ref": "pier_0_west_mesh"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -3.2,
+            3.5,
+            -40
+          ]
+        },
+        "material_override": {
+          "$ref": "concrete"
+        }
+      },
+      "parent": "scenery"
+    },
+    {
+      "op": "new",
+      "id": "pier_0_east_mesh",
+      "class": "BoxMesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            0.8,
+            7,
+            2.5
+          ]
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "pier_0_east",
+      "class": "MeshInstance3D",
+      "properties": {
+        "mesh": {
+          "$ref": "pier_0_east_mesh"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            3.2,
+            3.5,
+            -40
+          ]
+        },
+        "material_override": {
+          "$ref": "concrete"
+        }
+      },
+      "parent": "scenery"
+    },
+    {
+      "op": "new",
+      "id": "crossbeam_0_mesh",
+      "class": "BoxMesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            9.4,
+            0.9,
+            2.5
+          ]
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "crossbeam_0",
+      "class": "MeshInstance3D",
+      "properties": {
+        "mesh": {
+          "$ref": "crossbeam_0_mesh"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            7.1,
+            -40
+          ]
+        },
+        "material_override": {
+          "$ref": "concrete"
+        }
+      },
+      "parent": "scenery"
+    },
+    {
+      "op": "new",
+      "id": "pier_1_west_mesh",
+      "class": "BoxMesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            0.8,
+            7,
+            2.5
+          ]
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "pier_1_west",
+      "class": "MeshInstance3D",
+      "properties": {
+        "mesh": {
+          "$ref": "pier_1_west_mesh"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -3.2,
+            3.5,
+            45
+          ]
+        },
+        "material_override": {
+          "$ref": "concrete"
+        }
+      },
+      "parent": "scenery"
+    },
+    {
+      "op": "new",
+      "id": "pier_1_east_mesh",
+      "class": "BoxMesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            0.8,
+            7,
+            2.5
+          ]
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "pier_1_east",
+      "class": "MeshInstance3D",
+      "properties": {
+        "mesh": {
+          "$ref": "pier_1_east_mesh"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            3.2,
+            3.5,
+            45
+          ]
+        },
+        "material_override": {
+          "$ref": "concrete"
+        }
+      },
+      "parent": "scenery"
+    },
+    {
+      "op": "new",
+      "id": "crossbeam_1_mesh",
+      "class": "BoxMesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            9.4,
+            0.9,
+            2.5
+          ]
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "crossbeam_1",
+      "class": "MeshInstance3D",
+      "properties": {
+        "mesh": {
+          "$ref": "crossbeam_1_mesh"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            7.1,
+            45
+          ]
+        },
+        "material_override": {
+          "$ref": "concrete"
+        }
+      },
+      "parent": "scenery"
+    },
+    {
+      "op": "load",
+      "id": "building_0",
+      "path": "res://assets/urban/kenney/commercial/building-f.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Building_0",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -80,
+            0,
+            30
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            18,
+            18,
+            18
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "building_1",
+      "path": "res://assets/urban/kenney/commercial/building-h.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Building_1",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -45,
+            0,
+            45
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            18,
+            18,
+            18
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "building_2",
+      "path": "res://assets/urban/kenney/commercial/building-skyscraper-b.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Building_2",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -75,
+            0,
+            -65
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            22,
+            22,
+            22
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "building_3",
+      "path": "res://assets/urban/kenney/commercial/building-skyscraper-c.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Building_3",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -35,
+            0,
+            -65
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            16,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "building_4",
+      "path": "res://assets/urban/kenney/commercial/building-a.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Building_4",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            35,
+            0,
+            -60
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            18,
+            18,
+            18
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "building_5",
+      "path": "res://assets/urban/kenney/commercial/building-f.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Building_5",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            75,
+            0,
+            -65
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            22,
+            22,
+            22
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "building_6",
+      "path": "res://assets/urban/kenney/commercial/building-h.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Building_6",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            42,
+            0,
+            60
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            20,
+            20,
+            20
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "building_7",
+      "path": "res://assets/urban/kenney/commercial/building-skyscraper-b.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Building_7",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            85,
+            0,
+            45
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            23,
+            23,
+            23
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "tree_0",
+      "path": "res://assets/urban/kenney/nature/tree_default.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Tree_0",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -95,
+            0,
+            6
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            5,
+            5,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "tree_1",
+      "path": "res://assets/urban/kenney/nature/tree_default.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Tree_1",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -85,
+            0,
+            6
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            5,
+            5,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "tree_2",
+      "path": "res://assets/urban/kenney/nature/tree_default.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Tree_2",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -25,
+            0,
+            40
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            5,
+            5,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "tree_3",
+      "path": "res://assets/urban/kenney/nature/tree_default.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Tree_3",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -15,
+            0,
+            40
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            5,
+            5,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "tree_4",
+      "path": "res://assets/urban/kenney/nature/tree_default.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Tree_4",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            25,
+            0,
+            42
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            5,
+            5,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "tree_5",
+      "path": "res://assets/urban/kenney/nature/tree_default.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Tree_5",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            35,
+            0,
+            40
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            5,
+            5,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "tree_6",
+      "path": "res://assets/urban/kenney/nature/tree_default.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Tree_6",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            95,
+            0,
+            6
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            5,
+            5,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "op": "load",
+      "id": "tree_7",
+      "path": "res://assets/urban/kenney/nature/tree_default.glb",
+      "instantiate": true,
+      "parent": "scenery",
+      "name": "Tree_7",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            105,
+            0,
+            6
+          ]
+        },
+        "scale": {
+          "$type": "Vector3",
+          "value": [
+            5,
+            5,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "environment",
+      "class": "Environment",
+      "properties": {
+        "background_mode": 1,
+        "background_color": {
+          "$type": "Color",
+          "value": [
+            0.46,
+            0.62,
+            0.78,
+            1
+          ]
+        },
+        "ambient_light_source": 3,
+        "ambient_light_color": {
+          "$type": "Color",
+          "value": [
+            0.68,
+            0.77,
+            0.9,
+            1
+          ]
+        },
+        "ambient_light_energy": 0.7
+      }
+    },
+    {
+      "op": "new",
+      "id": "world_environment",
+      "class": "WorldEnvironment",
+      "properties": {
+        "environment": {
+          "$ref": "environment"
+        }
+      },
+      "parent": "world"
+    },
+    {
+      "op": "new",
+      "id": "sun",
+      "class": "DirectionalLight3D",
+      "properties": {
+        "rotation_degrees": {
+          "$type": "Vector3",
+          "value": [
+            -32,
+            -40,
+            0
+          ]
+        },
+        "light_color": {
+          "$type": "Color",
+          "value": [
+            1,
+            0.85,
+            0.65,
+            1
+          ]
+        },
+        "light_energy": 1.2,
+        "shadow_enabled": true,
+        "directional_shadow_max_distance": 350.0
+      },
+      "parent": "world"
+    },
+    {
+      "op": "new",
+      "id": "camera",
+      "class": "Camera3D",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            180,
+            145,
+            190
+          ]
+        },
+        "fov": 48.0,
+        "far": 600.0
+      },
+      "parent": "world"
+    },
+    {
+      "op": "attach",
+      "target": "world"
+    },
+    {
+      "op": "script",
+      "id": "roads",
+      "path": "res://tools/authoring_road_network.gd",
+      "args": {
+        "stage": "build",
+        "target": "navigation",
+        "network": {
+          "version": 1,
+          "roads": [
+            {
+              "id": "boulevard",
+              "lanes": [
+                "reverse",
+                "reverse",
+                "forward",
+                "forward"
+              ],
+              "lane_width": 3.5,
+              "shoulder_width": 1.2,
+              "thickness": 0.3,
+              "density": 1.5,
+              "points": [
+                {
+                  "id": "west_entry",
+                  "position": [
+                    -110,
+                    0.08,
+                    -20
+                  ],
+                  "tangent": [
+                    1,
+                    0,
+                    0
+                  ],
+                  "handle_in": 22,
+                  "handle_out": 22
+                },
+                {
+                  "id": "west_bend",
+                  "position": [
+                    -55,
+                    0.08,
+                    -20
+                  ],
+                  "tangent": [
+                    1,
+                    0,
+                    0.7
+                  ],
+                  "handle_in": 22,
+                  "handle_out": 22
+                },
+                {
+                  "id": "central_crossing",
+                  "position": [
+                    0,
+                    0.08,
+                    12
+                  ],
+                  "tangent": [
+                    1,
+                    0,
+                    0
+                  ],
+                  "handle_in": 22,
+                  "handle_out": 22
+                },
+                {
+                  "id": "east_bend",
+                  "position": [
+                    55,
+                    0.08,
+                    12
+                  ],
+                  "tangent": [
+                    1,
+                    0,
+                    -0.7
+                  ],
+                  "handle_in": 22,
+                  "handle_out": 22
+                },
+                {
+                  "id": "east_exit",
+                  "position": [
+                    110,
+                    0.08,
+                    -20
+                  ],
+                  "tangent": [
+                    1,
+                    0,
+                    0
+                  ],
+                  "handle_in": 22,
+                  "handle_out": 22
+                }
+              ]
+            },
+            {
+              "id": "flyover",
+              "lanes": [
+                "reverse",
+                "forward"
+              ],
+              "lane_width": 3.5,
+              "shoulder_width": 0.8,
+              "thickness": 0.6,
+              "density": 1.5,
+              "points": [
+                {
+                  "id": "south_entry",
+                  "position": [
+                    0,
+                    0.08,
+                    -100
+                  ],
+                  "tangent": [
+                    0,
+                    0,
+                    1
+                  ],
+                  "handle_in": 18,
+                  "handle_out": 18
+                },
+                {
+                  "id": "south_deck",
+                  "position": [
+                    0,
+                    8.08,
+                    -40
+                  ],
+                  "tangent": [
+                    0,
+                    0,
+                    1
+                  ],
+                  "handle_in": 18,
+                  "handle_out": 18
+                },
+                {
+                  "id": "north_deck",
+                  "position": [
+                    0,
+                    8.08,
+                    45
+                  ],
+                  "tangent": [
+                    0,
+                    0,
+                    1
+                  ],
+                  "handle_in": 24,
+                  "handle_out": 24
+                },
+                {
+                  "id": "north_exit",
+                  "position": [
+                    0,
+                    0.08,
+                    105
+                  ],
+                  "tangent": [
+                    0,
+                    0,
+                    1
+                  ],
+                  "handle_in": 18,
+                  "handle_out": 18
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "op": "script",
+      "id": "acceptance",
+      "path": "res://tools/road_network_acceptance.gd",
+      "args": {
+        "stage": "check"
+      }
+    },
+    {
+      "op": "script",
+      "id": "saved",
+      "path": "res://tools/authoring_road_network.gd",
+      "args": {
+        "stage": "save",
+        "target": "world"
+      }
+    },
+    {
+      "op": "script",
+      "id": "reopen",
+      "path": "res://tools/road_network_acceptance.gd",
+      "args": {
+        "stage": "reopen"
+      }
+    },
+    {
+      "op": "call",
+      "target": "camera",
+      "method": "look_at",
+      "args": [
+        {
+          "$type": "Vector3",
+          "value": [
+            0,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "op": "capture",
+      "camera": "camera",
+      "path": "roads_overview.png"
+    },
+    {
+      "op": "set",
+      "target": "camera",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            65,
+            23,
+            -42
+          ]
+        },
+        "fov": 60.0
+      }
+    },
+    {
+      "op": "call",
+      "target": "camera",
+      "method": "look_at",
+      "args": [
+        {
+          "$type": "Vector3",
+          "value": [
+            -3,
+            4,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "op": "capture",
+      "camera": "camera",
+      "path": "roads_underpass.png"
+    },
+    {
+      "op": "profile",
+      "id": "measurement",
+      "frames": 30
+    }
+  ]
+}

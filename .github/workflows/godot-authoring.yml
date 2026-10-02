@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 144062e16d7efea70035c88401f5d79c1274b49a
+          ref: c136eda4e1348603acb2670dc6c6e2814a33c4c5
           path: arcont-source
       - uses: actions/setup-python@v5
         with:
@@ -72,6 +72,11 @@ jobs:
           timeout 120 xvfb-run -a "$GODOT_BIN" --path . --editor --headless --script res://tools/godot_authoring_dock_smoke.gd 2>&1 | tee authoring-dock.log
           grep -q ARCONT_AUTHORING_DOCK_OK authoring-dock.log
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' authoring-dock.log; then exit 1; fi
+      - name: Build, edit, restore and reopen real curved roads with collision and navigation
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/road_network_smoke.py
       - name: Preserve scenes, audio, captures, metadata and logs
         if: always()
         uses: actions/upload-artifact@v4
