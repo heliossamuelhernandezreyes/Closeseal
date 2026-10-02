@@ -18,18 +18,34 @@ func run(context, arguments: Dictionary) -> Dictionary:
     var region: NavigationRegion3D = world.get_node_or_null("Navigation")
     var navigation := {"available": false}
     if region != null:
-        NavigationServer3D.map_set_cell_size(region.get_navigation_map(), region.navigation_mesh.cell_size)
-        NavigationServer3D.map_set_cell_height(region.get_navigation_map(), region.navigation_mesh.cell_height)
+        var map := region.get_navigation_map()
+        var prior_iteration := NavigationServer3D.region_get_iteration_id(region.get_rid())
+        NavigationServer3D.map_set_cell_size(map, region.navigation_mesh.cell_size)
+        NavigationServer3D.map_set_cell_height(map, region.navigation_mesh.cell_height)
         region.bake_navigation_mesh(false)
-        NavigationServer3D.map_force_update(region.get_navigation_map())
-        for _frame in range(3): await context.physics_frame
+        var sync_frames := 0
+        var synchronized := false
+        for _frame in range(120):
+            await context.physics_frame
+            sync_frames += 1
+            NavigationServer3D.map_force_update(map)
+            if NavigationServer3D.region_get_iteration_id(region.get_rid()) > prior_iteration and NavigationServer3D.map_get_closest_point_owner(map, actor.global_position) == region.get_rid():
+                synchronized = true
+                break
+        if not synchronized: return {"ok": false, "error": "navigation did not synchronize within 120 physics frames"}
+        if ResourceSaver.save(region.navigation_mesh, context.output_path("playtest/navigation.tres")) != OK:
+            return {"ok": false, "error": "cannot save measured navigation mesh"}
         var target: Node3D = world.get_node_or_null("Navigation/Workshop/Terminal")
         if target != null:
             var start: Vector3 = actor.global_position
             var finish: Vector3 = target.global_position
-            var route := NavigationServer3D.map_get_path(region.get_navigation_map(), start, finish, true)
+            var route := NavigationServer3D.map_get_path(map, start, finish, true)
+            var path: Array = []
+            for point in route: path.append([point.x, point.y, point.z])
             navigation = {"available": true, "polygons": region.navigation_mesh.get_polygon_count(),
-                          "path_points": route.size(), "reaches_terminal": route.size() > 1 and route[-1].distance_to(finish) < 2.0}
+                          "sync_physics_frames": sync_frames, "region_iteration": NavigationServer3D.region_get_iteration_id(region.get_rid()),
+                          "map_iteration": NavigationServer3D.map_get_iteration_id(map), "path": path,
+                          "path_points": route.size(), "reaches_terminal": route.size() > 1 and route[0].distance_to(start) < 1.0 and route[-1].distance_to(finish) < 2.0}
     var prior_pause: bool = context.paused
     var held: Dictionary = {}
     var checkpoints: Array = []
