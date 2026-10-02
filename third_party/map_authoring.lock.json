@@ -59,7 +59,7 @@
       "source_subdir": "addons/road-generator",
       "target_addon": "addons/road-generator",
       "license": "MIT",
-      "status": "pinned_pending_road_network_acceptance",
+      "status": "validated_explicit_road_network_godot_4_7_2_run_36971901418",
       "patches": [
         {
           "patch": "third_party/patches/road-generator-gizmo-cleanup.patch",
@@ -68,7 +68,8 @@
           "source_sha256": "04a866d7e4f40e4753fff44ea403ac7f89ff798f5ccde5b857a35f1c3e238860",
           "result_sha256": "8cda3fb6e35368ad6d23a0e74e948e4579e7048731fa63788eba09b5cc1afc9f"
         }
-      ]
+      ],
+      "reviewed_at": "2026-10-02"
     }
   ]
 }

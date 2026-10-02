@@ -1,0 +1,330 @@
+{
+  "ok": true,
+  "calls": [
+    {
+      "operation": "discover",
+      "ok": true,
+      "evidence": ".arcont/runs/discovery/c1297e0e0f2e4ddfb526c7180e8a34e3"
+    },
+    {
+      "operation": "create",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_roads/c0fb999c52a74cc49d41bec308152436"
+    },
+    {
+      "operation": "patch",
+      "ok": false,
+      "evidence": null
+    },
+    {
+      "operation": "replace",
+      "ok": false,
+      "evidence": ".arcont/runs/urban_roads/cccb8301f7284386b47c94d8d7250f5e"
+    },
+    {
+      "operation": "patch",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_roads/fddacce1e2754c32b1e924c4d1bb6ca8"
+    },
+    {
+      "operation": "restore",
+      "ok": true,
+      "evidence": ".arcont/runs/urban_roads/9e7c95ede0dc4c439af71f07f22a8f70"
+    }
+  ],
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "provider_pin": "9d144dc4a28dd6bee870895d2b77d69174356281",
+  "build": {
+    "colliders": 7,
+    "lanes": 22,
+    "length_m": 449.51485824585,
+    "ok": true,
+    "points": 9,
+    "provider": "RoadGenerator",
+    "segments": 7,
+    "source": {
+      "roads": [
+        {
+          "density": 1.5,
+          "id": "boulevard",
+          "lane_width": 3.5,
+          "lanes": [
+            "reverse",
+            "reverse",
+            "forward",
+            "forward"
+          ],
+          "points": [
+            {
+              "handle_in": 22.0,
+              "handle_out": 22.0,
+              "id": "west_entry",
+              "position": [
+                -110.0,
+                0.08,
+                -20.0
+              ],
+              "tangent": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "handle_in": 22.0,
+              "handle_out": 22.0,
+              "id": "west_bend",
+              "position": [
+                -55.0,
+                0.08,
+                -20.0
+              ],
+              "tangent": [
+                1.0,
+                0.0,
+                0.7
+              ]
+            },
+            {
+              "handle_in": 22.0,
+              "handle_out": 22.0,
+              "id": "central_crossing",
+              "position": [
+                0.0,
+                0.08,
+                12.0
+              ],
+              "tangent": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "handle_in": 22.0,
+              "handle_out": 22.0,
+              "id": "east_bend",
+              "position": [
+                55.0,
+                0.08,
+                12.0
+              ],
+              "tangent": [
+                1.0,
+                0.0,
+                -0.7
+              ]
+            },
+            {
+              "handle_in": 22.0,
+              "handle_out": 22.0,
+              "id": "east_exit",
+              "position": [
+                110.0,
+                0.08,
+                -20.0
+              ],
+              "tangent": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "shoulder_width": 1.2,
+          "thickness": 0.3
+        },
+        {
+          "density": 1.5,
+          "id": "flyover",
+          "lane_width": 3.5,
+          "lanes": [
+            "reverse",
+            "forward"
+          ],
+          "points": [
+            {
+              "handle_in": 18.0,
+              "handle_out": 18.0,
+              "id": "south_entry",
+              "position": [
+                0.0,
+                0.08,
+                -100.0
+              ],
+              "tangent": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "handle_in": 18.0,
+              "handle_out": 18.0,
+              "id": "south_deck",
+              "position": [
+                0.0,
+                8.08,
+                -40.0
+              ],
+              "tangent": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "handle_in": 24.0,
+              "handle_out": 24.0,
+              "id": "north_deck",
+              "position": [
+                0.0,
+                8.08,
+                45.0
+              ],
+              "tangent": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "handle_in": 18.0,
+              "handle_out": 18.0,
+              "id": "north_exit",
+              "position": [
+                0.0,
+                0.08,
+                105.0
+              ],
+              "tangent": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            }
+          ],
+          "shoulder_width": 0.8,
+          "thickness": 0.6
+        }
+      ],
+      "version": 1.0
+    },
+    "triangles": 5968
+  },
+  "acceptance": {
+    "capsule_curve": {
+      "capsule_height_m": 1.8,
+      "distance_m": 27.6000916659832,
+      "final_height_m": 0.0809221863746643,
+      "initial_height_m": 0.0801139697432518,
+      "ok": true,
+      "on_floor_frames": 138,
+      "progress_m": 27.6008338928223
+    },
+    "capsule_ramp": {
+      "capsule_height_m": 1.8,
+      "distance_m": 56.7156146764755,
+      "final_height_m": 8.04859924316406,
+      "initial_height_m": 0.116320930421352,
+      "ok": true,
+      "on_floor_frames": 301,
+      "progress_m": 56.7159652709961
+    },
+    "collision_samples": 31,
+    "lane_links_valid": true,
+    "lanes": 22,
+    "length_m": 449.51485824585,
+    "navigation_polygons": 68,
+    "ok": true,
+    "routes": {
+      "boulevard": {
+        "finish": {
+          "$type": "Vector3",
+          "value": [
+            107.0,
+            0.0799999982118607,
+            -20.0
+          ]
+        },
+        "max_height_m": 0.480000019073486,
+        "points": 36,
+        "start": {
+          "$type": "Vector3",
+          "value": [
+            -107.0,
+            0.0799999982118607,
+            -20.0
+          ]
+        }
+      },
+      "flyover": {
+        "finish": {
+          "$type": "Vector3",
+          "value": [
+            0.0,
+            0.0799999982118607,
+            102.0
+          ]
+        },
+        "max_height_m": 8.47999954223633,
+        "points": 17,
+        "start": {
+          "$type": "Vector3",
+          "value": [
+            0.0,
+            0.0799999982118607,
+            -97.0
+          ]
+        }
+      }
+    },
+    "segments": 7
+  },
+  "reopen": {
+    "baked": {
+      "colliders": 7,
+      "lanes": 22,
+      "meshes": 7,
+      "triangles": 5968
+    },
+    "editable": {
+      "collision_samples": 31,
+      "lane_links_valid": true,
+      "lanes": 22,
+      "length_m": 449.51485824585,
+      "ok": true,
+      "segments": 7
+    },
+    "editable_geometry_signature": "8969ed4388c7ea6b127783c308a6b93f5988abc771ec761f3eb4048567472c14",
+    "lower_height_m": 0.0800009518861771,
+    "ok": true,
+    "reopen_geometry_comparison": {
+      "identities_links_lanes_and_mesh_topology_exact": true,
+      "max_numeric_delta": 0.0,
+      "ok": true,
+      "tolerance": 0.0001
+    },
+    "separate_collision_layers": true,
+    "upper_height_m": 8.07999992370605
+  },
+  "bundle": ".arcont/runs/urban_roads/c0fb999c52a74cc49d41bec308152436",
+  "revision": "5d624af91a947f783b6d2acd9958f57d1e6cfc866420e21dee9c3fe70e2812d4",
+  "source_patch_verified": true,
+  "restore_geometry_verified": true,
+  "canonical_bytes_unchanged": true,
+  "limits": [
+    "No automatic intersections, terrain flattening or traffic simulation accepted",
+    "Linux authoring runner; target Android FPS unmeasured"
+  ]
+}
