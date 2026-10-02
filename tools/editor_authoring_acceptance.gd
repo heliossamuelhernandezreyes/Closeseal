@@ -33,6 +33,7 @@ func run(tree: SceneTree, plugin, mode: String) -> void:
         print("MAP_FORGE_WORLD_VIEW_OK installed_editor=true")
     else:
         var report_path := "res://.arcont/road-network-smoke.json" if mode == "roads" else "res://.arcont/authoring-smoke.json"
+        if mode == "playtest": report_path = "res://.arcont/playtest-loop-smoke.json"
         var report = JSON.parse_string(FileAccess.get_file_as_string(report_path))
         if not report is Dictionary or not report.get("ok", false):
             _fail(tree, "EDITOR_AUTHORING: successful provider evidence required")
@@ -41,14 +42,33 @@ func run(tree: SceneTree, plugin, mode: String) -> void:
         if not plugin.control_tool.text.ends_with("godot_authoring_control.py") or plugin.control_response.editable:
             _fail(tree, "EDITOR_AUTHORING: general control configuration failed")
             return
-        var directory := String(report["bundle"] if mode == "roads" else report["captures_directory"])
+        var directory := ""
+        if mode == "playtest": directory = String(report["accepted_scene_bundle"])
+        elif mode == "roads": directory = String(report["bundle"])
+        else: directory = String(report["captures_directory"])
         var filename := "urban_roads_editable.tscn" if mode == "roads" else "urban_workbench.tscn"
+        if mode == "playtest": filename = "urban_roads_editable.tscn"
         var scene := ProjectSettings.globalize_path("res://" + directory + "/scenes/" + filename)
         plugin.control_last_result = {"result": {"artifacts": [scene]}}
         plugin._open_authoring_scene()
         for _i in range(30): await tree.process_frame
         var edited := EditorInterface.get_edited_scene_root()
-        if mode == "roads":
+        if mode == "playtest":
+            var workshop: Node3D = edited.get_node_or_null("Navigation/Workshop") if edited != null else null
+            var actor: Node = edited.get_node_or_null("Actors/Explorer") if edited != null else null
+            if workshop == null or actor == null or not actor.has_method("playtest_snapshot"):
+                _fail(tree, "PLAYTEST_DOCK: saved editable building/controller did not reopen")
+                return
+            var wall: Node3D = workshop.get_node("front_left")
+            var before := wall.position
+            EditorInterface.edit_node(wall)
+            wall.position.x += 0.25
+            if wall.position == before:
+                _fail(tree, "PLAYTEST_DOCK: source wall not editable")
+                return
+            wall.position = before
+            print("ARCONT_PLAYTEST_DOCK_OK installed_panel=true source_wall_editable=true")
+        elif mode == "roads":
             var points: RoadContainer = edited.get_node_or_null("Navigation/RoadNetwork/boulevard") if edited != null else null
             if points == null or points.get_roadpoints().size() != 5 or points.get_segments().size() != 4:
                 _fail(tree, "ROAD_DOCK: source did not reopen/rebuild in editor")

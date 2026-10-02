@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "id": "workshop_route",
+  "actor": "Actors/Explorer",
+  "seed": 41,
+  "stop_on_failure": true,
+  "commands": [
+    {
+      "id": "settle",
+      "frames": 30,
+      "actions": {},
+      "capture": "Cameras/Exterior"
+    },
+    {
+      "id": "entrance",
+      "frames": 270,
+      "actions": {
+        "arcont_forward": 1
+      },
+      "capture": "Cameras/Entrance",
+      "expect": {
+        "position": [
+          -30,
+          0.15,
+          26
+        ],
+        "tolerance_m": 0.8
+      }
+    },
+    {
+      "id": "stairs",
+      "frames": 180,
+      "actions": {
+        "arcont_forward": 1
+      },
+      "capture": "Cameras/Landing",
+      "expect": {
+        "position": [
+          -30,
+          2.55,
+          38
+        ],
+        "tolerance_m": 1.0,
+        "height_min": 2.4
+      }
+    },
+    {
+      "id": "interact",
+      "frames": 3,
+      "actions": {
+        "arcont_interact": 1
+      },
+      "capture": "Cameras/Landing",
+      "expect": {
+        "interactions_min": 1
+      }
+    },
+    {
+      "id": "release",
+      "frames": 2,
+      "actions": {}
+    }
+  ]
+}
