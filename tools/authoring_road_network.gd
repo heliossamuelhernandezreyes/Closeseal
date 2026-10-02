@@ -129,7 +129,9 @@ func _save(context, arguments: Dictionary) -> Dictionary:
                 region.navigation_mesh = child.navigation_mesh.duplicate(true)
                 baked.add_child(region)
             else:
-                baked.add_child(child.duplicate())
+                # Clone the actual node tree. Re-instantiating imported asset
+                # roots after owner reassignment creates unused source children.
+                baked.add_child(child.duplicate(7))
     var roads := Node3D.new()
     roads.name = "BakedRoads"
     baked.add_child(roads)

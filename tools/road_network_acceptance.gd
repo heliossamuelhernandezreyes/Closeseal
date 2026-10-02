@@ -151,11 +151,12 @@ func _reopen(context, original: Node3D, manager: RoadManager) -> Dictionary:
         editable.free()
         return source_check
     var original_signature := _signature(manager)
-    var fresh_signature := _signature(fresh)
-    if original_signature != fresh_signature:
+    var comparison := _compare_geometry(manager, fresh)
+    if not comparison.get("ok", false):
         editable.free()
-        return {"ok": false, "error": "editable scene changed point geometry or mesh on reopen"}
+        return {"ok": false, "error": "editable scene changed point geometry or mesh on reopen", "comparison": comparison}
     editable.free()
+    for _i in range(3): await context.process_frame
     var baked: Node3D = ResourceLoader.load(baked_path, "", ResourceLoader.CACHE_MODE_IGNORE).instantiate()
     context.root.add_child(baked)
     _layer(baked, 16)
@@ -167,11 +168,45 @@ func _reopen(context, original: Node3D, manager: RoadManager) -> Dictionary:
     var ok: bool = counts["meshes"] == 7 and counts["colliders"] == 7 and counts["lanes"] == 22 and not hit.is_empty() and not lower.is_empty()
     ok = ok and baked.is_ancestor_of(hit.get("collider")) and baked.is_ancestor_of(lower.get("collider"))
     var result := {"ok": ok, "editable": source_check, "editable_geometry_signature": original_signature,
+                   "reopen_geometry_comparison": comparison,
                    "baked": counts, "upper_height_m": hit.get("position", Vector3.ZERO).y,
                    "lower_height_m": lower.get("position", Vector3.ZERO).y, "separate_collision_layers": true}
     baked.free()
+    for _i in range(3): await context.process_frame
     if not ok: result["error"] = "baked scene lost mesh, lanes, collision or grade separation"
     return result
+
+func _compare_geometry(first: RoadManager, second: RoadManager) -> Dictionary:
+    # TSCN text round-trips floating-point bases; use a measured 0.1mm
+    # tolerance, while preserving exact identities, connectivity and topology.
+    var maximum := 0.0
+    for container in first.get_containers():
+        var other: RoadContainer = second.get_node_or_null(NodePath(container.name))
+        if other == null or container.get_roadpoints().size() != other.get_roadpoints().size():
+            return {"ok": false, "reason": "source point topology differs"}
+        for point in container.get_roadpoints():
+            var fresh: RoadPoint = other.get_node_or_null(NodePath(point.name))
+            if fresh == null or point.traffic_dir != fresh.traffic_dir or point.prior_pt_init != fresh.prior_pt_init or point.next_pt_init != fresh.next_pt_init:
+                return {"ok": false, "reason": "identity, ordered lanes or links differ"}
+            maximum = maxf(maximum, point.position.distance_to(fresh.position))
+            for axis in range(3): maximum = maxf(maximum, point.basis[axis].distance_to(fresh.basis[axis]))
+            for property in ["prior_mag", "next_mag", "lane_width", "shoulder_width_l", "shoulder_width_r"]:
+                maximum = maxf(maximum, absf(float(point.get(property)) - float(fresh.get(property))))
+        if container.get_segments().size() != other.get_segments().size():
+            return {"ok": false, "reason": "segment topology differs"}
+        for segment in container.get_segments():
+            var fresh_segment = null
+            for candidate in other.get_segments():
+                if candidate.start_point.name == segment.start_point.name and candidate.end_point.name == segment.end_point.name:
+                    fresh_segment = candidate
+                    break
+            if fresh_segment == null: return {"ok": false, "reason": "segment endpoints differ"}
+            var faces: PackedVector3Array = segment.road_mesh.mesh.get_faces()
+            var fresh_faces: PackedVector3Array = fresh_segment.road_mesh.mesh.get_faces()
+            if faces.size() != fresh_faces.size(): return {"ok": false, "reason": "mesh topology differs"}
+            for i in range(faces.size()): maximum = maxf(maximum, faces[i].distance_to(fresh_faces[i]))
+    return {"ok": maximum <= 0.0001, "max_numeric_delta": maximum, "tolerance": 0.0001,
+            "identities_links_lanes_and_mesh_topology_exact": true}
 
 func _signature(manager: RoadManager) -> String:
     var data := PackedByteArray()

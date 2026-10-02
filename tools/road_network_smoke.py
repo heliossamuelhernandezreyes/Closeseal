@@ -44,7 +44,7 @@ def authored_recipe():
     new("world", "Node3D", name="UrbanRoads")
     new("navigation", "NavigationRegion3D", "world", "Navigation")
     new("navmesh", "NavigationMesh", agent_radius=0.45, agent_height=1.8, agent_max_climb=0.35,
-        geometry_parsed_geometry_type=1, geometry_collision_mask=4, cell_size=0.25, cell_height=0.2)
+        geometry_parsed_geometry_type=1, geometry_collision_mask=4, cell_size=0.25, cell_height=0.25)
     steps.append({"op": "set", "target": "navigation", "properties": {"navigation_mesh": reference("navmesh")}})
     new("scenery", "Node3D", "world", "Scenery")
     new("concrete", "StandardMaterial3D", albedo_color=variant("Color", 0.44, 0.46, 0.43, 1), roughness=0.88)
