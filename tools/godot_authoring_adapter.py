@@ -21,7 +21,7 @@ def execute(payload):
     request.write_text(json.dumps(payload, ensure_ascii=False, allow_nan=False), encoding="utf-8")
     options = payload.get("options", {})
     command = [os.environ.get("GODOT_BIN", "godot"), "--path", str(ROOT)]
-    if payload["operation"] == "discover" or options.get("editor", False):
+    if options.get("editor", False):
         command.append("--editor")
     if not options.get("render", False):
         command.append("--headless")
@@ -30,7 +30,7 @@ def execute(payload):
     log = run.stdout + run.stderr
     (directory / "engine.log").write_text(log, encoding="utf-8")
     if run.returncode or any(marker in log for marker in ("SCRIPT ERROR", "Parse Error", "Failed to load script", "ERROR:")):
-        return {"ok": False, "error": "Godot execution failed", "log": str(directory / "engine.log"), "details": log[-6000:]}
+        return {"ok": False, "error": "Godot execution failed", "log": str(directory / "engine.log"), "details": log[:4000] + "\n...\n" + log[-2000:]}
     if not response.is_file():
         return {"ok": False, "error": "Godot did not return a structured response", "log": str(directory / "engine.log")}
     result = json.loads(response.read_text(encoding="utf-8"))

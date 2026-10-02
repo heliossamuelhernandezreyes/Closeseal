@@ -134,7 +134,7 @@ def main():
         result = json.loads(process.stdout)
         calls.append({"operation": operation, "ok": result.get("ok"), "evidence": result.get("evidence", {}).get("directory")})
         if result.get("ok") is not expected or (process.returncode == 0) is not expected:
-            raise AssertionError(result)
+            raise AssertionError({"operation": operation, "error": result.get("error"), "details": result.get("details"), "evidence": result.get("evidence", {}).get("directory")})
         return result
 
     identifier = "urban_workbench"
