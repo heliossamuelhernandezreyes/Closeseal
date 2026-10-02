@@ -80,10 +80,18 @@ def authored_recipe():
         directional_shadow_max_distance=350.0)
     new("camera", "Camera3D", "world", position=variant("Vector3", 180, 145, 190), fov=48.0, far=600.0)
     steps.append({"op": "attach", "target": "world"})
+    call("camera", "look_at", variant("Vector3", 0, 2, 0))
+    call("camera", "make_current")
     steps.append({"op": "script", "id": "roads", "path": "res://tools/authoring_road_network.gd",
                   "args": {"stage": "build", "target": "navigation", "network": network}})
     steps.append({"op": "script", "id": "acceptance", "path": "res://tools/road_network_acceptance.gd", "args": {"stage": "check"}})
     steps.append({"op": "script", "id": "saved", "path": "res://tools/authoring_road_network.gd", "args": {"stage": "save", "target": "world"}})
+    # Register the already-packed scene resources through ordinary bridge saves
+    # so the Control panel can open them from result.artifacts.
+    for name in ["editable", "baked"]:
+        path = "scenes/urban_roads_" + name + ".tscn"
+        steps.append({"op": "load", "id": name + "_scene", "path": {"$output": path}})
+        steps.append({"op": "save", "target": name + "_scene", "path": path})
     steps.append({"op": "script", "id": "reopen", "path": "res://tools/road_network_acceptance.gd", "args": {"stage": "reopen"}})
     call("camera", "look_at", variant("Vector3", 0, 2, 0))
     steps.append({"op": "capture", "camera": "camera", "path": "roads_overview.png"})

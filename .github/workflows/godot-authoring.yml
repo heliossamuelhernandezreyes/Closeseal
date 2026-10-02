@@ -44,8 +44,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          timeout 180 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --import 2>&1 | tee authoring-import.log
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon|ERROR:' authoring-import.log; then exit 1; fi
+          xvfb-run -a python tools/import_authoring_project.py --godot "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64"
       - name: Verify existing World 3D and editor control
         env:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
@@ -77,6 +76,18 @@ jobs:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
           GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
         run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/road_network_smoke.py
+      - name: Open editable road points through the actual editor control panel
+        if: always()
+        shell: bash
+        env:
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: |
+          if test -f .arcont/road-network-smoke.json && python -c 'import json; assert json.load(open(".arcont/road-network-smoke.json"))["ok"]'; then
+            set -o pipefail
+            timeout 120 xvfb-run -a "$GODOT_BIN" --path . --editor --headless --script res://tools/road_network_dock_smoke.gd 2>&1 | tee road-dock.log
+            grep -q ARCONT_ROAD_DOCK_OK road-dock.log
+            if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' road-dock.log; then exit 1; fi
+          fi
       - name: Preserve scenes, audio, captures, metadata and logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -85,8 +96,10 @@ jobs:
           include-hidden-files: true
           path: |
             authoring-import.log
+            authoring-bootstrap-import.log
             authoring-world-view.log
             authoring-dock.log
+            road-dock.log
             .arcont/
             .mapforge/control-smoke.json
           retention-days: 30

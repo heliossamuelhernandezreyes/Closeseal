@@ -854,6 +854,27 @@
       "target": "world"
     },
     {
+      "op": "call",
+      "target": "camera",
+      "method": "look_at",
+      "args": [
+        {
+          "$type": "Vector3",
+          "value": [
+            0,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "op": "call",
+      "target": "camera",
+      "method": "make_current",
+      "args": []
+    },
+    {
       "op": "script",
       "id": "roads",
       "path": "res://tools/authoring_road_network.gd",
@@ -1046,6 +1067,30 @@
         "stage": "save",
         "target": "world"
       }
+    },
+    {
+      "op": "load",
+      "id": "editable_scene",
+      "path": {
+        "$output": "scenes/urban_roads_editable.tscn"
+      }
+    },
+    {
+      "op": "save",
+      "target": "editable_scene",
+      "path": "scenes/urban_roads_editable.tscn"
+    },
+    {
+      "op": "load",
+      "id": "baked_scene",
+      "path": {
+        "$output": "scenes/urban_roads_baked.tscn"
+      }
+    },
+    {
+      "op": "save",
+      "target": "baked_scene",
+      "path": "scenes/urban_roads_baked.tscn"
     },
     {
       "op": "script",

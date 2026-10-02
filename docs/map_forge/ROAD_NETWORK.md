@@ -16,7 +16,7 @@ recipe to survive a recipe rebuild.
 
 ```bash
 python tools/install_map_authoring_providers.py
-"$GODOT_BIN" --path . --editor --headless --import
+python tools/import_authoring_project.py --godot "$GODOT_BIN"
 python tools/road_network_smoke.py --arcont "$ARCONT_ROOT"
 ```
 
@@ -39,6 +39,12 @@ lower street collision with a separate layer to avoid hitting the original.
 Bundles remain immutable when a recipe is patched or restored. Use the existing
 Control panel to run requests; the save step returns both paths. Open the editable
 path in Godot (or copy the full bundle and referenced assets for distribution).
+
+On a clean checkout, import_authoring_project.py first imports texture caches
+with editor plugins temporarily disabled, restores the exact project bytes in
+a finally block, then imports with both plugins enabled. Both engine logs must
+be free of script/resource errors. This avoids upstream UI preloads trying to
+load PNG textures before Godot's first import.
 
 Scope limits: lane paths are navigation foundations, not traffic simulation;
 terrain flattening and intersections are not enabled or accepted here. Mesh
