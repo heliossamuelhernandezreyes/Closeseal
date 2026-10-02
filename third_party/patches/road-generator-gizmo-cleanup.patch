@@ -1,0 +1,12 @@
+--- a/plugin.gd
++++ b/plugin.gd
+@@ -103,6 +103,9 @@
+ 	remove_node_3d_gizmo_plugin(road_intersection_gizmo)
+ 	remove_inspector_plugin(road_container_editor)
+ 	remove_inspector_plugin(road_point_editor)
++	# Close Seal: this template is not parented to the widget tree.
++	if is_instance_valid(road_point_gizmo.lane_divider):
++		road_point_gizmo.lane_divider.free()
+ 
+ 	# Don't add the following, as they would result in repeast in the UI.
+ 	#remove_custom_type("RoadPoint")

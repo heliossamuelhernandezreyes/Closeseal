@@ -49,6 +49,7 @@ def write_marker(target: Path, provider: dict) -> None:
         "commit": provider.get("commit") or provider.get("reviewed_source_commit"),
         "release_tag": provider.get("release_tag"),
         "lock_schema": 1,
+        "patches": provider.get("patches", []),
     }
     (target / MARKER).write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
@@ -109,7 +110,21 @@ def install_git_subdir(provider: dict, force: bool) -> None:
             raise RuntimeError(f"Pinned source directory missing: {source}")
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree(source, target, ignore=shutil.ignore_patterns(".godot", "*.import"))
+    apply_source_patches(provider, target)
     write_marker(target, provider)
+
+
+def apply_source_patches(provider: dict, target: Path) -> None:
+    """Apply reviewable local compatibility fixes against exact source bytes."""
+    for change in provider.get("patches", []):
+        patch = ROOT / change["patch"]
+        source = target / change["file"]
+        if sha256(patch) != change["patch_sha256"] or sha256(source) != change["source_sha256"]:
+            raise RuntimeError(f"Pinned patch/source mismatch: {provider['id']}")
+        subprocess.run(["git", "apply", "--check", str(patch)], cwd=target, check=True)
+        subprocess.run(["git", "apply", str(patch)], cwd=target, check=True)
+        if sha256(source) != change["result_sha256"]:
+            raise RuntimeError(f"Patched output mismatch: {provider['id']}")
 
 
 def check_provider(provider: dict) -> bool:
@@ -128,6 +143,13 @@ def check_provider(provider: dict) -> bool:
     if installed.get("commit") != wanted:
         print(f"STALE    {provider['id']}: {installed.get('commit')} != {wanted}")
         return False
+    if installed.get("patches", []) != provider.get("patches", []):
+        print(f"STALE    {provider['id']}: compatibility patches differ")
+        return False
+    for change in provider.get("patches", []):
+        if not (target / change["file"]).is_file() or sha256(target / change["file"]) != change["result_sha256"]:
+            print(f"INVALID  {provider['id']}: patched file differs")
+            return False
     print(f"READY    {provider['id']}: {installed.get('commit')}")
     return True
 
