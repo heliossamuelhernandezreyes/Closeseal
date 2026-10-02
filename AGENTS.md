@@ -1,5 +1,12 @@
 # Close Seal editor work
 
+For arbitrary native Godot and installed provider API authoring, read
+docs/map_forge/GODOT_AUTHORING.md and godot-authoring.json. Use ARCONT's
+godot_authoring_control.py (or its MCP stdio transport) for discover, inspect,
+revision-checked recipe edits and staged engine output. Preserve canonical map
+ownership: separate scene recipes do not edit maps/*.json. Use the actual engine
+acceptance job before claiming provider workflow support; discovery is not proof.
+
 Use ARCONT as the authoring-time technical toolchain. Production game code and
 authored maps stay here; reusable standards and tools stay in ARCONT.
 

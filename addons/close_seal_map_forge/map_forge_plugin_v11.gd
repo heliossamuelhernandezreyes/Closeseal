@@ -10,6 +10,7 @@ var control_tool: LineEdit
 var control_timer: Timer
 var control_pid := -1
 var control_output := ""
+var control_mode: OptionButton
 
 func _enter_tree() -> void:
     super._enter_tree()
@@ -35,7 +36,7 @@ func _enter_tree() -> void:
     _install_control_tab(tabs)
     var heading := dock.get_child(0)
     if heading is Label:
-        heading.text = "CLOSE SEAL — MAP FORGE 1.2"
+        heading.text = "CLOSE SEAL — MAP FORGE 1.3"
 
 func _load_map(path: String) -> void:
     super._load_map(path)
@@ -64,6 +65,11 @@ func _install_control_tab(tabs: TabContainer) -> void:
     note.text = "Editor control for a human or assistant. You supply every design decision; no generative model or API key is used."
     note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     panel.add_child(note)
+    control_mode = OptionButton.new()
+    control_mode.add_item("Map contract")
+    control_mode.add_item("Godot nodes, resources and provider APIs")
+    control_mode.item_selected.connect(_select_control_mode)
+    panel.add_child(control_mode)
     control_tool = LineEdit.new()
     control_tool.placeholder_text = "Absolute path to Arcont/tools/map_forge_control.py"
     var arcont_root := OS.get_environment("ARCONT_ROOT")
@@ -78,6 +84,7 @@ func _install_control_tab(tabs: TabContainer) -> void:
     panel.add_child(bar)
     _add_button(bar, "Run request", _run_control_request)
     _add_button(bar, "Inspect map", _inspect_control_map)
+    _add_button(bar, "Discover tools", _discover_authoring_tools)
     control_status = Label.new()
     control_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     panel.add_child(control_status)
@@ -86,7 +93,29 @@ func _install_control_tab(tabs: TabContainer) -> void:
     control_timer.timeout.connect(_poll_control_request)
     panel.add_child(control_timer)
 
+func _select_control_mode(index: int) -> void:
+    var filename := "godot_authoring_control.py" if index == 1 else "map_forge_control.py"
+    var arcont_root := OS.get_environment("ARCONT_ROOT")
+    if not arcont_root.is_empty():
+        control_tool.text = arcont_root.path_join("tools/" + filename)
+    elif not control_tool.text.is_empty():
+        control_tool.text = control_tool.text.get_base_dir().path_join(filename)
+    control_tool.placeholder_text = "Absolute path to Arcont/tools/" + filename
+    control_request.text = JSON.stringify({"protocol_version": 1, "operation": "capabilities"}, "  ")
+
+func _discover_authoring_tools() -> void:
+    if control_pid > 0:
+        return
+    control_mode.select(1)
+    _select_control_mode(1)
+    control_request.text = JSON.stringify({"protocol_version": 1, "operation": "discover"}, "  ")
+    _run_control_request()
+
 func _inspect_control_map() -> void:
+    if control_pid > 0:
+        return
+    control_mode.select(0)
+    _select_control_mode(0)
     control_request.text = JSON.stringify({"protocol_version": 1, "operation": "inspect", "map_id": current_map.get("id", "")}, "  ")
     _run_control_request()
 
@@ -115,6 +144,8 @@ func _run_control_request() -> void:
         return
     file.store_string(JSON.stringify(request))
     file.close()
+    if OS.get_environment("GODOT_BIN").is_empty():
+        OS.set_environment("GODOT_BIN", OS.get_executable_path())
     control_pid = OS.create_process("python3", [control_tool.text, "--project", ProjectSettings.globalize_path("res://"), "--request", input, "--output", control_output])
     if control_pid < 0:
         control_status.text = "Python could not be started."

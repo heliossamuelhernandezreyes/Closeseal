@@ -1,0 +1,1303 @@
+{
+  "version": 1,
+  "id": "urban_workbench",
+  "description": "Authored native scene and real provider API acceptance workbench",
+  "steps": [
+    {
+      "op": "new",
+      "id": "city",
+      "properties": {},
+      "class": "Node3D",
+      "name": "UrbanWorkbench"
+    },
+    {
+      "op": "new",
+      "id": "navigation",
+      "properties": {},
+      "class": "NavigationRegion3D",
+      "parent": "city",
+      "name": "Navigation"
+    },
+    {
+      "op": "new",
+      "id": "navmesh",
+      "properties": {
+        "agent_radius": 0.4,
+        "agent_height": 1.8,
+        "geometry_parsed_geometry_type": 2,
+        "cell_size": 0.3,
+        "cell_height": 0.2
+      },
+      "class": "NavigationMesh"
+    },
+    {
+      "op": "set",
+      "target": "navigation",
+      "properties": {
+        "navigation_mesh": {
+          "$ref": "navmesh"
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "pavement",
+      "properties": {
+        "albedo_color": {
+          "$type": "Color",
+          "value": [
+            0.15,
+            0.2,
+            0.23,
+            1
+          ]
+        },
+        "roughness": 0.38
+      },
+      "class": "StandardMaterial3D"
+    },
+    {
+      "op": "new",
+      "id": "concrete",
+      "properties": {
+        "albedo_color": {
+          "$type": "Color",
+          "value": [
+            0.34,
+            0.39,
+            0.42,
+            1
+          ]
+        },
+        "roughness": 0.82
+      },
+      "class": "StandardMaterial3D"
+    },
+    {
+      "op": "new",
+      "id": "bronze",
+      "properties": {
+        "albedo_color": {
+          "$type": "Color",
+          "value": [
+            0.62,
+            0.31,
+            0.14,
+            1
+          ]
+        },
+        "metallic": 0.65,
+        "roughness": 0.26
+      },
+      "class": "StandardMaterial3D"
+    },
+    {
+      "op": "new",
+      "id": "windows",
+      "properties": {
+        "albedo_color": {
+          "$type": "Color",
+          "value": [
+            0.1,
+            0.28,
+            0.37,
+            1
+          ]
+        },
+        "metallic": 0.6,
+        "roughness": 0.15,
+        "emission_enabled": true,
+        "emission": {
+          "$type": "Color",
+          "value": [
+            0.05,
+            0.14,
+            0.19,
+            1
+          ]
+        },
+        "emission_energy_multiplier": 0.7
+      },
+      "class": "StandardMaterial3D"
+    },
+    {
+      "op": "new",
+      "id": "neon",
+      "properties": {
+        "albedo_color": {
+          "$type": "Color",
+          "value": [
+            0.05,
+            0.72,
+            0.83,
+            1
+          ]
+        },
+        "emission_enabled": true,
+        "emission": {
+          "$type": "Color",
+          "value": [
+            0.02,
+            0.65,
+            0.9,
+            1
+          ]
+        },
+        "emission_energy_multiplier": 2.0
+      },
+      "class": "StandardMaterial3D"
+    },
+    {
+      "op": "new",
+      "id": "road",
+      "properties": {
+        "albedo_color": {
+          "$type": "Color",
+          "value": [
+            0.07,
+            0.09,
+            0.12,
+            1
+          ]
+        },
+        "roughness": 0.24
+      },
+      "class": "StandardMaterial3D"
+    },
+    {
+      "op": "new",
+      "id": "ground_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            40,
+            0.4,
+            40
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "ground",
+      "properties": {
+        "mesh": {
+          "$ref": "ground_mesh"
+        },
+        "material_override": {
+          "$ref": "pavement"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            -0.2,
+            0
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "Ground"
+    },
+    {
+      "op": "call",
+      "target": "ground",
+      "method": "create_trimesh_collision",
+      "args": []
+    },
+    {
+      "op": "new",
+      "id": "street_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            38,
+            0.04,
+            6
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "street",
+      "properties": {
+        "mesh": {
+          "$ref": "street_mesh"
+        },
+        "material_override": {
+          "$ref": "road"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            0.02,
+            8
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "street"
+    },
+    {
+      "op": "new",
+      "id": "west_building_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            8,
+            10,
+            12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "west_building",
+      "properties": {
+        "mesh": {
+          "$ref": "west_building_mesh"
+        },
+        "material_override": {
+          "$ref": "concrete"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -13,
+            5,
+            -6
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "west_building"
+    },
+    {
+      "op": "call",
+      "target": "west_building",
+      "method": "create_trimesh_collision",
+      "args": []
+    },
+    {
+      "op": "new",
+      "id": "east_building_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            10,
+            14,
+            10
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "east_building",
+      "properties": {
+        "mesh": {
+          "$ref": "east_building_mesh"
+        },
+        "material_override": {
+          "$ref": "bronze"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            12,
+            7,
+            -8
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "east_building"
+    },
+    {
+      "op": "call",
+      "target": "east_building",
+      "method": "create_trimesh_collision",
+      "args": []
+    },
+    {
+      "op": "new",
+      "id": "gallery_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            12,
+            5,
+            5
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "gallery",
+      "properties": {
+        "mesh": {
+          "$ref": "gallery_mesh"
+        },
+        "material_override": {
+          "$ref": "concrete"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            2.5,
+            -13
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "gallery"
+    },
+    {
+      "op": "call",
+      "target": "gallery",
+      "method": "create_trimesh_collision",
+      "args": []
+    },
+    {
+      "op": "new",
+      "id": "canopy_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            12.6,
+            0.35,
+            3
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "canopy",
+      "properties": {
+        "mesh": {
+          "$ref": "canopy_mesh"
+        },
+        "material_override": {
+          "$ref": "bronze"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            4.8,
+            -9.5
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "canopy"
+    },
+    {
+      "op": "new",
+      "id": "neon_sign_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            8,
+            0.45,
+            0.12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "neon_sign",
+      "properties": {
+        "mesh": {
+          "$ref": "neon_sign_mesh"
+        },
+        "material_override": {
+          "$ref": "neon"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            3.8,
+            -10.42
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "neon_sign"
+    },
+    {
+      "op": "new",
+      "id": "window_00_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            6,
+            1.6,
+            0.12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "window_00",
+      "properties": {
+        "mesh": {
+          "$ref": "window_00_mesh"
+        },
+        "material_override": {
+          "$ref": "windows"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -13,
+            2,
+            0.03
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "window_00"
+    },
+    {
+      "op": "new",
+      "id": "window_01_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            6,
+            1.6,
+            0.12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "window_01",
+      "properties": {
+        "mesh": {
+          "$ref": "window_01_mesh"
+        },
+        "material_override": {
+          "$ref": "windows"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -13,
+            5,
+            0.03
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "window_01"
+    },
+    {
+      "op": "new",
+      "id": "window_02_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            6,
+            1.6,
+            0.12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "window_02",
+      "properties": {
+        "mesh": {
+          "$ref": "window_02_mesh"
+        },
+        "material_override": {
+          "$ref": "windows"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -13,
+            8,
+            0.03
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "window_02"
+    },
+    {
+      "op": "new",
+      "id": "window_03_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            6,
+            1.6,
+            0.12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "window_03",
+      "properties": {
+        "mesh": {
+          "$ref": "window_03_mesh"
+        },
+        "material_override": {
+          "$ref": "windows"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            12,
+            2,
+            -2.96
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "window_03"
+    },
+    {
+      "op": "new",
+      "id": "window_04_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            6,
+            1.6,
+            0.12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "window_04",
+      "properties": {
+        "mesh": {
+          "$ref": "window_04_mesh"
+        },
+        "material_override": {
+          "$ref": "windows"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            12,
+            5,
+            -2.96
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "window_04"
+    },
+    {
+      "op": "new",
+      "id": "window_05_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            6,
+            1.6,
+            0.12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "window_05",
+      "properties": {
+        "mesh": {
+          "$ref": "window_05_mesh"
+        },
+        "material_override": {
+          "$ref": "windows"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            12,
+            8,
+            -2.96
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "window_05"
+    },
+    {
+      "op": "new",
+      "id": "window_06_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            6,
+            1.6,
+            0.12
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "window_06",
+      "properties": {
+        "mesh": {
+          "$ref": "window_06_mesh"
+        },
+        "material_override": {
+          "$ref": "windows"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            12,
+            11,
+            -2.96
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "window_06"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_00_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            2.6,
+            0.025,
+            0.15
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_00",
+      "properties": {
+        "mesh": {
+          "$ref": "lane_mark_00_mesh"
+        },
+        "material_override": {
+          "$ref": "concrete"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -15,
+            0.051,
+            8
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "lane_mark_00"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_01_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            2.6,
+            0.025,
+            0.15
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_01",
+      "properties": {
+        "mesh": {
+          "$ref": "lane_mark_01_mesh"
+        },
+        "material_override": {
+          "$ref": "concrete"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -9,
+            0.051,
+            8
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "lane_mark_01"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_02_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            2.6,
+            0.025,
+            0.15
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_02",
+      "properties": {
+        "mesh": {
+          "$ref": "lane_mark_02_mesh"
+        },
+        "material_override": {
+          "$ref": "concrete"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            -3,
+            0.051,
+            8
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "lane_mark_02"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_03_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            2.6,
+            0.025,
+            0.15
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_03",
+      "properties": {
+        "mesh": {
+          "$ref": "lane_mark_03_mesh"
+        },
+        "material_override": {
+          "$ref": "concrete"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            3,
+            0.051,
+            8
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "lane_mark_03"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_04_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            2.6,
+            0.025,
+            0.15
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_04",
+      "properties": {
+        "mesh": {
+          "$ref": "lane_mark_04_mesh"
+        },
+        "material_override": {
+          "$ref": "concrete"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            9,
+            0.051,
+            8
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "lane_mark_04"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_05_mesh",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            2.6,
+            0.025,
+            0.15
+          ]
+        }
+      },
+      "class": "BoxMesh"
+    },
+    {
+      "op": "new",
+      "id": "lane_mark_05",
+      "properties": {
+        "mesh": {
+          "$ref": "lane_mark_05_mesh"
+        },
+        "material_override": {
+          "$ref": "concrete"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            15,
+            0.051,
+            8
+          ]
+        }
+      },
+      "class": "MeshInstance3D",
+      "parent": "navigation",
+      "name": "lane_mark_05"
+    },
+    {
+      "op": "new",
+      "id": "scatter",
+      "properties": {
+        "enabled": false,
+        "global_seed": 713,
+        "dbg_disable_thread": true,
+        "force_rebuild_on_load": false,
+        "show_output_in_tree": true,
+        "enable_updates_in_game": true,
+        "render_mode": 0
+      },
+      "parent": "navigation",
+      "script": "res://addons/proton_scatter/src/scatter.gd",
+      "name": "PocketTrees"
+    },
+    {
+      "op": "set",
+      "target": "scatter",
+      "properties": {
+        "Performance/use_chunks": false
+      }
+    },
+    {
+      "op": "new",
+      "id": "shape",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            0.2,
+            -3
+          ]
+        }
+      },
+      "parent": "scatter",
+      "script": "res://addons/proton_scatter/src/scatter_shape.gd",
+      "name": "PlanterZone"
+    },
+    {
+      "op": "new",
+      "id": "box_shape",
+      "properties": {
+        "size": {
+          "$type": "Vector3",
+          "value": [
+            17,
+            0.05,
+            7
+          ]
+        }
+      },
+      "script": "res://addons/proton_scatter/src/shapes/box_shape.gd"
+    },
+    {
+      "op": "set",
+      "target": "shape",
+      "properties": {
+        "shape": {
+          "$ref": "box_shape"
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "item",
+      "properties": {
+        "source": 1,
+        "path": "res://tests/fixtures/editor_asset.tscn",
+        "lod_generate": false,
+        "source_scale_multiplier": 0.45
+      },
+      "parent": "scatter",
+      "script": "res://addons/proton_scatter/src/scatter_item.gd",
+      "name": "SourceAsset"
+    },
+    {
+      "op": "new",
+      "id": "stack",
+      "properties": {},
+      "script": "res://addons/proton_scatter/src/stack/modifier_stack.gd"
+    },
+    {
+      "op": "new",
+      "id": "placements",
+      "properties": {
+        "amount": 24,
+        "restrict_height": true
+      },
+      "script": "res://addons/proton_scatter/src/modifiers/create_inside_random.gd"
+    },
+    {
+      "op": "call",
+      "target": "stack",
+      "method": "add",
+      "args": [
+        {
+          "$ref": "placements"
+        }
+      ]
+    },
+    {
+      "op": "set",
+      "target": "scatter",
+      "properties": {
+        "modifier_stack": {
+          "$ref": "stack"
+        }
+      }
+    },
+    {
+      "op": "new",
+      "id": "environment",
+      "properties": {
+        "background_mode": 1,
+        "background_color": {
+          "$type": "Color",
+          "value": [
+            0.23,
+            0.34,
+            0.49,
+            1
+          ]
+        },
+        "ambient_light_source": 3,
+        "ambient_light_color": {
+          "$type": "Color",
+          "value": [
+            0.62,
+            0.72,
+            0.85,
+            1
+          ]
+        },
+        "ambient_light_energy": 0.65
+      },
+      "class": "Environment"
+    },
+    {
+      "op": "new",
+      "id": "world_environment",
+      "properties": {
+        "environment": {
+          "$ref": "environment"
+        }
+      },
+      "class": "WorldEnvironment",
+      "parent": "city"
+    },
+    {
+      "op": "new",
+      "id": "sun",
+      "properties": {
+        "rotation_degrees": {
+          "$type": "Vector3",
+          "value": [
+            -33,
+            -32,
+            0
+          ]
+        },
+        "light_color": {
+          "$type": "Color",
+          "value": [
+            1,
+            0.77,
+            0.52,
+            1
+          ]
+        },
+        "light_energy": 1.5,
+        "shadow_enabled": true
+      },
+      "class": "DirectionalLight3D",
+      "parent": "city"
+    },
+    {
+      "op": "new",
+      "id": "accent",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            3.5,
+            -8.5
+          ]
+        },
+        "light_color": {
+          "$type": "Color",
+          "value": [
+            0.06,
+            0.64,
+            1,
+            1
+          ]
+        },
+        "light_energy": 3.0,
+        "omni_range": 12.0
+      },
+      "class": "OmniLight3D",
+      "parent": "city"
+    },
+    {
+      "op": "new",
+      "id": "camera",
+      "properties": {
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            32,
+            24,
+            32
+          ]
+        },
+        "fov": 52.0
+      },
+      "class": "Camera3D",
+      "parent": "city"
+    },
+    {
+      "op": "script",
+      "id": "audio_authored",
+      "path": "res://tools/authoring_acceptance.gd",
+      "args": {
+        "stage": "audio"
+      }
+    },
+    {
+      "op": "new",
+      "id": "sound",
+      "properties": {
+        "stream": {
+          "$ref": "ambience_stream"
+        },
+        "position": {
+          "$type": "Vector3",
+          "value": [
+            0,
+            2,
+            -9
+          ]
+        },
+        "unit_size": 8.0,
+        "max_distance": 40.0,
+        "volume_db": -12.0
+      },
+      "class": "AudioStreamPlayer3D",
+      "parent": "navigation",
+      "name": "IndustrialHum"
+    },
+    {
+      "op": "attach",
+      "target": "city"
+    },
+    {
+      "op": "call",
+      "target": "camera",
+      "method": "look_at",
+      "args": [
+        {
+          "$type": "Vector3",
+          "value": [
+            0,
+            2.5,
+            -3
+          ]
+        }
+      ]
+    },
+    {
+      "op": "set",
+      "target": "scatter",
+      "properties": {
+        "enabled": true
+      }
+    },
+    {
+      "op": "wait",
+      "frames": 15
+    },
+    {
+      "op": "describe",
+      "target": "scatter",
+      "properties": [
+        "enabled",
+        "render_mode",
+        "global_seed"
+      ]
+    },
+    {
+      "op": "script",
+      "id": "acceptance",
+      "path": "res://tools/authoring_acceptance.gd",
+      "args": {
+        "stage": "check"
+      }
+    },
+    {
+      "op": "ray",
+      "id": "ground_ray",
+      "from": {
+        "$type": "Vector3",
+        "value": [
+          0,
+          4,
+          8
+        ]
+      },
+      "to": {
+        "$type": "Vector3",
+        "value": [
+          0,
+          -2,
+          8
+        ]
+      },
+      "require_hit": true
+    },
+    {
+      "op": "inspect",
+      "target": "pavement",
+      "properties": [
+        "roughness",
+        "albedo_color"
+      ]
+    },
+    {
+      "op": "save",
+      "target": "pavement",
+      "path": "materials/pavement.tres"
+    },
+    {
+      "op": "save",
+      "target": "city",
+      "path": "scenes/urban_workbench.tscn"
+    },
+    {
+      "op": "script",
+      "id": "reopen",
+      "path": "res://tools/authoring_acceptance.gd",
+      "args": {
+        "stage": "reopen"
+      }
+    },
+    {
+      "op": "profile",
+      "id": "measurement",
+      "frames": 30
+    }
+  ]
+}
