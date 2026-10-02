@@ -65,8 +65,8 @@
           "patch": "third_party/patches/road-generator-gizmo-cleanup.patch",
           "patch_sha256": "af88374f84a4fc20983e8c46693bd27efc74b872b34110115b40da4374382eeb",
           "file": "plugin.gd",
-          "source_sha256": "43ef32bfdc80dff5a6c11a577b37fd9bfb78f369b64794e2c94706d435a7b726",
-          "result_sha256": "356992a0783b349094eedb594ea1f13e39d3245d7e11b0bed44c44d322129dd8"
+          "source_sha256": "04a866d7e4f40e4753fff44ea403ac7f89ff798f5ccde5b857a35f1c3e238860",
+          "result_sha256": "ce91da11cdeeba39a3430e770155179e4bd24912e37ebb1f2b90b2a0efe0a8f8"
         }
       ]
     }
