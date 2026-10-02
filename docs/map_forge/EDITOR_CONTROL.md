@@ -1,4 +1,8 @@
-# Map Forge 1.2 — editor control and World 3D
+# Map Forge 1.3 — editor control and World 3D
+
+The Control panel also exposes general native Godot and installed provider API
+authoring. See [GODOT_AUTHORING.md](GODOT_AUTHORING.md) for discovery, scene/resource
+recipes, staged execution and the optional MCP stdio bridge.
 
 The assistant operates the map editor. There is no prompt-to-map generator,
 model endpoint or API key. Every map decision remains explicit authored data.

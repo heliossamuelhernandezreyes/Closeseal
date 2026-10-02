@@ -1,0 +1,88 @@
+name: ARCONT General Godot Authoring
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  authoring:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: heliossamuelhernandezreyes/Arcont
+          ref: 144062e16d7efea70035c88401f5d79c1274b49a
+          path: arcont-source
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source and existing authoring contracts
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+        run: |
+          python tools/validate_maps.py
+          python tools/validate_physical_world.py
+          python tools/map_forge_control_smoke.py
+          python -m unittest discover -s tests -q
+      - name: Verify reusable ARCONT controls
+        working-directory: arcont-source
+        run: python -m unittest discover -s tests -q
+      - name: Install exact Godot and pinned open-source providers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip git
+          curl -L --fail --retry 3 -o godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q godot.zip -d godot-bin
+          chmod +x godot-bin/Godot_v4.7.2-stable_linux.x86_64
+          python tools/install_map_authoring_providers.py
+      - name: Import editor and reject engine errors
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 180 xvfb-run -a godot-bin/Godot_v4.7.2-stable_linux.x86_64 --path . --editor --headless --import 2>&1 | tee authoring-import.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|Unable to load addon|ERROR:' authoring-import.log; then exit 1; fi
+      - name: Verify existing World 3D and editor control
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 120 xvfb-run -a "$GODOT_BIN" --path . --editor --headless --script res://tools/map_forge_world_view_smoke.gd 2>&1 | tee authoring-world-view.log
+          grep -q MAP_FORGE_WORLD_VIEW_OK authoring-world-view.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' authoring-world-view.log; then exit 1; fi
+          xvfb-run -a python tools/map_forge_control_smoke.py --engine
+      - name: Operate native and provider APIs, reopen scenes and inspect real output
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/godot_authoring_smoke.py
+      - name: Open accepted output in the actual editor through its control panel
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 120 xvfb-run -a "$GODOT_BIN" --path . --editor --headless --script res://tools/godot_authoring_dock_smoke.gd 2>&1 | tee authoring-dock.log
+          grep -q ARCONT_AUTHORING_DOCK_OK authoring-dock.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' authoring-dock.log; then exit 1; fi
+      - name: Preserve scenes, audio, captures, metadata and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arcont-godot-authoring-${{ github.sha }}
+          include-hidden-files: true
+          path: |
+            authoring-import.log
+            authoring-world-view.log
+            authoring-dock.log
+            .arcont/
+            .mapforge/control-smoke.json
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "id": "urban_nexo_lighting",
+  "description": "Operate the existing 512m authored city through the general Godot bridge; a separate late-afternoon lighting study.",
+  "steps": [
+    {"op":"new","id":"world","class":"Node3D","name":"UrbanNexoLightingStudy"},
+    {"op":"script","id":"source","path":"res://tools/authoring_map_source.gd","args":{"source":"res://maps/urban_nexo_01.json","target":"world"}},
+    {"op":"node","id":"sun","target":"world","path":"afternoon_sun"},
+    {"op":"set","target":"sun","properties":{"rotation_degrees":{"$type":"Vector3","value":[-23,-38,0]},"light_color":{"$type":"Color","value":[1,0.76,0.52,1]},"light_energy":0.82}},
+    {"op":"node","id":"environment_node","target":"world","path":"AuthoredEnvironment"},
+    {"op":"call","id":"environment","target":"environment_node","method":"get","args":["environment"]},
+    {"op":"set","target":"environment","properties":{"ambient_light_energy":0.3,"fog_density":0.00045,"fog_light_color":{"$type":"Color","value":[0.71,0.75,0.83,1]}}},
+    {"op":"new","id":"camera","class":"Camera3D","parent":"world","properties":{"position":{"$type":"Vector3","value":[64,34,83]},"fov":62}},
+    {"op":"attach","target":"world"},
+    {"op":"call","target":"camera","method":"look_at","args":[{"$type":"Vector3","value":[-10,8,-15]}]},
+    {"op":"ray","id":"plaza_ray","from":{"$type":"Vector3","value":[25,30,25]},"to":{"$type":"Vector3","value":[25,-3,25]},"require_hit":true},
+    {"op":"save","target":"world","path":"scenes/urban_nexo_lighting.tscn"},
+    {"op":"capture","camera":"camera","path":"urban_nexo_plaza.png"},
+    {"op":"set","target":"camera","properties":{"position":{"$type":"Vector3","value":[-72,2.1,-132]},"fov":74}},
+    {"op":"call","target":"camera","method":"look_at","args":[{"$type":"Vector3","value":[-72,10,-45]}]},
+    {"op":"capture","camera":"camera","path":"urban_nexo_street.png"},
+    {"op":"profile","id":"city_measurement","frames":30}
+  ]
+}

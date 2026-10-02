@@ -43,7 +43,7 @@ Editor convenience data may be provider-specific, but gameplay-critical semantic
 
 ## Current implementation status
 
-Map Forge 1.1 adds native World 3D authoring and a complete editor-control
+Map Forge 1.3 adds native World 3D authoring and a complete editor-control
 interface. Read [EDITOR_CONTROL.md](EDITOR_CONTROL.md) for configuration, public
 commands and the distinction between authored data and generated projections.
 
@@ -66,3 +66,10 @@ independent production milestones.
 
 See [ENVIRONMENT_AUTHORING.md](ENVIRONMENT_AUTHORING.md) for free scene composition,
 canonical terrain brushes, provider persistence, lighting and collision navigation.
+
+## General API authoring 1.3
+
+See [GODOT_AUTHORING.md](GODOT_AUTHORING.md) for arbitrary native nodes/resources,
+installed provider APIs, trusted script extensions, immutable output bundles and
+the shared CLI/MCP writer. The real ProtonScatter workbench has its own pinned
+engine acceptance job; its availability does not promote untested provider workflows.

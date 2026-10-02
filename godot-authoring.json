@@ -1,0 +1,17 @@
+{
+  "protocol_version": 1,
+  "document_directory": "authoring/documents",
+  "adapter_command": ["python3", "tools/godot_authoring_adapter.py"],
+  "timeout_seconds": 300,
+  "engine": "Godot 4.7.2-stable",
+  "bridge": "res://tools/godot_authoring_worker.gd",
+  "creative_configuration": {
+    "presets_required": false,
+    "native_and_script_apis": true,
+    "trusted_project_script_extension": true,
+    "model_service_required": false,
+    "canonical_map_contract": "maps/*.json",
+    "scene_documents": "authoring/documents/*.json",
+    "ownership": "Game-owned authored recipes; ARCONT authoring-time tools"
+  }
+}
