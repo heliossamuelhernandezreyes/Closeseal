@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "arcont_commit": "aa23f1a5dba905c22eaeeb40547c409a309809b9",
+  "note": "Catalog selection is metadata; these files are the independently downloaded licensed runtime assets. Urban assets retain assets/urban/sources.lock.json.",
+  "packs": [
+    {
+      "name": "survivors",
+      "arcont_asset_id": "ARC-ASSET-KENNEY-A6BD3110CDBCB1FB",
+      "license": "CC0-1.0",
+      "archive_url": "https://kenney.nl/media/pages/assets/animated-characters-survivors/27b16052a7-1774772958/kenney_animated-characters-survivors.zip",
+      "archive_sha256": "fdadced07a0454c9b7f0b46507be6144a072b4d03b4ffa37f225893c76c62845",
+      "files": [
+        {
+          "path": "assets/shooter/kenney/survivors/Animations/idle.fbx",
+          "bytes": 608188,
+          "sha256": "c8a24e0294376ee5a195c56752a13310e1c0b5f8588a4db50e094120e3e4cc74"
+        },
+        {
+          "path": "assets/shooter/kenney/survivors/Animations/jump.fbx",
+          "bytes": 562796,
+          "sha256": "b88429077a7a1af5d3f55f43cfd8ce0f7441b4f6f7bb15a8070d7ed15d275f74"
+        },
+        {
+          "path": "assets/shooter/kenney/survivors/Animations/run.fbx",
+          "bytes": 572732,
+          "sha256": "e635461fc8dace85ec67a7f7941e949a7c3f108b51ae4d2da1557e6e01749df8"
+        },
+        {
+          "path": "assets/shooter/kenney/survivors/License.txt",
+          "bytes": 696,
+          "sha256": "8eab20a1fa97308ae50443f6b8a0fabc4dd1fc37062988cd635fc74c8f1be21c"
+        },
+        {
+          "path": "assets/shooter/kenney/survivors/Model/characterMedium.fbx",
+          "bytes": 167212,
+          "sha256": "18835fef534eede635b081ee7fe647d01a885550a591d2e6bf071010906167d8"
+        },
+        {
+          "path": "assets/shooter/kenney/survivors/Skins/survivorFemaleA.png",
+          "bytes": 54833,
+          "sha256": "bb7123c98f0d85029447fed30794108657ec30c788e4a6039a14766a435a88d0"
+        },
+        {
+          "path": "assets/shooter/kenney/survivors/Skins/survivorMaleB.png",
+          "bytes": 52310,
+          "sha256": "fe64a677e96dee1e63a6df554fb5ebad4abddf3348cb2f40f32e2ba09660a762"
+        }
+      ]
+    },
+    {
+      "name": "blasters",
+      "arcont_asset_id": "ARC-ASSET-KENNEY-E6F2B35698854FF3",
+      "license": "CC0-1.0",
+      "archive_url": "https://kenney.nl/media/pages/assets/blaster-kit/261d80a716-1753959510/kenney_blaster-kit_2.1.zip",
+      "archive_sha256": "91e3093e95427d59625e7e2ce2d0399b861600160fd0b4ada7714796b67cea8c",
+      "files": [
+        {
+          "path": "assets/shooter/kenney/blasters/License.txt",
+          "bytes": 700,
+          "sha256": "bece5f4d99cca9dcf86931221a69909862ff6cc95e1735462ee678516a1063e2"
+        },
+        {
+          "path": "assets/shooter/kenney/blasters/Textures/colormap.png",
+          "bytes": 10223,
+          "sha256": "4d0867c3c3c8c539106f91fbc0987d0e1b7d2811362d1daed593169c7d3b0fdc"
+        },
+        {
+          "path": "assets/shooter/kenney/blasters/blaster-a.glb",
+          "bytes": 44992,
+          "sha256": "d6d6fe0ec5baf21d7717449220799d45b95d2d663ace7b22612b255dc1a8b308"
+        },
+        {
+          "path": "assets/shooter/kenney/blasters/blaster-d.glb",
+          "bytes": 45072,
+          "sha256": "c05bf6af6cded1bc76e32e455507f5d1a21cd58503ce66de33ca39e597b28280"
+        },
+        {
+          "path": "assets/shooter/kenney/blasters/clip-large.glb",
+          "bytes": 7808,
+          "sha256": "47dff38cf9636abf15cf518324f1612d9409e6b1066d99da249047219e41379e"
+        },
+        {
+          "path": "assets/shooter/kenney/blasters/crate-medium.glb",
+          "bytes": 59344,
+          "sha256": "187c32592fedaecbbb84152102bbf536f733cbc0c2cfee60828fb18a4803619c"
+        }
+      ]
+    }
+  ],
+  "animation_sources": {
+    "idle": "Root|Idle",
+    "run": "Root|Run",
+    "jump": "Root|Jump"
+  },
+  "combat_layer": "src/shooter/combat_pose.gd: procedural two-bone arm IK after source clips; recoil, reload and death are project-authored."
+}

@@ -1,0 +1,4082 @@
+{
+  "version": 1,
+  "id": "nexo_combat_01",
+  "purpose": "environment",
+  "bounds": {
+    "width": 256,
+    "depth": 256
+  },
+  "bases": [],
+  "objectives": [],
+  "routes": [],
+  "regions": [],
+  "authoring": {
+    "materials": [
+      {
+        "id": "asphalt",
+        "albedo": "253644",
+        "roughness": 0.86,
+        "albedo_texture": "res://assets/shooter/asphalt.svg",
+        "uv_scale": [
+          42,
+          42,
+          42
+        ]
+      },
+      {
+        "id": "concrete",
+        "albedo": "a7b8bd",
+        "roughness": 0.86
+      },
+      {
+        "id": "stone",
+        "albedo": "d1c7af",
+        "roughness": 0.86
+      },
+      {
+        "id": "steel",
+        "albedo": "3b5666",
+        "roughness": 0.86
+      },
+      {
+        "id": "dark",
+        "albedo": "152a37",
+        "roughness": 0.86
+      },
+      {
+        "id": "orange",
+        "albedo": "df813a",
+        "roughness": 0.86
+      },
+      {
+        "id": "white",
+        "albedo": "e8e1cf",
+        "roughness": 0.86
+      },
+      {
+        "id": "grass",
+        "albedo": "54735e",
+        "roughness": 0.86
+      },
+      {
+        "id": "blue",
+        "albedo": "3db3d5",
+        "emission": "2289b3"
+      },
+      {
+        "id": "red",
+        "albedo": "c95547",
+        "emission": "552a24"
+      }
+    ],
+    "objects": [
+      {
+        "id": "ground",
+        "type": "box",
+        "position": [
+          0,
+          -0.3,
+          0
+        ],
+        "size": [
+          256,
+          0.6,
+          256
+        ],
+        "material": "asphalt",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "boundary_x_-128",
+        "type": "box",
+        "position": [
+          -128,
+          3,
+          0
+        ],
+        "size": [
+          1,
+          6,
+          256
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "boundary_x_128",
+        "type": "box",
+        "position": [
+          128,
+          3,
+          0
+        ],
+        "size": [
+          1,
+          6,
+          256
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "boundary_z_-128",
+        "type": "box",
+        "position": [
+          0,
+          3,
+          -128
+        ],
+        "size": [
+          256,
+          6,
+          1
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "boundary_z_128",
+        "type": "box",
+        "position": [
+          0,
+          3,
+          128
+        ],
+        "size": [
+          256,
+          6,
+          1
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "walkway_-16",
+        "type": "box",
+        "position": [
+          -16,
+          0.025,
+          0
+        ],
+        "size": [
+          5,
+          0.05,
+          246
+        ],
+        "material": "stone",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "walkway_16",
+        "type": "box",
+        "position": [
+          16,
+          0.025,
+          0
+        ],
+        "size": [
+          5,
+          0.05,
+          246
+        ],
+        "material": "stone",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "walkway_-87",
+        "type": "box",
+        "position": [
+          -87,
+          0.025,
+          0
+        ],
+        "size": [
+          5,
+          0.05,
+          246
+        ],
+        "material": "stone",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "walkway_87",
+        "type": "box",
+        "position": [
+          87,
+          0.025,
+          0
+        ],
+        "size": [
+          5,
+          0.05,
+          246
+        ],
+        "material": "stone",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "crosswalk_-82",
+        "type": "box",
+        "position": [
+          0,
+          0.026,
+          -82
+        ],
+        "size": [
+          246,
+          0.05,
+          4
+        ],
+        "material": "stone",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "crosswalk_0",
+        "type": "box",
+        "position": [
+          0,
+          0.026,
+          0
+        ],
+        "size": [
+          246,
+          0.05,
+          4
+        ],
+        "material": "stone",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "crosswalk_82",
+        "type": "box",
+        "position": [
+          0,
+          0.026,
+          82
+        ],
+        "size": [
+          246,
+          0.05,
+          4
+        ],
+        "material": "stone",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-116",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -116
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-104",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -104
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-92",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -92
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-80",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -80
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-68",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -68
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-56",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -56
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-44",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -44
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-32",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -32
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-20",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -20
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-8",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -8
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_4",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          4
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_16",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          16
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_28",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          28
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_40",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          40
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_52",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          52
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_64",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          64
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_76",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          76
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_88",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          88
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_100",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          100
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_112",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          112
+        ],
+        "size": [
+          0.16,
+          0.025,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-116",
+        "type": "box",
+        "position": [
+          -116,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-104",
+        "type": "box",
+        "position": [
+          -104,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-92",
+        "type": "box",
+        "position": [
+          -92,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-80",
+        "type": "box",
+        "position": [
+          -80,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-68",
+        "type": "box",
+        "position": [
+          -68,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-56",
+        "type": "box",
+        "position": [
+          -56,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-44",
+        "type": "box",
+        "position": [
+          -44,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-32",
+        "type": "box",
+        "position": [
+          -32,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-20",
+        "type": "box",
+        "position": [
+          -20,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_-8",
+        "type": "box",
+        "position": [
+          -8,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_4",
+        "type": "box",
+        "position": [
+          4,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_16",
+        "type": "box",
+        "position": [
+          16,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_28",
+        "type": "box",
+        "position": [
+          28,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_40",
+        "type": "box",
+        "position": [
+          40,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_52",
+        "type": "box",
+        "position": [
+          52,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_64",
+        "type": "box",
+        "position": [
+          64,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_76",
+        "type": "box",
+        "position": [
+          76,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_88",
+        "type": "box",
+        "position": [
+          88,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_100",
+        "type": "box",
+        "position": [
+          100,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cross_mark_112",
+        "type": "box",
+        "position": [
+          112,
+          0.032,
+          0
+        ],
+        "size": [
+          4,
+          0.025,
+          0.16
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "block_0_0_collision",
+        "type": "box",
+        "position": [
+          -39.992725,
+          7.35,
+          -34.0
+        ],
+        "size": [
+          19.1690188,
+          14.7,
+          11.426400000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_0_1_collision",
+        "type": "box",
+        "position": [
+          -64.0,
+          6.4,
+          -30.0
+        ],
+        "size": [
+          15.438869599999999,
+          12.8,
+          11.8090096
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_0_2_collision",
+        "type": "box",
+        "position": [
+          -112.34895,
+          4.30573,
+          -27.259999999999998
+        ],
+        "size": [
+          9.4449224,
+          8.61146,
+          11.96
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_0_3_collision",
+        "type": "box",
+        "position": [
+          -34.992725,
+          7.35,
+          -62.0
+        ],
+        "size": [
+          19.1690188,
+          14.7,
+          11.426400000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_0_4_collision",
+        "type": "box",
+        "position": [
+          -108.0,
+          6.4,
+          -62.0
+        ],
+        "size": [
+          15.438869599999999,
+          12.8,
+          11.8090096
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_0_5_collision",
+        "type": "box",
+        "position": [
+          -40.34895,
+          4.30573,
+          -106.26
+        ],
+        "size": [
+          9.4449224,
+          8.61146,
+          11.96
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_0_6_collision",
+        "type": "box",
+        "position": [
+          -66.99272500000001,
+          7.35,
+          -109.0
+        ],
+        "size": [
+          19.1690188,
+          14.7,
+          11.426400000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_0_7_collision",
+        "type": "box",
+        "position": [
+          -108.0,
+          6.4,
+          -108.0
+        ],
+        "size": [
+          15.438869599999999,
+          12.8,
+          11.8090096
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_1_0_collision",
+        "type": "box",
+        "position": [
+          40.0,
+          7.757999999999999,
+          -34.0
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          10.3776
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_1_1_collision",
+        "type": "box",
+        "position": [
+          64.0,
+          5.3580000000000005,
+          -30.0
+        ],
+        "size": [
+          9.75481152,
+          10.716000000000001,
+          12.033600000000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_1_2_collision",
+        "type": "box",
+        "position": [
+          108.0,
+          7.757999999999999,
+          -30.000006
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          11.127116640000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_1_3_collision",
+        "type": "box",
+        "position": [
+          35.0,
+          7.757999999999999,
+          -62.0
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          10.3776
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_1_4_collision",
+        "type": "box",
+        "position": [
+          108.0,
+          5.3580000000000005,
+          -62.0
+        ],
+        "size": [
+          9.75481152,
+          10.716000000000001,
+          12.033600000000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_1_5_collision",
+        "type": "box",
+        "position": [
+          36.0,
+          7.757999999999999,
+          -109.000006
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          11.127116640000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_1_6_collision",
+        "type": "box",
+        "position": [
+          67.0,
+          7.757999999999999,
+          -109.0
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          10.3776
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_1_7_collision",
+        "type": "box",
+        "position": [
+          108.0,
+          5.3580000000000005,
+          -108.0
+        ],
+        "size": [
+          9.75481152,
+          10.716000000000001,
+          12.033600000000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_2_0_collision",
+        "type": "box",
+        "position": [
+          -40.0,
+          7.757999999999999,
+          34.0
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          10.3776
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_2_1_collision",
+        "type": "box",
+        "position": [
+          -64.0,
+          5.3580000000000005,
+          30.0
+        ],
+        "size": [
+          9.75481152,
+          10.716000000000001,
+          12.033600000000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_2_2_collision",
+        "type": "box",
+        "position": [
+          -108.0,
+          7.757999999999999,
+          29.999994
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          11.127116640000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_2_3_collision",
+        "type": "box",
+        "position": [
+          -35.0,
+          7.757999999999999,
+          62.0
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          10.3776
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_2_4_collision",
+        "type": "box",
+        "position": [
+          -108.0,
+          5.3580000000000005,
+          62.0
+        ],
+        "size": [
+          9.75481152,
+          10.716000000000001,
+          12.033600000000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_2_5_collision",
+        "type": "box",
+        "position": [
+          -36.0,
+          7.757999999999999,
+          108.999994
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          11.127116640000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_2_6_collision",
+        "type": "box",
+        "position": [
+          -67.0,
+          7.757999999999999,
+          109.0
+        ],
+        "size": [
+          9.75481152,
+          15.515999999999998,
+          10.3776
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_2_7_collision",
+        "type": "box",
+        "position": [
+          -108.0,
+          5.3580000000000005,
+          108.0
+        ],
+        "size": [
+          9.75481152,
+          10.716000000000001,
+          12.033600000000002
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_3_0_collision",
+        "type": "box",
+        "position": [
+          40.0,
+          5.001246,
+          34.0
+        ],
+        "size": [
+          14.352000000000002,
+          10.002492,
+          11.35064352
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_3_1_collision",
+        "type": "box",
+        "position": [
+          64.0,
+          6.201246,
+          30.0
+        ],
+        "size": [
+          14.2016352,
+          12.402492,
+          11.35064352
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_3_2_collision",
+        "type": "box",
+        "position": [
+          108.0,
+          4.60926,
+          30.0
+        ],
+        "size": [
+          16.008,
+          9.21852,
+          13.00512
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_3_3_collision",
+        "type": "box",
+        "position": [
+          35.0,
+          5.001246,
+          62.0
+        ],
+        "size": [
+          14.352000000000002,
+          10.002492,
+          11.35064352
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_3_4_collision",
+        "type": "box",
+        "position": [
+          108.0,
+          6.201246,
+          62.0
+        ],
+        "size": [
+          14.2016352,
+          12.402492,
+          11.35064352
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_3_5_collision",
+        "type": "box",
+        "position": [
+          36.0,
+          4.60926,
+          109.0
+        ],
+        "size": [
+          16.008,
+          9.21852,
+          13.00512
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_3_6_collision",
+        "type": "box",
+        "position": [
+          67.0,
+          5.001246,
+          109.0
+        ],
+        "size": [
+          14.352000000000002,
+          10.002492,
+          11.35064352
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "block_3_7_collision",
+        "type": "box",
+        "position": [
+          108.0,
+          6.201246,
+          108.0
+        ],
+        "size": [
+          14.2016352,
+          12.402492,
+          11.35064352
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "skyline_0_collision",
+        "type": "box",
+        "position": [
+          -111.000009,
+          20.160000000000004,
+          -109.0
+        ],
+        "size": [
+          11.260800000000001,
+          40.32000000000001,
+          11.260800000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "skyline_1_collision",
+        "type": "box",
+        "position": [
+          109.0,
+          18.36,
+          -108.0
+        ],
+        "size": [
+          10.5984,
+          36.72,
+          11.49174576
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "skyline_2_collision",
+        "type": "box",
+        "position": [
+          -108.0,
+          24.6149955,
+          110.0
+        ],
+        "size": [
+          10.5984,
+          49.229991,
+          11.49174576
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "skyline_3_collision",
+        "type": "box",
+        "position": [
+          110.0,
+          18.36,
+          109.0
+        ],
+        "size": [
+          10.7226,
+          36.72,
+          10.283760000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "container_0_collision",
+        "type": "box",
+        "position": [
+          -62.0,
+          1.21828,
+          -60.0
+        ],
+        "size": [
+          2.399544,
+          2.43656,
+          5.297544
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "container_1_collision",
+        "type": "box",
+        "position": [
+          -70.0,
+          1.21828,
+          -42.0
+        ],
+        "size": [
+          2.399544,
+          2.43656,
+          5.297544
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "container_2_collision",
+        "type": "box",
+        "position": [
+          -49.0,
+          1.21828,
+          -57.0
+        ],
+        "size": [
+          2.399544,
+          2.43656,
+          5.297544
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "container_3_collision",
+        "type": "box",
+        "position": [
+          -63.0,
+          1.21828,
+          -74.0
+        ],
+        "size": [
+          2.399544,
+          2.43656,
+          5.297544
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "container_4_collision",
+        "type": "box",
+        "position": [
+          54.0,
+          1.21828,
+          35.0
+        ],
+        "size": [
+          2.399544,
+          2.43656,
+          5.297544
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "container_5_collision",
+        "type": "box",
+        "position": [
+          74.0,
+          1.21828,
+          35.0
+        ],
+        "size": [
+          2.399544,
+          2.43656,
+          5.297544
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "container_6_collision",
+        "type": "box",
+        "position": [
+          57.0,
+          1.21828,
+          69.0
+        ],
+        "size": [
+          2.399544,
+          2.43656,
+          5.297544
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "car_0_collision",
+        "type": "box",
+        "position": [
+          -10.0,
+          1.04,
+          75.96
+        ],
+        "size": [
+          2.2080000000000006,
+          2.08,
+          3.7536
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "car_1_collision",
+        "type": "box",
+        "position": [
+          13.0,
+          1.32,
+          42.96
+        ],
+        "size": [
+          2.2080000000000006,
+          2.64,
+          4.784000000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "car_2_collision",
+        "type": "box",
+        "position": [
+          -13.0,
+          1.2000000000000002,
+          -86.04
+        ],
+        "size": [
+          2.2080000000000006,
+          2.4000000000000004,
+          4.048000000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "car_3_collision",
+        "type": "box",
+        "position": [
+          42.0,
+          1.04,
+          10.96
+        ],
+        "size": [
+          2.2080000000000006,
+          2.08,
+          3.7536
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "car_4_collision",
+        "type": "box",
+        "position": [
+          -46.0,
+          1.32,
+          -11.04
+        ],
+        "size": [
+          2.2080000000000006,
+          2.64,
+          4.784000000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "car_5_collision",
+        "type": "box",
+        "position": [
+          73.0,
+          1.2000000000000002,
+          -12.04
+        ],
+        "size": [
+          2.2080000000000006,
+          2.4000000000000004,
+          4.048000000000001
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "car_6_collision",
+        "type": "box",
+        "position": [
+          -76.0,
+          1.04,
+          12.96
+        ],
+        "size": [
+          2.2080000000000006,
+          2.08,
+          3.7536
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "tree_trunk_0",
+        "type": "box",
+        "position": [
+          -20,
+          1.8,
+          22
+        ],
+        "size": [
+          0.6,
+          3.6,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "planter_0",
+        "type": "box",
+        "position": [
+          -20,
+          0.4,
+          22
+        ],
+        "size": [
+          3.5,
+          0.8,
+          3.5
+        ],
+        "material": "stone",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "tree_trunk_1",
+        "type": "box",
+        "position": [
+          20,
+          1.8,
+          22
+        ],
+        "size": [
+          0.6,
+          3.6,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "planter_1",
+        "type": "box",
+        "position": [
+          20,
+          0.4,
+          22
+        ],
+        "size": [
+          3.5,
+          0.8,
+          3.5
+        ],
+        "material": "stone",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "tree_trunk_2",
+        "type": "box",
+        "position": [
+          -20,
+          1.8,
+          -22
+        ],
+        "size": [
+          0.6,
+          3.6,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "planter_2",
+        "type": "box",
+        "position": [
+          -20,
+          0.4,
+          -22
+        ],
+        "size": [
+          3.5,
+          0.8,
+          3.5
+        ],
+        "material": "stone",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "tree_trunk_3",
+        "type": "box",
+        "position": [
+          20,
+          1.8,
+          -22
+        ],
+        "size": [
+          0.6,
+          3.6,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "planter_3",
+        "type": "box",
+        "position": [
+          20,
+          0.4,
+          -22
+        ],
+        "size": [
+          3.5,
+          0.8,
+          3.5
+        ],
+        "material": "stone",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "tree_trunk_4",
+        "type": "box",
+        "position": [
+          54,
+          1.8,
+          84
+        ],
+        "size": [
+          0.6,
+          3.6,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "planter_4",
+        "type": "box",
+        "position": [
+          54,
+          0.4,
+          84
+        ],
+        "size": [
+          3.5,
+          0.8,
+          3.5
+        ],
+        "material": "stone",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "tree_trunk_5",
+        "type": "box",
+        "position": [
+          77,
+          1.8,
+          86
+        ],
+        "size": [
+          0.6,
+          3.6,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "planter_5",
+        "type": "box",
+        "position": [
+          77,
+          0.4,
+          86
+        ],
+        "size": [
+          3.5,
+          0.8,
+          3.5
+        ],
+        "material": "stone",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "tree_trunk_6",
+        "type": "box",
+        "position": [
+          -97,
+          1.8,
+          52
+        ],
+        "size": [
+          0.6,
+          3.6,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "planter_6",
+        "type": "box",
+        "position": [
+          -97,
+          0.4,
+          52
+        ],
+        "size": [
+          3.5,
+          0.8,
+          3.5
+        ],
+        "material": "stone",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "tree_trunk_7",
+        "type": "box",
+        "position": [
+          -96,
+          1.8,
+          -75
+        ],
+        "size": [
+          0.6,
+          3.6,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "planter_7",
+        "type": "box",
+        "position": [
+          -96,
+          0.4,
+          -75
+        ],
+        "size": [
+          3.5,
+          0.8,
+          3.5
+        ],
+        "material": "stone",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_0",
+        "type": "box",
+        "position": [
+          -9,
+          0.7,
+          90
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_0",
+        "type": "box",
+        "position": [
+          -9,
+          1.43,
+          90
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_1",
+        "type": "box",
+        "position": [
+          9,
+          0.7,
+          63
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_1",
+        "type": "box",
+        "position": [
+          9,
+          1.43,
+          63
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_2",
+        "type": "box",
+        "position": [
+          -9,
+          0.7,
+          30
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_2",
+        "type": "box",
+        "position": [
+          -9,
+          1.43,
+          30
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_3",
+        "type": "box",
+        "position": [
+          9,
+          0.7,
+          -8
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_3",
+        "type": "box",
+        "position": [
+          9,
+          1.43,
+          -8
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_4",
+        "type": "box",
+        "position": [
+          -9,
+          0.7,
+          -76
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_4",
+        "type": "box",
+        "position": [
+          -9,
+          1.43,
+          -76
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_5",
+        "type": "box",
+        "position": [
+          -34,
+          0.7,
+          -11
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_5",
+        "type": "box",
+        "position": [
+          -34,
+          1.43,
+          -11
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_6",
+        "type": "box",
+        "position": [
+          34,
+          0.7,
+          11
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_6",
+        "type": "box",
+        "position": [
+          34,
+          1.43,
+          11
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_7",
+        "type": "box",
+        "position": [
+          -57,
+          0.7,
+          12
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_7",
+        "type": "box",
+        "position": [
+          -57,
+          1.43,
+          12
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_8",
+        "type": "box",
+        "position": [
+          57,
+          0.7,
+          -12
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_8",
+        "type": "box",
+        "position": [
+          57,
+          1.43,
+          -12
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_9",
+        "type": "box",
+        "position": [
+          75,
+          0.7,
+          54
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_9",
+        "type": "box",
+        "position": [
+          75,
+          1.43,
+          54
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_10",
+        "type": "box",
+        "position": [
+          -73,
+          0.7,
+          -25
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_10",
+        "type": "box",
+        "position": [
+          -73,
+          1.43,
+          -25
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "cover_11",
+        "type": "box",
+        "position": [
+          -45,
+          0.7,
+          48
+        ],
+        "size": [
+          3.6,
+          1.4,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "cover_stripe_11",
+        "type": "box",
+        "position": [
+          -45,
+          1.43,
+          48
+        ],
+        "size": [
+          3.65,
+          0.08,
+          1.25
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "command_platform",
+        "type": "box",
+        "position": [
+          0,
+          3.8,
+          -44
+        ],
+        "size": [
+          18,
+          0.4,
+          18
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_back",
+        "type": "box",
+        "position": [
+          0,
+          6,
+          -53
+        ],
+        "size": [
+          18,
+          4,
+          0.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_west",
+        "type": "box",
+        "position": [
+          -9,
+          6,
+          -44
+        ],
+        "size": [
+          0.5,
+          4,
+          18
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_east",
+        "type": "box",
+        "position": [
+          9,
+          6,
+          -44
+        ],
+        "size": [
+          0.5,
+          4,
+          18
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_roof",
+        "type": "box",
+        "position": [
+          0,
+          8.2,
+          -46
+        ],
+        "size": [
+          19,
+          0.4,
+          15
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_rail_left",
+        "type": "box",
+        "position": [
+          -6.5,
+          4.6,
+          -35
+        ],
+        "size": [
+          5,
+          1.2,
+          0.3
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_rail_right",
+        "type": "box",
+        "position": [
+          6.5,
+          4.6,
+          -35
+        ],
+        "size": [
+          5,
+          1.2,
+          0.3
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_floor",
+        "type": "box",
+        "position": [
+          -69,
+          0.08,
+          -94
+        ],
+        "size": [
+          27,
+          0.16,
+          19
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_back",
+        "type": "box",
+        "position": [
+          -69,
+          3.6,
+          -103.5
+        ],
+        "size": [
+          27,
+          7.2,
+          0.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_side_-82.5",
+        "type": "box",
+        "position": [
+          -82.5,
+          3.6,
+          -94
+        ],
+        "size": [
+          0.5,
+          7.2,
+          19
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_side_-55.5",
+        "type": "box",
+        "position": [
+          -55.5,
+          3.6,
+          -94
+        ],
+        "size": [
+          0.5,
+          7.2,
+          19
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_roof",
+        "type": "box",
+        "position": [
+          -69,
+          7.3,
+          -94
+        ],
+        "size": [
+          28,
+          0.3,
+          20
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_front_-78",
+        "type": "box",
+        "position": [
+          -78,
+          3.6,
+          -84.5
+        ],
+        "size": [
+          9,
+          7.2,
+          0.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_front_-60",
+        "type": "box",
+        "position": [
+          -60,
+          3.6,
+          -84.5
+        ],
+        "size": [
+          9,
+          7.2,
+          0.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "west_water_tower_collision",
+        "type": "box",
+        "position": [
+          -107.9999965,
+          7.495827500000001,
+          -65.0
+        ],
+        "size": [
+          5.4882646,
+          14.991655000000002,
+          5.3567919999999996
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "spawn_column_0",
+        "type": "box",
+        "position": [
+          -6,
+          3,
+          111
+        ],
+        "size": [
+          1,
+          6,
+          1
+        ],
+        "material": "white",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "spawn_column_1",
+        "type": "box",
+        "position": [
+          6,
+          3,
+          111
+        ],
+        "size": [
+          1,
+          6,
+          1
+        ],
+        "material": "white",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "spawn_gate",
+        "type": "box",
+        "position": [
+          0,
+          6,
+          111
+        ],
+        "size": [
+          13,
+          0.7,
+          1
+        ],
+        "material": "blue",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_0",
+        "type": "box",
+        "position": [
+          -18,
+          3,
+          72
+        ],
+        "size": [
+          0.22,
+          6,
+          0.22
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_0",
+        "type": "box",
+        "position": [
+          -18,
+          6,
+          72
+        ],
+        "size": [
+          1,
+          0.25,
+          0.5
+        ],
+        "material": "blue",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_1",
+        "type": "box",
+        "position": [
+          18,
+          3,
+          18
+        ],
+        "size": [
+          0.22,
+          6,
+          0.22
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_1",
+        "type": "box",
+        "position": [
+          18,
+          6,
+          18
+        ],
+        "size": [
+          1,
+          0.25,
+          0.5
+        ],
+        "material": "blue",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_2",
+        "type": "box",
+        "position": [
+          -18,
+          3,
+          -68
+        ],
+        "size": [
+          0.22,
+          6,
+          0.22
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_2",
+        "type": "box",
+        "position": [
+          -18,
+          6,
+          -68
+        ],
+        "size": [
+          1,
+          0.25,
+          0.5
+        ],
+        "material": "blue",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_3",
+        "type": "box",
+        "position": [
+          75,
+          3,
+          83
+        ],
+        "size": [
+          0.22,
+          6,
+          0.22
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_3",
+        "type": "box",
+        "position": [
+          75,
+          6,
+          83
+        ],
+        "size": [
+          1,
+          0.25,
+          0.5
+        ],
+        "material": "blue",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_4",
+        "type": "box",
+        "position": [
+          -69,
+          3,
+          -90
+        ],
+        "size": [
+          0.22,
+          6,
+          0.22
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_4",
+        "type": "box",
+        "position": [
+          -69,
+          6,
+          -90
+        ],
+        "size": [
+          1,
+          0.25,
+          0.5
+        ],
+        "material": "blue",
+        "collision": false,
+        "visible": true
+      }
+    ],
+    "instances": [
+      {
+        "id": "block_0_0",
+        "scene": "res://assets/urban/kenney/industrial/building-a.glb",
+        "position": [
+          -40,
+          0.0,
+          -34
+        ],
+        "scale": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "block_0_1",
+        "scene": "res://assets/urban/kenney/industrial/building-g.glb",
+        "position": [
+          -64,
+          0.0,
+          -30
+        ],
+        "scale": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "block_0_2",
+        "scene": "res://assets/urban/kenney/industrial/building-j.glb",
+        "position": [
+          -108,
+          0.0,
+          -30
+        ],
+        "scale": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "block_0_3",
+        "scene": "res://assets/urban/kenney/industrial/building-a.glb",
+        "position": [
+          -35,
+          0.0,
+          -62
+        ],
+        "scale": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "block_0_4",
+        "scene": "res://assets/urban/kenney/industrial/building-g.glb",
+        "position": [
+          -108,
+          0.0,
+          -62
+        ],
+        "scale": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "block_0_5",
+        "scene": "res://assets/urban/kenney/industrial/building-j.glb",
+        "position": [
+          -36,
+          0.0,
+          -109
+        ],
+        "scale": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "block_0_6",
+        "scene": "res://assets/urban/kenney/industrial/building-a.glb",
+        "position": [
+          -67,
+          0.0,
+          -109
+        ],
+        "scale": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "block_0_7",
+        "scene": "res://assets/urban/kenney/industrial/building-g.glb",
+        "position": [
+          -108,
+          0.0,
+          -108
+        ],
+        "scale": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "block_1_0",
+        "scene": "res://assets/urban/kenney/commercial/building-a.glb",
+        "position": [
+          40,
+          0.0,
+          -34
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_1_1",
+        "scene": "res://assets/urban/kenney/commercial/building-c.glb",
+        "position": [
+          64,
+          0.0,
+          -30
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_1_2",
+        "scene": "res://assets/urban/kenney/commercial/building-h.glb",
+        "position": [
+          108,
+          0.0,
+          -30
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_1_3",
+        "scene": "res://assets/urban/kenney/commercial/building-a.glb",
+        "position": [
+          35,
+          0.0,
+          -62
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_1_4",
+        "scene": "res://assets/urban/kenney/commercial/building-c.glb",
+        "position": [
+          108,
+          0.0,
+          -62
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_1_5",
+        "scene": "res://assets/urban/kenney/commercial/building-h.glb",
+        "position": [
+          36,
+          0.0,
+          -109
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_1_6",
+        "scene": "res://assets/urban/kenney/commercial/building-a.glb",
+        "position": [
+          67,
+          0.0,
+          -109
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_1_7",
+        "scene": "res://assets/urban/kenney/commercial/building-c.glb",
+        "position": [
+          108,
+          0.0,
+          -108
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_2_0",
+        "scene": "res://assets/urban/kenney/commercial/building-a.glb",
+        "position": [
+          -40,
+          0.0,
+          34
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_2_1",
+        "scene": "res://assets/urban/kenney/commercial/building-c.glb",
+        "position": [
+          -64,
+          0.0,
+          30
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_2_2",
+        "scene": "res://assets/urban/kenney/commercial/building-h.glb",
+        "position": [
+          -108,
+          0.0,
+          30
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_2_3",
+        "scene": "res://assets/urban/kenney/commercial/building-a.glb",
+        "position": [
+          -35,
+          0.0,
+          62
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_2_4",
+        "scene": "res://assets/urban/kenney/commercial/building-c.glb",
+        "position": [
+          -108,
+          0.0,
+          62
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_2_5",
+        "scene": "res://assets/urban/kenney/commercial/building-h.glb",
+        "position": [
+          -36,
+          0.0,
+          109
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_2_6",
+        "scene": "res://assets/urban/kenney/commercial/building-a.glb",
+        "position": [
+          -67,
+          0.0,
+          109
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_2_7",
+        "scene": "res://assets/urban/kenney/commercial/building-c.glb",
+        "position": [
+          -108,
+          0.0,
+          108
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_3_0",
+        "scene": "res://assets/urban/kenney/suburban/building-type-a.glb",
+        "position": [
+          40,
+          0.0,
+          34
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_3_1",
+        "scene": "res://assets/urban/kenney/suburban/building-type-c.glb",
+        "position": [
+          64,
+          0.0,
+          30
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_3_2",
+        "scene": "res://assets/urban/kenney/suburban/building-type-g.glb",
+        "position": [
+          108,
+          0.0,
+          30
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_3_3",
+        "scene": "res://assets/urban/kenney/suburban/building-type-a.glb",
+        "position": [
+          35,
+          0.0,
+          62
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_3_4",
+        "scene": "res://assets/urban/kenney/suburban/building-type-c.glb",
+        "position": [
+          108,
+          0.0,
+          62
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_3_5",
+        "scene": "res://assets/urban/kenney/suburban/building-type-g.glb",
+        "position": [
+          36,
+          0.0,
+          109
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_3_6",
+        "scene": "res://assets/urban/kenney/suburban/building-type-a.glb",
+        "position": [
+          67,
+          0.0,
+          109
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "block_3_7",
+        "scene": "res://assets/urban/kenney/suburban/building-type-c.glb",
+        "position": [
+          108,
+          0.0,
+          108
+        ],
+        "scale": [
+          12,
+          12,
+          12
+        ]
+      },
+      {
+        "id": "skyline_0",
+        "scene": "res://assets/urban/kenney/commercial/building-skyscraper-b.glb",
+        "position": [
+          -111,
+          0.0,
+          -109
+        ],
+        "scale": [
+          9,
+          9,
+          9
+        ]
+      },
+      {
+        "id": "skyline_1",
+        "scene": "res://assets/urban/kenney/commercial/building-skyscraper-c.glb",
+        "position": [
+          109,
+          0.0,
+          -108
+        ],
+        "scale": [
+          9,
+          9,
+          9
+        ]
+      },
+      {
+        "id": "skyline_2",
+        "scene": "res://assets/urban/kenney/commercial/building-skyscraper-d.glb",
+        "position": [
+          -108,
+          0.0,
+          110
+        ],
+        "scale": [
+          9,
+          9,
+          9
+        ]
+      },
+      {
+        "id": "skyline_3",
+        "scene": "res://assets/urban/kenney/commercial/building-skyscraper-e.glb",
+        "position": [
+          110,
+          0.0,
+          109
+        ],
+        "scale": [
+          9,
+          9,
+          9
+        ]
+      },
+      {
+        "id": "container_0",
+        "scene": "res://assets/urban/kenney/industrial/shipping-container-b.glb",
+        "position": [
+          -62,
+          0.0,
+          -60
+        ],
+        "scale": [
+          7,
+          7,
+          7
+        ]
+      },
+      {
+        "id": "container_1",
+        "scene": "res://assets/urban/kenney/industrial/shipping-container-a.glb",
+        "position": [
+          -70,
+          0.0,
+          -42
+        ],
+        "scale": [
+          7,
+          7,
+          7
+        ]
+      },
+      {
+        "id": "container_2",
+        "scene": "res://assets/urban/kenney/industrial/shipping-container-b.glb",
+        "position": [
+          -49,
+          0.0,
+          -57
+        ],
+        "scale": [
+          7,
+          7,
+          7
+        ]
+      },
+      {
+        "id": "container_3",
+        "scene": "res://assets/urban/kenney/industrial/shipping-container-a.glb",
+        "position": [
+          -63,
+          0.0,
+          -74
+        ],
+        "scale": [
+          7,
+          7,
+          7
+        ]
+      },
+      {
+        "id": "container_4",
+        "scene": "res://assets/urban/kenney/industrial/shipping-container-b.glb",
+        "position": [
+          54,
+          0.0,
+          35
+        ],
+        "scale": [
+          7,
+          7,
+          7
+        ]
+      },
+      {
+        "id": "container_5",
+        "scene": "res://assets/urban/kenney/industrial/shipping-container-a.glb",
+        "position": [
+          74,
+          0.0,
+          35
+        ],
+        "scale": [
+          7,
+          7,
+          7
+        ]
+      },
+      {
+        "id": "container_6",
+        "scene": "res://assets/urban/kenney/industrial/shipping-container-b.glb",
+        "position": [
+          57,
+          0.0,
+          69
+        ],
+        "scale": [
+          7,
+          7,
+          7
+        ]
+      },
+      {
+        "id": "car_0",
+        "scene": "res://assets/urban/kenney/cars/sedan.glb",
+        "position": [
+          -10,
+          0.0,
+          76
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "id": "car_1",
+        "scene": "res://assets/urban/kenney/cars/delivery.glb",
+        "position": [
+          13,
+          0.0,
+          43
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "id": "car_2",
+        "scene": "res://assets/urban/kenney/cars/taxi.glb",
+        "position": [
+          -13,
+          0.0,
+          -86
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "id": "car_3",
+        "scene": "res://assets/urban/kenney/cars/sedan.glb",
+        "position": [
+          42,
+          0.0,
+          11
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "id": "car_4",
+        "scene": "res://assets/urban/kenney/cars/delivery.glb",
+        "position": [
+          -46,
+          0.0,
+          -11
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "id": "car_5",
+        "scene": "res://assets/urban/kenney/cars/taxi.glb",
+        "position": [
+          73,
+          0.0,
+          -12
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "id": "car_6",
+        "scene": "res://assets/urban/kenney/cars/sedan.glb",
+        "position": [
+          -76,
+          0.0,
+          13
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ]
+      },
+      {
+        "id": "tree_0",
+        "scene": "res://assets/urban/kenney/nature/tree_default.glb",
+        "position": [
+          -20,
+          0.25,
+          22
+        ],
+        "scale": [
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": "tree_1",
+        "scene": "res://assets/urban/kenney/nature/tree_default.glb",
+        "position": [
+          20,
+          0.25,
+          22
+        ],
+        "scale": [
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": "tree_2",
+        "scene": "res://assets/urban/kenney/nature/tree_default.glb",
+        "position": [
+          -20,
+          0.25,
+          -22
+        ],
+        "scale": [
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": "tree_3",
+        "scene": "res://assets/urban/kenney/nature/tree_default.glb",
+        "position": [
+          20,
+          0.25,
+          -22
+        ],
+        "scale": [
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": "tree_4",
+        "scene": "res://assets/urban/kenney/nature/tree_default.glb",
+        "position": [
+          54,
+          0.25,
+          84
+        ],
+        "scale": [
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": "tree_5",
+        "scene": "res://assets/urban/kenney/nature/tree_default.glb",
+        "position": [
+          77,
+          0.25,
+          86
+        ],
+        "scale": [
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": "tree_6",
+        "scene": "res://assets/urban/kenney/nature/tree_default.glb",
+        "position": [
+          -97,
+          0.25,
+          52
+        ],
+        "scale": [
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": "tree_7",
+        "scene": "res://assets/urban/kenney/nature/tree_default.glb",
+        "position": [
+          -96,
+          0.25,
+          -75
+        ],
+        "scale": [
+          5,
+          5,
+          5
+        ]
+      },
+      {
+        "id": "west_water_tower",
+        "scene": "res://assets/urban/kenney/industrial/water-tower.glb",
+        "position": [
+          -108,
+          0.0,
+          -65
+        ],
+        "scale": [
+          7,
+          7,
+          7
+        ]
+      }
+    ],
+    "geometry": [
+      {
+        "id": "command_ramp",
+        "vertices": [
+          [
+            -3,
+            0,
+            -21
+          ],
+          [
+            3,
+            0,
+            -21
+          ],
+          [
+            -3,
+            4.08,
+            -34
+          ],
+          [
+            3,
+            4.08,
+            -34
+          ],
+          [
+            -3,
+            0,
+            -34
+          ],
+          [
+            3,
+            0,
+            -34
+          ],
+          [
+            -3,
+            4.08,
+            -36
+          ],
+          [
+            3,
+            4.08,
+            -36
+          ]
+        ],
+        "indices": [
+          0,
+          2,
+          1,
+          1,
+          2,
+          3,
+          2,
+          6,
+          3,
+          3,
+          6,
+          7,
+          0,
+          2,
+          4,
+          1,
+          5,
+          3
+        ],
+        "material": "concrete",
+        "collision": true
+      }
+    ],
+    "heightfields": [],
+    "lights": [
+      {
+        "id": "sun",
+        "type": "directional",
+        "rotation_degrees": [
+          -42,
+          -28,
+          0
+        ],
+        "color": "ffe1b6",
+        "energy": 1.3,
+        "shadows": true
+      }
+    ],
+    "navigation": {
+      "mode": "world",
+      "agent_radius": 0.45,
+      "agent_height": 1.9,
+      "agent_max_climb": 0.35,
+      "agent_max_slope": 40,
+      "cell_size": 0.4,
+      "cell_height": 0.2
+    },
+    "environment": {
+      "background_color": "7799ac",
+      "ambient_color": "cedce6",
+      "ambient_energy": 0.65,
+      "fog_color": "7799ac",
+      "fog_density": 0.0018
+    }
+  },
+  "shooter_design": {
+    "name": "Nexo: zona de combate",
+    "player_spawn": [
+      0,
+      0.08,
+      106
+    ],
+    "beacons": [
+      {
+        "id": "A",
+        "name": "Patio industrial",
+        "position": [
+          -69,
+          0,
+          -67
+        ]
+      },
+      {
+        "id": "B",
+        "name": "Puesto de mando",
+        "position": [
+          0,
+          4,
+          -44
+        ]
+      },
+      {
+        "id": "C",
+        "name": "Patio residencial",
+        "position": [
+          68,
+          0,
+          57
+        ]
+      }
+    ],
+    "extraction": [
+      0,
+      0,
+      113
+    ],
+    "enemy_spawns": [
+      [
+        10,
+        0,
+        70
+      ],
+      [
+        -12,
+        0,
+        49
+      ],
+      [
+        8,
+        0,
+        18
+      ],
+      [
+        -24,
+        0,
+        5
+      ],
+      [
+        24,
+        0,
+        -11
+      ],
+      [
+        -66,
+        0,
+        -29
+      ],
+      [
+        -44,
+        0,
+        -61
+      ],
+      [
+        -78,
+        0,
+        -68
+      ],
+      [
+        -69,
+        0.2,
+        -93
+      ],
+      [
+        0,
+        4,
+        -45
+      ],
+      [
+        5,
+        0,
+        -80
+      ],
+      [
+        62,
+        0,
+        52
+      ],
+      [
+        78,
+        0,
+        71
+      ],
+      [
+        53,
+        0,
+        90
+      ],
+      [
+        76,
+        0,
+        -48
+      ],
+      [
+        -64,
+        0,
+        72
+      ]
+    ],
+    "pickups": [
+      [
+        -15,
+        0,
+        96
+      ],
+      [
+        18,
+        0,
+        5
+      ],
+      [
+        -50,
+        0,
+        -76
+      ],
+      [
+        0,
+        4,
+        -49
+      ],
+      [
+        80,
+        0,
+        84
+      ]
+    ],
+    "navigation_checks": [
+      [
+        [
+          -2,
+          0,
+          100
+        ],
+        [
+          -69,
+          0,
+          -67
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          100
+        ],
+        [
+          0,
+          4,
+          -44
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          100
+        ],
+        [
+          68,
+          0,
+          57
+        ]
+      ]
+    ]
+  }
+}
