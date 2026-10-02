@@ -11,6 +11,14 @@ func run(context, arguments: Dictionary) -> Dictionary:
     var target: Node3D = context.object(String(arguments.get("target", "world")))
     if target == null or not target.is_inside_tree() or network.get("version") != 1 or network.get("roads", []).is_empty():
         return {"ok": false, "error": "requires attached world and explicit version-1 road network"}
+    # Check every chain before creating provider nodes. Revision-checked recipe
+    # edits reach this path directly, outside the Python smoke fixture validator.
+    for road in network["roads"]:
+        if not road is Dictionary or not road.get("lanes") is Array or road["lanes"].is_empty():
+            return {"ok": false, "error": "road lanes require a non-empty array of forward/reverse directions"}
+        for direction in road["lanes"]:
+            if direction != "forward" and direction != "reverse":
+                return {"ok": false, "error": "unsupported road lane direction; expected forward or reverse"}
     var manager := MANAGER.new()
     manager.name = "RoadNetwork"
     manager.auto_refresh = false

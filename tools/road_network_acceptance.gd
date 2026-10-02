@@ -58,7 +58,7 @@ func _check(context, world: Node3D, manager: RoadManager, mask: int = 4) -> Dict
             for fraction in [0.05, 0.5, 0.95]:
                 var position: Vector3 = segment.to_global(segment.curve.sample_baked(segment.curve.get_baked_length() * fraction))
                 var hit := direct.intersect_ray(PhysicsRayQueryParameters3D.create(position + Vector3.UP * 2, position - Vector3.UP * 2, mask))
-                if hit.is_empty() or not world.is_ancestor_of(hit["collider"]) or absf(hit["position"].y - position.y) > 0.3:
+                if hit.is_empty() or not manager.is_ancestor_of(hit["collider"]) or absf(hit["position"].y - position.y) > 0.3:
                     return {"ok": false, "error": "road collision continuity failed", "position": position}
                 continuity += 1
             for lane in segment.get_lanes():
@@ -75,7 +75,7 @@ func _check(context, world: Node3D, manager: RoadManager, mask: int = 4) -> Dict
             for offset in [-0.12, 0.12]:
                 var position: Vector3 = points[i].global_position + points[i].global_basis.z * offset
                 var hit := direct.intersect_ray(PhysicsRayQueryParameters3D.create(position + Vector3.UP * 2, position - Vector3.UP * 2, mask))
-                if hit.is_empty() or not world.is_ancestor_of(hit["collider"]):
+                if hit.is_empty() or not manager.is_ancestor_of(hit["collider"]):
                     return {"ok": false, "error": "joint collision gap"}
                 continuity += 1
     return {"ok": true, "segments": count, "length_m": length, "lanes": lanes,
@@ -144,12 +144,26 @@ func _reopen(context, original: Node3D, manager: RoadManager) -> Dictionary:
     var editable: Node3D = ResourceLoader.load(editable_path, "", ResourceLoader.CACHE_MODE_IGNORE).instantiate()
     context.root.add_child(editable)
     for _i in range(8): await context.process_frame
-    _layer(editable, 8)
     var fresh: RoadManager = editable.get_node("Navigation/RoadNetwork")
+    _layer(fresh, 8)
     var source_check := await _check(context, editable, fresh, 8)
     if not source_check.get("ok", false):
         editable.free()
         return source_check
+    # Negative control: remove all road collision and deliberately put nearby
+    # scenery/ground on the probe mask. The ground must not substitute for roads.
+    var scenery: Node3D = editable.get_node("Scenery")
+    _layer(fresh, 0)
+    _layer(scenery, 8)
+    var missing_collision := await _check(context, editable, fresh, 8)
+    var segment = fresh.get_node("boulevard").get_segments()[0]
+    var position: Vector3 = segment.to_global(segment.curve.sample_baked(segment.curve.get_baked_length() * 0.5))
+    var ground_hit := editable.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(position + Vector3.UP * 2, position - Vector3.UP * 2, 8))
+    if missing_collision.get("ok", false) or ground_hit.is_empty() or not scenery.is_ancestor_of(ground_hit["collider"]):
+        editable.free()
+        return {"ok": false, "error": "missing road collision negative control did not reject nearby ground"}
+    source_check["missing_road_collision_rejected"] = true
+    source_check["ground_on_probe_layer_verified"] = true
     var original_signature := _signature(manager)
     var comparison := _compare_geometry(manager, fresh)
     if not comparison.get("ok", false):
@@ -159,14 +173,15 @@ func _reopen(context, original: Node3D, manager: RoadManager) -> Dictionary:
     for _i in range(3): await context.process_frame
     var baked: Node3D = ResourceLoader.load(baked_path, "", ResourceLoader.CACHE_MODE_IGNORE).instantiate()
     context.root.add_child(baked)
-    _layer(baked, 16)
+    var baked_roads: Node3D = baked.get_node("BakedRoads")
+    _layer(baked_roads, 16)
     for _i in range(3): await context.physics_frame
     var counts := {"meshes": 0, "triangles": 0, "colliders": 0, "lanes": 0}
     _counts(baked.get_node("BakedRoads"), counts)
     var hit := baked.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 12, 12), Vector3(0, 6, 12), 16))
     var lower := baked.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 6, 12), Vector3(0, -2, 12), 16))
     var ok: bool = counts["meshes"] == 7 and counts["colliders"] == 7 and counts["lanes"] == 22 and not hit.is_empty() and not lower.is_empty()
-    ok = ok and baked.is_ancestor_of(hit.get("collider")) and baked.is_ancestor_of(lower.get("collider"))
+    ok = ok and baked_roads.is_ancestor_of(hit.get("collider")) and baked_roads.is_ancestor_of(lower.get("collider"))
     var result := {"ok": ok, "editable": source_check, "editable_geometry_signature": original_signature,
                    "reopen_geometry_comparison": comparison,
                    "baked": counts, "upper_height_m": hit.get("position", Vector3.ZERO).y,

@@ -19,7 +19,7 @@ def main():
     text = original.decode()
     section = re.search(r"(?ms)^\[editor_plugins\]\s*\n(.*?)(?=^\[|\Z)", text)
     if section is None: raise SystemExit("editor_plugins section missing")
-    disabled = re.sub(r"(?m)^enabled=PackedStringArray\([^\n]*\)$", "enabled=PackedStringArray()", section[1])
+    disabled = re.sub(r"(?m)^enabled=PackedStringArray\([^\r\n]*\)(\r?)$", r"enabled=PackedStringArray()\1", section[1])
     bootstrap = text[:section.start(1)] + disabled + text[section.end(1):]
     if bootstrap == text: raise SystemExit("cannot temporarily disable editor plugins")
     def run(name, verbose=False):
@@ -33,7 +33,7 @@ def main():
         if result.returncode or any(marker in log for marker in ERRORS):
             raise RuntimeError("Godot import failed; see " + name)
     try:
-        project.write_text(bootstrap)
+        project.write_bytes(bootstrap.encode())
         run("authoring-bootstrap-import.log")
     finally:
         project.write_bytes(original)

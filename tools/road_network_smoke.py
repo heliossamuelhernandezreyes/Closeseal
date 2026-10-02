@@ -154,6 +154,12 @@ def main():
         invalid["steps"].insert(2, {"op": "call", "target": "world", "method": "missing_road_method"})
         control("replace", expected=False, document_id="urban_roads", if_revision=created["revision"], recipe=invalid, options=options, dry_run=False)
         assert head.read_bytes() == old
+        invalid_lanes = [["forwards"], ["forward", 1], [], None, "forward"]
+        for lanes in invalid_lanes:
+            control("patch", expected=False, document_id="urban_roads", if_revision=created["revision"], options=options, dry_run=False,
+                    patch=[{"op": "replace", "path": "/steps/@roads/args/network/roads/@boulevard/lanes", "value": lanes}])
+            assert head.read_bytes() == old
+            assert hashlib.sha256(old_scene.read_bytes()).hexdigest() == old_hash
         changed = control("patch", document_id="urban_roads", if_revision=created["revision"], options=options, dry_run=False,
                           patch=[{"op": "replace", "path": "/steps/@roads/args/network/roads/@boulevard/points/@west_bend/position", "value": [-55, 0.08, -14]},
                                  {"op": "replace", "path": "/steps/@roads/args/network/roads/@boulevard/lane_width", "value": 3.8}])
@@ -166,6 +172,7 @@ def main():
                        "build": step(created, "roads"), "acceptance": step(created, "acceptance"), "reopen": step(created, "reopen"),
                        "bundle": created["evidence"]["directory"], "revision": created["revision"], "source_patch_verified": True,
                        "restore_geometry_verified": True, "canonical_bytes_unchanged": True,
+                       "invalid_lane_lists_rejected": len(invalid_lanes),
                        "limits": ["No automatic intersections, terrain flattening or traffic simulation accepted", "Linux authoring runner; target Android FPS unmeasured"]})
         print("ARCONT_ROAD_NETWORK_OK " + json.dumps(report))
     finally:

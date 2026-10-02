@@ -19,6 +19,13 @@ and the Object-based connection helper during plugin shutdown. The patch, exact
 upstream bytes and resulting bytes are SHA-256-pinned and checked by the installer.
 It changes cleanup only; engine errors remain fatal.
 
+Provider installation prepares patched files and the ownership marker in a
+temporary sibling directory before replacing the addon. Patch/check failures
+preserve any previous installation and permit a normal retry without `--force`;
+a failed final rename restores the previous addon. Unmanaged directories remain
+protected. LF and Windows CRLF project configuration both support the two-pass
+import, with the original bytes restored on success or failure.
+
 ```bash
 python tools/install_map_authoring_providers.py
 python tools/import_authoring_project.py --godot "$GODOT_BIN"
@@ -29,7 +36,16 @@ The test runs the public ARCONT CLI: provider discovery, commit, stale and
 invalid-method rejection, stable-ID position/width patch and restore. It checks
 real meshes, lane connections, collision samples on both sides of joints,
 navigation across both roads and a capsule moving on a curve and climbing the
-ramp. Every successful build saves two bundle scenes:
+ramp.
+
+The engine entry point rejects empty, non-array and unsupported lane directions
+before creating road nodes. The public revision-checked patch test checks five
+invalid lane lists and preserves the document head and previous scene bundle.
+Reopened-scene probes only accept colliders owned by the road network. A negative
+control disables road collision and moves nearby ground onto the probe mask;
+acceptance must reject that scene. Baked probes likewise isolate `BakedRoads`.
+
+Every successful build saves two bundle scenes:
 
 - `scenes/urban_roads_editable.tscn`: original RoadPoints/connections and provider
   regeneration on reopen, with interactive editor handles.

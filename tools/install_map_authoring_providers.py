@@ -32,15 +32,6 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def remove_target(target: Path, force: bool) -> None:
-    if not target.exists():
-        return
-    marker = target / MARKER
-    if not force and not marker.exists():
-        raise RuntimeError(f"Refusing to overwrite unmanaged directory: {target}")
-    shutil.rmtree(target)
-
-
 def write_marker(target: Path, provider: dict) -> None:
     payload = {
         "id": provider["id"],
@@ -77,8 +68,6 @@ def find_addon_dir(root: Path, expected_name: str) -> Path:
 
 
 def install_release(provider: dict, force: bool) -> None:
-    target = ROOT / provider["target_addon"]
-    remove_target(target, force)
     with tempfile.TemporaryDirectory(prefix="closeseal-provider-") as tmp:
         tmp_path = Path(tmp)
         archive = tmp_path / "provider.zip"
@@ -91,14 +80,10 @@ def install_release(provider: dict, force: bool) -> None:
         with zipfile.ZipFile(archive) as zf:
             zf.extractall(extract)
         source = find_addon_dir(extract, Path(provider["target_addon"]).name)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(source, target)
-    write_marker(target, provider)
+        publish_provider(provider, source, force)
 
 
 def install_git_subdir(provider: dict, force: bool) -> None:
-    target = ROOT / provider["target_addon"]
-    remove_target(target, force)
     with tempfile.TemporaryDirectory(prefix="closeseal-provider-") as tmp:
         checkout = Path(tmp) / "repo"
         subprocess.run(["git", "init", "-q", str(checkout)], check=True)
@@ -108,10 +93,34 @@ def install_git_subdir(provider: dict, force: bool) -> None:
         source = checkout / provider["source_subdir"]
         if not source.is_dir():
             raise RuntimeError(f"Pinned source directory missing: {source}")
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(source, target, ignore=shutil.ignore_patterns(".godot", "*.import"))
-    apply_source_patches(provider, target)
-    write_marker(target, provider)
+        publish_provider(provider, source, force)
+
+
+def publish_provider(provider: dict, source: Path, force: bool) -> None:
+    """Prepare verified bytes before replacing an installed provider.
+
+    Staging and backup share the destination filesystem. Failed preparation
+    leaves no unmanaged installation and preserves the previously installed
+    addon; failed publication restores that addon before propagating the error.
+    """
+    target = ROOT / provider["target_addon"]
+    if target.exists() and not force and not (target / MARKER).is_file():
+        raise RuntimeError(f"Refusing to overwrite unmanaged directory: {target}")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=".closeseal-provider-", dir=target.parent) as tmp:
+        staged = Path(tmp) / "addon"
+        backup = Path(tmp) / "previous"
+        shutil.copytree(source, staged, ignore=shutil.ignore_patterns(".godot", "*.import"))
+        apply_source_patches(provider, staged)
+        write_marker(staged, provider)
+        if target.exists():
+            target.rename(backup)
+        try:
+            staged.rename(target)
+        except BaseException:
+            if backup.exists():
+                backup.rename(target)
+            raise
 
 
 def apply_source_patches(provider: dict, target: Path) -> None:
