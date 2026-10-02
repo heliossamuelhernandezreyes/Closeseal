@@ -45,6 +45,10 @@ jobs:
         run: |
           set -o pipefail
           xvfb-run -a python tools/import_authoring_project.py --godot "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64"
+          for script in godot_playtest_runner playtest_explorer; do
+            "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64" --headless --path . --check-only --script "res://tools/$script.gd" 2>&1 | tee -a playtest-script-check.log
+          done
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' playtest-script-check.log; then exit 1; fi
       - name: Verify existing World 3D and editor control
         env:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
@@ -117,6 +121,7 @@ jobs:
             authoring-dock.log
             road-dock.log
             playtest-dock.log
+            playtest-script-check.log
             .arcont/
             .mapforge/control-smoke.json
           retention-days: 30

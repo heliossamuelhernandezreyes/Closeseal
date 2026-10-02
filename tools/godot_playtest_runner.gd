@@ -54,7 +54,7 @@ func run(context, arguments: Dictionary) -> Dictionary:
         _write(context.output_path("playtest/checkpoint.json"), checkpoint)
         if command.has("capture"):
             var camera: Camera3D = world.get_node(command["capture"])
-            var path := context.output_path("playtest/" + String(command["id"]) + ".png")
+            var path: String = context.output_path("playtest/" + String(command["id"]) + ".png")
             context.root.size = Vector2i(1280, 720)
             camera.make_current()
             await context.process_frame
