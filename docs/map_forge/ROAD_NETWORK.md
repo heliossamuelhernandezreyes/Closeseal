@@ -14,6 +14,11 @@ through `set`, `call`, discovery and trusted project-script steps. The recipe
 is the revisioned source; manual scene edits must be reflected back into the
 recipe to survive a recipe rebuild.
 
+One local compatibility patch releases an unparented lane-divider gizmo template
+and the Object-based connection helper during plugin shutdown. The patch, exact
+upstream bytes and resulting bytes are SHA-256-pinned and checked by the installer.
+It changes cleanup only; engine errors remain fatal.
+
 ```bash
 python tools/install_map_authoring_providers.py
 python tools/import_authoring_project.py --godot "$GODOT_BIN"
@@ -45,6 +50,14 @@ with editor plugins temporarily disabled, restores the exact project bytes in
 a finally block, then imports with both plugins enabled. Both engine logs must
 be free of script/resource errors. This avoids upstream UI preloads trying to
 load PNG textures before Godot's first import.
+
+For authoring, load the recipe JSON and submit `create` with
+`document_id: urban_roads`, `recipe: <the full recipe object>` and
+`options: {render: true, audio_driver: Dummy}`. Use `dry_run: false` to publish
+after preview, then `inspect` to obtain the revision for a stable-ID `patch`.
+See ARCONT's ROAD_NETWORK_AUTHORING.md for a complete patch request. The public
+CLI and MCP can choose new points, lane directions, deck widths, shoulders,
+heights and tangents; the example is not a fixed generator preset.
 
 Scope limits: lane paths are navigation foundations, not traffic simulation;
 terrain flattening and intersections are not enabled or accepted here. Mesh

@@ -73,7 +73,7 @@ func _check(context, world: Node3D, manager: RoadManager, mask: int = 4) -> Dict
         var points := container.get_roadpoints()
         for i in range(1, points.size() - 1):
             for offset in [-0.12, 0.12]:
-                var position := points[i].global_position + points[i].global_basis.z * offset
+                var position: Vector3 = points[i].global_position + points[i].global_basis.z * offset
                 var hit := direct.intersect_ray(PhysicsRayQueryParameters3D.create(position + Vector3.UP * 2, position - Vector3.UP * 2, mask))
                 if hit.is_empty() or not world.is_ancestor_of(hit["collider"]):
                     return {"ok": false, "error": "joint collision gap"}
@@ -107,10 +107,10 @@ func _walk(context, world: Node3D, container: RoadContainer, segment_index: int,
     var end_progress := minf(curve.get_baked_length() - 1.5, 2.0 + distance)
     for _i in range(700):
         await context.physics_frame
-        var local := segment.to_local(actor.global_position)
+        var local: Vector3 = segment.to_local(actor.global_position)
         progress = maxf(progress, curve.get_closest_offset(local))
         if progress >= end_progress - 0.4: break
-        var goal := segment.to_global(curve.sample_baked(minf(progress + 2.0, end_progress)))
+        var goal: Vector3 = segment.to_global(curve.sample_baked(minf(progress + 2.0, end_progress)))
         var direction := goal - actor.global_position
         direction.y = 0
         actor.velocity = direction.normalized() * 12.0 + Vector3(0, -4, 0)
@@ -164,7 +164,7 @@ func _reopen(context, original: Node3D, manager: RoadManager) -> Dictionary:
     _counts(baked.get_node("BakedRoads"), counts)
     var hit := baked.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 12, 12), Vector3(0, 6, 12), 16))
     var lower := baked.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 6, 12), Vector3(0, -2, 12), 16))
-    var ok := counts["meshes"] == 7 and counts["colliders"] == 7 and counts["lanes"] == 22 and not hit.is_empty() and not lower.is_empty()
+    var ok: bool = counts["meshes"] == 7 and counts["colliders"] == 7 and counts["lanes"] == 22 and not hit.is_empty() and not lower.is_empty()
     ok = ok and baked.is_ancestor_of(hit.get("collider")) and baked.is_ancestor_of(lower.get("collider"))
     var result := {"ok": ok, "editable": source_check, "editable_geometry_signature": original_signature,
                    "baked": counts, "upper_height_m": hit.get("position", Vector3.ZERO).y,

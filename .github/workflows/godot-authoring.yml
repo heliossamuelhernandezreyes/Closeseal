@@ -61,6 +61,11 @@ jobs:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
           GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
         run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/godot_authoring_smoke.py
+      - name: Build, edit, restore and reopen real curved roads with collision and navigation
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/road_network_smoke.py
       - name: Open accepted output in the actual editor through its control panel
         env:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
@@ -70,12 +75,7 @@ jobs:
           set -o pipefail
           timeout 120 xvfb-run -a "$GODOT_BIN" --path . --editor --headless --script res://tools/godot_authoring_dock_smoke.gd 2>&1 | tee authoring-dock.log
           grep -q ARCONT_AUTHORING_DOCK_OK authoring-dock.log
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script' authoring-dock.log; then exit 1; fi
-      - name: Build, edit, restore and reopen real curved roads with collision and navigation
-        env:
-          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
-          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
-        run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/road_network_smoke.py
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' authoring-dock.log; then exit 1; fi
       - name: Open editable road points through the actual editor control panel
         if: always()
         shell: bash

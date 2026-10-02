@@ -29,5 +29,10 @@ func _run() -> void:
         return
     plugin.free()
     panel.free()
+    EditorInterface.get_selection().clear()
+    while not EditorInterface.get_open_scenes().is_empty():
+        if EditorInterface.close_scene() != OK: break
+        for _i in range(5): await process_frame
+    for _i in range(5): await process_frame
     print("ARCONT_ROAD_DOCK_OK points_editable=true real_segments_rebuilt=true")
     quit(0)

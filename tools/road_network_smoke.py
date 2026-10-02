@@ -146,6 +146,8 @@ def main():
         old = head.read_bytes()
         bundle = ROOT / created["evidence"]["directory"]
         old_scene = bundle / "scenes/urban_roads_editable.tscn"
+        assert "nodes/road_segment.gd" not in old_scene.read_text()
+        assert "addons/road-generator/nodes/" not in (bundle / "scenes/urban_roads_baked.tscn").read_text()
         old_hash = hashlib.sha256(old_scene.read_bytes()).hexdigest()
         control("patch", expected=False, document_id="urban_roads", if_revision="stale", patch=[], dry_run=False)
         invalid = copy.deepcopy(recipe)

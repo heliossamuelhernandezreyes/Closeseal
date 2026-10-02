@@ -33,5 +33,10 @@ func _run() -> void:
         return
     plugin.free()
     panel.free()
+    EditorInterface.get_selection().clear()
+    while not EditorInterface.get_open_scenes().is_empty():
+        if EditorInterface.close_scene() != OK: break
+        for _frame in range(5): await process_frame
+    for _frame in range(5): await process_frame
     print("ARCONT_AUTHORING_DOCK_OK general_control=true accepted_scene_opened=true")
     quit(0)

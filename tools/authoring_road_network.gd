@@ -117,6 +117,7 @@ func _save(context, arguments: Dictionary) -> Dictionary:
         return {"ok": false, "error": "editable road scene save failed"}
     var baked := Node3D.new()
     baked.name = "UrbanRoadsBaked"
+    baked.transform = world.transform
     # Retain authored scenery/environment/navigation; no provider scripts are
     # needed in the baked scene. Mesh and collision come from real output.
     for child in world.get_children():
@@ -136,7 +137,7 @@ func _save(context, arguments: Dictionary) -> Dictionary:
     for container in manager.get_containers():
         var group := Node3D.new()
         group.name = container.name
-        group.transform = container.transform
+        group.transform = world.global_transform.affine_inverse() * container.global_transform
         roads.add_child(group)
         for segment in container.get_segments():
             var mesh := MeshInstance3D.new()
