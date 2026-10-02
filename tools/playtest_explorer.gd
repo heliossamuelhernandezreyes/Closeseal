@@ -58,8 +58,8 @@ func _physics_process(delta: float) -> void:
     playtest_tick.emit(playtest_snapshot())
 
 func _step_up(motion: Vector3) -> bool:
-    var contact := PhysicsTestMotionResult3D.new()
-    if not test_move(global_transform, motion, contact) or absf(contact.get_collision_normal().y) > 0.2: return false
+    var contact := KinematicCollision3D.new()
+    if not test_move(global_transform, motion, contact) or contact.get_normal().y >= 0.7: return false
     var raised := global_transform
     raised.origin.y += step_height
     if test_move(global_transform, Vector3.UP * step_height) or test_move(raised, motion): return false
