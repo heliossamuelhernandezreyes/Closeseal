@@ -17,7 +17,7 @@ func run(context, arguments: Dictionary) -> Dictionary:
     for _frame in range(8): await context.process_frame
     var region: NavigationRegion3D = world.get_node_or_null("Navigation")
     var navigation := {"available": false}
-    if region != null:
+    if region != null and region.navigation_mesh != null:
         var map := region.get_navigation_map()
         var prior_iteration := NavigationServer3D.region_get_iteration_id(region.get_rid())
         NavigationServer3D.map_set_cell_size(map, region.navigation_mesh.cell_size)

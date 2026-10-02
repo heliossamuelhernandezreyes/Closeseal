@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 12c0a739a9dfd56af5af42241cc0188961ddcec2
+          ref: aa23f1a5dba905c22eaeeb40547c409a309809b9
           path: arcont-source
       - uses: actions/setup-python@v5
         with:

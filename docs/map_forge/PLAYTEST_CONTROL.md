@@ -13,8 +13,10 @@ route positions. The input event also drives a nearby terminal interaction.
 It is not a production character, combat system or enemy AI.
 
 The project-owned runner is configured in `godot-authoring.json`. Use Arcont's
-same CLI/MCP control with `operation: playtest`, current `if_revision`, a saved
-scene artifact and a version-1 `session`. See Arcont's GODOT_PLAYTEST_CONTROL.md
+same CLI/MCP control with `operation: playtest`, current `if_revision`,
+`if_bundle` from `inspect.last_build.directory`, a saved scene artifact and a
+version-1 `session`. A rebuild with unchanged source still requires the current
+bundle pin. See Arcont's GODOT_PLAYTEST_CONTROL.md
 for the request contract. The scene is freshly reopened for every session.
 
 ```bash
@@ -40,6 +42,8 @@ Input events are flushed before the next measured tick, including releases while
 the tree is paused. Before replay, navigation uses matching map/mesh voxel sizes
 and waits for a newer synchronized region iteration, bounded to 120 physics
 frames. Preparation frames are separate from the actor's replay tick count.
+Navigation is optional: an absent region or a region without a NavigationMesh
+reports `available: false` and still permits actor input replay.
 `playtest/navigation.tres` preserves the baked mesh; the report records its actual
 route points and synchronization iterations. The actor is disabled before the
 runner leaves its final tick signal, so cleanup cannot free an emitting actor.

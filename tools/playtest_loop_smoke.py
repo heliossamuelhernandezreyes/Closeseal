@@ -117,6 +117,26 @@ def authored_session():
                 {"id": "release", "frames": 2, "actions": {}}]}
 
 
+def navigationless_recipe():
+    """Exercise a default NavigationRegion3D through the public saved-scene API."""
+    return {"version": 1, "id": "actor_only", "steps": [
+        {"op": "new", "id": "world", "class": "Node3D", "name": "ActorOnly"},
+        {"op": "attach", "target": "world"},
+        {"op": "new", "id": "navigation", "class": "NavigationRegion3D", "name": "Navigation", "parent": "world"},
+        {"op": "new", "id": "floor", "class": "StaticBody3D", "parent": "world",
+         "properties": {"position": variant("Vector3", 0, -0.1, 3)}},
+        {"op": "new", "id": "floor_shape", "class": "BoxShape3D", "properties": {"size": variant("Vector3", 20, 0.2, 20)}},
+        {"op": "new", "id": "floor_collision", "class": "CollisionShape3D", "parent": "floor",
+         "properties": {"shape": reference("floor_shape")}},
+        {"op": "new", "id": "actors", "class": "Node3D", "parent": "world", "name": "Actors"},
+        {"op": "new", "id": "explorer", "script": "res://tools/playtest_explorer.gd", "parent": "actors", "name": "Explorer",
+         "properties": {"position": variant("Vector3", 0, 0.35, 0)}},
+        {"op": "new", "id": "actor_shape", "class": "CapsuleShape3D", "properties": {"radius": 0.35, "height": 1.8}},
+        {"op": "new", "id": "actor_collision", "class": "CollisionShape3D", "parent": "explorer",
+         "properties": {"shape": reference("actor_shape"), "position": variant("Vector3", 0, 0.9, 0)}},
+        {"op": "save", "target": "world", "path": "actor_only.tscn"}]}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write-example", action="store_true")
@@ -135,7 +155,8 @@ def main():
     recipe["dependencies"] = {path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest() for path in dependencies}
     session = json.loads((ROOT / "authoring/scenarios/workshop_route.json").read_text())
     head = ROOT / "authoring/documents/urban_playtest.json"
-    if head.exists(): raise SystemExit("use clean checkout: urban_playtest document exists")
+    actor_head = ROOT / "authoring/documents/actor_only.json"
+    if head.exists() or actor_head.exists(): raise SystemExit("use clean checkout: playtest document exists")
     options = {"render": True, "audio_driver": "Dummy"}
     calls = []
     canonical = {path: path.read_bytes() for path in (ROOT / "maps").glob("*.json")}
@@ -151,7 +172,8 @@ def main():
         return result
 
     def play(created):
-        result = control("playtest", if_revision=created["revision"], scene="scenes/urban_roads_editable.tscn", session=session, options=options)
+        result = control("playtest", if_revision=created["revision"], if_bundle=created["evidence"]["directory"],
+                         scene="scenes/urban_roads_editable.tscn", session=session, options=options)
         observed = result["report"]
         print("ARCONT_PLAYTEST_OBSERVED " + json.dumps({key: observed[key] for key in
               ["passed", "physics_frames", "input_released", "final_state", "navigation"]}), flush=True)
@@ -165,6 +187,7 @@ def main():
         return {contact["source_id"] for sample in samples for contact in sample["state"]["contacts"]}
 
     try:
+        assert control("capabilities")["playtest_available"]
         created = control("create", recipe=recipe, dry_run=False, options=options)
         original_head = head.read_bytes()
         original_scene = ROOT / created["evidence"]["directory"] / "scenes/urban_roads_editable.tscn"
@@ -195,6 +218,25 @@ def main():
         restored = control("restore", if_revision=corrected["revision"], restore_revision=created["revision"], dry_run=False, options=options)
         restored_play = play(restored)
         assert restored_play["passed"] is False and "door_blocker" in contacts(restored_play)
+        assert restored["revision"] == created["revision"]
+        stale_bundle = control("playtest", expected=False, if_revision=created["revision"],
+                               if_bundle=created["evidence"]["directory"],
+                               scene="scenes/urban_roads_editable.tscn", session=session, options=options)
+        assert "bundle conflict" in stale_bundle["error"]
+        actor_recipe = navigationless_recipe()
+        actor_recipe["dependencies"] = {path: recipe["dependencies"][path] for path in
+                                        ["tools/godot_playtest_runner.gd", "tools/playtest_explorer.gd"]}
+        actor_options = {"audio_driver": "Dummy"}
+        actor_scene = control("create", document_id="actor_only", recipe=actor_recipe, dry_run=False, options=actor_options)
+        actor_session = {"version": 1, "id": "actor_only", "actor": "Actors/Explorer", "commands": [
+            {"id": "settle", "frames": 30},
+            {"id": "walk", "frames": 60, "actions": {"arcont_forward": 1},
+             "expect": {"position": [0, 0, 4], "tolerance_m": 0.1}}]}
+        actor_replay = control("playtest", document_id="actor_only", if_revision=actor_scene["revision"],
+                               if_bundle=actor_scene["evidence"]["directory"], scene="actor_only.tscn", session=actor_session, options=actor_options)
+        assert actor_replay["passed"] and actor_replay["report"]["input_released"]
+        assert actor_replay["report"]["physics_frames"] == 90
+        assert actor_replay["report"]["navigation"] == {"available": False}
         assert hashlib.sha256(original_scene.read_bytes()).hexdigest() == original_hash
         assert all(path.read_bytes() == before for path, before in canonical.items())
         report.update({"ok": True, "blocked": blocked["report"], "corrected": repaired["report"], "repeated": repeated["report"],
@@ -202,6 +244,7 @@ def main():
                        "corrected_bundle": repaired["evidence"]["directory"], "accepted_scene_bundle": corrected["evidence"]["directory"],
                        "repeat_position_tolerance_m": 0.001, "same_session_reused": True, "document_unchanged_during_playtest": True,
                        "original_bundle_immutable": True, "canonical_maps_unchanged": True,
+                       "stale_same_revision_bundle_rejected": True, "navigationless_actor": actor_replay["report"],
                        "engine": created["result"]["engine"], "limits": ["Input-driven fixture controller, not production combat/AI", "Linux runner; no target-device performance or cross-platform determinism claim"]})
         print("ARCONT_PLAYTEST_LOOP_OK " + json.dumps(report))
     finally:
@@ -209,6 +252,7 @@ def main():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(report, indent=2) + "\n")
         head.unlink(missing_ok=True)
+        actor_head.unlink(missing_ok=True)
 
 
 if __name__ == "__main__": main()
