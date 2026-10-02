@@ -33,6 +33,10 @@ not mutate unsaved objects in the running visual editor. Save visual edits first
 
 ## Complete APIs instead of fixed provider menus
 
+Input replay and observation of accepted saved scenes use the same control's
+`playtest` operation. See [PLAYTEST_CONTROL.md](PLAYTEST_CONTROL.md) for the
+editable workshop and diagnose/patch/replay acceptance cycle.
+
 Start with `{ "protocol_version": 1, "operation": "discover" }`. Add
 `options: {"class":"NavigationMesh"}` or
 `options: {"script":"res://addons/proton_scatter/src/scatter.gd"}` to inspect

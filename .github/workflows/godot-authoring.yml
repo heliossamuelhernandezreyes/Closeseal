@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 3b4f9d8d877846b58de620bddabb9470b3eac6a0
+          ref: aa23f1a5dba905c22eaeeb40547c409a309809b9
           path: arcont-source
       - uses: actions/setup-python@v5
         with:
@@ -45,6 +45,10 @@ jobs:
         run: |
           set -o pipefail
           xvfb-run -a python tools/import_authoring_project.py --godot "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64"
+          for script in godot_playtest_runner playtest_explorer; do
+            "$PWD/godot-bin/Godot_v4.7.2-stable_linux.x86_64" --headless --path . --check-only --script "res://tools/$script.gd" 2>&1 | tee -a playtest-script-check.log
+          done
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' playtest-script-check.log; then exit 1; fi
       - name: Verify existing World 3D and editor control
         env:
           ARCONT_ROOT: ${{ github.workspace }}/arcont-source
@@ -89,6 +93,21 @@ jobs:
             grep -q ARCONT_ROAD_DOCK_OK road-dock.log
             if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' road-dock.log; then exit 1; fi
           fi
+      - name: Reopen, control, observe, diagnose and repair the editable workshop
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: xvfb-run -a -s '-screen 0 1280x720x24' python tools/playtest_loop_smoke.py
+      - name: Open the editable workshop in the actual editor
+        env:
+          ARCONT_ROOT: ${{ github.workspace }}/arcont-source
+          GODOT_BIN: ${{ github.workspace }}/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        shell: bash
+        run: |
+          set -o pipefail
+          ARCONT_EDITOR_ACCEPTANCE=playtest timeout 120 xvfb-run -a "$GODOT_BIN" --path . --editor --headless 2>&1 | tee playtest-dock.log
+          grep -q ARCONT_PLAYTEST_DOCK_OK playtest-dock.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' playtest-dock.log; then exit 1; fi
       - name: Preserve scenes, audio, captures, metadata and logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -101,6 +120,8 @@ jobs:
             authoring-world-view.log
             authoring-dock.log
             road-dock.log
+            playtest-dock.log
+            playtest-script-check.log
             .arcont/
             .mapforge/control-smoke.json
           retention-days: 30
