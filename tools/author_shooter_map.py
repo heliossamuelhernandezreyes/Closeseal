@@ -1,109 +1,128 @@
 #!/usr/bin/env python3
-"""Author the explicit 256m Nexo combat map through Arcont's map writer."""
+"""Apply the explicit industrial access-sector design through ARCONT's writer.
+
+The canonical industrial map is the input. Rebuilding preserves its imported
+assets, mission layout and other authored sectors; this replaces only hero_*
+objects. No obsolete Kenney generator or private map-file writes are used.
+"""
 import argparse
-import hashlib
+import copy
 import json
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+MAP_ID = "nexo_combat_01"
 
 
-def contract():
-    data = {"version": 1, "id": "nexo_combat_01", "purpose": "environment",
-            "bounds": {"width": 256, "depth": 256}, "bases": [], "objectives": [], "routes": [], "regions": []}
-    materials = [{"id": name, "albedo": color, "roughness": 0.86} for name, color in [
-        ("asphalt", "253644"), ("concrete", "a7b8bd"), ("stone", "d1c7af"), ("steel", "3b5666"),
-        ("dark", "152a37"), ("orange", "df813a"), ("white", "e8e1cf"), ("grass", "54735e")]]
-    materials[0].update(albedo_texture="res://assets/shooter/asphalt.svg", uv_scale=[42, 42, 42])
-    materials += [{"id": "blue", "albedo": "3db3d5", "emission": "2289b3"},
-                  {"id": "red", "albedo": "c95547", "emission": "552a24"}]
-    objects, instances, geometry = [], [], []
+def contract(source=None):
+    data = copy.deepcopy(source if source is not None else json.loads((ROOT / "maps" / (MAP_ID + ".json")).read_text()))
+    if data.get("shooter_design", {}).get("art_revision") not in {"military-pbr-02", "third-person-industrial-03"}:
+        raise ValueError("industrial canonical map required; inspect the published industrial revision first")
+    authored = data["authoring"]
+    for collection in ("objects", "instances", "geometry", "lights", "materials"):
+        authored[collection] = [item for item in authored[collection] if not item["id"].startswith("hero_")]
+    objects, instances = authored["objects"], authored["instances"]
 
-    def box(name, position, size, material="concrete", collision=True, visible=True):
-        objects.append({"id": name, "type": "box", "position": position, "size": size,
-                        "material": material, "collision": collision, "visible": visible})
+    def solid(name, position, size, material="steel", collision=True, rotation=None, kind="box"):
+        item = {"id": "hero_" + name, "type": kind, "position": position, "size": size,
+                "material": material, "collision": collision, "visible": True}
+        if rotation: item["rotation_degrees"] = rotation
+        objects.append(item)
 
-    box("ground", [0, -0.3, 0], [256, 0.6, 256], "asphalt")
-    for x in [-128, 128]: box("boundary_x_" + str(x), [x, 3, 0], [1, 6, 256], "steel")
-    for z in [-128, 128]: box("boundary_z_" + str(z), [0, 3, z], [256, 6, 1], "steel")
-    for x in [-16, 16, -87, 87]: box("walkway_" + str(x), [x, 0.025, 0], [5, 0.05, 246], "stone", False)
-    for z in [-82, 0, 82]: box("crosswalk_" + str(z), [0, 0.026, z], [246, 0.05, 4], "stone", False)
-    for z in range(-116, 117, 12): box("lane_mark_" + str(z), [0, 0.031, z], [0.16, 0.025, 4], "white", False)
-    for x in range(-116, 117, 12): box("cross_mark_" + str(x), [x, 0.032, 0], [4, 0.025, 0.16], "white", False)
-    records = json.loads((ROOT / "assets/urban/sources.lock.json").read_text())
-    bounds = {m["path"]: m for pack in records["packs"] for m in pack["models"]}
+    def asset(name, model, position, yaw=0, scale=1):
+        path = "res://assets/shooter/serious/" + model
+        if not (ROOT / path.removeprefix("res://")).is_file():
+            raise ValueError("unstaged industrial asset: " + path)
+        instances.append({"id": "hero_" + name, "scene": path, "position": position,
+                          "rotation_degrees": [0, yaw, 0], "scale": [scale] * 3})
 
-    def asset(name, pack, filename, x, z, scale=1.0, y=0.0, collider=True):
-        path = f"assets/urban/kenney/{pack}/{filename}.glb"
-        m = bounds[path]
-        instances.append({"id": name, "scene": "res://" + path, "position": [x, y - m["min"][1] * scale, z],
-                          "scale": [scale] * 3})
-        if collider:
-            centre = [(m["min"][i] + m["max"][i]) * scale / 2 for i in range(3)]
-            box(name + "_collision", [x + centre[0], y + m["size"][1] * scale / 2, z + centre[2]],
-                [max(0.1, m["size"][i] * scale * (0.92 if i != 1 else 1)) for i in range(3)], visible=False)
+    authored["materials"] += [
+        {"id": "hero_oxide", "resource": "res://assets/shooter/serious/materials/oxide.tres"},
+        {"id": "hero_glass", "albedo": "254650", "roughness": 0.24, "metallic": 0.55},
+        {"id": "hero_gravel", "resource": "res://assets/shooter/serious/materials/yard.tres"},
+    ]
+    # Asymmetric foreground: a low service annex and a taller, enterable workshop.
+    # All walls are explicit colliders; the 26m street and each doorway stay clear.
+    for side, x, z, width, depth, height in [("west", -21, 89, 12, 22, 4.8), ("east", 24, 80, 22, 28, 7.2)]:
+        solid(side + "_floor", [x, -0.01, z], [width, 0.12, depth], "concrete")
+        solid(side + "_back", [x, height/2, z-depth/2], [width, height, 0.28])
+        solid(side + "_outer", [x + (-width/2 if x < 0 else width/2), height/2, z], [0.28, height, depth])
+        inner_x = x + (width/2 if x < 0 else -width/2)
+        # Street-facing 6m opening at the centre, with a structural lintel.
+        for offset in [-1, 1]:
+            solid(side + "_street_" + str(offset), [inner_x, height/2, z+offset*(depth/4+1.5)],
+                  [0.28, height, depth/2-3], "hero_oxide" if x < 0 else "steel")
+        solid(side + "_lintel", [inner_x, (height+3.4)/2, z], [0.30, height-3.4, 6])
+        # Front facade also has a 5m open bay.
+        for offset in [-1, 1]:
+            solid(side + "_front_" + str(offset), [x+offset*(width/4+1.25), height/2, z+depth/2],
+                  [width/2-2.5, height, 0.28], "hero_oxide" if x < 0 else "steel")
+        solid(side + "_front_lintel", [x, height-1.0, z+depth/2], [5, 2, 0.3])
+        solid(side + "_roof", [x, height+0.12, z], [width+0.6, 0.24, depth+0.6], "steel")
+        solid(side + "_foundation", [inner_x, 0.18, z-depth/2+3], [0.55, 0.36, 5], "concrete")
+        for index, zz in enumerate([z-depth/2+0.5, z-3, z+3, z+depth/2-0.5]):
+            solid(side + "_frame_" + str(index), [inner_x-0.03, height/2, zz], [0.4, height, 0.3], "dark")
+            solid(side + "_roof_beam_" + str(index), [x, height-0.25, zz], [width, 0.32, 0.24], "dark")
+        for index in range(4):
+            yy = 3.8 if x < 0 else 5.8
+            zz = z-depth/2+2+index*2.1
+            solid(side + "_window_frame_" + str(index), [inner_x-0.17 if x > 0 else inner_x+0.17, yy, zz], [0.12, 1.3, 1.65], "dark", False)
+            solid(side + "_glass_" + str(index), [inner_x-0.24 if x > 0 else inner_x+0.24, yy, zz], [0.06, 1.12, 1.43], "hero_glass", False)
+        for offset in [-3.0, 3.0]:
+            solid(side + "_bollard_" + str(offset), [x+offset, 0.65, z+depth/2+0.7], [0.18, 1.3, 0.18], "orange", True, kind="cylinder")
+        solid(side + "_bay_light", [x, 3.6, z+depth/2+0.16], [2.2, 0.09, 0.12], "warm_light", False)
+        authored["lights"].append({"id": "hero_" + side + "_light", "type": "omni", "position": [x, 3.2, z+depth/2-1],
+                                   "color": "ffd6a2", "energy": 1.4, "range": 9, "shadows": False})
 
-    for quadrant, (sx, sz) in enumerate([(-1, -1), (1, -1), (-1, 1), (1, 1)]):
-        for index, (dx, dz) in enumerate([(40, 34), (64, 30), (108, 30), (35, 62), (108, 62), (36, 109), (67, 109), (108, 108)]):
-            pack = "industrial" if quadrant == 0 else "commercial" if quadrant in [1, 2] else "suburban"
-            filename = (["building-a", "building-g", "building-j"][index % 3] if pack == "industrial" else
-                        ["building-a", "building-c", "building-h"][index % 3] if pack == "commercial" else
-                        ["building-type-a", "building-type-c", "building-type-g"][index % 3])
-            asset(f"block_{quadrant}_{index}", pack, filename, sx * dx, sz * dz, 10 if pack == "industrial" else 12)
-    for index, (x, z) in enumerate([(-111, -109), (109, -108), (-108, 110), (110, 109)]):
-        asset("skyline_" + str(index), "commercial", "building-skyscraper-" + ["b", "c", "d", "e"][index], x, z, 9)
-    for index, (x, z) in enumerate([(-62, -60), (-70, -42), (-49, -57), (-63, -74), (54, 35), (74, 35), (57, 69)]):
-        asset("container_" + str(index), "industrial", "shipping-container-" + ("a" if index % 2 else "b"), x, z, 7)
-    for index, (x, z) in enumerate([(-10, 76), (13, 43), (-13, -86), (42, 11), (-46, -11), (73, -12), (-76, 13)]):
-        asset("car_" + str(index), "cars", ["sedan", "delivery", "taxi"][index % 3], x, z, 1.6)
-    for index, (x, z) in enumerate([(-20, 22), (20, 22), (-20, -22), (20, -22), (54, 84), (77, 86), (-97, 52), (-96, -75)]):
-        asset("tree_" + str(index), "nature", "tree_default", x, z, 5, collider=False)
-        box("tree_trunk_" + str(index), [x, 1.8, z], [0.6, 3.6, 0.6], visible=False)
-        box("planter_" + str(index), [x, 0.4, z], [3.5, 0.8, 3.5], "stone")
-    for index, (x, z) in enumerate([(-9, 90), (9, 63), (-9, 30), (9, -8), (-9, -76), (-34, -11), (34, 11), (-57, 12), (57, -12), (75, 54), (-73, -25), (-45, 48)]):
-        box("cover_" + str(index), [x, 0.7, z], [3.6, 1.4, 1.2], "steel")
-        box("cover_stripe_" + str(index), [x, 1.43, z], [3.65, 0.08, 1.25], "orange", False)
-    # Accessible command post with a 16-degree ramp and an elevated crossfire position.
-    box("command_platform", [0, 3.8, -44], [18, 0.4, 18], "concrete")
-    box("command_back", [0, 6, -53], [18, 4, 0.5], "steel")
-    box("command_west", [-9, 6, -44], [0.5, 4, 18], "steel")
-    box("command_east", [9, 6, -44], [0.5, 4, 18], "steel")
-    box("command_roof", [0, 8.2, -46], [19, 0.4, 15], "concrete")
-    box("command_rail_left", [-6.5, 4.6, -35], [5, 1.2, 0.3], "steel")
-    box("command_rail_right", [6.5, 4.6, -35], [5, 1.2, 0.3], "steel")
-    # Landing clears the CharacterBody collision margin before meeting the platform lip.
-    verts = [[-3, 0, -21], [3, 0, -21], [-3, 4.08, -34], [3, 4.08, -34], [-3, 0, -34], [3, 0, -34], [-3, 4.08, -36], [3, 4.08, -36]]
-    geometry.append({"id": "command_ramp", "vertices": verts, "indices": [0, 2, 1, 1, 2, 3, 2, 6, 3, 3, 6, 7, 0, 2, 4, 1, 5, 3], "material": "concrete", "collision": True})
-    # Enterable west maintenance hangar, unlike the solid backdrop buildings.
-    box("hangar_floor", [-69, 0.08, -94], [27, 0.16, 19], "concrete")
-    box("hangar_back", [-69, 3.6, -103.5], [27, 7.2, 0.5], "steel")
-    for x in [-82.5, -55.5]: box("hangar_side_" + str(x), [x, 3.6, -94], [0.5, 7.2, 19], "steel")
-    box("hangar_roof", [-69, 7.3, -94], [28, 0.3, 20], "dark")
-    for x in [-78, -60]: box("hangar_front_" + str(x), [x, 3.6, -84.5], [9, 7.2, 0.5], "steel")
-    asset("west_water_tower", "industrial", "water-tower", -108, -65, 7)
-    for index, (x, z) in enumerate([(-6, 111), (6, 111)]):
-        box("spawn_column_" + str(index), [x, 3, z], [1, 6, 1], "white")
-    box("spawn_gate", [0, 6, 111], [13, 0.7, 1], "blue")
-    lights = [{"id": "sun", "type": "directional", "rotation_degrees": [-42, -28, 0], "color": "ffe1b6", "energy": 1.3, "shadows": True}]
-    for index, (x, z) in enumerate([(-18, 72), (18, 18), (-18, -68), (75, 83), (-69, -90)]):
-        box("lamp_" + str(index), [x, 3, z], [0.22, 6, 0.22], "steel")
-        box("lamp_head_" + str(index), [x, 6, z], [1, 0.25, 0.5], "blue", False)
-    data["authoring"] = {"materials": materials, "objects": objects, "instances": instances, "geometry": geometry,
-        "heightfields": [], "lights": lights, "navigation": {"mode": "world", "agent_radius": 0.45, "agent_height": 1.9,
-        "agent_max_climb": 0.35, "agent_max_slope": 40, "cell_size": 0.4, "cell_height": 0.2},
-        "environment": {"background_color": "7799ac", "ambient_color": "cedce6", "ambient_energy": 0.65,
-                        "fog_color": "7799ac", "fog_density": 0.0018}}
-    data["shooter_design"] = {"name": "Nexo: zona de combate", "player_spawn": [0, 0.08, 106],
-        "beacons": [{"id": "A", "name": "Patio industrial", "position": [-69, 0, -67]},
-                    {"id": "B", "name": "Puesto de mando", "position": [0, 4, -44]},
-                    {"id": "C", "name": "Patio residencial", "position": [68, 0, 57]}],
-        "extraction": [0, 0, 113], "enemy_spawns": [[10, 0, 70], [-12, 0, 49], [8, 0, 18], [-24, 0, 5], [24, 0, -11],
-            [-66, 0, -29], [-44, 0, -61], [-78, 0, -68], [-69, 0.2, -93], [0, 4, -45], [5, 0, -80],
-            [62, 0, 52], [78, 0, 71], [53, 0, 90], [76, 0, -48], [-64, 0, 72]],
-        "pickups": [[-15, 0, 96], [18, 0, 5], [-50, 0, -76], [0, 4, -49], [80, 0, 84]],
-        "navigation_checks": [[[-2, 0, 100], [-69, 0, -67]], [[0, 0, 100], [0, 4, -44]], [[0, 0, 100], [68, 0, 57]]]}
+    # Structural pipe bridge makes the approach recognizable at street level.
+    for x in [-13, 13]:
+        solid("bridge_column_" + str(x), [x, 3.4, 60], [0.42, 6.8, 0.42], "hero_oxide")
+        solid("bridge_foot_" + str(x), [x, 0.25, 60], [1.05, 0.5, 1.05], "concrete")
+    solid("bridge_deck", [0, 6.5, 60], [27, 0.22, 2.5], "dark")
+    for z in [58.8, 61.2]:
+        for y in [6.6, 7.55]: solid("bridge_rail_" + str(z) + str(y), [0, y, z], [27, 0.09, 0.09], "hero_oxide", False)
+        for x in range(-12, 13, 2): solid("bridge_post_" + str(z) + str(x), [x, 7.05, z], [0.07, 1.05, 0.07], "dark", False)
+    for index, z in enumerate([59.4, 60, 60.6]):
+        solid("bridge_pipe_" + str(index), [0, 7.0, z], [0.32, 27, 0.32], "steel", False, [0, 0, 90], "cylinder")
+    solid("bridge_sign", [0, 7.25, 61.32], [4.4, 1.1, 0.08], "dark", False)
+
+    # Service yard surface, gutters, lines and scattered real catalog props.
+    for x in [-11.5, 11.5]:
+        for index, z in enumerate(range(66, 105, 6)):
+            solid("curb_" + str(x) + str(index), [x, 0.07, z], [0.3, 0.14, 5.8], "concrete")
+        for index, z in enumerate([69, 82, 99]):
+            solid("drain_" + str(x) + str(index), [x, 0.145, z], [0.45, 0.012, 1.1], "dark", False)
+            for grate in range(7): solid("grate_" + str(x) + str(index) + str(grate), [x, 0.16, z-0.45+grate*0.15], [0.43, 0.015, 0.035], "steel", False)
+    for index, (x, z, w, d) in enumerate([(-9, 99, 3, 5), (7, 89, 4, 7), (-4, 72, 5, 3), (8, 68, 3, 5)]):
+        solid("surface_patch_" + str(index), [x, 0.009, z], [w, 0.015, d], "hero_gravel", False, [0, index*19, 0])
+    for x in [-7.5, 7.5]:
+        solid("street_edge_" + str(x), [x, 0.013, 89], [0.07, 0.018, 35], "orange", False)
+    for index in range(12):
+        solid("bay_hatch_" + str(index), [19+index*0.5, 0.071, 96], [0.14, 0.018, 2.3], "orange", False, [0, 32, 0])
+    props = [("barrel_03", [-17.8, 0.06, 97], 14), ("barrel_03", [-18.5, 0.06, 96.5], 65),
+             ("barrel_03", [29, 0.06, 69], 40), ("portable_welding_cart", [29, 0.06, 83], 20),
+             ("wooden_military_crate", [31, 0.06, 88], 90), ("old_military_crate", [26, 0.06, 71], -16),
+             ("wooden_military_crate", [-23, 0.06, 82], 4), ("barrel_03", [-24, 0.06, 84], 35)]
+    for index, (model, position, yaw) in enumerate(props):
+        asset("yard_prop_" + str(index), f"polyhaven/{model}/{model}.gltf", position, yaw)
+        size = [0.65, 0.96, 0.65] if model == "barrel_03" else [0.85, 0.9, 0.7]
+        solid("prop_collision_" + str(index), [position[0], position[1]+size[1]/2, position[2]], size, "dark")
+        objects[-1]["visible"] = False
+    for index, position in enumerate([[-14.7, 2.7, 84], [13.35, 4.6, 72], [13.35, 4.6, 87]]):
+        asset("service_pipe_" + str(index), "pipe_segment.glb", position, 0, 2.1)
+    for index, x in enumerate([-22, 20, 28]):
+        solid("roof_vent_" + str(index), [x, 7.8 if x > 0 else 5.4, 78 if x > 0 else 85], [1.2, 1.0, 1.0], "dark")
+        solid("roof_vent_cap_" + str(index), [x, 8.34 if x > 0 else 5.94, 78 if x > 0 else 85], [1.4, 0.14, 1.2], "steel")
+    authored["environment"].update(fog_density=0.0032, fog_color="657782")
+    for light in authored["lights"]:
+        if light["id"] == "sun": light.update(rotation_degrees=[-24, -48, 0], color="ffe0b4", energy=1.15)
+    data["shooter_design"].update(art_revision="third-person-industrial-03", perspective="third_person")
+    labels = [item for item in data["shooter_design"].get("zone_labels", []) if not item.get("id", "").startswith("hero_")]
+    labels += [{"id": "hero_bridge", "text": "SECTOR 07 / NEXO", "position": [0, 7.25, 61.42]},
+               {"id": "hero_workshop", "text": "MANTENIMIENTO / 04", "position": [24, 6, 94.2]}]
+    data["shooter_design"]["zone_labels"] = labels
     return data
 
 
@@ -111,17 +130,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--arcont", required=True, type=Path)
     args = parser.parse_args()
-    data = contract()
-    request = {"protocol_version": 1, "operation": "create", "map_id": data["id"], "dry_run": False, "state": {"map": data, "physical": None}}
     tool = [sys.executable, str(args.arcont / "tools/map_forge_control.py"), "--project", str(ROOT)]
-    if (ROOT / "maps" / (data["id"] + ".json")).exists():
-        inspected = subprocess.run(tool, input=json.dumps({"protocol_version": 1, "operation": "inspect", "map_id": data["id"]}), text=True, capture_output=True, check=True)
-        request.update(operation="replace", if_revision=json.loads(inspected.stdout)["revision"])
-    run = subprocess.run([sys.executable, str(args.arcont / "tools/map_forge_control.py"), "--project", str(ROOT)],
-                         input=json.dumps(request), text=True, capture_output=True)
-    result = json.loads(run.stdout)
-    if not result.get("ok"): raise SystemExit(result)
-    print(json.dumps({"ok": True, "revision": result.get("revision"), "objects": len(data["authoring"]["objects"]),
+    def call(request):
+        run = subprocess.run(tool, input=json.dumps(request), text=True, capture_output=True)
+        result = json.loads(run.stdout)
+        if not result.get("ok"): raise RuntimeError(result)
+        return result
+    inspected = call({"protocol_version": 1, "operation": "inspect", "map_id": MAP_ID})
+    data = contract(inspected["state"]["map"])
+    result = call({"protocol_version": 1, "operation": "replace", "map_id": MAP_ID, "dry_run": False,
+                   "if_revision": inspected["revision"], "state": {"map": data, "physical": inspected["state"].get("physical")}})
+    print(json.dumps({"ok": True, "revision": result["revision"], "objects": len(data["authoring"]["objects"]),
                       "assets": len(data["authoring"]["instances"]), "size_m": 256}))
 
 

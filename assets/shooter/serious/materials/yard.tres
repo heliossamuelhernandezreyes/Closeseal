@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/asphalt_06_nor_gl.jpg" id="2"]
 [ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/asphalt_06_rough.jpg" id="3"]
 [resource]
-albedo_color = Color(0.36, 0.40, 0.41, 1)
+albedo_color = Color(0.47, 0.46, 0.42, 1)
 albedo_texture = ExtResource("1")
 normal_enabled = true
 normal_texture = ExtResource("2")
@@ -11,4 +11,4 @@ normal_scale = 0.65
 roughness_texture = ExtResource("3")
 uv1_triplanar = true
 uv1_world_triplanar = true
-uv1_scale = Vector3(0.35, 0.35, 0.35)
+uv1_scale = Vector3(0.7, 0.7, 0.7)

@@ -12,19 +12,36 @@ func frames(count: int) -> void:
 	for i in range(count): await physics_frame
 func capture(name: String) -> void:
 	if capture_dir.is_empty() or DisplayServer.get_name() == "headless": return
+	RenderingServer.render_loop_enabled = true
 	await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(capture_dir.path_join(name + ".png"))
+	RenderingServer.render_loop_enabled = false
 
 func run() -> void:
+	root.size = Vector2i(1280, 720)
+	# Replay physics normally; render the evidence checkpoints. This is acceptance,
+	# not a renderer/device throughput benchmark, especially on software GL.
+	RenderingServer.render_loop_enabled = false
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--captures="): capture_dir = argument.trim_prefix("--captures=")
 	if not capture_dir.is_empty(): DirAccess.make_dir_recursive_absolute(capture_dir)
 	arena = load("res://src/shooter/shooter_arena.tscn").instantiate()
 	root.add_child(arena)
 	await frames(4)
-	check("authored_map", arena.visual_stats.asset_instances == 67 and arena.visual_stats.errors.is_empty(), arena.visual_stats)
+	check("authored_map", arena.visual_stats.asset_instances == arena.contract.authoring.instances.size() and arena.visual_stats.asset_instances == 78 and arena.visual_stats.errors.is_empty(), arena.visual_stats)
 	check("map_dimensions", arena.contract.bounds.width == 256 and arena.contract.bounds.depth == 256)
+	var facade: Node3D = load("res://assets/shooter/serious/factory_building.glb").instantiate()
+	var sampled_mips := false
+	for node in facade.find_children("*", "MeshInstance3D", true, false):
+		for surface in node.mesh.get_surface_count():
+			var material: Material = node.mesh.surface_get_material(surface)
+			if material is BaseMaterial3D and material.albedo_texture:
+				sampled_mips = material.albedo_texture.get_image().has_mipmaps()
+				break
+		if sampled_mips: break
+	check("facade_texture_has_mipmaps", sampled_mips)
+	facade.free()
 	await capture("01-menu")
 	arena.begin()
 	for enemy in arena.enemies: enemy.set_physics_process(false)
@@ -59,6 +76,42 @@ func run() -> void:
 		paths.append({"points": path.size(), "reaches": reaches, "end": str(path[-1]) if path.size() else "none"})
 	check("three_objectives_navigable", paths.all(func(p): return p.reaches), paths)
 	var player: CharacterBody3D = arena.player
+	check("third_person_full_body", player.rig.skeleton.get_bone_count() > 40 and player.camera.get_parent() is SpringArm3D and player.camera.global_position.distance_to(player.global_position) > 3.0)
+	var body_yaw: float = player.rig.global_rotation.y
+	player.look(Vector2(120, 0))
+	check("free_orbit_preserves_body_heading", absf(angle_difference(body_yaw, player.rig.global_rotation.y)) < 0.001)
+	player.rotation.y = 0
+	player.rig.rotation.y = 0
+	var camera_wall := StaticBody3D.new()
+	var camera_shape := CollisionShape3D.new()
+	var rear_box := BoxShape3D.new()
+	rear_box.size = Vector3(4, 4, 0.4)
+	camera_shape.shape = rear_box
+	camera_wall.add_child(camera_shape)
+	arena.add_child(camera_wall)
+	camera_wall.position = player.global_position + Vector3(0, 2, 2)
+	await frames(5)
+	check("camera_retracts_before_wall", player.spring_arm.get_hit_length() < 1.9 and player.spring_arm.get_hit_length() > 0.5, player.spring_arm.get_hit_length())
+	camera_wall.queue_free()
+	await frames(5)
+	check("camera_recovers_distance", player.spring_arm.get_hit_length() > 3.4, player.spring_arm.get_hit_length())
+	var side_wall := StaticBody3D.new()
+	var side_shape := CollisionShape3D.new()
+	var side_box := BoxShape3D.new()
+	side_box.size = Vector3(0.2, 4, 9)
+	side_shape.shape = side_box
+	side_wall.add_child(side_shape)
+	arena.add_child(side_wall)
+	side_wall.position = player.global_position + Vector3(0.60, 2, 1)
+	await frames(3)
+	check("camera_shoulder_clears_side_wall", player.spring_arm.position.x <= 0.27, player.spring_arm.position.x)
+	side_wall.queue_free()
+	await frames(18)
+	player.shoulder = -1.0
+	await frames(18)
+	check("left_shoulder_available", player.spring_arm.position.x < -0.5, player.spring_arm.position.x)
+	player.shoulder = 1.0
+	await frames(18)
 	player.position = Vector3(0, 0.1, 97)
 	var active_enemy: CharacterBody3D = arena.enemies[2]
 	active_enemy.position = Vector3(-3, 0.1, 75)
@@ -105,7 +158,9 @@ func run() -> void:
 	enemy.position = Vector3(0, 0.02, 85)
 	enemy.rig.rotation.y = PI
 	player.rotation.y = 0
-	player.look_pitch = atan2(1.1 - 1.65, 12.0)
+	player.look_pitch = 0.0
+	await frames(3)
+	player.camera.look_at(enemy.global_position + Vector3.UP * 1.1)
 	var wall := StaticBody3D.new()
 	var collision := CollisionShape3D.new()
 	var box := BoxShape3D.new()
@@ -121,8 +176,29 @@ func run() -> void:
 	wall.queue_free()
 	await frames(12)
 	check("enemy_line_of_sight", enemy.line_of_sight())
+	var close_cover := StaticBody3D.new()
+	var close_shape := CollisionShape3D.new()
+	var close_box := BoxShape3D.new()
+	close_box.size = Vector3(3, 1.65, 0.15)
+	close_shape.shape = close_box
+	close_cover.add_child(close_shape)
+	arena.add_child(close_cover)
+	close_cover.position = player.global_position + Vector3(0, 0.825, -0.70)
+	# Camera sees over this cover while the physical barrel intersects it.
+	player.camera.position.y = 1.0
+	player.camera.look_at(enemy.global_position + Vector3.UP * 1.1)
+	await frames(4)
+	player.shoot()
+	check("barrel_cannot_shoot_through_near_cover", enemy.health == 90 and player.last_hit.get("collider") == close_cover,
+		{"enemy_health": enemy.health, "hit_cover": player.last_hit.get("collider") == close_cover})
+	close_cover.queue_free()
+	player.camera.position.y = 0.0
+	await frames(8)
+	player.camera.look_at(enemy.global_position + Vector3.UP * 1.1)
 	player.shoot()
 	check("body_damage", enemy.health == 56, enemy.health)
+	var shot_direction: Vector3 = (player.aim_point() - player.muzzle.global_position).normalized()
+	check("visible_weapon_matches_reticle", (-player.muzzle.global_basis.z).dot(shot_direction) > 0.995)
 	await capture("03-combat")
 	await frames(10)
 	player.shoot()
@@ -146,7 +222,8 @@ func run() -> void:
 	var previous_callback: int = animated.tree.callback_mode_process
 	animated.tree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	animated.motion_blend = 4.2
-	animated.tree.set("parameters/blend_position", 4.2)
+	animated.tree.set("parameters/Gait/blend_position", Vector2(0, -2))
+	animated.tree.set("parameters/Cadence/scale", 1.0)
 	animated.tree.advance(0.0)
 	var first: Quaternion = animated.skeleton.get_bone_pose_rotation(bone)
 	var maximum_angle := 0.0
@@ -160,8 +237,8 @@ func run() -> void:
 	animated.tree.callback_mode_process = previous_callback
 	check("skeletal_run_changes_leg_pose", maximum_angle > 0.15, {"maximum_angle_rad": maximum_angle, "samples": 16, "cycle_seconds": 0.64})
 	check("weapon_grips_aligned", animated.combat.grip_errors.x < 0.09 and animated.combat.grip_errors.y < 0.09, str(animated.combat.grip_errors))
-	check("first_person_arm_grips", player.viewmodel.combat.grip_errors.x < 0.04 and player.viewmodel.combat.grip_errors.y < 0.04, str(player.viewmodel.combat.grip_errors))
-	check("military_assets", arena.contract.shooter_design.art_revision == "military-pbr-02" and player.gun.find_child("Magazine", true, false) != null)
+	check("third_person_weapon_grips", player.rig.combat.grip_errors.x < 0.09 and player.rig.combat.grip_errors.y < 0.09, str(player.rig.combat.grip_errors))
+	check("military_assets", arena.contract.shooter_design.art_revision == "third-person-industrial-03" and player.gun.find_child("Magazine", true, false) != null)
 	animated.reload()
 	await frames(45)
 	check("magazine_removal", animated.magazine.position.distance_to(animated.magazine_rest.origin) > 0.15)
@@ -218,6 +295,7 @@ func run() -> void:
 	check("four_finger_release", not player.fire_held and not player.aim_held and player.touch_move == Vector2.ZERO)
 	player.rotation.y = 0
 	player.look_pitch = 0
+	player.camera.rotation = Vector3.ZERO
 	await capture("06-touch-controls")
 	var capture_checks: Array = []
 	for definition in arena.design.beacons:
@@ -246,7 +324,11 @@ func run() -> void:
 	output.close()
 	print("SHOOTER_ACCEPTANCE_RESULT " + JSON.stringify(report))
 	for speaker in arena.get_children():
-		if speaker is AudioStreamPlayer or speaker is AudioStreamPlayer3D: speaker.stop()
+		if speaker is AudioStreamPlayer or speaker is AudioStreamPlayer3D:
+			speaker.stop()
+			speaker.stream = null
+	# The audio mixer uses real time even when the simulation uses --fixed-fps.
+	OS.delay_msec(250)
 	await create_timer(0.1).timeout
 	arena.queue_free()
 	await process_frame

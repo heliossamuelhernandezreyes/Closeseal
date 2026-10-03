@@ -13,6 +13,10 @@ var reload_time := 0.0
 var recoil := 0.0
 var motion_speed := 0.0
 var motion_blend := 0.0
+var motion_direction := Vector2(0, -1)
+var airborne := false
+var aim_target := Vector3.ZERO
+var target_enabled := false
 var skin_name := "military"
 var clip := "idle"
 var aim_pitch := 0.0
@@ -29,20 +33,26 @@ func _ready() -> void:
 	animation.name = "CombatAnimations"
 	add_child(animation)
 	animation.root_node = NodePath("../Model")
-	animation.add_animation_library("", load("res://assets/shooter/serious/combat_motion.tres"))
-	var blend := AnimationNodeBlendSpace1D.new()
-	for definition in [["idle", 0.0], ["walk", 1.8], ["run", 3.8]]:
+	animation.add_animation_library("", load("res://assets/shooter/serious/combat_motion.res"))
+	var blend := AnimationNodeBlendSpace2D.new()
+	for definition in [["idle", Vector2.ZERO], ["walk", Vector2(0, -1)], ["run", Vector2(0, -2)],
+		["walk_back", Vector2(0, 1)], ["walk_left", Vector2(-1, 0)], ["walk_right", Vector2(1, 0)]]:
 		var node := AnimationNodeAnimation.new()
 		node.animation = definition[0]
 		blend.add_blend_point(node, definition[1], -1, definition[0])
-	blend.min_space = 0
-	blend.max_space = 3.8
-	blend.sync_mode = AnimationNodeBlendSpace1D.SYNC_MODE_CYCLIC_MUTABLE
+	blend.min_space = Vector2(-1, -2)
+	blend.max_space = Vector2(1, 1)
+	blend.sync = true
+	var graph := AnimationNodeBlendTree.new()
+	graph.add_node("Gait", blend)
+	graph.add_node("Cadence", AnimationNodeTimeScale.new())
+	graph.connect_node("Cadence", 0, "Gait")
+	graph.connect_node("output", 0, "Cadence")
 	tree = AnimationTree.new()
 	tree.name = "LocomotionBlend"
 	add_child(tree)
 	tree.anim_player = NodePath("../CombatAnimations")
-	tree.tree_root = blend
+	tree.tree_root = graph
 	tree.active = true
 	weapon = load("res://assets/shooter/serious/akm.glb").instantiate()
 	weapon.name = "Weapon"
@@ -65,10 +75,9 @@ static func apply_skin(node: Node, variant: String) -> void:
 	material.normal_texture = load(prefix + "normal.jpg")
 	material.normal_scale = 0.75
 	material.roughness = 0.85
-	material.roughness_texture = load(prefix + "roughness.jpg")
 	material.ao_enabled = true
 	material.ao_texture = load(prefix + "ao.jpg")
-	material.metallic = 0.45
+	material.metallic = 0.08
 	material.emission_enabled = true
 	material.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
 	material.emission_texture = load(prefix + "emission.jpg")
@@ -80,8 +89,10 @@ static func _bind_material(node: Node, material: Material) -> void:
 	if node is MeshInstance3D: node.material_override = material
 	for child in node.get_children(): _bind_material(child, material)
 
-func set_motion(speed: float, _airborne := false) -> void:
+func set_motion(speed: float, in_air := false, direction := Vector2(0, -1)) -> void:
 	motion_speed = speed
+	motion_direction = direction.normalized() if direction.length() > 0.1 else Vector2(0, -1)
+	airborne = in_air
 	clip = "run" if speed > 2.6 else "walk" if speed > 0.2 else "idle"
 
 func fire() -> void: recoil = 1.0
@@ -101,11 +112,21 @@ func _process(delta: float) -> void:
 		weapon.visible = death_time < 0.55
 		return
 	motion_blend = move_toward(motion_blend, motion_speed, delta * 12)
-	tree.set("parameters/blend_position", motion_blend)
+	var magnitude := minf(motion_blend / 1.8, 1.0) if motion_blend < 1.8 else 1.0 + clampf((motion_blend - 4.3) / 2.9, 0, 1)
+	var direction := motion_direction
+	# Sprint is forward; aiming uses the directional walk clips.
+	if direction.y > -0.8: magnitude = minf(magnitude, 1.0)
+	tree.set("parameters/Gait/blend_position", direction * magnitude if not airborne else Vector2.ZERO)
+	var gait_speed := lerpf(1.83, 3.81, maxf(0, magnitude - 1))
+	tree.set("parameters/Cadence/scale", clampf(motion_speed / gait_speed, 0.65, 2.6) if motion_speed > 0.2 else 1.0)
 	var phase := 1.0 - reload_time / 1.6
 	var reload_curve := sin(phase * PI) if reload_time > 0 else 0.0
 	weapon.position = Vector3(0.14, 1.42, -0.42 + recoil * 0.04)
 	weapon.rotation = Vector3(aim_pitch - recoil * 0.08 + reload_curve * 0.28, 0, -reload_curve * 0.12)
+	if target_enabled and weapon.global_position.distance_to(aim_target) > 0.5:
+		weapon.look_at(aim_target, Vector3.UP)
+		weapon.rotate_object_local(Vector3.RIGHT, -recoil * 0.08 + reload_curve * 0.28)
+		weapon.rotate_object_local(Vector3.FORWARD, reload_curve * 0.12)
 	magazine.transform = magazine_rest
 	if reload_time > 0 and phase > 0.18 and phase < 0.80:
 		var removal := sin(inverse_lerp(0.18, 0.80, phase) * PI)

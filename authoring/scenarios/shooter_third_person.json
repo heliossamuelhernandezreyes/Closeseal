@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "id": "third_person_input_route",
+  "actor": "Player",
+  "seed": 7326,
+  "commands": [
+    {
+      "id": "settle",
+      "frames": 12,
+      "actions": {}
+    },
+    {
+      "id": "walk",
+      "frames": 90,
+      "actions": {
+        "forward": 1
+      },
+      "expect": {
+        "position": [
+          0,
+          0,
+          99.7
+        ],
+        "tolerance_m": 0.6
+      }
+    },
+    {
+      "id": "jump",
+      "frames": 12,
+      "actions": {
+        "jump": 1
+      },
+      "expect": {
+        "height_min": 0.8
+      }
+    },
+    {
+      "id": "land",
+      "frames": 70,
+      "actions": {}
+    },
+    {
+      "id": "interaction",
+      "frames": 3,
+      "actions": {
+        "interact": 1
+      },
+      "expect": {
+        "interactions_min": 1
+      }
+    },
+    {
+      "id": "release",
+      "frames": 2,
+      "actions": {}
+    }
+  ]
+}

@@ -42,7 +42,7 @@ func _ready() -> void:
 	credit_text.position = Vector2(22, 20)
 	credit_text.size = Vector2(666, 390)
 	credit_text.add_theme_font_size_override("normal_font_size", 18)
-	credit_text.text = "NEXO INDUSTRIAL — 0.2\n\nSoldado: Irondust — CC0\nopengameart.org/content/sci-fi-soldier\n\nAKM: LonesomeDucky — CC0\nopengameart.org/content/weathered-akm-rifle\n\nEntorno, materiales y cielo: Poly Haven — CC0\npolyhaven.com\n\nRecarga: SpringySpringo — CC0\nopengameart.org/content/gun-reload-sounds\n\nDisparo: Copyright (c) 2009 Vincent Sevedge (Tabasco)\nCC BY 3.0 — creativecommons.org/licenses/by/3.0/\nopengameart.org/content/gunshot-sounds\nFragmento SKS recortado, filtrado y convertido a mono.\n\nAnimación, mapa y otros efectos: Closeseal / Arcont.\nLicencias y procedencia completas incluidas en el proyecto."
+	credit_text.text = "NEXO INDUSTRIAL — 0.3 / TERCERA PERSONA\n\nSoldado: Irondust — CC0\nopengameart.org/content/sci-fi-soldier\n\nAKM: LonesomeDucky — CC0\nopengameart.org/content/weathered-akm-rifle\n\nEntorno, materiales y cielo: Poly Haven — CC0\npolyhaven.com\n\nRecarga: SpringySpringo — CC0\nopengameart.org/content/gun-reload-sounds\n\nDisparo: Copyright (c) 2009 Vincent Sevedge (Tabasco)\nCC BY 3.0 — creativecommons.org/licenses/by/3.0/\nopengameart.org/content/gunshot-sounds\nFragmento SKS recortado, filtrado y convertido a mono.\n\nAnimación, mapa y otros efectos: Closeseal / Arcont.\nLicencias y procedencia completas incluidas en el proyecto."
 	credits.add_child(credit_text)
 	var close_button := Button.new()
 	close_button.text = "CERRAR"
@@ -89,7 +89,7 @@ func _draw() -> void:
 			label_at("Botones: disparar, apuntar, recargar, saltar e interactuar" if mobile else "R recargar   ·   E asegurar   ·   Espacio saltar", Vector2(48, 480), 18, muted)
 			label_at("Doble toque en palanca: correr" if mobile else "Shift correr   ·   Clic derecho apuntar   ·   Esc pausa", Vector2(48, 510), 18, muted)
 		if w > 1000: draw_map(Vector2(w - 340, 170), 270)
-		label_at("NEXO 0.2   /   COMPLEJO INDUSTRIAL", Vector2(48, h - 28), 13, muted)
+		label_at("NEXO 0.3   /   TERCERA PERSONA", Vector2(48, h - 28), 13, muted)
 		return
 	draw_rect(Rect2(24, 20, 365, 76), panel)
 	draw_rect(Rect2(24, 20, 4, 76), cyan)
@@ -135,14 +135,14 @@ func _draw() -> void:
 				label_at("INTERACTUAR / ASEGURAR " + definition.id if mobile else "[E] ASEGURAR " + definition.id, center + Vector2(-135, 76), 18, cyan)
 		if arena.secured.size() == 3: label_at("REGRESA A SALIDA · INTERACTUAR", Vector2(410, 46), 17, Color("66dfac"))
 	if mobile: draw_touch()
-	else: label_at("R RECARGAR    E INTERACTUAR    SHIFT CORRER    ESC PAUSA", Vector2(w * 0.5 - 235, h - 33), 13, muted)
+	else: label_at("R RECARGAR   E INTERACTUAR   SHIFT CORRER   Q CAMBIAR HOMBRO   ESC PAUSA", Vector2(w * 0.5 - 290, h - 33), 12, muted)
 
 func draw_map(origin: Vector2, extent: float) -> void:
 	draw_rect(Rect2(origin, Vector2.ONE * extent), panel)
 	var factor := extent / 256.0
 	var center := origin + Vector2.ONE * extent * 0.5
 	for object in arena.contract.authoring.objects:
-		if object.id.begins_with("factory_solid_") or object.id.begins_with("barrier_collision_") or object.id.begins_with("command_") or object.id.begins_with("hangar_"):
+		if object.id.begins_with("factory_solid_") or object.id.begins_with("barrier_collision_") or object.id.begins_with("command_") or object.id.begins_with("hangar_") or object.id.begins_with("hero_east_") or object.id.begins_with("hero_west_"):
 			var point := center + Vector2(object.position[0], object.position[2]) * factor
 			var dimensions := Vector2(object.size[0], object.size[2]) * factor
 			draw_rect(Rect2(point - dimensions * 0.5, dimensions), Color("355166"))
@@ -161,19 +161,19 @@ func draw_map(origin: Vector2, extent: float) -> void:
 func button_rect(action: String) -> Rect2:
 	var locations := {"fire": Vector2(32, 260), "aim": Vector2(size.x - 300, 245),
 		"reload": Vector2(size.x - 130, size.y - 270), "jump": Vector2(size.x - 360, size.y - 158),
-		"interact": Vector2(size.x - 245, size.y - 270), "pause": Vector2(size.x - 80, 203)}
-	return Rect2(locations[action], Vector2(92, 80) if action != "pause" else Vector2(56, 45))
+		"interact": Vector2(size.x - 245, size.y - 270), "shoulder": Vector2(size.x - 190, 203), "pause": Vector2(size.x - 80, 203)}
+	return Rect2(locations[action], Vector2(92, 80) if action not in ["pause", "shoulder"] else Vector2(56 if action == "pause" else 92, 45))
 
 func draw_touch() -> void:
 	var origin := stick_origin if stick_index >= 0 else Vector2(140, size.y - 145)
 	draw_circle(origin, 75, Color(0.08, 0.16, 0.21, 0.6))
 	draw_arc(origin, 75, 0, TAU, 64, muted, 2)
 	draw_circle(stick_point if stick_index >= 0 else origin, 28, Color(0.36, 0.75, 0.81, 0.7))
-	for action in ["fire", "aim", "reload", "jump", "interact", "pause"]:
+	for action in ["fire", "aim", "reload", "jump", "interact", "shoulder", "pause"]:
 		var rect := button_rect(action)
 		draw_rect(rect, panel)
 		draw_rect(rect, cyan if action == "fire" else muted, false, 2)
-		var title: String = {"fire": "FUEGO", "aim": "MIRA", "reload": "CARGAR", "jump": "SALTO", "interact": "USAR", "pause": "II"}[action]
+		var title: String = {"fire": "FUEGO", "aim": "MIRA", "reload": "CARGAR", "jump": "SALTO", "interact": "USAR", "shoulder": "HOMBRO", "pause": "II"}[action]
 		label_at(title, rect.position + Vector2(13, rect.size.y / 2 + 6), 15, ink)
 
 func clear_touch() -> void:
@@ -202,7 +202,7 @@ func _input(event: InputEvent) -> void:
 				arena.begin()
 				get_viewport().set_input_as_handled()
 			return
-		for action in ["fire", "aim", "reload", "jump", "interact", "pause"]:
+		for action in ["fire", "aim", "reload", "jump", "interact", "shoulder", "pause"]:
 			if button_rect(action).has_point(event.position):
 				touch_buttons[event.index] = action
 				match action:
@@ -211,6 +211,7 @@ func _input(event: InputEvent) -> void:
 					"reload": arena.player.start_reload()
 					"jump": arena.player.jump_requested = true
 					"interact": arena.interact()
+					"shoulder": arena.player.shoulder *= -1.0
 					"pause":
 						arena.playing = false
 						clear_touch()

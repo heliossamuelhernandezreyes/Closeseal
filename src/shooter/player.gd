@@ -3,8 +3,10 @@ const MAGAZINE := 30
 const FIRE_INTERVAL := 0.125
 var arena: Node3D
 var camera: Camera3D
+var camera_pivot: Node3D
+var spring_arm: SpringArm3D
+var rig: Node3D
 var gun: Node3D
-var viewmodel: Node3D
 var muzzle: Node3D
 var flash: MeshInstance3D
 var ammo := MAGAZINE
@@ -19,7 +21,12 @@ var jump_requested := false
 var move_input := Vector2.ZERO
 var touch_move := Vector2.ZERO
 var touch_sprint := false
-var look_pitch := 0.0
+var look_pitch := -0.12
+var shoulder := 1.0
+var playtest_active := false
+var playtest_ticks := 0
+var playtest_interactions := 0
+signal playtest_tick(snapshot: Dictionary)
 var recoil := 0.0
 var step_phase := 0.0
 var step_distance := 0.0
@@ -36,17 +43,32 @@ func _ready() -> void:
 	shape.shape = capsule
 	shape.position.y = 0.925
 	add_child(shape)
+	rig = load("res://src/shooter/character_rig.gd").new()
+	rig.name = "Character"
+	add_child(rig)
+	gun = rig.weapon
+	muzzle = rig.muzzle
+	camera_pivot = Node3D.new()
+	camera_pivot.name = "CameraPivot"
+	camera_pivot.position.y = 1.55
+	add_child(camera_pivot)
+	spring_arm = SpringArm3D.new()
+	spring_arm.name = "ShoulderArm"
+	spring_arm.position.x = 0.62
+	spring_arm.spring_length = 3.5
+	spring_arm.margin = 0.12
+	spring_arm.collision_mask = 1 | 4
+	var camera_volume := SphereShape3D.new()
+	camera_volume.radius = 0.22
+	spring_arm.shape = camera_volume
+	camera_pivot.add_child(spring_arm)
+	spring_arm.add_excluded_object(get_rid())
 	camera = Camera3D.new()
-	camera.position.y = 1.65
-	camera.fov = 78
-	camera.near = 0.05
-	add_child(camera)
+	camera.name = "Camera"
+	camera.fov = 65
+	camera.near = 0.12
+	spring_arm.add_child(camera)
 	camera.current = true
-	viewmodel = load("res://src/shooter/viewmodel.gd").new()
-	viewmodel.player = self
-	camera.add_child(viewmodel)
-	gun = viewmodel.weapon
-	muzzle = viewmodel.muzzle
 	flash = MeshInstance3D.new()
 	var ball := SphereMesh.new()
 	ball.radius = 0.055
@@ -61,7 +83,9 @@ func _ready() -> void:
 
 func look(delta: Vector2) -> void:
 	rotation.y -= delta.x * 0.0028
-	look_pitch = clampf(look_pitch - delta.y * 0.0028, -1.35, 1.35)
+	# Orbit freely without dragging the idle character around with the camera.
+	rig.rotation.y += delta.x * 0.0028
+	look_pitch = clampf(look_pitch - delta.y * 0.0028, -1.05, 1.05)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not arena.playing: return
@@ -69,6 +93,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload"): start_reload()
 	if event.is_action_pressed("jump"): jump_requested = true
 	if event.is_action_pressed("interact"): arena.interact()
+	if event.is_action_pressed("swap_shoulder"): shoulder *= -1.0
 
 func _physics_process(delta: float) -> void:
 	if not arena.playing: return
@@ -84,7 +109,7 @@ func _physics_process(delta: float) -> void:
 	move_input = Input.get_vector("left", "right", "forward", "back") + touch_move
 	move_input = move_input.limit_length()
 	var sprint := (Input.is_action_pressed("sprint") or touch_sprint) and not is_aiming()
-	var speed := 9.0 if sprint else 3.4 if is_aiming() else 5.4
+	var speed := 7.2 if sprint else 2.7 if is_aiming() else 4.3
 	var direction := global_basis * Vector3(move_input.x, 0, move_input.y)
 	velocity.x = move_toward(velocity.x, direction.x * speed, delta * 32.0)
 	velocity.z = move_toward(velocity.z, direction.z * speed, delta * 32.0)
@@ -93,6 +118,24 @@ func _physics_process(delta: float) -> void:
 	jump_requested = false
 	var previous := global_position
 	move_and_slide()
+	var moving := Vector2(velocity.x, velocity.z).length()
+	var facing := 0.0 if is_aiming() or fire_held or Input.is_action_pressed("fire") else atan2(-move_input.x, -move_input.y)
+	if moving > 0.15 or is_aiming(): rig.rotation.y = lerp_angle(rig.rotation.y, facing, minf(1.0, delta * 14))
+	var local_motion: Vector3 = rig.global_basis.inverse() * Vector3(velocity.x, 0, velocity.z)
+	rig.set_motion(moving, not is_on_floor(), Vector2(local_motion.x, local_motion.z))
+	camera_pivot.rotation.x = look_pitch + recoil * 0.025
+	var shoulder_target := camera_pivot.to_global(Vector3(0.62 * shoulder, 0, 0))
+	var lateral_hit := ray(camera_pivot.global_position, shoulder_target)
+	var lateral_distance := 0.62
+	if not lateral_hit.is_empty(): lateral_distance = maxf(0.0, camera_pivot.global_position.distance_to(lateral_hit.position) - 0.24)
+	spring_arm.position.x = lerpf(spring_arm.position.x, lateral_distance * shoulder, minf(1.0, delta * 16))
+	# Retraction is immediate even while swapping shoulders beside a side wall.
+	var offset_hit := ray(camera_pivot.global_position, camera_pivot.to_global(Vector3(spring_arm.position.x, 0, 0)))
+	if not offset_hit.is_empty():
+		spring_arm.position.x = signf(spring_arm.position.x) * maxf(0.0, camera_pivot.global_position.distance_to(offset_hit.position) - 0.24)
+	spring_arm.spring_length = lerpf(spring_arm.spring_length, 2.25 if is_aiming() else 3.5, minf(1.0, delta * 12))
+	rig.aim_target = aim_point()
+	rig.target_enabled = is_aiming() or fire_held or Input.is_action_pressed("fire") or shot_cooldown > 0.0
 	if is_on_floor():
 		step_distance += Vector2(global_position.x - previous.x, global_position.z - previous.z).length()
 		if step_distance > (1.6 if sprint else 1.1):
@@ -100,13 +143,17 @@ func _physics_process(delta: float) -> void:
 			arena.sound("step")
 	if hurt_time == 0.0: health = minf(100.0, health + delta * 6)
 	if global_position.y < -10: take_damage(100)
+	if playtest_active:
+		playtest_ticks += 1
+		playtest_tick.emit(playtest_snapshot())
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(camera): return
 	recoil = move_toward(recoil, 0.0, delta * 5.0)
 	step_phase += delta * Vector2(velocity.x, velocity.z).length() * 1.8
-	camera.rotation.x = look_pitch + recoil * 0.025
-	camera.fov = lerpf(camera.fov, 55.0 if is_aiming() else 78.0, minf(1.0, delta * 12))
+	camera.fov = lerpf(camera.fov, 52.0 if is_aiming() else 65.0, minf(1.0, delta * 12))
+	# Hide the body only if a tight obstruction brings the camera into its mesh.
+	rig.visible = camera.global_position.distance_to(global_position + Vector3.UP) > 0.95
 	flash.visible = shot_cooldown > FIRE_INTERVAL - 0.04
 
 func is_aiming() -> bool: return aim_held or Input.is_action_pressed("aim")
@@ -114,6 +161,7 @@ func is_aiming() -> bool: return aim_held or Input.is_action_pressed("aim")
 func start_reload() -> bool:
 	if reload_remaining > 0.0 or ammo >= MAGAZINE or reserve <= 0: return false
 	reload_remaining = 1.6
+	rig.reload()
 	arena.sound("reload")
 	return true
 
@@ -125,12 +173,15 @@ func shoot() -> Dictionary:
 	ammo -= 1
 	shot_cooldown = FIRE_INTERVAL
 	recoil = minf(recoil + 0.6, 1.4)
+	rig.rotation.y = 0.0
+	rig.fire()
 	var origin := camera.global_position
-	var end := origin - camera.global_basis.z * 180.0
-	var sight := ray(origin, end)
-	if not sight.is_empty(): end = sight.position
-	# A second ray from the actual muzzle prevents shooting through nearby cover.
-	last_hit = ray(muzzle.global_position, end + (end - origin).normalized() * 0.03)
+	var end := aim_point()
+	gun.look_at(end, Vector3.UP)
+	# Check the whole barrel: its tip can extend through a wall while the capsule
+	# remains outside. Then resolve the shot from the actual muzzle to the reticle.
+	last_hit = ray(global_position + Vector3.UP * 1.42, muzzle.global_position)
+	if last_hit.is_empty(): last_hit = ray(muzzle.global_position, end + (end - origin).normalized() * 0.03)
 	if not last_hit.is_empty():
 		end = last_hit.position
 		var victim: Node = last_hit.collider
@@ -148,12 +199,20 @@ func ray(start: Vector3, end: Vector3) -> Dictionary:
 	var query := PhysicsRayQueryParameters3D.create(start, end, 1 | 4, [get_rid()])
 	return get_world_3d().direct_space_state.intersect_ray(query)
 
+func aim_point() -> Vector3:
+	var origin := camera.global_position
+	var end := origin - camera.global_basis.z * 180.0
+	var sight := ray(origin, end)
+	return sight.position if not sight.is_empty() else end
+
 func take_damage(amount: float) -> void:
 	if not arena.playing: return
 	health = maxf(0, health - amount)
 	hurt_time = 5.0
 	arena.damage_flash = 0.35
-	if health == 0.0: arena.finish(false)
+	if health == 0.0:
+		rig.die()
+		arena.finish(false)
 
 func clear_input() -> void:
 	fire_held = false
@@ -161,3 +220,25 @@ func clear_input() -> void:
 	touch_move = Vector2.ZERO
 	touch_sprint = false
 	jump_requested = false
+
+func begin_playtest() -> void:
+	playtest_active = true
+	playtest_ticks = 0
+	playtest_interactions = 0
+	arena.begin()
+
+func end_playtest() -> void:
+	playtest_active = false
+	clear_input()
+	arena.playing = false
+	for speaker in arena.get_children():
+		if speaker is AudioStreamPlayer or speaker is AudioStreamPlayer3D:
+			speaker.stop()
+			speaker.stream = null
+			speaker.queue_free()
+
+func playtest_snapshot() -> Dictionary:
+	return {"tick": playtest_ticks, "position": [global_position.x, global_position.y, global_position.z],
+		"velocity": [velocity.x, velocity.y, velocity.z], "health": health, "ammo": ammo,
+		"interactions": playtest_interactions, "camera_distance": spring_arm.get_hit_length(),
+		"perspective": "third_person", "on_floor": is_on_floor()}

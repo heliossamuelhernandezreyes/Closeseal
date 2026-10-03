@@ -1,92 +1,96 @@
-# Nexo Industrial 0.2 — playable shooter prototype
+# Nexo Industrial 0.3 — third-person playable prototype
 
-The user explicitly requested a shooter using Arcont's 3D assets, animated
-characters and a medium-large combat map on 2026-10-02. This adds a separate
-first-person shooter scene and export target. The original RTS entry scene,
-its design contract and existing canonical maps retain their identities.
+Nexo now uses a complete animated character and an over-the-shoulder camera.
+Run `src/shooter/shooter_arena.tscn` in Godot **4.7.2-stable**
+(`ed1daf0bf001b61586d9930840f2f1394092c079`). The isolated staging project's
+main scene is the shooter; the existing RTS and urban scene keep their entries.
 
-## Play
-
-Open `src/shooter/shooter_arena.tscn` in Godot **4.7.2-stable**
-(`ed1daf0bf001b61586d9930840f2f1394092c079`) and run the current scene.
-For a standalone build, use `tools/prepare_shooter.py --stage <directory>`;
-that project's main scene is the shooter. Android uses landscape orientation,
-an arm64 native build, an offline mission and touch controls.
-
-Secure A, B and C by interacting within 3.8 metres and remaining there for
-three seconds. Return to the marked extraction point and interact to win.
-There are 16 enemies, five health/ammo crates, a 30-round rifle, automatic
-fire, aiming, a 1.6-second reload, jumping and sprinting. Health recovers
-after five seconds without damage. Death opens the retry menu.
+Secure A, B and C within 3.8m for three seconds each, then return to extraction.
+The mission contains 16 enemies, five health/ammo pickups, a 30-round rifle,
+automatic fire, aiming, reload, jumping, sprinting and health regeneration.
 
 | Action | Desktop | Touch |
 | --- | --- | --- |
-| Move / look | WASD / mouse | Left stick / drag right side |
-| Shoot / aim | Left / right mouse | FUEGO / MIRA, hold |
+| Move / orbit | WASD / mouse | Left stick / drag right side |
+| Shoot / aim | Left / right mouse, hold | FUEGO / MIRA, hold |
 | Reload / jump | R / Space | CARGAR / SALTO |
 | Interact | E | USAR |
 | Sprint | Shift | Double-tap movement stick |
+| Swap shoulder | Q | HOMBRO |
 | Pause | Escape | II |
 
-## Authored world and actual assets
+## Camera, animation and combat
 
-`maps/nexo_combat_01.json` is the source of truth for the **256 × 256 m**
-arena: factories, hangars, military crates, pipework, concrete barriers,
-covered cars, street cover and a command post four metres above ground with a ramp.
-`tools/author_shooter_map.py` creates or replaces that map through Arcont's
-revision-guarded Map Forge writer. It records explicit geometry rather than
-changing the existing 512-metre urban map.
+A sphere-swept SpringArm3D excludes the player collider and retracts before
+world/enemy geometry. The lateral shoulder offset also checks walls, including
+while changing shoulders. Orbit preserves idle body heading. Movement turns
+the body into the travel direction; aiming and firing face the reticle.
 
-This edition replaces the earlier packs with Irondust's Sci-fi Soldier,
-first-person arms, LonesomeDucky's weathered AKM with a separate magazine,
-and Poly Haven environment models, PBR materials and HDR sky.
-`assets/shooter/serious/manifest.json` records sources, conversion details
-and 94 delivered file hashes. `tools/verify_shooter_assets.py` checks those
-bytes, model dependencies and map resource paths before CI stages the game.
-Converted assets are committed; compilation requires neither Blender nor
-original source archives. The two historical Blender preparation script
-names in the manifest describe asset preparation; those scripts are not
-delivered in this recovered change.
+Seven authored skeletal clips provide idle, forward/backward/sideways walking,
+run and death. A 2D AnimationTree blends gait direction and adjusts cadence to
+travel speed. The native compressed AnimationLibrary remains editable in Godot;
+`tools/shooter_bake_animations.gd` rebuilds it. These are authored clips, not
+motion capture. A SkeletonModifier3D solves hands to weapon grips, with recoil,
+magazine removal and reload motion. Enemy movement uses the same directional rig.
 
-Models/materials are CC0. The gunshot follows the downloaded archive's CC BY
-3.0 attribution, documented in `assets/shooter/serious/LICENSES.txt` and the
-in-game credits. The isolated industrial build excludes earlier Kenney packs.
-Explicit `--audio` generates test sounds and overwrites source audio; it is
-not part of the industrial build commands below.
+Shots resolve camera aim, check the barrel from its mount to its tip, then cast
+from the physical muzzle to the reticle. This prevents a protruding barrel from
+firing through close cover even when the camera sees over it. The visible weapon
+also aligns to that target. Enemy navigation, perception, damage, cover behavior
+and mission state continue to use real physics and the baked navigation mesh.
 
-## Animation and combat
+## Authored industrial sector
 
-Four authored 30-fps skeletal clips provide idle, walk, run and death.
-AnimationTree blends locomotion according to movement speed. These are
-authored animations, not motion capture or production-quality ragdolls.
-`combat_pose.gd` runs as a SkeletonModifier3D after the source clips and
-solves the two arms against the rifle's grip positions. Recoil and reload
-move the weapon and supporting hand together; the magazine is removed during
-reload. The first-person arms use the same grip solver. Death plays the baked
-fall and disables the enemy's combat collider.
+`maps/nexo_combat_01.json` remains the **256 × 256m** canonical world. The south
+approach now includes asymmetric, enterable service buildings, a structural pipe
+bridge, gutters, yard surfaces, lighting and catalog props. It contains 531 native
+objects, 78 imported asset instances and one physical ramp. The three objectives
+and all sixteen enemy spawns remain reachable and free of collider overlaps.
 
-Enemies use a baked world navigation mesh and physical CharacterBody3D
-movement. They patrol, detect line of sight, pursue, fire with distance-based
-spread, reload, search the last seen position, attempt a lateral approach
-and seek reachable cover when injured. Wall collisions, navigation paths and weapon rays are
-separate systems. Player shots first resolve the camera aim, then cast from
-the physical muzzle, preventing fire through nearby cover.
+`tools/author_shooter_map.py` reads the industrial canonical map and revision-
+checks its explicit edits through Arcont. It replaces its own `hero_*` entries
+idempotently and preserves other sectors; it no longer restores the obsolete
+Kenney generator. ARCONT materialization independently produces 1,107 navigation
+polygons from the actual authored world colliders.
 
-## Validation and limits
+## Asset integration
 
-`tools/shooter_bake.gd` bakes the actual authored static colliders.
-`tools/shooter_acceptance.gd` checks objective paths, physical ramp ascent,
-map boundaries, jumping, active enemy movement and damage, cover-blocked
-shots and perception, player damage and ammo conservation, skeletal leg
-motion, weapon grip alignment, touch release, victory and defeat. It emits
-an engine-version-bound JSON report and captures. The dedicated GitHub
-workflow imports and re-bakes the isolated shooter before running acceptance.
+The edition uses Irondust's Sci-fi Soldier, LonesomeDucky's weathered AKM and Poly
+Haven environment models/materials/HDR sky. The manifest records licenses,
+conversion details and **97 delivered file hashes**. The industrial build
+excludes the earlier Kenney packs. Models, textures and sky are CC0; the gunshot
+uses the downloaded archive's CC BY 3.0 attribution, included in credits and
+`assets/shooter/serious/LICENSES.txt`. No source archive or Blender is needed to
+compile the delivered assets.
 
-The locally exported Linux executable starts successfully. The Android APK
-is arm64 and its APK v2/v3 signatures verify. This is a playable single-player
-prototype; it has no multiplayer, controller support, Xbox package or device
-performance claim. Installation, graphics and frame rate on the user's Poco
-X7 Pro still need an actual handset playtest.
+A clean Godot import had left extracted facade textures without mipmaps.
+`tools/configure_shooter_imports.py` now configures the staged 3D texture imports,
+including images extracted from GLB files. Reimport after configuration. Native
+acceptance checks the loaded facade image actually has a mip chain.
+
+## Arcont control and evidence
+
+`authoring/recipes/shooter_third_person.json` saves the production scene with
+pinned source dependencies. `authoring/scenarios/shooter_third_person.json`
+replays actual InputEvents against the production player's lifecycle interface.
+`tools/shooter_authoring_smoke.py` discovers the native camera API, revision-
+checks the scene build, reopens it twice and verifies walking, jumping,
+interaction, input release and matching positions within 1mm. Each replay
+completes 189 measured actor ticks and preserves the canonical map and accepted
+scene document. Audio voices are stopped and retired before teardown.
+
+The build pins Arcont commit `678d907e742d4ecd66934c9f1d1b83858e7b9e2c`:
+[recoverable authoring locks, PR19](https://github.com/heliossamuelhernandezreyes/Arcont/pull/19).
+Kernel-backed locks prevent interrupted jobs from stranding the editor. A real
+SIGKILL recovery regression and concurrent-writer rejection pass on POSIX.
+The Windows byte-lock implementation still needs Windows CI.
+
+Local verification: 42 real-engine gameplay checks, 21 game Python tests,
+6 canonical map validations, one physical profile, Map Forge control smoke,
+97 asset hashes and two reopened production-player replays. Rendered checkpoints
+were inspected; acceptance renders evidence checkpoints and is not an FPS test.
+GitHub's shooter workflow repeats import, mipmap configuration, physics/navigation
+baking, rendered gameplay acceptance and production-player Arcont replay.
 
 ## Build
 
@@ -95,20 +99,21 @@ python tools/verify_shooter_assets.py
 python -m unittest discover -s tests -p 'test_shooter_build.py'
 python tools/prepare_shooter.py --stage /tmp/nexo-shooter
 godot --headless --path /tmp/nexo-shooter --editor --import
+python tools/configure_shooter_imports.py --stage /tmp/nexo-shooter
+godot --headless --path /tmp/nexo-shooter --editor --import
 godot --headless --path /tmp/nexo-shooter --script res://tools/shooter_bake.gd
-godot --path /tmp/nexo-shooter --script res://tools/shooter_acceptance.gd -- --captures=/tmp/nexo-evidence
+godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter_acceptance.gd -- --captures=/tmp/nexo-evidence
+GODOT_BIN=godot python tools/shooter_authoring_smoke.py --arcont /path/to/arcont --project /tmp/nexo-shooter
 python tools/export_shooter.py --stage /tmp/nexo-shooter --templates /path/to/4.7.2-stable/templates --engine /path/to/godot --output /tmp/Nexo.apk --platform Android
 ```
 
-Android export requires Java and Android SDK tools configured in Godot's
-editor settings. The prebuilt native template is used without a Gradle build.
-Debug signing is appropriate to this downloadable prototype; store publishing
-and release credentials are outside this change.
+Android export uses the arm64 native template with landscape touch controls,
+offline permissions and debug signing; Java and Android SDK tools must be
+configured in Godot. Staging rejects unmanaged destinations and preserves the
+old build if preparation fails. No current-edition APK/device test is claimed
+by this source change.
 
-Staging builds a fresh directory and replaces only an empty or explicitly
-owned prior stage. Failed preparation preserves the previous build. Fresh
-staging removes stale resources/caches; project roots, ancestors, symlinks and
-nonempty unmanaged destinations are rejected. Export preset paths use escaped
-strings and forward slashes for Windows. Five build regressions cover these
-behaviors. Rendered acceptance is required for touch/layout checks; a
-headless viewport is not equivalent. No AAA quality or handset FPS is claimed.
+This remains a single-player prototype. AAA art quality, handset frame rate,
+multiplayer, controller support and console packaging are not established by
+these checks. Character detail, animation polish and broader level composition
+need further art work and actual target-device review.

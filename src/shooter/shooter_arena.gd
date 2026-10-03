@@ -48,6 +48,7 @@ func _ready() -> void:
 	if ResourceLoader.exists("res://assets/shooter/combat_navigation.tres"):
 		navigation.navigation_mesh = load("res://assets/shooter/combat_navigation.tres")
 	player = PLAYER.new()
+	player.name = "Player"
 	player.arena = self
 	add_child(player)
 	player.position = vec(design.player_spawn)
@@ -88,7 +89,7 @@ func _ready() -> void:
 
 func configure_input() -> void:
 	var keys := {"forward": KEY_W, "back": KEY_S, "left": KEY_A, "right": KEY_D, "reload": KEY_R,
-		"jump": KEY_SPACE, "sprint": KEY_SHIFT, "interact": KEY_E, "pause_game": KEY_ESCAPE}
+		"jump": KEY_SPACE, "sprint": KEY_SHIFT, "interact": KEY_E, "swap_shoulder": KEY_Q, "pause_game": KEY_ESCAPE}
 	for action in keys:
 		if not InputMap.has_action(action): InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -157,6 +158,7 @@ func _process(delta: float) -> void:
 
 func interact() -> void:
 	if not playing: return
+	if player.playtest_active: player.playtest_interactions += 1
 	if secured.size() == 3 and player.global_position.distance_to(vec(design.extraction)) < 4.5:
 		finish(true)
 		return
@@ -217,7 +219,8 @@ func configure_presentation() -> void:
 		environment.background_mode = Environment.BG_SKY
 		environment.background_energy_multiplier = 0.4
 		environment.sky_rotation.y = 0.55
-		environment.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
+		environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+		environment.ambient_light_color = Color("9bafbf")
 		environment.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
 		environment.ambient_light_energy = 0.75
 		environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC

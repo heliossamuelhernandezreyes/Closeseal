@@ -87,7 +87,8 @@ func _physics_process(delta: float) -> void:
 	if facing.length_squared() > 0.01:
 		var target_yaw := atan2(-facing.x, -facing.z)
 		rig.rotation.y = lerp_angle(rig.rotation.y, target_yaw, minf(1, delta * 10))
-	rig.set_motion(Vector2(velocity.x, velocity.z).length(), not is_on_floor())
+	var local_motion: Vector3 = rig.global_basis.inverse() * Vector3(velocity.x, 0, velocity.z)
+	rig.set_motion(Vector2(velocity.x, velocity.z).length(), not is_on_floor(), Vector2(local_motion.x, local_motion.z))
 	rig.aim_pitch = clampf(atan2((global_position.y + 1.4) - (player.global_position.y + 1.25), maxf(distance, 0.01)), -0.55, 0.55) if sees else 0.0
 	fire_timer -= delta
 	reload_timer = maxf(0, reload_timer - delta)

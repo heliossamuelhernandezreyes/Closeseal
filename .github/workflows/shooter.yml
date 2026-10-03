@@ -16,6 +16,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/checkout@v4
+        with:
+          repository: heliossamuelhernandezreyes/Arcont
+          ref: 678d907e742d4ecd66934c9f1d1b83858e7b9e2c
+          path: .arcont-tools
       - name: Install exact Godot
         run: |
           sudo apt-get update
@@ -32,6 +37,9 @@ jobs:
           python tools/prepare_shooter.py --stage /tmp/nexo-shooter
           "$GODOT_BIN" --headless --path /tmp/nexo-shooter --editor --import > shooter-import.log 2>&1
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-import.log; then exit 1; fi
+          python tools/configure_shooter_imports.py --stage /tmp/nexo-shooter
+          "$GODOT_BIN" --headless --path /tmp/nexo-shooter --editor --import > shooter-mipmap-import.log 2>&1
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-mipmap-import.log; then exit 1; fi
       - name: Bake authored world collision and run real-engine acceptance
         env:
           GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
@@ -41,6 +49,12 @@ jobs:
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-acceptance.log
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log; then exit 1; fi
           python -c 'import json; r=json.load(open("shooter-evidence/acceptance.json")); assert r["ok"],r["failures"]'
+      - name: Replay real third-person player through ARCONT
+        env:
+          GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: |
+          python tools/shooter_authoring_smoke.py --arcont .arcont-tools --project /tmp/nexo-shooter
+          cp /tmp/nexo-shooter/.arcont/shooter-authoring-smoke.json shooter-evidence/
       - name: Preserve acceptance captures and logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -48,6 +62,7 @@ jobs:
           name: nexo-shooter-${{ github.sha }}
           path: |
             shooter-import.log
+            shooter-mipmap-import.log
             shooter-bake.log
             shooter-acceptance.log
             shooter-evidence/

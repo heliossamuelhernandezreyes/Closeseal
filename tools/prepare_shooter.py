@@ -45,6 +45,12 @@ def _populate(target):
     (target / "tools").mkdir(exist_ok=True)
     for script in ROOT.glob("tools/shooter_*.gd"):
         shutil.copy(script, target / "tools" / script.name)
+    for name in ["godot_authoring_adapter.py", "godot_authoring_worker.gd", "godot_playtest_runner.gd"]:
+        shutil.copy(ROOT / "tools" / name, target / "tools" / name)
+    shutil.copy(ROOT / "godot-authoring.json", target / "godot-authoring.json")
+    for folder in ["recipes", "scenarios"]:
+        (target / "authoring" / folder).mkdir(parents=True, exist_ok=True)
+        shutil.copy(ROOT / "authoring" / folder / "shooter_third_person.json", target / "authoring" / folder / "shooter_third_person.json")
     (target / "project.godot").write_text('''config_version=5
 [application]
 config/name="Closeseal — Nexo"

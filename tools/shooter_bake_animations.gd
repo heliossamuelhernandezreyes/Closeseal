@@ -10,7 +10,7 @@ func run() -> void:
 	root.add_child(model)
 	skeleton = model.find_child("Skeleton3D", true, false)
 	var library := AnimationLibrary.new()
-	for definition in [["idle", 2.4], ["walk", 0.92], ["run", 0.64], ["death", 1.15]]:
+	for definition in [["idle", 2.4], ["walk", 0.92], ["walk_back", 0.92], ["walk_left", 0.92], ["walk_right", 0.92], ["run", 0.64], ["death", 1.15]]:
 		var name_: String = definition[0]
 		var duration: float = definition[1]
 		var animation := Animation.new()
@@ -28,7 +28,7 @@ func run() -> void:
 				animation.position_track_insert_key(bone * 2, phase * duration, skeleton.get_bone_pose_position(bone))
 				animation.rotation_track_insert_key(bone * 2 + 1, phase * duration, skeleton.get_bone_pose_rotation(bone))
 		library.add_animation(name_, animation)
-	var error := ResourceSaver.save(library, "res://assets/shooter/serious/combat_motion.tres")
+	var error := ResourceSaver.save(library, "res://assets/shooter/serious/combat_motion.res", ResourceSaver.FLAG_COMPRESS)
 	print("COMBAT_ANIMATION_BAKE ", error, " ", library.get_animation_list())
 	model.queue_free()
 	await process_frame
@@ -63,11 +63,14 @@ func pose(clip: String, phase: float) -> void:
 		var z := -0.06
 		var lift := 0.0
 		if moving:
-			if step < 0.5: z += lerpf(-stride, stride, step * 2)
+			if step < 0.5: z += lerpf(stride, -stride, step * 2)
 			else:
-				z += lerpf(stride, -stride, smoothstep(0.5, 1.0, step))
+				z += lerpf(-stride, stride, smoothstep(0.5, 1.0, step))
 				lift = sin((step - 0.5) * TAU) * (0.21 if running else 0.12)
 		var target := Vector3(sign_ * 0.15, 0.095 + lift, z)
+		var angle := PI if clip == "walk_back" else PI / 2 if clip == "walk_left" else -PI / 2 if clip == "walk_right" else 0.0
+		var neutral := Vector3(sign_ * 0.15, 0, -0.06)
+		target = neutral + Basis(Vector3.UP, angle) * (target - neutral)
 		IK.solve(skeleton, "thigh."+side, "shin."+side, "foot."+side, target, Vector3(sign_*0.15, 0.5, 0.8))
 		var foot := skeleton.find_bone("foot."+side)
 		var foot_pose := skeleton.get_bone_global_pose(foot)

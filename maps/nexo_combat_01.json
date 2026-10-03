@@ -97,6 +97,20 @@
         "id": "warm_light",
         "albedo": "dcc7a2",
         "emission": "89724a"
+      },
+      {
+        "id": "hero_oxide",
+        "resource": "res://assets/shooter/serious/materials/oxide.tres"
+      },
+      {
+        "id": "hero_glass",
+        "albedo": "254650",
+        "roughness": 0.24,
+        "metallic": 0.55
+      },
+      {
+        "id": "hero_gravel",
+        "resource": "res://assets/shooter/serious/materials/yard.tres"
       }
     ],
     "objects": [
@@ -5796,6 +5810,3382 @@
         "material": "blue",
         "collision": false,
         "visible": true
+      },
+      {
+        "id": "hero_west_floor",
+        "type": "box",
+        "position": [
+          -21,
+          -0.01,
+          89
+        ],
+        "size": [
+          12,
+          0.12,
+          22
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_back",
+        "type": "box",
+        "position": [
+          -21,
+          2.4,
+          78.0
+        ],
+        "size": [
+          12,
+          4.8,
+          0.28
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_outer",
+        "type": "box",
+        "position": [
+          -27.0,
+          2.4,
+          89
+        ],
+        "size": [
+          0.28,
+          4.8,
+          22
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_street_-1",
+        "type": "box",
+        "position": [
+          -15.0,
+          2.4,
+          82.0
+        ],
+        "size": [
+          0.28,
+          4.8,
+          8.0
+        ],
+        "material": "hero_oxide",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_street_1",
+        "type": "box",
+        "position": [
+          -15.0,
+          2.4,
+          96.0
+        ],
+        "size": [
+          0.28,
+          4.8,
+          8.0
+        ],
+        "material": "hero_oxide",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_lintel",
+        "type": "box",
+        "position": [
+          -15.0,
+          4.1,
+          89
+        ],
+        "size": [
+          0.3,
+          1.4,
+          6
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_front_-1",
+        "type": "box",
+        "position": [
+          -25.25,
+          2.4,
+          100.0
+        ],
+        "size": [
+          3.5,
+          4.8,
+          0.28
+        ],
+        "material": "hero_oxide",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_front_1",
+        "type": "box",
+        "position": [
+          -16.75,
+          2.4,
+          100.0
+        ],
+        "size": [
+          3.5,
+          4.8,
+          0.28
+        ],
+        "material": "hero_oxide",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_front_lintel",
+        "type": "box",
+        "position": [
+          -21,
+          3.8,
+          100.0
+        ],
+        "size": [
+          5,
+          2,
+          0.3
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_roof",
+        "type": "box",
+        "position": [
+          -21,
+          4.92,
+          89
+        ],
+        "size": [
+          12.6,
+          0.24,
+          22.6
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_foundation",
+        "type": "box",
+        "position": [
+          -15.0,
+          0.18,
+          81.0
+        ],
+        "size": [
+          0.55,
+          0.36,
+          5
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_frame_0",
+        "type": "box",
+        "position": [
+          -15.03,
+          2.4,
+          78.5
+        ],
+        "size": [
+          0.4,
+          4.8,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_roof_beam_0",
+        "type": "box",
+        "position": [
+          -21,
+          4.55,
+          78.5
+        ],
+        "size": [
+          12,
+          0.32,
+          0.24
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_frame_1",
+        "type": "box",
+        "position": [
+          -15.03,
+          2.4,
+          86
+        ],
+        "size": [
+          0.4,
+          4.8,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_roof_beam_1",
+        "type": "box",
+        "position": [
+          -21,
+          4.55,
+          86
+        ],
+        "size": [
+          12,
+          0.32,
+          0.24
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_frame_2",
+        "type": "box",
+        "position": [
+          -15.03,
+          2.4,
+          92
+        ],
+        "size": [
+          0.4,
+          4.8,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_roof_beam_2",
+        "type": "box",
+        "position": [
+          -21,
+          4.55,
+          92
+        ],
+        "size": [
+          12,
+          0.32,
+          0.24
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_frame_3",
+        "type": "box",
+        "position": [
+          -15.03,
+          2.4,
+          99.5
+        ],
+        "size": [
+          0.4,
+          4.8,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_roof_beam_3",
+        "type": "box",
+        "position": [
+          -21,
+          4.55,
+          99.5
+        ],
+        "size": [
+          12,
+          0.32,
+          0.24
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_window_frame_0",
+        "type": "box",
+        "position": [
+          -14.83,
+          3.8,
+          80.0
+        ],
+        "size": [
+          0.12,
+          1.3,
+          1.65
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_west_glass_0",
+        "type": "box",
+        "position": [
+          -14.76,
+          3.8,
+          80.0
+        ],
+        "size": [
+          0.06,
+          1.12,
+          1.43
+        ],
+        "material": "hero_glass",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_west_window_frame_1",
+        "type": "box",
+        "position": [
+          -14.83,
+          3.8,
+          82.1
+        ],
+        "size": [
+          0.12,
+          1.3,
+          1.65
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_west_glass_1",
+        "type": "box",
+        "position": [
+          -14.76,
+          3.8,
+          82.1
+        ],
+        "size": [
+          0.06,
+          1.12,
+          1.43
+        ],
+        "material": "hero_glass",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_west_window_frame_2",
+        "type": "box",
+        "position": [
+          -14.83,
+          3.8,
+          84.2
+        ],
+        "size": [
+          0.12,
+          1.3,
+          1.65
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_west_glass_2",
+        "type": "box",
+        "position": [
+          -14.76,
+          3.8,
+          84.2
+        ],
+        "size": [
+          0.06,
+          1.12,
+          1.43
+        ],
+        "material": "hero_glass",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_west_window_frame_3",
+        "type": "box",
+        "position": [
+          -14.83,
+          3.8,
+          86.3
+        ],
+        "size": [
+          0.12,
+          1.3,
+          1.65
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_west_glass_3",
+        "type": "box",
+        "position": [
+          -14.76,
+          3.8,
+          86.3
+        ],
+        "size": [
+          0.06,
+          1.12,
+          1.43
+        ],
+        "material": "hero_glass",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_west_bollard_-3.0",
+        "type": "cylinder",
+        "position": [
+          -24.0,
+          0.65,
+          100.7
+        ],
+        "size": [
+          0.18,
+          1.3,
+          0.18
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_bollard_3.0",
+        "type": "cylinder",
+        "position": [
+          -18.0,
+          0.65,
+          100.7
+        ],
+        "size": [
+          0.18,
+          1.3,
+          0.18
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_west_bay_light",
+        "type": "box",
+        "position": [
+          -21,
+          3.6,
+          100.16
+        ],
+        "size": [
+          2.2,
+          0.09,
+          0.12
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_floor",
+        "type": "box",
+        "position": [
+          24,
+          -0.01,
+          80
+        ],
+        "size": [
+          22,
+          0.12,
+          28
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_back",
+        "type": "box",
+        "position": [
+          24,
+          3.6,
+          66.0
+        ],
+        "size": [
+          22,
+          7.2,
+          0.28
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_outer",
+        "type": "box",
+        "position": [
+          35.0,
+          3.6,
+          80
+        ],
+        "size": [
+          0.28,
+          7.2,
+          28
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_street_-1",
+        "type": "box",
+        "position": [
+          13.0,
+          3.6,
+          71.5
+        ],
+        "size": [
+          0.28,
+          7.2,
+          11.0
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_street_1",
+        "type": "box",
+        "position": [
+          13.0,
+          3.6,
+          88.5
+        ],
+        "size": [
+          0.28,
+          7.2,
+          11.0
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_lintel",
+        "type": "box",
+        "position": [
+          13.0,
+          5.3,
+          80
+        ],
+        "size": [
+          0.3,
+          3.8000000000000003,
+          6
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_front_-1",
+        "type": "box",
+        "position": [
+          17.25,
+          3.6,
+          94.0
+        ],
+        "size": [
+          8.5,
+          7.2,
+          0.28
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_front_1",
+        "type": "box",
+        "position": [
+          30.75,
+          3.6,
+          94.0
+        ],
+        "size": [
+          8.5,
+          7.2,
+          0.28
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_front_lintel",
+        "type": "box",
+        "position": [
+          24,
+          6.2,
+          94.0
+        ],
+        "size": [
+          5,
+          2,
+          0.3
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_roof",
+        "type": "box",
+        "position": [
+          24,
+          7.32,
+          80
+        ],
+        "size": [
+          22.6,
+          0.24,
+          28.6
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_foundation",
+        "type": "box",
+        "position": [
+          13.0,
+          0.18,
+          69.0
+        ],
+        "size": [
+          0.55,
+          0.36,
+          5
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_frame_0",
+        "type": "box",
+        "position": [
+          12.97,
+          3.6,
+          66.5
+        ],
+        "size": [
+          0.4,
+          7.2,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_roof_beam_0",
+        "type": "box",
+        "position": [
+          24,
+          6.95,
+          66.5
+        ],
+        "size": [
+          22,
+          0.32,
+          0.24
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_frame_1",
+        "type": "box",
+        "position": [
+          12.97,
+          3.6,
+          77
+        ],
+        "size": [
+          0.4,
+          7.2,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_roof_beam_1",
+        "type": "box",
+        "position": [
+          24,
+          6.95,
+          77
+        ],
+        "size": [
+          22,
+          0.32,
+          0.24
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_frame_2",
+        "type": "box",
+        "position": [
+          12.97,
+          3.6,
+          83
+        ],
+        "size": [
+          0.4,
+          7.2,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_roof_beam_2",
+        "type": "box",
+        "position": [
+          24,
+          6.95,
+          83
+        ],
+        "size": [
+          22,
+          0.32,
+          0.24
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_frame_3",
+        "type": "box",
+        "position": [
+          12.97,
+          3.6,
+          93.5
+        ],
+        "size": [
+          0.4,
+          7.2,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_roof_beam_3",
+        "type": "box",
+        "position": [
+          24,
+          6.95,
+          93.5
+        ],
+        "size": [
+          22,
+          0.32,
+          0.24
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_window_frame_0",
+        "type": "box",
+        "position": [
+          12.83,
+          5.8,
+          68.0
+        ],
+        "size": [
+          0.12,
+          1.3,
+          1.65
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_glass_0",
+        "type": "box",
+        "position": [
+          12.76,
+          5.8,
+          68.0
+        ],
+        "size": [
+          0.06,
+          1.12,
+          1.43
+        ],
+        "material": "hero_glass",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_window_frame_1",
+        "type": "box",
+        "position": [
+          12.83,
+          5.8,
+          70.1
+        ],
+        "size": [
+          0.12,
+          1.3,
+          1.65
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_glass_1",
+        "type": "box",
+        "position": [
+          12.76,
+          5.8,
+          70.1
+        ],
+        "size": [
+          0.06,
+          1.12,
+          1.43
+        ],
+        "material": "hero_glass",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_window_frame_2",
+        "type": "box",
+        "position": [
+          12.83,
+          5.8,
+          72.2
+        ],
+        "size": [
+          0.12,
+          1.3,
+          1.65
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_glass_2",
+        "type": "box",
+        "position": [
+          12.76,
+          5.8,
+          72.2
+        ],
+        "size": [
+          0.06,
+          1.12,
+          1.43
+        ],
+        "material": "hero_glass",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_window_frame_3",
+        "type": "box",
+        "position": [
+          12.83,
+          5.8,
+          74.3
+        ],
+        "size": [
+          0.12,
+          1.3,
+          1.65
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_glass_3",
+        "type": "box",
+        "position": [
+          12.76,
+          5.8,
+          74.3
+        ],
+        "size": [
+          0.06,
+          1.12,
+          1.43
+        ],
+        "material": "hero_glass",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_east_bollard_-3.0",
+        "type": "cylinder",
+        "position": [
+          21.0,
+          0.65,
+          94.7
+        ],
+        "size": [
+          0.18,
+          1.3,
+          0.18
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_bollard_3.0",
+        "type": "cylinder",
+        "position": [
+          27.0,
+          0.65,
+          94.7
+        ],
+        "size": [
+          0.18,
+          1.3,
+          0.18
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_east_bay_light",
+        "type": "box",
+        "position": [
+          24,
+          3.6,
+          94.16
+        ],
+        "size": [
+          2.2,
+          0.09,
+          0.12
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_column_-13",
+        "type": "box",
+        "position": [
+          -13,
+          3.4,
+          60
+        ],
+        "size": [
+          0.42,
+          6.8,
+          0.42
+        ],
+        "material": "hero_oxide",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_foot_-13",
+        "type": "box",
+        "position": [
+          -13,
+          0.25,
+          60
+        ],
+        "size": [
+          1.05,
+          0.5,
+          1.05
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_column_13",
+        "type": "box",
+        "position": [
+          13,
+          3.4,
+          60
+        ],
+        "size": [
+          0.42,
+          6.8,
+          0.42
+        ],
+        "material": "hero_oxide",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_foot_13",
+        "type": "box",
+        "position": [
+          13,
+          0.25,
+          60
+        ],
+        "size": [
+          1.05,
+          0.5,
+          1.05
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_deck",
+        "type": "box",
+        "position": [
+          0,
+          6.5,
+          60
+        ],
+        "size": [
+          27,
+          0.22,
+          2.5
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_rail_58.86.6",
+        "type": "box",
+        "position": [
+          0,
+          6.6,
+          58.8
+        ],
+        "size": [
+          27,
+          0.09,
+          0.09
+        ],
+        "material": "hero_oxide",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_rail_58.87.55",
+        "type": "box",
+        "position": [
+          0,
+          7.55,
+          58.8
+        ],
+        "size": [
+          27,
+          0.09,
+          0.09
+        ],
+        "material": "hero_oxide",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.8-12",
+        "type": "box",
+        "position": [
+          -12,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.8-10",
+        "type": "box",
+        "position": [
+          -10,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.8-8",
+        "type": "box",
+        "position": [
+          -8,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.8-6",
+        "type": "box",
+        "position": [
+          -6,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.8-4",
+        "type": "box",
+        "position": [
+          -4,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.8-2",
+        "type": "box",
+        "position": [
+          -2,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.80",
+        "type": "box",
+        "position": [
+          0,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.82",
+        "type": "box",
+        "position": [
+          2,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.84",
+        "type": "box",
+        "position": [
+          4,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.86",
+        "type": "box",
+        "position": [
+          6,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.88",
+        "type": "box",
+        "position": [
+          8,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.810",
+        "type": "box",
+        "position": [
+          10,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_58.812",
+        "type": "box",
+        "position": [
+          12,
+          7.05,
+          58.8
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_rail_61.26.6",
+        "type": "box",
+        "position": [
+          0,
+          6.6,
+          61.2
+        ],
+        "size": [
+          27,
+          0.09,
+          0.09
+        ],
+        "material": "hero_oxide",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_rail_61.27.55",
+        "type": "box",
+        "position": [
+          0,
+          7.55,
+          61.2
+        ],
+        "size": [
+          27,
+          0.09,
+          0.09
+        ],
+        "material": "hero_oxide",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.2-12",
+        "type": "box",
+        "position": [
+          -12,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.2-10",
+        "type": "box",
+        "position": [
+          -10,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.2-8",
+        "type": "box",
+        "position": [
+          -8,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.2-6",
+        "type": "box",
+        "position": [
+          -6,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.2-4",
+        "type": "box",
+        "position": [
+          -4,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.2-2",
+        "type": "box",
+        "position": [
+          -2,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.20",
+        "type": "box",
+        "position": [
+          0,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.22",
+        "type": "box",
+        "position": [
+          2,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.24",
+        "type": "box",
+        "position": [
+          4,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.26",
+        "type": "box",
+        "position": [
+          6,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.28",
+        "type": "box",
+        "position": [
+          8,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.210",
+        "type": "box",
+        "position": [
+          10,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_post_61.212",
+        "type": "box",
+        "position": [
+          12,
+          7.05,
+          61.2
+        ],
+        "size": [
+          0.07,
+          1.05,
+          0.07
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bridge_pipe_0",
+        "type": "cylinder",
+        "position": [
+          0,
+          7.0,
+          59.4
+        ],
+        "size": [
+          0.32,
+          27,
+          0.32
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          0,
+          90
+        ]
+      },
+      {
+        "id": "hero_bridge_pipe_1",
+        "type": "cylinder",
+        "position": [
+          0,
+          7.0,
+          60
+        ],
+        "size": [
+          0.32,
+          27,
+          0.32
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          0,
+          90
+        ]
+      },
+      {
+        "id": "hero_bridge_pipe_2",
+        "type": "cylinder",
+        "position": [
+          0,
+          7.0,
+          60.6
+        ],
+        "size": [
+          0.32,
+          27,
+          0.32
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          0,
+          90
+        ]
+      },
+      {
+        "id": "hero_bridge_sign",
+        "type": "box",
+        "position": [
+          0,
+          7.25,
+          61.32
+        ],
+        "size": [
+          4.4,
+          1.1,
+          0.08
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_-11.50",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.07,
+          66
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_-11.51",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.07,
+          72
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_-11.52",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.07,
+          78
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_-11.53",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.07,
+          84
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_-11.54",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.07,
+          90
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_-11.55",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.07,
+          96
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_-11.56",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.07,
+          102
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_drain_-11.50",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.145,
+          69
+        ],
+        "size": [
+          0.45,
+          0.012,
+          1.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.500",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          68.55
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.501",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          68.7
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.502",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          68.85
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.503",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          69.0
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.504",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          69.14999999999999
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.505",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          69.3
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.506",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          69.45
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_drain_-11.51",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.145,
+          82
+        ],
+        "size": [
+          0.45,
+          0.012,
+          1.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.510",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          81.55
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.511",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          81.7
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.512",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          81.85
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.513",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          82.0
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.514",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          82.14999999999999
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.515",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          82.3
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.516",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          82.45
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_drain_-11.52",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.145,
+          99
+        ],
+        "size": [
+          0.45,
+          0.012,
+          1.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.520",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          98.55
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.521",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          98.7
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.522",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          98.85
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.523",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          99.0
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.524",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          99.14999999999999
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.525",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          99.3
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_-11.526",
+        "type": "box",
+        "position": [
+          -11.5,
+          0.16,
+          99.45
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_11.50",
+        "type": "box",
+        "position": [
+          11.5,
+          0.07,
+          66
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_11.51",
+        "type": "box",
+        "position": [
+          11.5,
+          0.07,
+          72
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_11.52",
+        "type": "box",
+        "position": [
+          11.5,
+          0.07,
+          78
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_11.53",
+        "type": "box",
+        "position": [
+          11.5,
+          0.07,
+          84
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_11.54",
+        "type": "box",
+        "position": [
+          11.5,
+          0.07,
+          90
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_11.55",
+        "type": "box",
+        "position": [
+          11.5,
+          0.07,
+          96
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_curb_11.56",
+        "type": "box",
+        "position": [
+          11.5,
+          0.07,
+          102
+        ],
+        "size": [
+          0.3,
+          0.14,
+          5.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_drain_11.50",
+        "type": "box",
+        "position": [
+          11.5,
+          0.145,
+          69
+        ],
+        "size": [
+          0.45,
+          0.012,
+          1.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.500",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          68.55
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.501",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          68.7
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.502",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          68.85
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.503",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          69.0
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.504",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          69.14999999999999
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.505",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          69.3
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.506",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          69.45
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_drain_11.51",
+        "type": "box",
+        "position": [
+          11.5,
+          0.145,
+          82
+        ],
+        "size": [
+          0.45,
+          0.012,
+          1.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.510",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          81.55
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.511",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          81.7
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.512",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          81.85
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.513",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          82.0
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.514",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          82.14999999999999
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.515",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          82.3
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.516",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          82.45
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_drain_11.52",
+        "type": "box",
+        "position": [
+          11.5,
+          0.145,
+          99
+        ],
+        "size": [
+          0.45,
+          0.012,
+          1.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.520",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          98.55
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.521",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          98.7
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.522",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          98.85
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.523",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          99.0
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.524",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          99.14999999999999
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.525",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          99.3
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_grate_11.526",
+        "type": "box",
+        "position": [
+          11.5,
+          0.16,
+          99.45
+        ],
+        "size": [
+          0.43,
+          0.015,
+          0.035
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_surface_patch_0",
+        "type": "box",
+        "position": [
+          -9,
+          0.009,
+          99
+        ],
+        "size": [
+          3,
+          0.015,
+          5
+        ],
+        "material": "hero_gravel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_surface_patch_1",
+        "type": "box",
+        "position": [
+          7,
+          0.009,
+          89
+        ],
+        "size": [
+          4,
+          0.015,
+          7
+        ],
+        "material": "hero_gravel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          19,
+          0
+        ]
+      },
+      {
+        "id": "hero_surface_patch_2",
+        "type": "box",
+        "position": [
+          -4,
+          0.009,
+          72
+        ],
+        "size": [
+          5,
+          0.015,
+          3
+        ],
+        "material": "hero_gravel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          38,
+          0
+        ]
+      },
+      {
+        "id": "hero_surface_patch_3",
+        "type": "box",
+        "position": [
+          8,
+          0.009,
+          68
+        ],
+        "size": [
+          3,
+          0.015,
+          5
+        ],
+        "material": "hero_gravel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          57,
+          0
+        ]
+      },
+      {
+        "id": "hero_street_edge_-7.5",
+        "type": "box",
+        "position": [
+          -7.5,
+          0.013,
+          89
+        ],
+        "size": [
+          0.07,
+          0.018,
+          35
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_street_edge_7.5",
+        "type": "box",
+        "position": [
+          7.5,
+          0.013,
+          89
+        ],
+        "size": [
+          0.07,
+          0.018,
+          35
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_bay_hatch_0",
+        "type": "box",
+        "position": [
+          19.0,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_1",
+        "type": "box",
+        "position": [
+          19.5,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_2",
+        "type": "box",
+        "position": [
+          20.0,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_3",
+        "type": "box",
+        "position": [
+          20.5,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_4",
+        "type": "box",
+        "position": [
+          21.0,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_5",
+        "type": "box",
+        "position": [
+          21.5,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_6",
+        "type": "box",
+        "position": [
+          22.0,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_7",
+        "type": "box",
+        "position": [
+          22.5,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_8",
+        "type": "box",
+        "position": [
+          23.0,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_9",
+        "type": "box",
+        "position": [
+          23.5,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_10",
+        "type": "box",
+        "position": [
+          24.0,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_bay_hatch_11",
+        "type": "box",
+        "position": [
+          24.5,
+          0.071,
+          96
+        ],
+        "size": [
+          0.14,
+          0.018,
+          2.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "id": "hero_prop_collision_0",
+        "type": "box",
+        "position": [
+          -17.8,
+          0.54,
+          97
+        ],
+        "size": [
+          0.65,
+          0.96,
+          0.65
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_prop_collision_1",
+        "type": "box",
+        "position": [
+          -18.5,
+          0.54,
+          96.5
+        ],
+        "size": [
+          0.65,
+          0.96,
+          0.65
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_prop_collision_2",
+        "type": "box",
+        "position": [
+          29,
+          0.54,
+          69
+        ],
+        "size": [
+          0.65,
+          0.96,
+          0.65
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_prop_collision_3",
+        "type": "box",
+        "position": [
+          29,
+          0.51,
+          83
+        ],
+        "size": [
+          0.85,
+          0.9,
+          0.7
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_prop_collision_4",
+        "type": "box",
+        "position": [
+          31,
+          0.51,
+          88
+        ],
+        "size": [
+          0.85,
+          0.9,
+          0.7
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_prop_collision_5",
+        "type": "box",
+        "position": [
+          26,
+          0.51,
+          71
+        ],
+        "size": [
+          0.85,
+          0.9,
+          0.7
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_prop_collision_6",
+        "type": "box",
+        "position": [
+          -23,
+          0.51,
+          82
+        ],
+        "size": [
+          0.85,
+          0.9,
+          0.7
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_prop_collision_7",
+        "type": "box",
+        "position": [
+          -24,
+          0.54,
+          84
+        ],
+        "size": [
+          0.65,
+          0.96,
+          0.65
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_roof_vent_0",
+        "type": "box",
+        "position": [
+          -22,
+          5.4,
+          85
+        ],
+        "size": [
+          1.2,
+          1.0,
+          1.0
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_roof_vent_cap_0",
+        "type": "box",
+        "position": [
+          -22,
+          5.94,
+          85
+        ],
+        "size": [
+          1.4,
+          0.14,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_roof_vent_1",
+        "type": "box",
+        "position": [
+          20,
+          7.8,
+          78
+        ],
+        "size": [
+          1.2,
+          1.0,
+          1.0
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_roof_vent_cap_1",
+        "type": "box",
+        "position": [
+          20,
+          8.34,
+          78
+        ],
+        "size": [
+          1.4,
+          0.14,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_roof_vent_2",
+        "type": "box",
+        "position": [
+          28,
+          7.8,
+          78
+        ],
+        "size": [
+          1.2,
+          1.0,
+          1.0
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_roof_vent_cap_2",
+        "type": "box",
+        "position": [
+          28,
+          8.34,
+          78
+        ],
+        "size": [
+          1.4,
+          0.14,
+          1.2
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
       }
     ],
     "instances": [
@@ -7071,6 +10461,215 @@
           0,
           0
         ]
+      },
+      {
+        "id": "hero_yard_prop_0",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          -17.8,
+          0.06,
+          97
+        ],
+        "rotation_degrees": [
+          0,
+          14,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_yard_prop_1",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          -18.5,
+          0.06,
+          96.5
+        ],
+        "rotation_degrees": [
+          0,
+          65,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_yard_prop_2",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          29,
+          0.06,
+          69
+        ],
+        "rotation_degrees": [
+          0,
+          40,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_yard_prop_3",
+        "scene": "res://assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.gltf",
+        "position": [
+          29,
+          0.06,
+          83
+        ],
+        "rotation_degrees": [
+          0,
+          20,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_yard_prop_4",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          31,
+          0.06,
+          88
+        ],
+        "rotation_degrees": [
+          0,
+          90,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_yard_prop_5",
+        "scene": "res://assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf",
+        "position": [
+          26,
+          0.06,
+          71
+        ],
+        "rotation_degrees": [
+          0,
+          -16,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_yard_prop_6",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          -23,
+          0.06,
+          82
+        ],
+        "rotation_degrees": [
+          0,
+          4,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_yard_prop_7",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          -24,
+          0.06,
+          84
+        ],
+        "rotation_degrees": [
+          0,
+          35,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_service_pipe_0",
+        "scene": "res://assets/shooter/serious/pipe_segment.glb",
+        "position": [
+          -14.7,
+          2.7,
+          84
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.1,
+          2.1,
+          2.1
+        ]
+      },
+      {
+        "id": "hero_service_pipe_1",
+        "scene": "res://assets/shooter/serious/pipe_segment.glb",
+        "position": [
+          13.35,
+          4.6,
+          72
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.1,
+          2.1,
+          2.1
+        ]
+      },
+      {
+        "id": "hero_service_pipe_2",
+        "scene": "res://assets/shooter/serious/pipe_segment.glb",
+        "position": [
+          13.35,
+          4.6,
+          87
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.1,
+          2.1,
+          2.1
+        ]
       }
     ],
     "geometry": [
@@ -7148,12 +10747,12 @@
         "id": "sun",
         "type": "directional",
         "rotation_degrees": [
-          -26,
-          -34,
+          -24,
+          -48,
           0
         ],
-        "color": "e3d6bc",
-        "energy": 0.85,
+        "color": "ffe0b4",
+        "energy": 1.15,
         "shadows": true
       },
       {
@@ -7246,6 +10845,32 @@
         "energy": 1.2,
         "range": 12,
         "shadows": false
+      },
+      {
+        "id": "hero_west_light",
+        "type": "omni",
+        "position": [
+          -21,
+          3.2,
+          99.0
+        ],
+        "color": "ffd6a2",
+        "energy": 1.4,
+        "range": 9,
+        "shadows": false
+      },
+      {
+        "id": "hero_east_light",
+        "type": "omni",
+        "position": [
+          24,
+          3.2,
+          93.0
+        ],
+        "color": "ffd6a2",
+        "energy": 1.4,
+        "range": 9,
+        "shadows": false
       }
     ],
     "navigation": {
@@ -7261,13 +10886,13 @@
       "background_color": "596c76",
       "ambient_color": "c0c8d0",
       "ambient_energy": 0.5,
-      "fog_color": "596c76",
-      "fog_density": 0.0022
+      "fog_color": "657782",
+      "fog_density": 0.0032
     }
   },
   "shooter_design": {
     "name": "NEXO · Complejo industrial",
-    "art_revision": "military-pbr-02",
+    "art_revision": "third-person-industrial-03",
     "player_spawn": [
       0,
       0.08,
@@ -7563,7 +11188,26 @@
           5.45,
           110.5
         ]
+      },
+      {
+        "id": "hero_bridge",
+        "text": "SECTOR 07 / NEXO",
+        "position": [
+          0,
+          7.25,
+          61.42
+        ]
+      },
+      {
+        "id": "hero_workshop",
+        "text": "MANTENIMIENTO / 04",
+        "position": [
+          24,
+          6,
+          94.2
+        ]
       }
-    ]
+    ],
+    "perspective": "third_person"
   }
 }

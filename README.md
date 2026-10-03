@@ -38,3 +38,10 @@ and navigation, editable source scenes and native baked output. The same Arcont
 writer edits and restores road recipes. Install pinned providers and run
 `python tools/import_authoring_project.py --godot godot` before opening a clean
 checkout; this imports caches before enabling the editor plugins.
+
+## Third-person shooter
+
+[Nexo Industrial 0.3](docs/SHOOTER_NEXO.md) adds a complete animated character,
+colliding shoulder camera, directional movement and an authored industrial
+approach. The dedicated build validates 42 gameplay checks and reopens the real
+player through pinned Arcont input replay. It remains a playable prototype.
