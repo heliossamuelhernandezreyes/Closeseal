@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "id": "third_person_cover_route",
+  "actor": "Player",
+  "seed": 7326,
+  "commands": [
+    {
+      "id": "settle",
+      "frames": 12,
+      "actions": {}
+    },
+    {
+      "id": "approach_left",
+      "frames": 55,
+      "actions": {
+        "left": 1
+      }
+    },
+    {
+      "id": "approach_cover",
+      "frames": 56,
+      "actions": {
+        "forward": 1
+      }
+    },
+    {
+      "id": "enter_cover",
+      "frames": 1,
+      "actions": {
+        "cover": 1
+      }
+    },
+    {
+      "id": "cover_settle",
+      "frames": 20,
+      "actions": {},
+      "expect": {
+        "position": [
+          -5.066,
+          0,
+          100.71
+        ],
+        "tolerance_m": 0.4
+      }
+    },
+    {
+      "id": "vault_input",
+      "frames": 1,
+      "actions": {
+        "jump": 1
+      }
+    },
+    {
+      "id": "vault_midpoint",
+      "frames": 18,
+      "actions": {},
+      "expect": {
+        "height_min": 1.0
+      }
+    },
+    {
+      "id": "land",
+      "frames": 65,
+      "actions": {},
+      "expect": {
+        "position": [
+          -5.066,
+          0,
+          99.28
+        ],
+        "tolerance_m": 0.4
+      }
+    },
+    {
+      "id": "interaction",
+      "frames": 3,
+      "actions": {
+        "interact": 1
+      },
+      "expect": {
+        "interactions_min": 1
+      }
+    },
+    {
+      "id": "release",
+      "frames": 2,
+      "actions": {}
+    }
+  ]
+}

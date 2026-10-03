@@ -37,7 +37,10 @@ def main():
         run("authoring-bootstrap-import.log")
     finally:
         project.write_bytes(original)
-    run("authoring-import.log", verbose=True)
+    try:
+        run("authoring-import.log", verbose=True)
+    finally:
+        project.write_bytes(original)
     print("ARCONT_PLUGIN_IMPORT_OK source_configuration_restored=true")
 
 

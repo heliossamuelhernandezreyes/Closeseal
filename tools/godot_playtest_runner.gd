@@ -91,6 +91,9 @@ func run(context, arguments: Dictionary) -> Dictionary:
     _release(held)
     actor.call("end_playtest")
     context.paused = prior_pause
+    # AudioServer retires stopped voices on its mixer thread. Physics replay is
+    # complete; let it release native playback resources before scene teardown.
+    await context.create_timer(0.25, true, false, true).timeout
     # Leave the actor's tick signal stack before the worker frees the reopened scene.
     await context.process_frame
     trace.flush()

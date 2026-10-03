@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "edition": "Nexo Industrial 0.2.0",
-  "verified_at": "2026-10-02",
-  "arcont_commit": "aa23f1a5dba905c22eaeeb40547c409a309809b9",
+  "edition": "Nexo Industrial 0.4.0 \u2014 tactical mobility",
+  "verified_at": "2026-10-03",
+  "arcont_commit": "678d907e742d4ecd66934c9f1d1b83858e7b9e2c",
   "license_policy": "CC0 for models, textures, sky and reload; attributed CC BY 3.0 for gunshot under stricter archive license. No NC assets.",
   "sources": [
     {
@@ -143,7 +143,8 @@
     "texture_max_edge": 1024,
     "factory_triangles": 97804,
     "akm_triangles": 5322,
-    "animation": "Four authored native 30 fps skeletal clips; analytic arm/leg IK; no motion-capture claim."
+    "animation": "Eighteen authored native 30 fps skeletal clips: directional gait, cover entry/idle/strafe/high, crouch, slide, vault, jump/land and death; analytic arm/leg IK and hand plant; no motion-capture claim. Compressed editable AnimationLibrary.",
+    "texture_import": "Explicit mipmap chains after the initial clean Godot import, including embedded GLB textures extracted by the importer."
   },
   "delivered_files": [
     {
@@ -155,6 +156,11 @@
       "path": "assets/shooter/audio/shot.wav",
       "sha256": "526fd8149f88ecf88cba32f779b0c1dc50da34d5997b4f2a4bc451927001867a",
       "size_bytes": 28778
+    },
+    {
+      "path": "assets/shooter/combat_navigation.tres",
+      "sha256": "88ba6bf192d28f6e961df5643f68061a63d83093f6e81c19ea53661b9522436b",
+      "size_bytes": 67802
     },
     {
       "path": "assets/shooter/serious/LICENSES.txt",
@@ -197,9 +203,9 @@
       "size_bytes": 160048
     },
     {
-      "path": "assets/shooter/serious/combat_motion.tres",
-      "sha256": "9c5344dd409e31da896ca7eba5c66cbe7b8150e3a34a3080a5aa0a0458a966cb",
-      "size_bytes": 1250441
+      "path": "assets/shooter/serious/combat_motion.res",
+      "sha256": "9a5312cb90265f2b91b721ce0aa01b19d9f4a9f1d6b7033657e7e25ff16b5cf3",
+      "size_bytes": 383224
     },
     {
       "path": "assets/shooter/serious/evening_road_01_puresky.hdr",
@@ -263,8 +269,8 @@
     },
     {
       "path": "assets/shooter/serious/materials/asphalt.tres",
-      "sha256": "cc304eb23b34aa988bc94f470a30ac381a59200dfb34d903494155d23b8641be",
-      "size_bytes": 660
+      "sha256": "31b927f9ca0db06bc1ef3bbafde9521526e9c3bb938b427514b6ccede1754070",
+      "size_bytes": 663
     },
     {
       "path": "assets/shooter/serious/materials/concrete.tres",
@@ -277,9 +283,19 @@
       "size_bytes": 691
     },
     {
+      "path": "assets/shooter/serious/materials/oxide.tres",
+      "sha256": "fe2c788781340ed5271ad329164ab7e0feded28cdb2f994912107c6f8c1b8e3f",
+      "size_bytes": 724
+    },
+    {
       "path": "assets/shooter/serious/materials/steel.tres",
       "sha256": "d6f1eb706a05d5d1972282a2380cfc9a0cf84e48f1c19a097a4b02602a73d78b",
       "size_bytes": 724
+    },
+    {
+      "path": "assets/shooter/serious/materials/yard.tres",
+      "sha256": "f65cfbc37fd022d0b5cdc1b8469cd24284c54ede92140df2ffff7ac0c288569a",
+      "size_bytes": 660
     },
     {
       "path": "assets/shooter/serious/pipe_segment.glb",
