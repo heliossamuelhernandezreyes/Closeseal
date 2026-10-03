@@ -3,6 +3,7 @@ const VISUALS = preload("res://src/prototype/map_visual_kit.gd")
 const PLAYER = preload("res://src/shooter/player.gd")
 const ENEMY = preload("res://src/shooter/enemy.gd")
 const HUD = preload("res://src/shooter/shooter_hud.gd")
+const METRICS = preload("res://src/shooter/runtime_metrics.gd")
 var contract: Dictionary
 var design: Dictionary
 var world: Node3D
@@ -11,6 +12,7 @@ var player: CharacterBody3D
 var hud: Control
 var enemies: Array[CharacterBody3D] = []
 var beacons: Array[Node3D] = []
+var extraction_marker: Node3D
 var pickups: Array[Node3D] = []
 var secured: Array[String] = []
 var rng := RandomNumberGenerator.new()
@@ -28,6 +30,9 @@ var message_time := 0.0
 var effect_count := 0
 var sounds: Dictionary = {}
 var visual_stats: Dictionary
+var mission_mode := "full"
+var metrics: Node
+var kill_marker := 0.0
 
 func _ready() -> void:
 	configure_input()
@@ -70,6 +75,7 @@ func _ready() -> void:
 	var extraction := Node3D.new()
 	add_child(extraction)
 	extraction.position = vec(design.extraction)
+	extraction_marker = extraction
 	add_beacon_visual(extraction, "SALIDA", Color("66dfac"))
 	for position_value in design.pickups:
 		var pickup: Node3D = load("res://assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf").instantiate()
@@ -84,6 +90,9 @@ func _ready() -> void:
 	hud = HUD.new()
 	hud.arena = self
 	layer.add_child(hud)
+	metrics = METRICS.new()
+	metrics.arena = self
+	add_child(metrics)
 	DisplayServer.window_set_title("Closeseal · Nexo: zona de combate")
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -109,6 +118,47 @@ func _unhandled_input(event: InputEvent) -> void:
 		hud.clear_touch()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if playing and not hud.mobile else Input.MOUSE_MODE_VISIBLE
 		hud.update_menu()
+		if not playing: metrics.save_session()
+
+func begin_slice() -> void:
+	if started:
+		begin()
+		return
+	var slice: Dictionary = design.get("slice", {})
+	if slice.is_empty(): begin(); return
+	mission_mode = "sector07"
+	design = design.duplicate(true)
+	for key in ["beacons", "pickups", "extraction", "enemy_spawns", "navigation_checks"]: design[key] = slice[key]
+	extraction_marker.position = vec(design.extraction)
+	for node in beacons + pickups: node.queue_free()
+	beacons.clear()
+	pickups.clear()
+	for definition in design.beacons:
+		var beacon := Node3D.new()
+		add_child(beacon)
+		beacon.position = vec(definition.position)
+		beacon.set_meta("id", definition.id)
+		add_beacon_visual(beacon, definition.id, Color("44c4dc"))
+		beacons.append(beacon)
+	for index in enemies.size():
+		var enemy := enemies[index]
+		if index >= design.enemy_spawns.size():
+			enemy.dead = true
+			enemy.hide()
+			enemy.collision_layer = 0
+			enemy.collision_mask = 0
+			enemy.set_physics_process(false)
+		else:
+			enemy.position = vec(design.enemy_spawns[index]) + Vector3.UP * 0.08
+			enemy.home = enemy.position
+	for point in design.pickups:
+		var pickup: Node3D = load("res://assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf").instantiate()
+		add_child(pickup)
+		pickup.position = vec(point)
+		pickup.scale = Vector3.ONE * 1.3
+		pickups.append(pickup)
+	begin()
+	announce("SECTOR 07 · ASEGURA SUMINISTROS, RELE Y ACCESO")
 
 func begin() -> void:
 	if not outcome.is_empty():
@@ -126,9 +176,11 @@ func finish(won: bool) -> void:
 	hud.clear_touch()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	hud.update_menu()
+	metrics.save_session()
 
 func _process(delta: float) -> void:
 	hit_marker = maxf(0.0, hit_marker - delta)
+	kill_marker = maxf(0.0, kill_marker - delta)
 	damage_flash = maxf(0.0, damage_flash - delta)
 	message_time = maxf(0.0, message_time - delta)
 	if not playing: return
@@ -165,6 +217,9 @@ func interact() -> void:
 		return
 	for definition in design.beacons:
 		if definition.id not in secured and player.global_position.distance_to(vec(definition.position)) < 3.8:
+			if mission_mode == "sector07" and design.beacons[secured.size()].id != definition.id:
+				announce("ASEGURA PRIMERO " + design.beacons[secured.size()].name.to_upper())
+				return
 			capture_id = definition.id
 			capture_time = 0
 			return
@@ -200,7 +255,7 @@ func add_beacon_visual(node: Node3D, text: String, color: Color) -> void:
 	label.name = "Marker"
 	label.text = text
 	label.font_size = 72
-	label.pixel_size = 0.007
+	label.pixel_size = 0.005
 	label.position.y = 2.25
 	label.modulate = color
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -233,7 +288,7 @@ func configure_presentation() -> void:
 		var label := Label3D.new()
 		label.text = definition.text
 		label.font_size = 64
-		label.pixel_size = 0.015
+		label.pixel_size = 0.008
 		label.modulate = Color("d0c6aa")
 		label.outline_size = 6
 		world.add_child(label)

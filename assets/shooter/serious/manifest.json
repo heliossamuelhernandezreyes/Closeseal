@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "edition": "Nexo Industrial 0.4.0 \u2014 tactical mobility",
+  "edition": "Nexo Industrial 0.5.0 — Sector 07",
   "verified_at": "2026-10-03",
-  "arcont_commit": "678d907e742d4ecd66934c9f1d1b83858e7b9e2c",
+  "arcont_commit": "86fa0e7b97341205f9c3e42b6ecfe09efde4ca6b",
   "license_policy": "CC0 for models, textures, sky and reload; attributed CC BY 3.0 for gunshot under stricter archive license. No NC assets.",
   "sources": [
     {
@@ -159,8 +159,8 @@
     },
     {
       "path": "assets/shooter/combat_navigation.tres",
-      "sha256": "88ba6bf192d28f6e961df5643f68061a63d83093f6e81c19ea53661b9522436b",
-      "size_bytes": 67802
+      "sha256": "bef1752b4cd5b89839817283793284aa730c7bec4010e3ed5a7dc783f2778cca",
+      "size_bytes": 73202
     },
     {
       "path": "assets/shooter/serious/LICENSES.txt",

@@ -33,6 +33,16 @@ var vault_top := 0.0
 var vault_hand := Vector3.ZERO
 var vault_aborted := false
 var vault_reason := ""
+var cover_path: Array[Vector3] = []
+var path_distance := 0.0
+var path_progress := 0.0
+var path_end_normal := Vector3.ZERO
+var path_end_body: WeakRef
+var path_end_low := false
+var transition_aborted := false
+var completed_corners := 0
+var completed_transfers := 0
+var transfer_candidate: Dictionary = {}
 
 func _init(player: CharacterBody3D) -> void: actor = player
 
@@ -85,7 +95,10 @@ func find_cover(direction: Vector3) -> Dictionary:
 	return {}
 
 func toggle_cover() -> bool:
-	if state == "cover": leave_cover(); return true
+	if state == "cover":
+		if not transfer_candidate.is_empty() and start_cover_path(transfer_candidate, "transfer"): return true
+		leave_cover()
+		return true
 	if state != "free" or not actor.is_on_floor() or cooldown > 0.0: return false
 	var found := find_cover(forward())
 	if found.is_empty(): return false
@@ -106,9 +119,127 @@ func leave_cover() -> void:
 	edge = false
 	peek_offset = Vector3.ZERO
 	cooldown = 0.18
+	transfer_candidate = {}
+
+func valid_cover_path(points: Array[Vector3]) -> bool:
+	var previous := actor.global_position
+	for point in points:
+		var floor_hit := world_ray(point + Vector3.UP * 0.35, point - Vector3.UP * 0.4)
+		if floor_hit.is_empty() or floor_hit.normal.y < 0.8 or absf(floor_hit.position.y - point.y) > 0.2: return false
+		if not clear_at(point, capsule_height): return false
+		if actor.test_move(Transform3D(actor.global_basis, previous), point - previous): return false
+		previous = point
+	return true
+
+func start_cover_path(found: Dictionary, kind: String) -> bool:
+	if cooldown > 0 or not valid_cover_path(found.points): return false
+	cover_path = found.points.duplicate()
+	path_end_normal = found.normal
+	path_end_body = weakref(found.body)
+	path_end_low = found.low
+	path_distance = 0
+	var previous := actor.global_position
+	cover_path.push_front(previous)
+	for point in cover_path:
+		path_distance += previous.distance_to(point)
+		previous = point
+	path_progress = 0
+	transition_aborted = false
+	peek = false
+	peek_offset = Vector3.ZERO
+	set_height(CROUCHED if cover_low else STANDING)
+	actor.velocity = Vector3.ZERO
+	state = kind
+	return true
+
+func nearby_transfer(direction: Vector3) -> Dictionary:
+	if state != "cover" or direction.length() < 0.3 or not is_instance_valid(cover_body.get_ref()): return {}
+	var tangent := cover_normal.cross(Vector3.UP).normalized()
+	var axis := direction.dot(tangent)
+	if absf(axis) < 0.45: return {}
+	var heading := tangent * signf(axis)
+	for distance in [1.6, 2.4, 3.2, 4.0, 4.8, 5.6]:
+		var origin: Vector3 = actor.global_position + heading * distance + Vector3.UP * 0.6
+		var hit := world_ray(origin, origin - cover_normal * 1.35)
+		if hit.is_empty() or hit.collider == cover_body.get_ref() or hit.normal.dot(cover_normal) < 0.95: continue
+		var target: Vector3 = hit.position + hit.normal * 0.43 - Vector3.UP * 0.6
+		var supported := true
+		for offset in [-0.35, 0.35]:
+			var side: Vector3 = target + tangent * offset + Vector3.UP * 0.6
+			var shoulder_hit := world_ray(side, side - hit.normal * 0.8)
+			if shoulder_hit.is_empty() or shoulder_hit.collider != hit.collider: supported = false
+		if not supported: continue
+		var points: Array[Vector3] = []
+		for sample in range(1, 17): points.append(actor.global_position.lerp(target, sample / 16.0))
+		if not valid_cover_path(points): continue
+		var high_start := target + Vector3.UP * 1.5
+		return {"points": points, "normal": hit.normal, "body": hit.collider,
+			"low": world_ray(high_start, high_start - hit.normal * 0.8).is_empty()}
+	return {}
+
+func try_corner(axis: float) -> bool:
+	if cooldown > 0 or absf(axis) < 0.55 or peek: return false
+	var heading := cover_normal.cross(Vector3.UP).normalized() * signf(axis)
+	var from := actor.global_position + Vector3.UP * 0.6
+	var outside := from + heading * 0.65
+	if not world_ray(outside, outside - cover_normal * 0.9).is_empty(): return false
+	# Locate the actual face edge, then verify the adjoining convex face.
+	var inside_distance := 0.0
+	var outside_distance := 0.65
+	for sample in range(9):
+		var middle := (inside_distance + outside_distance) * 0.5
+		var probe := from + heading * middle
+		var hit := world_ray(probe, probe - cover_normal * 0.9)
+		if not hit.is_empty() and hit.collider == cover_body.get_ref(): inside_distance = middle
+		else: outside_distance = middle
+	var face := world_ray(from, from - cover_normal * 0.9)
+	if face.is_empty(): return false
+	var corner: Vector3 = face.position + heading * inside_distance - Vector3.UP * 0.6
+	var side_probe := corner + heading * 0.8 - cover_normal * 0.22 + Vector3.UP * 0.6
+	var side_hit := world_ray(side_probe, side_probe - heading * 1.1)
+	if side_hit.is_empty() or side_hit.collider != cover_body.get_ref() or side_hit.normal.dot(heading) < 0.95: return false
+	var angle := cover_normal.signed_angle_to(side_hit.normal, Vector3.UP)
+	var points: Array[Vector3] = [corner + cover_normal * 0.46]
+	for sample in range(1, 13): points.append(corner + cover_normal.rotated(Vector3.UP, angle * sample / 12.0) * 0.46)
+	points.append(corner + side_hit.normal * 0.46 - cover_normal * 0.22)
+	var high_start := points[-1] + Vector3.UP * 1.5
+	return start_cover_path({"points": points, "normal": side_hit.normal, "body": side_hit.collider,
+		"low": world_ray(high_start, high_start - side_hit.normal * 0.8).is_empty()}, "corner")
+
+func advance_cover_path(delta: float) -> void:
+	if not is_instance_valid(path_end_body.get_ref()):
+		transition_aborted = true
+		leave_cover()
+		return
+	path_progress = minf(path_distance, path_progress + delta * (6.8 if state == "transfer" else 2.6))
+	var remaining := path_progress
+	var point: Vector3 = cover_path[-1]
+	for index in range(1, cover_path.size()):
+		var length := cover_path[index - 1].distance_to(cover_path[index])
+		if remaining <= length:
+			point = cover_path[index - 1].lerp(cover_path[index], remaining / maxf(length, 0.0001))
+			break
+		remaining -= length
+	var motion := point - actor.global_position
+	actor.velocity = motion / maxf(delta, 0.0001)
+	if not clear_at(point, capsule_height) or actor.move_and_collide(motion):
+		transition_aborted = true
+		leave_cover()
+		actor.velocity = Vector3.ZERO
+		return
+	if path_progress >= path_distance:
+		if state == "corner": completed_corners += 1
+		else: completed_transfers += 1
+		cover_normal = path_end_normal
+		cover_body = path_end_body
+		cover_low = path_end_low
+		state = "cover"
+		cover_enter = 0.12
+		cooldown = 0.3
+		actor.velocity = Vector3.ZERO
 
 func stance() -> void:
-	if state == "vault" or state == "slide": return
+	if state in ["vault", "slide", "corner", "transfer"]: return
 	if state == "cover": leave_cover(); return
 	if actor.is_on_floor() and Vector2(actor.velocity.x, actor.velocity.z).length() > 6.0 and not actor.is_aiming():
 		state = "slide"
@@ -118,7 +249,7 @@ func stance() -> void:
 	else: crouched = not crouched
 
 func request_jump() -> void:
-	if state == "vault": return
+	if state in ["vault", "corner", "transfer"]: return
 	if state == "slide": state = "free"
 	if try_vault(): return
 	if state == "cover": leave_cover()
@@ -183,6 +314,9 @@ func tick(delta: float, direction: Vector3, sprint: bool, aiming: bool) -> bool:
 	cooldown = maxf(0, cooldown - delta)
 	landed = maxf(0, landed - delta)
 	var grounded := actor.is_on_floor()
+	if state in ["corner", "transfer"]:
+		advance_cover_path(delta)
+		return true
 	if grounded:
 		floor_grace = 0.10
 		if not was_grounded and actor.velocity.y < -3.0: landed = 0.18
@@ -192,6 +326,7 @@ func tick(delta: float, direction: Vector3, sprint: bool, aiming: bool) -> bool:
 	scan_time -= delta
 	if scan_time <= 0:
 		candidate = find_cover(direction)
+		transfer_candidate = nearby_transfer(direction)
 		scan_time = 0.10
 	if state == "vault":
 		elapsed += delta
@@ -223,6 +358,7 @@ func tick(delta: float, direction: Vector3, sprint: bool, aiming: bool) -> bool:
 				var side: Vector3 = from + tangent * (signf(axis) if absf(axis) > 0.1 else -actor.shoulder) * 0.65
 				edge = world_ray(side, side - cover_normal * 1.3).is_empty()
 				peek = aiming and (cover_low or edge)
+				if not aiming and try_corner(axis): return true
 				if peek and not cover_low:
 					var side_sign: float = signf(axis) if absf(axis) > 0.1 else -actor.shoulder
 					desired_peek = tangent * side_sign * 0.65
@@ -258,6 +394,8 @@ func tick(delta: float, direction: Vector3, sprint: bool, aiming: bool) -> bool:
 	return false
 
 func pose_name() -> String:
+	if state == "corner": return "cover_left" if cover_low else "walk"
+	if state == "transfer": return "crouch_walk" if cover_low else "run"
 	if state == "vault" or state == "slide": return state
 	if state == "cover":
 		if cover_enter > 0: return "cover_enter" if cover_low else "cover_high"
@@ -276,6 +414,9 @@ func reset() -> void:
 	peek = false
 	peek_offset = Vector3.ZERO
 	cover_body = null
+	cover_path.clear()
+	transfer_candidate = {}
+	transition_aborted = false
 	jump_buffer = 0
 	cooldown = 0
 	actor.velocity = Vector3.ZERO

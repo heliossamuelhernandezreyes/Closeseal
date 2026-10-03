@@ -111,6 +111,17 @@
       {
         "id": "hero_gravel",
         "resource": "res://assets/shooter/serious/materials/yard.tres"
+      },
+      {
+        "id": "hero_painted",
+        "albedo": "304853",
+        "roughness": 0.78,
+        "metallic": 0.45
+      },
+      {
+        "id": "hero_rubber",
+        "albedo": "151b20",
+        "roughness": 0.92
       }
     ],
     "objects": [
@@ -9004,7 +9015,7 @@
         "id": "hero_prop_collision_3",
         "type": "box",
         "position": [
-          29,
+          25,
           0.51,
           83
         ],
@@ -9021,7 +9032,7 @@
         "id": "hero_prop_collision_4",
         "type": "box",
         "position": [
-          31,
+          26,
           0.51,
           88
         ],
@@ -9485,6 +9496,1404 @@
         ],
         "material": "concrete",
         "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_mezzanine",
+        "type": "box",
+        "position": [
+          24,
+          2.98,
+          72
+        ],
+        "size": [
+          18,
+          0.24,
+          8
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_support_15.3",
+        "type": "box",
+        "position": [
+          15.3,
+          1.45,
+          69
+        ],
+        "size": [
+          0.22,
+          2.9,
+          0.22
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_mezz_beam_15.3",
+        "type": "box",
+        "position": [
+          15.3,
+          2.75,
+          72
+        ],
+        "size": [
+          0.2,
+          0.22,
+          8
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_support_24",
+        "type": "box",
+        "position": [
+          24,
+          1.45,
+          69
+        ],
+        "size": [
+          0.22,
+          2.9,
+          0.22
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_mezz_beam_24",
+        "type": "box",
+        "position": [
+          24,
+          2.75,
+          72
+        ],
+        "size": [
+          0.2,
+          0.22,
+          8
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_support_32.7",
+        "type": "box",
+        "position": [
+          32.7,
+          1.45,
+          69
+        ],
+        "size": [
+          0.22,
+          2.9,
+          0.22
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_mezz_beam_32.7",
+        "type": "box",
+        "position": [
+          32.7,
+          2.75,
+          72
+        ],
+        "size": [
+          0.2,
+          0.22,
+          8
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_29.30",
+        "type": "box",
+        "position": [
+          29.3,
+          0.55,
+          88
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_29.31",
+        "type": "box",
+        "position": [
+          29.3,
+          1.0633333333333335,
+          86
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_29.32",
+        "type": "box",
+        "position": [
+          29.3,
+          1.5766666666666667,
+          84
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_29.33",
+        "type": "box",
+        "position": [
+          29.3,
+          2.09,
+          82
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_29.34",
+        "type": "box",
+        "position": [
+          29.3,
+          2.6033333333333335,
+          80
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_29.35",
+        "type": "box",
+        "position": [
+          29.3,
+          3.116666666666667,
+          78
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_29.36",
+        "type": "box",
+        "position": [
+          29.3,
+          3.63,
+          76
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_rail_29.3",
+        "type": "box",
+        "position": [
+          29.3,
+          2.64,
+          82
+        ],
+        "size": [
+          0.08,
+          0.08,
+          12.4
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_ramp_post_32.70",
+        "type": "box",
+        "position": [
+          32.7,
+          0.55,
+          88
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_32.71",
+        "type": "box",
+        "position": [
+          32.7,
+          1.0633333333333335,
+          86
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_32.72",
+        "type": "box",
+        "position": [
+          32.7,
+          1.5766666666666667,
+          84
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_32.73",
+        "type": "box",
+        "position": [
+          32.7,
+          2.09,
+          82
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_32.74",
+        "type": "box",
+        "position": [
+          32.7,
+          2.6033333333333335,
+          80
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_32.75",
+        "type": "box",
+        "position": [
+          32.7,
+          3.116666666666667,
+          78
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_post_32.76",
+        "type": "box",
+        "position": [
+          32.7,
+          3.63,
+          76
+        ],
+        "size": [
+          0.07,
+          1.1,
+          0.07
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_ramp_rail_32.7",
+        "type": "box",
+        "position": [
+          32.7,
+          2.64,
+          82
+        ],
+        "size": [
+          0.08,
+          0.08,
+          12.4
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_rail_2468",
+        "type": "box",
+        "position": [
+          24,
+          3.68,
+          68
+        ],
+        "size": [
+          18,
+          1.12,
+          0.09
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_rail_cap_2468",
+        "type": "box",
+        "position": [
+          24,
+          4.28,
+          68
+        ],
+        "size": [
+          18.02,
+          0.07,
+          0.11
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_rail_1572",
+        "type": "box",
+        "position": [
+          15,
+          3.68,
+          72
+        ],
+        "size": [
+          0.09,
+          1.12,
+          8
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_rail_cap_1572",
+        "type": "box",
+        "position": [
+          15,
+          4.28,
+          72
+        ],
+        "size": [
+          0.11,
+          0.07,
+          8.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_rail_2276",
+        "type": "box",
+        "position": [
+          22,
+          3.68,
+          76
+        ],
+        "size": [
+          14,
+          1.12,
+          0.09
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_rail_cap_2276",
+        "type": "box",
+        "position": [
+          22,
+          4.28,
+          76
+        ],
+        "size": [
+          14.02,
+          0.07,
+          0.11
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_rail_3372",
+        "type": "box",
+        "position": [
+          33,
+          3.68,
+          72
+        ],
+        "size": [
+          0.09,
+          1.12,
+          8
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_rail_cap_3372",
+        "type": "box",
+        "position": [
+          33,
+          4.28,
+          72
+        ],
+        "size": [
+          0.11,
+          0.07,
+          8.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_floor_grip_0",
+        "type": "box",
+        "position": [
+          31,
+          0.05,
+          87.8
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_floor_grip_1",
+        "type": "box",
+        "position": [
+          31,
+          0.37,
+          86.55
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_floor_grip_2",
+        "type": "box",
+        "position": [
+          31,
+          0.6900000000000001,
+          85.3
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_floor_grip_3",
+        "type": "box",
+        "position": [
+          31,
+          1.01,
+          84.05
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_floor_grip_4",
+        "type": "box",
+        "position": [
+          31,
+          1.33,
+          82.8
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_floor_grip_5",
+        "type": "box",
+        "position": [
+          31,
+          1.6500000000000001,
+          81.55
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_floor_grip_6",
+        "type": "box",
+        "position": [
+          31,
+          1.97,
+          80.3
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_floor_grip_7",
+        "type": "box",
+        "position": [
+          31,
+          2.29,
+          79.05
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_floor_grip_8",
+        "type": "box",
+        "position": [
+          31,
+          2.61,
+          77.8
+        ],
+        "size": [
+          3,
+          0.01,
+          0.035
+        ],
+        "material": "hero_rubber",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          14.4,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_slice_bench_0",
+        "type": "box",
+        "position": [
+          34,
+          0.86,
+          78
+        ],
+        "size": [
+          1.3,
+          0.18,
+          3.4
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_leg_0-1.25",
+        "type": "box",
+        "position": [
+          34,
+          0.4,
+          76.75
+        ],
+        "size": [
+          0.12,
+          0.8,
+          0.12
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_leg_01.25",
+        "type": "box",
+        "position": [
+          34,
+          0.4,
+          79.25
+        ],
+        "size": [
+          0.12,
+          0.8,
+          0.12
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_lamp_0",
+        "type": "box",
+        "position": [
+          34.3,
+          2.7,
+          78
+        ],
+        "size": [
+          0.2,
+          0.1,
+          2.4
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_1",
+        "type": "box",
+        "position": [
+          34,
+          0.86,
+          83
+        ],
+        "size": [
+          1.3,
+          0.18,
+          3.4
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_leg_1-1.25",
+        "type": "box",
+        "position": [
+          34,
+          0.4,
+          81.75
+        ],
+        "size": [
+          0.12,
+          0.8,
+          0.12
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_leg_11.25",
+        "type": "box",
+        "position": [
+          34,
+          0.4,
+          84.25
+        ],
+        "size": [
+          0.12,
+          0.8,
+          0.12
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_lamp_1",
+        "type": "box",
+        "position": [
+          34.3,
+          2.7,
+          83
+        ],
+        "size": [
+          0.2,
+          0.1,
+          2.4
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_2",
+        "type": "box",
+        "position": [
+          34,
+          0.86,
+          89
+        ],
+        "size": [
+          1.3,
+          0.18,
+          3.4
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_leg_2-1.25",
+        "type": "box",
+        "position": [
+          34,
+          0.4,
+          87.75
+        ],
+        "size": [
+          0.12,
+          0.8,
+          0.12
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_leg_21.25",
+        "type": "box",
+        "position": [
+          34,
+          0.4,
+          90.25
+        ],
+        "size": [
+          0.12,
+          0.8,
+          0.12
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_bench_lamp_2",
+        "type": "box",
+        "position": [
+          34.3,
+          2.7,
+          89
+        ],
+        "size": [
+          0.2,
+          0.1,
+          2.4
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_crate_collision_0",
+        "type": "box",
+        "position": [
+          18,
+          0.49,
+          84
+        ],
+        "size": [
+          0.85,
+          0.9,
+          0.75
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_slice_crate_collision_1",
+        "type": "box",
+        "position": [
+          20,
+          0.49,
+          92
+        ],
+        "size": [
+          0.85,
+          0.9,
+          0.75
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_slice_crate_collision_2",
+        "type": "box",
+        "position": [
+          -19,
+          0.49,
+          87
+        ],
+        "size": [
+          0.85,
+          0.9,
+          0.75
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_slice_crate_collision_3",
+        "type": "box",
+        "position": [
+          -24,
+          0.49,
+          91
+        ],
+        "size": [
+          0.85,
+          0.9,
+          0.75
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "hero_slice_gap_cover_0",
+        "type": "box",
+        "position": [
+          -8,
+          0.57,
+          87
+        ],
+        "size": [
+          4,
+          1.14,
+          0.56
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_gap_cap_0",
+        "type": "box",
+        "position": [
+          -8,
+          1.16,
+          87
+        ],
+        "size": [
+          4.04,
+          0.05,
+          0.6
+        ],
+        "material": "hero_painted",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_gap_cover_1",
+        "type": "box",
+        "position": [
+          -2,
+          0.57,
+          87
+        ],
+        "size": [
+          4,
+          1.14,
+          0.56
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_gap_cap_1",
+        "type": "box",
+        "position": [
+          -2,
+          1.16,
+          87
+        ],
+        "size": [
+          4.04,
+          0.05,
+          0.6
+        ],
+        "material": "hero_painted",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_cover_0",
+        "type": "box",
+        "position": [
+          -9,
+          1.1,
+          94
+        ],
+        "size": [
+          2.2,
+          2.2,
+          1.5
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_trim_00.18",
+        "type": "box",
+        "position": [
+          -9,
+          0.18,
+          94.76
+        ],
+        "size": [
+          2.12,
+          0.05,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_trim_02.05",
+        "type": "box",
+        "position": [
+          -9,
+          2.05,
+          94.76
+        ],
+        "size": [
+          2.12,
+          0.05,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_cover_1",
+        "type": "box",
+        "position": [
+          9,
+          1.1,
+          79
+        ],
+        "size": [
+          2.2,
+          2.2,
+          1.5
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_trim_10.18",
+        "type": "box",
+        "position": [
+          9,
+          0.18,
+          79.76
+        ],
+        "size": [
+          2.12,
+          0.05,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_trim_12.05",
+        "type": "box",
+        "position": [
+          9,
+          2.05,
+          79.76
+        ],
+        "size": [
+          2.12,
+          0.05,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_cover_2",
+        "type": "box",
+        "position": [
+          14,
+          1.1,
+          92
+        ],
+        "size": [
+          2.2,
+          2.2,
+          1.5
+        ],
+        "material": "hero_painted",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_trim_20.18",
+        "type": "box",
+        "position": [
+          14,
+          0.18,
+          92.76
+        ],
+        "size": [
+          2.12,
+          0.05,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_high_trim_22.05",
+        "type": "box",
+        "position": [
+          14,
+          2.05,
+          92.76
+        ],
+        "size": [
+          2.12,
+          0.05,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_facade_trim_-15.40",
+        "type": "box",
+        "position": [
+          -15.4,
+          1.4,
+          71
+        ],
+        "size": [
+          0.06,
+          0.12,
+          1.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_facade_trim_-15.41",
+        "type": "box",
+        "position": [
+          -15.4,
+          1.4,
+          78
+        ],
+        "size": [
+          0.06,
+          0.12,
+          1.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_facade_trim_-15.42",
+        "type": "box",
+        "position": [
+          -15.4,
+          1.4,
+          85
+        ],
+        "size": [
+          0.06,
+          0.12,
+          1.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_facade_trim_-15.43",
+        "type": "box",
+        "position": [
+          -15.4,
+          1.4,
+          92
+        ],
+        "size": [
+          0.06,
+          0.12,
+          1.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_facade_trim_13.40",
+        "type": "box",
+        "position": [
+          13.4,
+          1.4,
+          71
+        ],
+        "size": [
+          0.06,
+          0.12,
+          1.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_facade_trim_13.41",
+        "type": "box",
+        "position": [
+          13.4,
+          1.4,
+          78
+        ],
+        "size": [
+          0.06,
+          0.12,
+          1.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_facade_trim_13.42",
+        "type": "box",
+        "position": [
+          13.4,
+          1.4,
+          85
+        ],
+        "size": [
+          0.06,
+          0.12,
+          1.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_facade_trim_13.43",
+        "type": "box",
+        "position": [
+          13.4,
+          1.4,
+          92
+        ],
+        "size": [
+          0.06,
+          0.12,
+          1.3
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_cable_tray_82",
+        "type": "box",
+        "position": [
+          24,
+          5.9,
+          82
+        ],
+        "size": [
+          19,
+          0.14,
+          0.35
+        ],
+        "material": "hero_painted",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hero_slice_cable_tray_94",
+        "type": "box",
+        "position": [
+          24,
+          5.9,
+          94
+        ],
+        "size": [
+          19,
+          0.14,
+          0.35
+        ],
+        "material": "hero_painted",
+        "collision": false,
         "visible": true
       }
     ],
@@ -10823,7 +12232,7 @@
         "id": "hero_yard_prop_3",
         "scene": "res://assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.gltf",
         "position": [
-          29,
+          25,
           0.06,
           83
         ],
@@ -10842,7 +12251,7 @@
         "id": "hero_yard_prop_4",
         "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
         "position": [
-          31,
+          26,
           0.06,
           88
         ],
@@ -10970,6 +12379,82 @@
           2.1,
           2.1
         ]
+      },
+      {
+        "id": "hero_slice_crate_0",
+        "scene": "res://assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf",
+        "position": [
+          18,
+          0.04,
+          84
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_slice_crate_1",
+        "scene": "res://assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf",
+        "position": [
+          20,
+          0.04,
+          92
+        ],
+        "rotation_degrees": [
+          0,
+          24,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_slice_crate_2",
+        "scene": "res://assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf",
+        "position": [
+          -19,
+          0.04,
+          87
+        ],
+        "rotation_degrees": [
+          0,
+          48,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "hero_slice_crate_3",
+        "scene": "res://assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf",
+        "position": [
+          -24,
+          0.04,
+          91
+        ],
+        "rotation_degrees": [
+          0,
+          72,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
       }
     ],
     "geometry": [
@@ -11038,6 +12523,57 @@
           3
         ],
         "material": "concrete",
+        "collision": true
+      },
+      {
+        "id": "hero_slice_ramp",
+        "vertices": [
+          [
+            29.3,
+            0.02,
+            88
+          ],
+          [
+            32.7,
+            0.02,
+            88
+          ],
+          [
+            29.3,
+            3.1,
+            76
+          ],
+          [
+            32.7,
+            3.1,
+            76
+          ],
+          [
+            29.3,
+            0,
+            76
+          ],
+          [
+            32.7,
+            0,
+            76
+          ]
+        ],
+        "indices": [
+          0,
+          2,
+          1,
+          1,
+          2,
+          3,
+          0,
+          4,
+          2,
+          1,
+          3,
+          5
+        ],
+        "material": "hero_painted",
         "collision": true
       }
     ],
@@ -11171,6 +12707,45 @@
         "energy": 1.4,
         "range": 9,
         "shadows": false
+      },
+      {
+        "id": "hero_slice_fill_0",
+        "type": "omni",
+        "position": [
+          -22,
+          4.9,
+          90
+        ],
+        "color": "a5c9de",
+        "energy": 1.25,
+        "range": 11,
+        "shadows": false
+      },
+      {
+        "id": "hero_slice_fill_1",
+        "type": "omni",
+        "position": [
+          24,
+          4.9,
+          88
+        ],
+        "color": "a5c9de",
+        "energy": 1.25,
+        "range": 11,
+        "shadows": false
+      },
+      {
+        "id": "hero_slice_fill_2",
+        "type": "omni",
+        "position": [
+          22,
+          4.9,
+          72
+        ],
+        "color": "ffb96e",
+        "energy": 1.25,
+        "range": 11,
+        "shadows": false
       }
     ],
     "navigation": {
@@ -11187,12 +12762,12 @@
       "ambient_color": "c0c8d0",
       "ambient_energy": 0.5,
       "fog_color": "657782",
-      "fog_density": 0.0032
+      "fog_density": 0.0018
     }
   },
   "shooter_design": {
     "name": "NEXO · Complejo industrial",
-    "art_revision": "third-person-industrial-04",
+    "art_revision": "industrial-slice-05",
     "player_spawn": [
       0,
       0.08,
@@ -11506,8 +13081,149 @@
           6,
           94.2
         ]
+      },
+      {
+        "id": "hero_relay",
+        "text": "RELE / 07",
+        "position": [
+          21,
+          4.5,
+          68.15
+        ]
+      },
+      {
+        "id": "hero_service",
+        "text": "SUMINISTROS",
+        "position": [
+          -21,
+          3.3,
+          99.9
+        ]
       }
     ],
-    "perspective": "third_person"
+    "perspective": "third_person",
+    "slice": {
+      "name": "SECTOR 07 / MANTENIMIENTO",
+      "target_minutes": [
+        3,
+        5
+      ],
+      "beacons": [
+        {
+          "id": "A",
+          "name": "Suministros",
+          "position": [
+            19,
+            0,
+            90
+          ]
+        },
+        {
+          "id": "B",
+          "name": "Relé elevado",
+          "position": [
+            21,
+            3.1,
+            72
+          ]
+        },
+        {
+          "id": "C",
+          "name": "Control de acceso",
+          "position": [
+            0,
+            0,
+            64
+          ]
+        }
+      ],
+      "enemy_spawns": [
+        [
+          -4,
+          0,
+          81
+        ],
+        [
+          9,
+          0,
+          70
+        ],
+        [
+          23,
+          0,
+          80
+        ],
+        [
+          18,
+          0,
+          78
+        ],
+        [
+          26,
+          3.1,
+          72
+        ],
+        [
+          -8,
+          0,
+          60
+        ]
+      ],
+      "pickups": [
+        [
+          18,
+          0,
+          96
+        ],
+        [
+          20,
+          3.1,
+          70
+        ]
+      ],
+      "extraction": [
+        0,
+        0,
+        106
+      ],
+      "navigation_checks": [
+        [
+          [
+            0,
+            0,
+            106
+          ],
+          [
+            19,
+            0,
+            90
+          ]
+        ],
+        [
+          [
+            19,
+            0,
+            90
+          ],
+          [
+            21,
+            3.1,
+            72
+          ]
+        ],
+        [
+          [
+            21,
+            3.1,
+            72
+          ],
+          [
+            0,
+            0,
+            64
+          ]
+        ]
+      ]
+    }
   }
 }
