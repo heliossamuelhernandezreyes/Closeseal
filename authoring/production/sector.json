@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "id": "industrial-yard",
+  "floor": {
+    "size": [
+      24,
+      32
+    ]
+  },
+  "covers": [
+    {
+      "id": "cover_west",
+      "position": [
+        -3,
+        2
+      ],
+      "size": [
+        4,
+        1.14,
+        0.56
+      ],
+      "vaultable": true
+    },
+    {
+      "id": "cover_east",
+      "position": [
+        3,
+        -5
+      ],
+      "size": [
+        4,
+        1.14,
+        0.56
+      ],
+      "vaultable": true
+    },
+    {
+      "id": "cover_high",
+      "position": [
+        -7,
+        -6
+      ],
+      "size": [
+        2,
+        2.1,
+        0.6
+      ],
+      "vaultable": false
+    }
+  ],
+  "routes": [
+    {
+      "id": "central",
+      "clearance_radius": 0.45,
+      "points": [
+        [
+          0,
+          14
+        ],
+        [
+          0,
+          -14
+        ]
+      ]
+    },
+    {
+      "id": "east",
+      "clearance_radius": 0.45,
+      "points": [
+        [
+          8,
+          14
+        ],
+        [
+          8,
+          -14
+        ]
+      ]
+    },
+    {
+      "id": "west",
+      "clearance_radius": 0.45,
+      "points": [
+        [
+          -10,
+          14
+        ],
+        [
+          -10,
+          -14
+        ]
+      ]
+    }
+  ]
+}
