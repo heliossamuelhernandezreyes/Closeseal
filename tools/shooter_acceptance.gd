@@ -23,13 +23,33 @@ func run() -> void:
 	arena = load("res://src/shooter/shooter_arena.tscn").instantiate()
 	root.add_child(arena)
 	await frames(4)
-	check("authored_map", arena.visual_stats.asset_instances == 59 and arena.visual_stats.errors.is_empty(), arena.visual_stats)
+	check("authored_map", arena.visual_stats.asset_instances == 67 and arena.visual_stats.errors.is_empty(), arena.visual_stats)
 	check("map_dimensions", arena.contract.bounds.width == 256 and arena.contract.bounds.depth == 256)
 	await capture("01-menu")
 	arena.begin()
 	for enemy in arena.enemies: enemy.set_physics_process(false)
 	await frames(6)
 	var map: RID = arena.navigation.get_navigation_map()
+	var spawn_checks: Array = []
+	for index in range(arena.design.enemy_spawns.size()):
+		var spawn: Vector3 = arena.vec(arena.design.enemy_spawns[index])
+		var capsule := CapsuleShape3D.new()
+		capsule.radius = 0.36
+		capsule.height = 1.85
+		var query := PhysicsShapeQueryParameters3D.new()
+		query.shape = capsule
+		query.transform = Transform3D(Basis.IDENTITY, spawn + Vector3.UP * 0.985)
+		query.collision_mask = 1
+		var overlaps := arena.get_world_3d().direct_space_state.intersect_shape(query)
+		var nearest := NavigationServer3D.map_get_closest_point(map, spawn)
+		var route := NavigationServer3D.map_get_path(map, arena.vec(arena.design.player_spawn), spawn, true)
+		var reachable: bool = route.size() > 1 and route[-1].distance_to(spawn) < 0.8
+		var blockers: Array = []
+		for overlap in overlaps: blockers.append(str(overlap.collider.name))
+		spawn_checks.append({"index": index, "position": str(spawn), "blockers": blockers,
+			"navigation_distance": nearest.distance_to(spawn), "reachable": reachable,
+			"ok": overlaps.is_empty() and nearest.distance_to(spawn) < 0.8 and reachable})
+	check("all_enemy_spawns_clear_and_navigable", spawn_checks.all(func(s): return s.ok), spawn_checks)
 	var paths: Array = []
 	for test in arena.design.navigation_checks:
 		var from: Vector3 = arena.vec(test[0])
@@ -48,6 +68,18 @@ func run() -> void:
 	check("active_enemy_navigation_and_fire", active_enemy.distance_travelled > 3.0 and active_enemy.shots > 0,
 		{"distance_m": active_enemy.distance_travelled, "shots": active_enemy.shots})
 	check("active_enemy_can_damage_player", player.health < 100, player.health)
+	var remembered: Vector3 = active_enemy.last_seen
+	player.position = Vector3(112, 0.1, -112)
+	await frames(5)
+	check("enemy_searches_last_seen", active_enemy.state == "search" and active_enemy.last_seen.distance_to(remembered) < 0.01)
+	player.position = Vector3(0, 0.1, 97)
+	active_enemy.position = Vector3(-10, 0.1, 85)
+	active_enemy.velocity = Vector3.ZERO
+	await frames(3)
+	active_enemy.take_damage(34)
+	var cover_path := NavigationServer3D.map_get_path(map, active_enemy.global_position, active_enemy.cover_target, true)
+	check("injured_enemy_seeks_navigable_cover", active_enemy.state == "cover" and active_enemy.cover_time > 0 and cover_path.size() > 1,
+		{"target": str(active_enemy.cover_target), "path_points": cover_path.size()})
 	active_enemy.set_physics_process(false)
 	player.health = 100
 	active_enemy.position = Vector3(8, 0.1, 18)
@@ -84,7 +116,7 @@ func run() -> void:
 	wall.position = Vector3(0, 1.5, 92)
 	await frames(3)
 	player.shoot()
-	check("bullets_blocked_by_cover", enemy.health == 90 and player.ammo == 23)
+	check("bullets_blocked_by_cover", enemy.health == 90 and player.ammo == 29)
 	check("enemy_cannot_see_through_cover", not enemy.line_of_sight())
 	wall.queue_free()
 	await frames(12)
@@ -109,14 +141,30 @@ func run() -> void:
 	var animated: Node3D = arena.enemies[1].rig
 	animated.set_motion(0.0)
 	await frames(12)
-	var bone: int = animated.skeleton.find_bone("LeftLeg")
+	var bone: int = animated.skeleton.find_bone("shin.L")
 	animated.set_motion(4.2)
-	await frames(15)
+	var previous_callback: int = animated.tree.callback_mode_process
+	animated.tree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	animated.motion_blend = 4.2
+	animated.tree.set("parameters/blend_position", 4.2)
+	animated.tree.advance(0.0)
 	var first: Quaternion = animated.skeleton.get_bone_pose_rotation(bone)
-	await frames(15)
-	var second: Quaternion = animated.skeleton.get_bone_pose_rotation(bone)
-	check("skeletal_run_changes_leg_pose", first.angle_to(second) > 0.15, first.angle_to(second))
+	var maximum_angle := 0.0
+	# Sample a complete 0.64-second gait in fixed animation steps. Two wall-clock
+	# samples can hit equal phases, especially under a slow software renderer.
+	for sample in range(16):
+		animated.tree.advance(0.04)
+		await process_frame
+		var pose: Quaternion = animated.skeleton.get_bone_pose_rotation(bone)
+		maximum_angle = maxf(maximum_angle, first.angle_to(pose))
+	animated.tree.callback_mode_process = previous_callback
+	check("skeletal_run_changes_leg_pose", maximum_angle > 0.15, {"maximum_angle_rad": maximum_angle, "samples": 16, "cycle_seconds": 0.64})
 	check("weapon_grips_aligned", animated.combat.grip_errors.x < 0.09 and animated.combat.grip_errors.y < 0.09, str(animated.combat.grip_errors))
+	check("first_person_arm_grips", player.viewmodel.combat.grip_errors.x < 0.04 and player.viewmodel.combat.grip_errors.y < 0.04, str(player.viewmodel.combat.grip_errors))
+	check("military_assets", arena.contract.shooter_design.art_revision == "military-pbr-02" and player.gun.find_child("Magazine", true, false) != null)
+	animated.reload()
+	await frames(45)
+	check("magazine_removal", animated.magazine.position.distance_to(animated.magazine_rest.origin) > 0.15)
 	animated.fire()
 	check("fire_recoil_animation", animated.recoil > 0)
 	animated.reload()
@@ -144,13 +192,45 @@ func run() -> void:
 	Input.parse_input_event(release)
 	await process_frame
 	check("touch_release", player.touch_move == Vector2.ZERO and arena.hud.stick_index == -1)
+	var yaw := player.rotation.y
+	for definition in [[0, Vector2(140, 575)], [1, Vector2(790, 430)],
+		[2, arena.hud.button_rect("fire").get_center()], [3, arena.hud.button_rect("aim").get_center()]]:
+		var finger := InputEventScreenTouch.new()
+		finger.index = definition[0]
+		finger.position = definition[1]
+		finger.pressed = true
+		Input.parse_input_event(finger)
+		await process_frame
+	for definition in [[0, Vector2(140, 500), Vector2(0, -75)], [1, Vector2(830, 412), Vector2(40, -18)]]:
+		var motion := InputEventScreenDrag.new()
+		motion.index = definition[0]
+		motion.position = definition[1]
+		motion.relative = definition[2]
+		Input.parse_input_event(motion)
+		await process_frame
+	check("four_finger_controls", player.fire_held and player.aim_held and player.touch_move.y < -0.9 and absf(player.rotation.y - yaw) > 0.05)
+	for index in range(4):
+		var finger := InputEventScreenTouch.new()
+		finger.index = index
+		finger.pressed = false
+		Input.parse_input_event(finger)
+		await process_frame
+	check("four_finger_release", not player.fire_held and not player.aim_held and player.touch_move == Vector2.ZERO)
+	player.rotation.y = 0
+	player.look_pitch = 0
 	await capture("06-touch-controls")
+	var capture_checks: Array = []
 	for definition in arena.design.beacons:
 		player.position = arena.vec(definition.position) + Vector3.UP * 0.02
 		player.velocity = Vector3.ZERO
 		arena.interact()
-		await frames(185)
-	check("three_points_secured", arena.secured.size() == 3, arena.secured)
+		var began: String = arena.capture_id
+		# Allow the render-driven three-second capture clock to complete.
+		for tick in range(240):
+			await physics_frame
+			if definition.id in arena.secured: break
+		capture_checks.append({"id": definition.id, "began": began, "position": str(player.position), "timer": arena.capture_time})
+	check("three_points_secured", arena.secured.size() == 3, {"secured": arena.secured, "captures": capture_checks})
 	player.position = arena.vec(arena.design.extraction)
 	arena.interact()
 	check("mission_victory", not arena.playing and arena.outcome == "OPERACIÓN COMPLETADA")
@@ -166,7 +246,7 @@ func run() -> void:
 	output.close()
 	print("SHOOTER_ACCEPTANCE_RESULT " + JSON.stringify(report))
 	for speaker in arena.get_children():
-		if speaker is AudioStreamPlayer: speaker.stop()
+		if speaker is AudioStreamPlayer or speaker is AudioStreamPlayer3D: speaker.stop()
 	await create_timer(0.1).timeout
 	arena.queue_free()
 	await process_frame

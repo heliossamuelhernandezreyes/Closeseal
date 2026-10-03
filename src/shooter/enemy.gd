@@ -13,6 +13,11 @@ var reload_timer := 0.0
 var shots := 0
 var seed_index := 0
 var distance_travelled := 0.0
+var search_time := 0.0
+var last_seen := Vector3.ZERO
+var cover_time := 0.0
+var cover_target := Vector3.ZERO
+var state := "patrol"
 
 func _ready() -> void:
 	collision_layer = 4
@@ -26,7 +31,7 @@ func _ready() -> void:
 	shape.position.y = 0.925
 	add_child(shape)
 	rig = RIG.new()
-	rig.skin_name = "survivorMaleB" if seed_index % 2 else "survivorFemaleA"
+	rig.skin_name = "hostile" if seed_index % 3 else "military"
 	add_child(rig)
 	agent = NavigationAgent3D.new()
 	agent.path_desired_distance = 0.7
@@ -43,18 +48,30 @@ func _physics_process(delta: float) -> void:
 	var player: CharacterBody3D = arena.player
 	var distance := global_position.distance_to(player.global_position)
 	var sees := distance < 46.0 and line_of_sight()
-	alert = alert or sees
+	if sees:
+		last_seen = player.global_position
+		search_time = 7.0
+	else: search_time = maxf(0, search_time - delta)
+	alert = search_time > 0
+	cover_time = maxf(0, cover_time - delta)
+	state = "cover" if cover_time > 0 else "attack" if sees else "search" if alert else "patrol"
 	repath -= delta
 	if repath <= 0:
 		repath = 0.55
-		if alert and distance > 15.0:
-			agent.target_position = player.global_position
+		if cover_time > 0:
+			agent.target_position = cover_target
+		elif alert and (not sees or distance > 15.0):
+			var target := last_seen
+			if seed_index % 4 == 1 and sees and distance > 20:
+				var approach := (last_seen - global_position).normalized()
+				target += Vector3(-approach.z, 0, approach.x) * 5.0
+			agent.target_position = target
 		elif not alert:
 			var phase: float = arena.elapsed * 0.13 + seed_index
 			agent.target_position = home + Vector3(sin(phase) * 5, 0, cos(phase) * 5)
 		else: agent.target_position = global_position
 	var direction := Vector3.ZERO
-	if not agent.is_navigation_finished() and (not sees or distance > 15.0):
+	if not agent.is_navigation_finished() and (cover_time > 0 or not sees or distance > 15.0):
 		direction = agent.get_next_path_position() - global_position
 		direction.y = 0
 		direction = direction.normalized()
@@ -65,12 +82,13 @@ func _physics_process(delta: float) -> void:
 	var previous := global_position
 	move_and_slide()
 	distance_travelled += previous.distance_to(global_position)
-	var facing := player.global_position - global_position if alert else direction
+	var facing := last_seen - global_position if sees else direction
 	facing.y = 0
 	if facing.length_squared() > 0.01:
 		var target_yaw := atan2(-facing.x, -facing.z)
 		rig.rotation.y = lerp_angle(rig.rotation.y, target_yaw, minf(1, delta * 10))
 	rig.set_motion(Vector2(velocity.x, velocity.z).length(), not is_on_floor())
+	rig.aim_pitch = clampf(atan2((global_position.y + 1.4) - (player.global_position.y + 1.25), maxf(distance, 0.01)), -0.55, 0.55) if sees else 0.0
 	fire_timer -= delta
 	reload_timer = maxf(0, reload_timer - delta)
 	if sees and fire_timer <= 0 and reload_timer == 0:
@@ -85,6 +103,7 @@ func line_of_sight() -> bool:
 
 func fire_at_player() -> void:
 	rig.fire()
+	arena.sound_at("shot", rig.muzzle.global_position)
 	var origin: Vector3 = rig.muzzle.global_position
 	var target: Vector3 = arena.player.global_position + Vector3.UP * 1.25
 	var distance := origin.distance_to(target)
@@ -107,6 +126,10 @@ func take_damage(amount: float) -> void:
 	if dead: return
 	alert = true
 	health -= amount
+	rig.hit()
+	search_time = 7.0
+	last_seen = arena.player.global_position
+	if health > 0 and health < 65 and cover_time == 0: seek_cover()
 	if health <= 0:
 		dead = true
 		velocity = Vector3.ZERO
@@ -114,3 +137,22 @@ func take_damage(amount: float) -> void:
 		collision_mask = 0
 		rig.die()
 		arena.kills += 1
+
+func seek_cover() -> void:
+	var best_distance := 18.0
+	for value in arena.design.get("cover_points", []):
+		var centre: Vector3 = arena.vec(value) - Vector3(0, 0, 1.4)
+		var away: Vector3 = (centre - arena.player.global_position).normalized()
+		away.y = 0
+		var target: Vector3 = centre + away * 1.7
+		var distance := global_position.distance_to(target)
+		if distance > best_distance or distance < 1: continue
+		var ray := PhysicsRayQueryParameters3D.create(target + Vector3.UP * 1.1,
+			arena.player.global_position + Vector3.UP * 1.3, 1)
+		if get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
+		var path := NavigationServer3D.map_get_path(agent.get_navigation_map(), global_position, target, true)
+		if path.size() < 2 or path[-1].distance_to(target) > 1.2: continue
+		cover_target = target
+		best_distance = distance
+		cover_time = 3.0
+		state = "cover"

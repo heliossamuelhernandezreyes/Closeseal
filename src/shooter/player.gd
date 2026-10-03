@@ -1,13 +1,14 @@
 extends CharacterBody3D
-const MAGAZINE := 24
+const MAGAZINE := 30
 const FIRE_INTERVAL := 0.125
 var arena: Node3D
 var camera: Camera3D
 var gun: Node3D
+var viewmodel: Node3D
 var muzzle: Node3D
 var flash: MeshInstance3D
 var ammo := MAGAZINE
-var reserve := 144
+var reserve := 180
 var health := 100.0
 var reload_remaining := 0.0
 var shot_cooldown := 0.0
@@ -21,6 +22,7 @@ var touch_sprint := false
 var look_pitch := 0.0
 var recoil := 0.0
 var step_phase := 0.0
+var step_distance := 0.0
 var last_hit: Dictionary = {}
 
 func _ready() -> void:
@@ -40,13 +42,11 @@ func _ready() -> void:
 	camera.near = 0.05
 	add_child(camera)
 	camera.current = true
-	gun = load("res://assets/shooter/kenney/blasters/blaster-a.glb").instantiate()
-	camera.add_child(gun)
-	gun.position = Vector3(0.25, -0.22, -0.48)
-	gun.scale = Vector3.ONE * 0.7
-	muzzle = Node3D.new()
-	gun.add_child(muzzle)
-	muzzle.position.z = -0.38
+	viewmodel = load("res://src/shooter/viewmodel.gd").new()
+	viewmodel.player = self
+	camera.add_child(viewmodel)
+	gun = viewmodel.weapon
+	muzzle = viewmodel.muzzle
 	flash = MeshInstance3D.new()
 	var ball := SphereMesh.new()
 	ball.radius = 0.055
@@ -91,7 +91,13 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor(): velocity.y -= 22.0 * delta
 	if jump_requested and is_on_floor(): velocity.y = 7.2
 	jump_requested = false
+	var previous := global_position
 	move_and_slide()
+	if is_on_floor():
+		step_distance += Vector2(global_position.x - previous.x, global_position.z - previous.z).length()
+		if step_distance > (1.6 if sprint else 1.1):
+			step_distance = 0
+			arena.sound("step")
 	if hurt_time == 0.0: health = minf(100.0, health + delta * 6)
 	if global_position.y < -10: take_damage(100)
 
@@ -101,11 +107,6 @@ func _process(delta: float) -> void:
 	step_phase += delta * Vector2(velocity.x, velocity.z).length() * 1.8
 	camera.rotation.x = look_pitch + recoil * 0.025
 	camera.fov = lerpf(camera.fov, 55.0 if is_aiming() else 78.0, minf(1.0, delta * 12))
-	var sway := sin(step_phase) * 0.012 if is_on_floor() else 0.0
-	var target := Vector3(0.0, -0.15, -0.40) if is_aiming() else Vector3(0.25, -0.22 + sway, -0.48)
-	gun.position = gun.position.lerp(target + Vector3(0, 0, recoil * 0.055), minf(1.0, delta * 14))
-	gun.rotation.x = -recoil * 0.10 + sin(reload_remaining / 1.6 * PI) * 0.70
-	gun.rotation.z = sin(reload_remaining / 1.6 * PI) * -0.25
 	flash.visible = shot_cooldown > FIRE_INTERVAL - 0.04
 
 func is_aiming() -> bool: return aim_held or Input.is_action_pressed("aim")
@@ -134,7 +135,7 @@ func shoot() -> Dictionary:
 		end = last_hit.position
 		var victim: Node = last_hit.collider
 		if victim.has_method("take_damage"):
-			var headshot: bool = end.y > victim.global_position.y + 1.45
+			var headshot: bool = end.y > victim.global_position.y + 1.68
 			victim.take_damage(60.0 if headshot else 34.0)
 			arena.hit_marker = 0.18
 			arena.sound("hit")

@@ -39,6 +39,7 @@ func _ready() -> void:
 	add_child(world)
 	visual_stats = VISUALS.new(world, contract).build()
 	assert(visual_stats.errors.is_empty(), str(visual_stats.errors))
+	configure_presentation()
 	navigation = NavigationRegion3D.new()
 	navigation.name = "CombatNavigation"
 	add_child(navigation)
@@ -70,12 +71,12 @@ func _ready() -> void:
 	extraction.position = vec(design.extraction)
 	add_beacon_visual(extraction, "SALIDA", Color("66dfac"))
 	for position_value in design.pickups:
-		var pickup: Node3D = load("res://assets/shooter/kenney/blasters/crate-medium.glb").instantiate()
+		var pickup: Node3D = load("res://assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf").instantiate()
 		add_child(pickup)
-		pickup.position = vec(position_value) + Vector3.UP * 0.45
-		pickup.scale = Vector3.ONE * 1.7
+		pickup.position = vec(position_value)
+		pickup.scale = Vector3.ONE * 1.3
 		pickups.append(pickup)
-	for sound_name in ["shot", "hit", "reload", "secure"]:
+	for sound_name in ["shot", "hit", "reload", "secure", "step"]:
 		sounds[sound_name] = load("res://assets/shooter/audio/" + sound_name + ".wav")
 	var layer := CanvasLayer.new()
 	add_child(layer)
@@ -132,7 +133,6 @@ func _process(delta: float) -> void:
 	elapsed += delta
 	for pickup in pickups:
 		if pickup.visible:
-			pickup.rotation.y += delta * 0.4
 			if pickup.global_position.distance_to(player.global_position + Vector3.UP * 0.45) < 2.0:
 				pickup.hide()
 				player.reserve += 48
@@ -173,28 +173,68 @@ func announce(value: String) -> void:
 
 func add_beacon_visual(node: Node3D, text: String, color: Color) -> void:
 	var mesh := MeshInstance3D.new()
-	var cylinder := CylinderMesh.new()
-	cylinder.top_radius = 0.25
-	cylinder.bottom_radius = 0.6
-	cylinder.height = 1.0
-	mesh.mesh = cylinder
-	mesh.position.y = 0.5
+	var cabinet := BoxMesh.new()
+	cabinet.size = Vector3(0.60, 1.25, 0.45)
+	mesh.mesh = cabinet
+	mesh.position.y = 0.625
 	var material := StandardMaterial3D.new()
-	material.albedo_color = color
-	material.emission_enabled = true
-	material.emission = color * 0.35
+	material.albedo_color = Color("263338")
+	material.roughness = 0.6
+	material.metallic = 0.3
 	mesh.material_override = material
 	node.add_child(mesh)
+	var screen := MeshInstance3D.new()
+	var panel := BoxMesh.new()
+	panel.size = Vector3(0.43, 0.30, 0.02)
+	screen.mesh = panel
+	screen.position = Vector3(0, 0.97, 0.24)
+	var screen_material := StandardMaterial3D.new()
+	screen_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	screen_material.albedo_color = color * 0.55
+	screen.material_override = screen_material
+	node.add_child(screen)
 	var label := Label3D.new()
 	label.name = "Marker"
 	label.text = text
-	label.font_size = 96
-	label.pixel_size = 0.012
-	label.position.y = 3.5
+	label.font_size = 72
+	label.pixel_size = 0.007
+	label.position.y = 2.25
 	label.modulate = color
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	label.no_depth_test = false
 	node.add_child(label)
+
+func configure_presentation() -> void:
+	var environments := world.find_children("*", "WorldEnvironment", true, false)
+	if environments.size() > 0:
+		var environment: Environment = environments[0].environment
+		var sky := Sky.new()
+		var sky_material := PanoramaSkyMaterial.new()
+		sky_material.panorama = load("res://assets/shooter/serious/evening_road_01_puresky.hdr")
+		sky_material.energy_multiplier = 0.55
+		sky.sky_material = sky_material
+		environment.sky = sky
+		environment.background_mode = Environment.BG_SKY
+		environment.background_energy_multiplier = 0.4
+		environment.sky_rotation.y = 0.55
+		environment.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
+		environment.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
+		environment.ambient_light_energy = 0.75
+		environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+		environment.tonemap_exposure = 0.95
+	for sun in world.find_children("*", "DirectionalLight3D", true, false):
+		sun.directional_shadow_max_distance = 110
+		sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
+	for definition in design.get("zone_labels", []):
+		var label := Label3D.new()
+		label.text = definition.text
+		label.font_size = 64
+		label.pixel_size = 0.015
+		label.modulate = Color("d0c6aa")
+		label.outline_size = 6
+		world.add_child(label)
+		label.position = vec(definition.position)
+		label.rotation.y = PI if definition.text.begins_with("NEXO") else 0
 
 func tracer(start: Vector3, end: Vector3, color: Color) -> void:
 	if effect_count > 40: return
@@ -236,6 +276,18 @@ func sound(sound_name: String) -> void:
 	speaker.stream = sounds[sound_name]
 	speaker.volume_db = -16 if sound_name == "shot" else -10
 	add_child(speaker)
+	speaker.finished.connect(speaker.queue_free)
+	speaker.play()
+
+func sound_at(sound_name: String, point: Vector3) -> void:
+	var speaker := AudioStreamPlayer3D.new()
+	speaker.stream = sounds[sound_name]
+	speaker.volume_db = -9
+	speaker.unit_size = 10
+	speaker.max_distance = 70
+	speaker.pitch_scale = rng.randf_range(0.96, 1.04)
+	add_child(speaker)
+	speaker.global_position = point
 	speaker.finished.connect(speaker.queue_free)
 	speaker.play()
 

@@ -18,15 +18,16 @@ architectures/x86_64=false
 gradle_build/use_gradle_build=false
 package/unique_name="org.closeseal.nexo"
 package/name="Nexo — Closeseal"
-version/code=1
-version/name="0.1.0"
+version/code=2
+version/name="0.2.0"
 screen/immersive_mode=true
 permissions/internet=false'''),
         ("Web", "Web", "web_nothreads_release.zip", 'variant/thread_support=false\nprogressive_web_app/enabled=true\nhtml/canvas_resize_policy=2'),
     ]
     output = []
     for index, (name, platform, filename, options) in enumerate(definitions):
-        file = template_dir / filename
+        file = (template_dir / filename).as_posix()
+        quoted_file = json.dumps(file, ensure_ascii=False)
         output.append(f'''[preset.{index}]
 name="{name}"
 platform="{platform}"
@@ -37,8 +38,8 @@ exclude_filter="tools/*,assets/urban/sources.lock.json,assets/shooter/sources.lo
 export_path=""
 
 [preset.{index}.options]
-custom_template/debug="{file}"
-custom_template/release="{file}"
+custom_template/debug={quoted_file}
+custom_template/release={quoted_file}
 {options}
 ''')
     return "\n".join(output)

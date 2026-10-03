@@ -1,4 +1,4 @@
-# Nexo: zona de combate — playable shooter prototype
+# Nexo Industrial 0.2 — playable shooter prototype
 
 The user explicitly requested a shooter using Arcont's 3D assets, animated
 characters and a medium-large combat map on 2026-10-02. This adds a separate
@@ -15,7 +15,7 @@ an arm64 native build, an offline mission and touch controls.
 
 Secure A, B and C by interacting within 3.8 metres and remaining there for
 three seconds. Return to the marked extraction point and interact to win.
-There are 16 enemies, five health/ammo crates, a 24-round rifle, automatic
+There are 16 enemies, five health/ammo crates, a 30-round rifle, automatic
 fire, aiming, a 1.6-second reload, jumping and sprinting. Health recovers
 after five seconds without damage. Death opens the retry menu.
 
@@ -31,33 +31,44 @@ after five seconds without damage. Death opens the retry menu.
 ## Authored world and actual assets
 
 `maps/nexo_combat_01.json` is the source of truth for the **256 × 256 m**
-arena: industrial, commercial and residential blocks; a maintenance hangar;
-street cover; and a command post four metres above ground with a ramp.
+arena: factories, hangars, military crates, pipework, concrete barriers,
+covered cars, street cover and a command post four metres above ground with a ramp.
 `tools/author_shooter_map.py` creates or replaces that map through Arcont's
 revision-guarded Map Forge writer. It records explicit geometry rather than
 changing the existing 512-metre urban map.
 
-59 imported urban models retain their original CC0 files and the provenance
-in `assets/urban/sources.lock.json`. The new Kenney survivors and blasters
-were selected from Arcont's catalog, downloaded from their official source
-archives and bound to hashes in `assets/shooter/sources.lock.json`.
-Catalog entries alone are not runtime assets. License files accompany both
-new packs. The pavement SVG, procedural audio and combat animation layer
-are authored within this project; no paid asset or generation service is used.
+This edition replaces the earlier packs with Irondust's Sci-fi Soldier,
+first-person arms, LonesomeDucky's weathered AKM with a separate magazine,
+and Poly Haven environment models, PBR materials and HDR sky.
+`assets/shooter/serious/manifest.json` records sources, conversion details
+and 94 delivered file hashes. `tools/verify_shooter_assets.py` checks those
+bytes, model dependencies and map resource paths before CI stages the game.
+Converted assets are committed; compilation requires neither Blender nor
+original source archives. The two historical Blender preparation script
+names in the manifest describe asset preparation; those scripts are not
+delivered in this recovered change.
+
+Models/materials are CC0. The gunshot follows the downloaded archive's CC BY
+3.0 attribution, documented in `assets/shooter/serious/LICENSES.txt` and the
+in-game credits. The isolated industrial build excludes earlier Kenney packs.
+Explicit `--audio` generates test sounds and overwrites source audio; it is
+not part of the industrial build commands below.
 
 ## Animation and combat
 
-The character uses the source FBX skeleton and its real idle, run and jump
-tracks. The run clip blends over 0.16 seconds and scales with movement speed.
-The FBX faces +Z, so the model is corrected to the game's -Z convention.
+Four authored 30-fps skeletal clips provide idle, walk, run and death.
+AnimationTree blends locomotion according to movement speed. These are
+authored animations, not motion capture or production-quality ragdolls.
 `combat_pose.gd` runs as a SkeletonModifier3D after the source clips and
 solves the two arms against the rifle's grip positions. Recoil and reload
-move the weapon and supporting hand together. Death lowers and rotates the
-hips through a timed fall and disables the enemy's combat collider.
+move the weapon and supporting hand together; the magazine is removed during
+reload. The first-person arms use the same grip solver. Death plays the baked
+fall and disables the enemy's combat collider.
 
 Enemies use a baked world navigation mesh and physical CharacterBody3D
 movement. They patrol, detect line of sight, pursue, fire with distance-based
-spread, reload and die. Wall collisions, navigation paths and weapon rays are
+spread, reload, search the last seen position, attempt a lateral approach
+and seek reachable cover when injured. Wall collisions, navigation paths and weapon rays are
 separate systems. Player shots first resolve the camera aim, then cast from
 the physical muzzle, preventing fire through nearby cover.
 
@@ -80,6 +91,8 @@ X7 Pro still need an actual handset playtest.
 ## Build
 
 ```sh
+python tools/verify_shooter_assets.py
+python -m unittest discover -s tests -p 'test_shooter_build.py'
 python tools/prepare_shooter.py --stage /tmp/nexo-shooter
 godot --headless --path /tmp/nexo-shooter --editor --import
 godot --headless --path /tmp/nexo-shooter --script res://tools/shooter_bake.gd
@@ -91,3 +104,11 @@ Android export requires Java and Android SDK tools configured in Godot's
 editor settings. The prebuilt native template is used without a Gradle build.
 Debug signing is appropriate to this downloadable prototype; store publishing
 and release credentials are outside this change.
+
+Staging builds a fresh directory and replaces only an empty or explicitly
+owned prior stage. Failed preparation preserves the previous build. Fresh
+staging removes stale resources/caches; project roots, ancestors, symlinks and
+nonempty unmanaged destinations are rejected. Export preset paths use escaped
+strings and forward slashes for Windows. Five build regressions cover these
+behaviors. Rendered acceptance is required for touch/layout checks; a
+headless viewport is not equivalent. No AAA quality or handset FPS is claimed.

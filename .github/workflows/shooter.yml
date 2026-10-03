@@ -27,6 +27,8 @@ jobs:
         env:
           GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
         run: |
+          python -m unittest discover -s tests -p 'test_shooter_build.py'
+          python tools/verify_shooter_assets.py
           python tools/prepare_shooter.py --stage /tmp/nexo-shooter
           "$GODOT_BIN" --headless --path /tmp/nexo-shooter --editor --import > shooter-import.log 2>&1
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-import.log; then exit 1; fi

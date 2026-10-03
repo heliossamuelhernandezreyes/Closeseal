@@ -2,6 +2,8 @@ extends Control
 var arena: Node3D
 var font: Font
 var menu_button: Button
+var credits_button: Button
+var credits: PopupPanel
 var mobile := OS.has_feature("mobile")
 var stick_index := -1
 var look_index := -1
@@ -30,15 +32,37 @@ func _ready() -> void:
 	menu_button.add_theme_color_override("font_color", Color("09232c"))
 	add_child(menu_button)
 	menu_button.pressed.connect(arena.begin)
+	credits_button = Button.new()
+	credits_button.text = "CRÉDITOS"
+	credits_button.add_theme_font_size_override("font_size", 18)
+	add_child(credits_button)
+	credits = PopupPanel.new()
+	add_child(credits)
+	var credit_text := RichTextLabel.new()
+	credit_text.position = Vector2(22, 20)
+	credit_text.size = Vector2(666, 390)
+	credit_text.add_theme_font_size_override("normal_font_size", 18)
+	credit_text.text = "NEXO INDUSTRIAL — 0.2\n\nSoldado: Irondust — CC0\nopengameart.org/content/sci-fi-soldier\n\nAKM: LonesomeDucky — CC0\nopengameart.org/content/weathered-akm-rifle\n\nEntorno, materiales y cielo: Poly Haven — CC0\npolyhaven.com\n\nRecarga: SpringySpringo — CC0\nopengameart.org/content/gun-reload-sounds\n\nDisparo: Copyright (c) 2009 Vincent Sevedge (Tabasco)\nCC BY 3.0 — creativecommons.org/licenses/by/3.0/\nopengameart.org/content/gunshot-sounds\nFragmento SKS recortado, filtrado y convertido a mono.\n\nAnimación, mapa y otros efectos: Closeseal / Arcont.\nLicencias y procedencia completas incluidas en el proyecto."
+	credits.add_child(credit_text)
+	var close_button := Button.new()
+	close_button.text = "CERRAR"
+	close_button.position = Vector2(490, 425)
+	close_button.size = Vector2(180, 48)
+	credits.add_child(close_button)
+	close_button.pressed.connect(credits.hide)
+	credits_button.pressed.connect(func(): credits.popup_centered(Vector2i(710, 490)))
 	update_menu()
 
 func update_menu() -> void:
 	menu_button.visible = not arena.playing
+	credits_button.visible = not arena.playing
 	menu_button.text = "REINTENTAR OPERACIÓN" if not arena.outcome.is_empty() else "CONTINUAR" if arena.started else "INICIAR OPERACIÓN"
 
 func _process(_delta: float) -> void:
 	menu_button.position = Vector2(48, size.y - 126)
 	menu_button.size = Vector2(330, 62)
+	credits_button.position = Vector2(410, size.y - 126)
+	credits_button.size = Vector2(190, 62)
 	queue_redraw()
 
 func label_at(text: String, point: Vector2, pixels := 18, color := Color("e9f2f4")) -> void:
@@ -61,11 +85,11 @@ func _draw() -> void:
 			label_at(arena.outcome, Vector2(48, 445), 25, cyan)
 			label_at("%d bajas   ·   %d/3 puntos   ·   %02d:%02d" % [arena.kills, arena.secured.size(), int(arena.elapsed) / 60, int(arena.elapsed) % 60], Vector2(48, 482), 18)
 		else:
-			label_at("Táctil: palanca izquierda + mirada a la derecha" if mobile else "WASD mover   ·   Ratón mirar   ·   Clic disparar", Vector2(48, 450), 18)
+			label_at("4 dedos: palanca + mirada + fuego + mira" if mobile else "WASD mover   ·   Ratón mirar   ·   Clic disparar", Vector2(48, 450), 18)
 			label_at("Botones: disparar, apuntar, recargar, saltar e interactuar" if mobile else "R recargar   ·   E asegurar   ·   Espacio saltar", Vector2(48, 480), 18, muted)
 			label_at("Doble toque en palanca: correr" if mobile else "Shift correr   ·   Clic derecho apuntar   ·   Esc pausa", Vector2(48, 510), 18, muted)
 		if w > 1000: draw_map(Vector2(w - 340, 170), 270)
-		label_at("ASSETS 3D CC0 / KENNEY   ·   AUTORÍA CON ARCONT", Vector2(48, h - 28), 13, muted)
+		label_at("NEXO 0.2   /   COMPLEJO INDUSTRIAL", Vector2(48, h - 28), 13, muted)
 		return
 	draw_rect(Rect2(24, 20, 365, 76), panel)
 	draw_rect(Rect2(24, 20, 4, 76), cyan)
@@ -98,7 +122,7 @@ func _draw() -> void:
 	var ammo_y := h - 94 if not mobile else h - 335
 	draw_rect(Rect2(w - 260, ammo_y, 236, 69), panel)
 	label_at("%02d" % arena.player.ammo, Vector2(w - 242, ammo_y + 44), 36)
-	label_at("/ %03d   ·   NX-24" % arena.player.reserve, Vector2(w - 184, ammo_y + 39), 15, muted)
+	label_at("/ %03d   ·   AKM" % arena.player.reserve, Vector2(w - 184, ammo_y + 39), 15, muted)
 	if arena.player.reload_remaining > 0: label_at("RECARGANDO", Vector2(w - 243, ammo_y + 61), 12, cyan)
 	if arena.message_time > 0: label_at(arena.message, Vector2(w * 0.5 - 220, 175), 17, cyan)
 	if not arena.capture_id.is_empty():
@@ -118,7 +142,7 @@ func draw_map(origin: Vector2, extent: float) -> void:
 	var factor := extent / 256.0
 	var center := origin + Vector2.ONE * extent * 0.5
 	for object in arena.contract.authoring.objects:
-		if object.id.ends_with("_collision") or object.id.begins_with("cover_") or object.id.begins_with("command_") or object.id.begins_with("hangar_"):
+		if object.id.begins_with("factory_solid_") or object.id.begins_with("barrier_collision_") or object.id.begins_with("command_") or object.id.begins_with("hangar_"):
 			var point := center + Vector2(object.position[0], object.position[2]) * factor
 			var dimensions := Vector2(object.size[0], object.size[2]) * factor
 			draw_rect(Rect2(point - dimensions * 0.5, dimensions), Color("355166"))
@@ -135,7 +159,7 @@ func draw_map(origin: Vector2, extent: float) -> void:
 	draw_rect(Rect2(origin, Vector2.ONE * extent), Color("51748a"), false, 1)
 
 func button_rect(action: String) -> Rect2:
-	var locations := {"fire": Vector2(size.x - 130, size.y - 165), "aim": Vector2(size.x - 245, size.y - 158),
+	var locations := {"fire": Vector2(32, 260), "aim": Vector2(size.x - 300, 245),
 		"reload": Vector2(size.x - 130, size.y - 270), "jump": Vector2(size.x - 360, size.y - 158),
 		"interact": Vector2(size.x - 245, size.y - 270), "pause": Vector2(size.x - 80, 203)}
 	return Rect2(locations[action], Vector2(92, 80) if action != "pause" else Vector2(56, 45))
