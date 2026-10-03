@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 678d907e742d4ecd66934c9f1d1b83858e7b9e2c
+          ref: 86fa0e7b97341205f9c3e42b6ecfe09efde4ca6b
           path: .arcont-tools
       - name: Install exact Godot
         run: |
@@ -56,6 +56,25 @@ jobs:
         run: |
           python tools/shooter_authoring_smoke.py --arcont .arcont-tools --project /tmp/nexo-shooter
           cp /tmp/nexo-shooter/.arcont/shooter-authoring-smoke.json shooter-evidence/
+      - name: Validate production assets, animation and tactical-sector reviews
+        env:
+          GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: |
+          python -c 'import json,subprocess; lock=json.load(open("arcont-production.lock.json")); assert subprocess.check_output(["git","-C",".arcont-tools","rev-parse","HEAD"],text=True).strip()==lock["commit"]'
+          python .arcont-tools/tools/production_toolchain.py doctor
+          xvfb-run -a -s '-screen 0 1280x720x24' python tools/shooter_production_smoke.py --arcont .arcont-tools --project /tmp/nexo-shooter
+      - name: Collect production review project outputs
+        if: always()
+        run: |
+          mkdir -p shooter-evidence/production-project/.arcont shooter-evidence/production-project/assets
+          for directory in production-evidence runs; do
+            if [ -d "/tmp/nexo-shooter/.arcont/$directory" ]; then
+              cp -r "/tmp/nexo-shooter/.arcont/$directory" shooter-evidence/production-project/.arcont/
+            fi
+          done
+          if [ -d /tmp/nexo-shooter/assets/production_candidates ]; then
+            cp -r /tmp/nexo-shooter/assets/production_candidates shooter-evidence/production-project/assets/
+          fi
       - name: Preserve acceptance captures and logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -68,4 +87,5 @@ jobs:
             shooter-acceptance.log
             shooter-mobility.log
             shooter-evidence/
+          include-hidden-files: true
           retention-days: 30

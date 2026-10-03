@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "repository": "heliossamuelhernandezreyes/Arcont",
+  "commit": "86fa0e7b97341205f9c3e42b6ecfe09efde4ca6b",
+  "release": "production-0.1.0",
+  "manifest": "production-toolchain.json",
+  "authoring_only": true,
+  "engine_version": "4.7.2-stable",
+  "engine_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "native_adapter": "tools/shooter_production_probe.gd",
+  "acceptance": "tools/shooter_production_smoke.py"
+}

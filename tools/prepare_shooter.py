@@ -51,6 +51,7 @@ def _populate(target):
     for folder in ["recipes", "scenarios"]:
         (target / "authoring" / folder).mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / "authoring" / folder / "shooter_third_person.json", target / "authoring" / folder / "shooter_third_person.json")
+    shutil.copytree(ROOT / "authoring/production", target / "authoring/production")
     (target / "project.godot").write_text('''config_version=5
 [application]
 config/name="Closeseal — Nexo"

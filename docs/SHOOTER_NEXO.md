@@ -1,5 +1,7 @@
 # Nexo Industrial 0.4 — third-person playable prototype
 
+The authoring pipeline now includes [production preparation 0.1](PRODUCTION_TOOLCHAIN.md): versioned Arcont tools, immutable asset candidates, explicit animation profiles, an editable tactical-sector review and rendered evidence.
+
 Nexo now uses a complete animated character and an over-the-shoulder camera.
 Run `src/shooter/shooter_arena.tscn` in Godot **4.7.2-stable**
 (`ed1daf0bf001b61586d9930840f2f1394092c079`). The isolated staging project's
