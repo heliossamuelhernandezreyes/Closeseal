@@ -1,0 +1,7569 @@
+{
+  "version": 1,
+  "id": "nexo_combat_01",
+  "purpose": "environment",
+  "bounds": {
+    "width": 256,
+    "depth": 256
+  },
+  "bases": [],
+  "objectives": [],
+  "routes": [],
+  "regions": [],
+  "authoring": {
+    "materials": [
+      {
+        "id": "asphalt",
+        "albedo": "a4a8a8",
+        "roughness": 1.0,
+        "albedo_texture": "res://assets/shooter/serious/textures/asphalt_06_diff.jpg",
+        "normal_texture": "res://assets/shooter/serious/textures/asphalt_06_nor_gl.jpg",
+        "roughness_texture": "res://assets/shooter/serious/textures/asphalt_06_rough.jpg",
+        "uv_scale": [
+          51.2,
+          51.2,
+          51.2
+        ],
+        "resource": "res://assets/shooter/serious/materials/asphalt.tres"
+      },
+      {
+        "id": "concrete",
+        "albedo": "b6b4a9",
+        "roughness": 1.0,
+        "albedo_texture": "res://assets/shooter/serious/textures/rough_concrete_diff.jpg",
+        "normal_texture": "res://assets/shooter/serious/textures/rough_concrete_nor_gl.jpg",
+        "roughness_texture": "res://assets/shooter/serious/textures/rough_concrete_rough.jpg",
+        "uv_scale": [
+          85.33333333333333,
+          85.33333333333333,
+          85.33333333333333
+        ],
+        "resource": "res://assets/shooter/serious/materials/concrete.tres"
+      },
+      {
+        "id": "steel",
+        "albedo": "839096",
+        "roughness": 1.0,
+        "albedo_texture": "res://assets/shooter/serious/textures/worn_corrugated_iron_diff.jpg",
+        "normal_texture": "res://assets/shooter/serious/textures/worn_corrugated_iron_nor_gl.jpg",
+        "roughness_texture": "res://assets/shooter/serious/textures/worn_corrugated_iron_rough.jpg",
+        "uv_scale": [
+          64.0,
+          64.0,
+          64.0
+        ],
+        "resource": "res://assets/shooter/serious/materials/steel.tres"
+      },
+      {
+        "id": "container",
+        "albedo": "869791",
+        "roughness": 1.0,
+        "albedo_texture": "res://assets/shooter/serious/textures/container_side_diff.jpg",
+        "normal_texture": "res://assets/shooter/serious/textures/container_side_nor_gl.jpg",
+        "roughness_texture": "res://assets/shooter/serious/textures/container_side_rough.jpg",
+        "uv_scale": [
+          64.0,
+          64.0,
+          64.0
+        ],
+        "resource": "res://assets/shooter/serious/materials/container.tres"
+      },
+      {
+        "id": "dark",
+        "albedo": "1f292d",
+        "roughness": 0.72
+      },
+      {
+        "id": "orange",
+        "albedo": "be8c43",
+        "roughness": 0.7
+      },
+      {
+        "id": "white",
+        "albedo": "c7c5b5",
+        "roughness": 0.85
+      },
+      {
+        "id": "gravel",
+        "albedo": "53544c",
+        "roughness": 0.95
+      },
+      {
+        "id": "blue",
+        "albedo": "67bfc8",
+        "emission": "30676b"
+      },
+      {
+        "id": "warm_light",
+        "albedo": "dcc7a2",
+        "emission": "89724a"
+      }
+    ],
+    "objects": [
+      {
+        "id": "ground",
+        "type": "box",
+        "position": [
+          0,
+          -0.3,
+          0
+        ],
+        "size": [
+          256,
+          0.6,
+          256
+        ],
+        "material": "asphalt",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "boundary_x_-128",
+        "type": "box",
+        "position": [
+          -128,
+          3,
+          0
+        ],
+        "size": [
+          1,
+          6,
+          256
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "boundary_x_128",
+        "type": "box",
+        "position": [
+          128,
+          3,
+          0
+        ],
+        "size": [
+          1,
+          6,
+          256
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "boundary_z_-128",
+        "type": "box",
+        "position": [
+          0,
+          3,
+          -128
+        ],
+        "size": [
+          256,
+          6,
+          1
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "boundary_z_128",
+        "type": "box",
+        "position": [
+          0,
+          3,
+          128
+        ],
+        "size": [
+          256,
+          6,
+          1
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "walkway_-16",
+        "type": "box",
+        "position": [
+          -16,
+          0.026,
+          0
+        ],
+        "size": [
+          5,
+          0.052,
+          246
+        ],
+        "material": "concrete",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-16_-92",
+        "type": "box",
+        "position": [
+          -16,
+          0.058,
+          -92
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-16_-47",
+        "type": "box",
+        "position": [
+          -16,
+          0.058,
+          -47
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-16_8",
+        "type": "box",
+        "position": [
+          -16,
+          0.058,
+          8
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-16_54",
+        "type": "box",
+        "position": [
+          -16,
+          0.058,
+          54
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-16_98",
+        "type": "box",
+        "position": [
+          -16,
+          0.058,
+          98
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "walkway_16",
+        "type": "box",
+        "position": [
+          16,
+          0.026,
+          0
+        ],
+        "size": [
+          5,
+          0.052,
+          246
+        ],
+        "material": "concrete",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_16_-92",
+        "type": "box",
+        "position": [
+          16,
+          0.058,
+          -92
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_16_-47",
+        "type": "box",
+        "position": [
+          16,
+          0.058,
+          -47
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_16_8",
+        "type": "box",
+        "position": [
+          16,
+          0.058,
+          8
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_16_54",
+        "type": "box",
+        "position": [
+          16,
+          0.058,
+          54
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_16_98",
+        "type": "box",
+        "position": [
+          16,
+          0.058,
+          98
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "walkway_-87",
+        "type": "box",
+        "position": [
+          -87,
+          0.026,
+          0
+        ],
+        "size": [
+          5,
+          0.052,
+          246
+        ],
+        "material": "concrete",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-87_-92",
+        "type": "box",
+        "position": [
+          -87,
+          0.058,
+          -92
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-87_-47",
+        "type": "box",
+        "position": [
+          -87,
+          0.058,
+          -47
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-87_8",
+        "type": "box",
+        "position": [
+          -87,
+          0.058,
+          8
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-87_54",
+        "type": "box",
+        "position": [
+          -87,
+          0.058,
+          54
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_-87_98",
+        "type": "box",
+        "position": [
+          -87,
+          0.058,
+          98
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "walkway_87",
+        "type": "box",
+        "position": [
+          87,
+          0.026,
+          0
+        ],
+        "size": [
+          5,
+          0.052,
+          246
+        ],
+        "material": "concrete",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_87_-92",
+        "type": "box",
+        "position": [
+          87,
+          0.058,
+          -92
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_87_-47",
+        "type": "box",
+        "position": [
+          87,
+          0.058,
+          -47
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_87_8",
+        "type": "box",
+        "position": [
+          87,
+          0.058,
+          8
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_87_54",
+        "type": "box",
+        "position": [
+          87,
+          0.058,
+          54
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "drain_87_98",
+        "type": "box",
+        "position": [
+          87,
+          0.058,
+          98
+        ],
+        "size": [
+          3.8,
+          0.012,
+          0.32
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "crosswalk_-82",
+        "type": "box",
+        "position": [
+          0,
+          0.03,
+          -82
+        ],
+        "size": [
+          246,
+          0.06,
+          4
+        ],
+        "material": "concrete",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "crosswalk_0",
+        "type": "box",
+        "position": [
+          0,
+          0.03,
+          0
+        ],
+        "size": [
+          246,
+          0.06,
+          4
+        ],
+        "material": "concrete",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "crosswalk_82",
+        "type": "box",
+        "position": [
+          0,
+          0.03,
+          82
+        ],
+        "size": [
+          246,
+          0.06,
+          4
+        ],
+        "material": "concrete",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-116",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -116
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-104",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -104
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-92",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -92
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-80",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -80
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-68",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -68
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-56",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -56
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-44",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -44
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-32",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -32
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-20",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -20
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_-8",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          -8
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_4",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          4
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_16",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          16
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_28",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          28
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_40",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          40
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_52",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          52
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_64",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          64
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_76",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          76
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_88",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          88
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_100",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          100
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lane_mark_112",
+        "type": "box",
+        "position": [
+          0,
+          0.031,
+          112
+        ],
+        "size": [
+          0.14,
+          0.024,
+          4
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "edge_line_-12",
+        "type": "box",
+        "position": [
+          -12,
+          0.035,
+          0
+        ],
+        "size": [
+          0.1,
+          0.015,
+          238
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "edge_line_12",
+        "type": "box",
+        "position": [
+          12,
+          0.035,
+          0
+        ],
+        "size": [
+          0.1,
+          0.015,
+          238
+        ],
+        "material": "white",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_0",
+        "type": "box",
+        "position": [
+          -41,
+          4.5,
+          34
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_0",
+        "type": "box",
+        "position": [
+          -41,
+          9.08,
+          34
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_0_-5",
+        "type": "box",
+        "position": [
+          -46,
+          9.6,
+          34
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_0_-5",
+        "type": "cylinder",
+        "position": [
+          -46,
+          10.7,
+          34
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_0_5",
+        "type": "box",
+        "position": [
+          -36,
+          9.6,
+          34
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_0_5",
+        "type": "cylinder",
+        "position": [
+          -36,
+          10.7,
+          34
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_0",
+        "type": "box",
+        "position": [
+          -41,
+          1.6,
+          43.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_0",
+        "type": "box",
+        "position": [
+          -41,
+          3.65,
+          44.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_1",
+        "type": "box",
+        "position": [
+          42,
+          4.5,
+          32
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_1",
+        "type": "box",
+        "position": [
+          42,
+          9.08,
+          32
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_1_-5",
+        "type": "box",
+        "position": [
+          37,
+          9.6,
+          32
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_1_-5",
+        "type": "cylinder",
+        "position": [
+          37,
+          10.7,
+          32
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_1_5",
+        "type": "box",
+        "position": [
+          47,
+          9.6,
+          32
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_1_5",
+        "type": "cylinder",
+        "position": [
+          47,
+          10.7,
+          32
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_1",
+        "type": "box",
+        "position": [
+          42,
+          1.6,
+          41.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_1",
+        "type": "box",
+        "position": [
+          42,
+          3.65,
+          42.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_2",
+        "type": "box",
+        "position": [
+          -42,
+          4.5,
+          65
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_2",
+        "type": "box",
+        "position": [
+          -42,
+          9.08,
+          65
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_2_-5",
+        "type": "box",
+        "position": [
+          -47,
+          9.6,
+          65
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_2_-5",
+        "type": "cylinder",
+        "position": [
+          -47,
+          10.7,
+          65
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_2_5",
+        "type": "box",
+        "position": [
+          -37,
+          9.6,
+          65
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_2_5",
+        "type": "cylinder",
+        "position": [
+          -37,
+          10.7,
+          65
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_2",
+        "type": "box",
+        "position": [
+          -42,
+          1.6,
+          74.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_2",
+        "type": "box",
+        "position": [
+          -42,
+          3.65,
+          75.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_3",
+        "type": "box",
+        "position": [
+          108,
+          4.5,
+          28
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_3",
+        "type": "box",
+        "position": [
+          108,
+          9.08,
+          28
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_3_-5",
+        "type": "box",
+        "position": [
+          103,
+          9.6,
+          28
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_3_-5",
+        "type": "cylinder",
+        "position": [
+          103,
+          10.7,
+          28
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_3_5",
+        "type": "box",
+        "position": [
+          113,
+          9.6,
+          28
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_3_5",
+        "type": "cylinder",
+        "position": [
+          113,
+          10.7,
+          28
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_3",
+        "type": "box",
+        "position": [
+          108,
+          1.6,
+          37.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_3",
+        "type": "box",
+        "position": [
+          108,
+          3.65,
+          38.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_4",
+        "type": "box",
+        "position": [
+          106,
+          4.5,
+          60
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_4",
+        "type": "box",
+        "position": [
+          106,
+          9.08,
+          60
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_4_-5",
+        "type": "box",
+        "position": [
+          101,
+          9.6,
+          60
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_4_-5",
+        "type": "cylinder",
+        "position": [
+          101,
+          10.7,
+          60
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_4_5",
+        "type": "box",
+        "position": [
+          111,
+          9.6,
+          60
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_4_5",
+        "type": "cylinder",
+        "position": [
+          111,
+          10.7,
+          60
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_4",
+        "type": "box",
+        "position": [
+          106,
+          1.6,
+          69.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_4",
+        "type": "box",
+        "position": [
+          106,
+          3.65,
+          70.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_5",
+        "type": "box",
+        "position": [
+          -37,
+          4.5,
+          -30
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_5",
+        "type": "box",
+        "position": [
+          -37,
+          9.08,
+          -30
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_5_-5",
+        "type": "box",
+        "position": [
+          -42,
+          9.6,
+          -30
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_5_-5",
+        "type": "cylinder",
+        "position": [
+          -42,
+          10.7,
+          -30
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_5_5",
+        "type": "box",
+        "position": [
+          -32,
+          9.6,
+          -30
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_5_5",
+        "type": "cylinder",
+        "position": [
+          -32,
+          10.7,
+          -30
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_5",
+        "type": "box",
+        "position": [
+          -37,
+          1.6,
+          -20.85
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_5",
+        "type": "box",
+        "position": [
+          -37,
+          3.65,
+          -19.6
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_6",
+        "type": "box",
+        "position": [
+          39,
+          4.5,
+          -32
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_6",
+        "type": "box",
+        "position": [
+          39,
+          9.08,
+          -32
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_6_-5",
+        "type": "box",
+        "position": [
+          34,
+          9.6,
+          -32
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_6_-5",
+        "type": "cylinder",
+        "position": [
+          34,
+          10.7,
+          -32
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_6_5",
+        "type": "box",
+        "position": [
+          44,
+          9.6,
+          -32
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_6_5",
+        "type": "cylinder",
+        "position": [
+          44,
+          10.7,
+          -32
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_6",
+        "type": "box",
+        "position": [
+          39,
+          1.6,
+          -22.85
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_6",
+        "type": "box",
+        "position": [
+          39,
+          3.65,
+          -21.6
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_7",
+        "type": "box",
+        "position": [
+          106,
+          4.5,
+          -32
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_7",
+        "type": "box",
+        "position": [
+          106,
+          9.08,
+          -32
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_7_-5",
+        "type": "box",
+        "position": [
+          101,
+          9.6,
+          -32
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_7_-5",
+        "type": "cylinder",
+        "position": [
+          101,
+          10.7,
+          -32
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_7_5",
+        "type": "box",
+        "position": [
+          111,
+          9.6,
+          -32
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_7_5",
+        "type": "cylinder",
+        "position": [
+          111,
+          10.7,
+          -32
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_7",
+        "type": "box",
+        "position": [
+          106,
+          1.6,
+          -22.85
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_7",
+        "type": "box",
+        "position": [
+          106,
+          3.65,
+          -21.6
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_8",
+        "type": "box",
+        "position": [
+          106,
+          4.5,
+          -68
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_8",
+        "type": "box",
+        "position": [
+          106,
+          9.08,
+          -68
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_8_-5",
+        "type": "box",
+        "position": [
+          101,
+          9.6,
+          -68
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_8_-5",
+        "type": "cylinder",
+        "position": [
+          101,
+          10.7,
+          -68
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_8_5",
+        "type": "box",
+        "position": [
+          111,
+          9.6,
+          -68
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_8_5",
+        "type": "cylinder",
+        "position": [
+          111,
+          10.7,
+          -68
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_8",
+        "type": "box",
+        "position": [
+          106,
+          1.6,
+          -58.85
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_8",
+        "type": "box",
+        "position": [
+          106,
+          3.65,
+          -57.6
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_9",
+        "type": "box",
+        "position": [
+          -109,
+          4.5,
+          -33
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_9",
+        "type": "box",
+        "position": [
+          -109,
+          9.08,
+          -33
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_9_-5",
+        "type": "box",
+        "position": [
+          -114,
+          9.6,
+          -33
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_9_-5",
+        "type": "cylinder",
+        "position": [
+          -114,
+          10.7,
+          -33
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_9_5",
+        "type": "box",
+        "position": [
+          -104,
+          9.6,
+          -33
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_9_5",
+        "type": "cylinder",
+        "position": [
+          -104,
+          10.7,
+          -33
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_9",
+        "type": "box",
+        "position": [
+          -109,
+          1.6,
+          -23.85
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_9",
+        "type": "box",
+        "position": [
+          -109,
+          3.65,
+          -22.6
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_10",
+        "type": "box",
+        "position": [
+          -109,
+          4.5,
+          28
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_10",
+        "type": "box",
+        "position": [
+          -109,
+          9.08,
+          28
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_10_-5",
+        "type": "box",
+        "position": [
+          -114,
+          9.6,
+          28
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_10_-5",
+        "type": "cylinder",
+        "position": [
+          -114,
+          10.7,
+          28
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_10_5",
+        "type": "box",
+        "position": [
+          -104,
+          9.6,
+          28
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_10_5",
+        "type": "cylinder",
+        "position": [
+          -104,
+          10.7,
+          28
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_10",
+        "type": "box",
+        "position": [
+          -109,
+          1.6,
+          37.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_10",
+        "type": "box",
+        "position": [
+          -109,
+          3.65,
+          38.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_11",
+        "type": "box",
+        "position": [
+          -106,
+          4.5,
+          64
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_11",
+        "type": "box",
+        "position": [
+          -106,
+          9.08,
+          64
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_11_-5",
+        "type": "box",
+        "position": [
+          -111,
+          9.6,
+          64
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_11_-5",
+        "type": "cylinder",
+        "position": [
+          -111,
+          10.7,
+          64
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_11_5",
+        "type": "box",
+        "position": [
+          -101,
+          9.6,
+          64
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_11_5",
+        "type": "cylinder",
+        "position": [
+          -101,
+          10.7,
+          64
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_11",
+        "type": "box",
+        "position": [
+          -106,
+          1.6,
+          73.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_11",
+        "type": "box",
+        "position": [
+          -106,
+          3.65,
+          74.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_12",
+        "type": "box",
+        "position": [
+          -109,
+          4.5,
+          -110
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_12",
+        "type": "box",
+        "position": [
+          -109,
+          9.08,
+          -110
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_12_-5",
+        "type": "box",
+        "position": [
+          -114,
+          9.6,
+          -110
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_12_-5",
+        "type": "cylinder",
+        "position": [
+          -114,
+          10.7,
+          -110
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_12_5",
+        "type": "box",
+        "position": [
+          -104,
+          9.6,
+          -110
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_12_5",
+        "type": "cylinder",
+        "position": [
+          -104,
+          10.7,
+          -110
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_12",
+        "type": "box",
+        "position": [
+          -109,
+          1.6,
+          -100.85
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_12",
+        "type": "box",
+        "position": [
+          -109,
+          3.65,
+          -99.6
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_13",
+        "type": "box",
+        "position": [
+          -67,
+          4.5,
+          109
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_13",
+        "type": "box",
+        "position": [
+          -67,
+          9.08,
+          109
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_13_-5",
+        "type": "box",
+        "position": [
+          -72,
+          9.6,
+          109
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_13_-5",
+        "type": "cylinder",
+        "position": [
+          -72,
+          10.7,
+          109
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_13_5",
+        "type": "box",
+        "position": [
+          -62,
+          9.6,
+          109
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_13_5",
+        "type": "cylinder",
+        "position": [
+          -62,
+          10.7,
+          109
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_13",
+        "type": "box",
+        "position": [
+          -67,
+          1.6,
+          118.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_13",
+        "type": "box",
+        "position": [
+          -67,
+          3.65,
+          119.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_14",
+        "type": "box",
+        "position": [
+          36,
+          4.5,
+          109
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_14",
+        "type": "box",
+        "position": [
+          36,
+          9.08,
+          109
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_14_-5",
+        "type": "box",
+        "position": [
+          31,
+          9.6,
+          109
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_14_-5",
+        "type": "cylinder",
+        "position": [
+          31,
+          10.7,
+          109
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_14_5",
+        "type": "box",
+        "position": [
+          41,
+          9.6,
+          109
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_14_5",
+        "type": "cylinder",
+        "position": [
+          41,
+          10.7,
+          109
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_14",
+        "type": "box",
+        "position": [
+          36,
+          1.6,
+          118.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_14",
+        "type": "box",
+        "position": [
+          36,
+          3.65,
+          119.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_15",
+        "type": "box",
+        "position": [
+          106,
+          4.5,
+          109
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_15",
+        "type": "box",
+        "position": [
+          106,
+          9.08,
+          109
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_15_-5",
+        "type": "box",
+        "position": [
+          101,
+          9.6,
+          109
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_15_-5",
+        "type": "cylinder",
+        "position": [
+          101,
+          10.7,
+          109
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_15_5",
+        "type": "box",
+        "position": [
+          111,
+          9.6,
+          109
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_15_5",
+        "type": "cylinder",
+        "position": [
+          111,
+          10.7,
+          109
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_15",
+        "type": "box",
+        "position": [
+          106,
+          1.6,
+          118.15
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_15",
+        "type": "box",
+        "position": [
+          106,
+          3.65,
+          119.4
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "factory_solid_16",
+        "type": "box",
+        "position": [
+          68,
+          4.5,
+          -109
+        ],
+        "size": [
+          23.6,
+          9,
+          17.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "factory_roof_16",
+        "type": "box",
+        "position": [
+          68,
+          9.08,
+          -109
+        ],
+        "size": [
+          24.5,
+          0.26,
+          18.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "roof_vent_16_-5",
+        "type": "box",
+        "position": [
+          63,
+          9.6,
+          -109
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_16_-5",
+        "type": "cylinder",
+        "position": [
+          63,
+          10.7,
+          -109
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "roof_vent_16_5",
+        "type": "box",
+        "position": [
+          73,
+          9.6,
+          -109
+        ],
+        "size": [
+          3.2,
+          0.9,
+          2.1
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "vent_pipe_16_5",
+        "type": "cylinder",
+        "position": [
+          73,
+          10.7,
+          -109
+        ],
+        "size": [
+          0.8,
+          1.6,
+          0.8
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "factory_loading_16",
+        "type": "box",
+        "position": [
+          68,
+          1.6,
+          -99.85
+        ],
+        "size": [
+          5.8,
+          3.2,
+          0.12
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "loading_canopy_16",
+        "type": "box",
+        "position": [
+          68,
+          3.65,
+          -98.6
+        ],
+        "size": [
+          7.6,
+          0.18,
+          2.7
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_0",
+        "type": "box",
+        "position": [
+          -62,
+          1.3,
+          -60
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_0_-3.05",
+        "type": "box",
+        "position": [
+          -65.05,
+          1.3,
+          -60
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_0_3.05",
+        "type": "box",
+        "position": [
+          -58.95,
+          1.3,
+          -60
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_0_-0.67",
+        "type": "box",
+        "position": [
+          -62.67,
+          1.3,
+          -58.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_0_0.67",
+        "type": "box",
+        "position": [
+          -61.33,
+          1.3,
+          -58.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_1",
+        "type": "box",
+        "position": [
+          -70,
+          1.3,
+          -42
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_1_-3.05",
+        "type": "box",
+        "position": [
+          -73.05,
+          1.3,
+          -42
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_1_3.05",
+        "type": "box",
+        "position": [
+          -66.95,
+          1.3,
+          -42
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_1_-0.67",
+        "type": "box",
+        "position": [
+          -70.67,
+          1.3,
+          -40.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_1_0.67",
+        "type": "box",
+        "position": [
+          -69.33,
+          1.3,
+          -40.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_2",
+        "type": "box",
+        "position": [
+          -49,
+          1.3,
+          -57
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_2_-3.05",
+        "type": "box",
+        "position": [
+          -52.05,
+          1.3,
+          -57
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_2_3.05",
+        "type": "box",
+        "position": [
+          -45.95,
+          1.3,
+          -57
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_2_-0.67",
+        "type": "box",
+        "position": [
+          -49.67,
+          1.3,
+          -55.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_2_0.67",
+        "type": "box",
+        "position": [
+          -48.33,
+          1.3,
+          -55.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_3",
+        "type": "box",
+        "position": [
+          -63,
+          1.3,
+          -74
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_3_-3.05",
+        "type": "box",
+        "position": [
+          -66.05,
+          1.3,
+          -74
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_3_3.05",
+        "type": "box",
+        "position": [
+          -59.95,
+          1.3,
+          -74
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_3_-0.67",
+        "type": "box",
+        "position": [
+          -63.67,
+          1.3,
+          -72.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_3_0.67",
+        "type": "box",
+        "position": [
+          -62.33,
+          1.3,
+          -72.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_4",
+        "type": "box",
+        "position": [
+          54,
+          1.3,
+          35
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_4_-3.05",
+        "type": "box",
+        "position": [
+          50.95,
+          1.3,
+          35
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_4_3.05",
+        "type": "box",
+        "position": [
+          57.05,
+          1.3,
+          35
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_4_-0.67",
+        "type": "box",
+        "position": [
+          53.33,
+          1.3,
+          36.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_4_0.67",
+        "type": "box",
+        "position": [
+          54.67,
+          1.3,
+          36.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_5",
+        "type": "box",
+        "position": [
+          74,
+          1.3,
+          35
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_5_-3.05",
+        "type": "box",
+        "position": [
+          70.95,
+          1.3,
+          35
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_5_3.05",
+        "type": "box",
+        "position": [
+          77.05,
+          1.3,
+          35
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_5_-0.67",
+        "type": "box",
+        "position": [
+          73.33,
+          1.3,
+          36.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_5_0.67",
+        "type": "box",
+        "position": [
+          74.67,
+          1.3,
+          36.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_6",
+        "type": "box",
+        "position": [
+          57,
+          1.3,
+          69
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_6_-3.05",
+        "type": "box",
+        "position": [
+          53.95,
+          1.3,
+          69
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_6_3.05",
+        "type": "box",
+        "position": [
+          60.05,
+          1.3,
+          69
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_6_-0.67",
+        "type": "box",
+        "position": [
+          56.33,
+          1.3,
+          70.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_6_0.67",
+        "type": "box",
+        "position": [
+          57.67,
+          1.3,
+          70.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_7",
+        "type": "box",
+        "position": [
+          69,
+          1.3,
+          83
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_7_-3.05",
+        "type": "box",
+        "position": [
+          65.95,
+          1.3,
+          83
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_7_3.05",
+        "type": "box",
+        "position": [
+          72.05,
+          1.3,
+          83
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_7_-0.67",
+        "type": "box",
+        "position": [
+          68.33,
+          1.3,
+          84.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_7_0.67",
+        "type": "box",
+        "position": [
+          69.67,
+          1.3,
+          84.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_8",
+        "type": "box",
+        "position": [
+          43,
+          1.3,
+          57
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_8_-3.05",
+        "type": "box",
+        "position": [
+          39.95,
+          1.3,
+          57
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_8_3.05",
+        "type": "box",
+        "position": [
+          46.05,
+          1.3,
+          57
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_8_-0.67",
+        "type": "box",
+        "position": [
+          42.33,
+          1.3,
+          58.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_8_0.67",
+        "type": "box",
+        "position": [
+          43.67,
+          1.3,
+          58.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_9",
+        "type": "box",
+        "position": [
+          -62,
+          1.3,
+          43
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_9_-3.05",
+        "type": "box",
+        "position": [
+          -65.05,
+          1.3,
+          43
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_9_3.05",
+        "type": "box",
+        "position": [
+          -58.95,
+          1.3,
+          43
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_9_-0.67",
+        "type": "box",
+        "position": [
+          -62.67,
+          1.3,
+          44.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_9_0.67",
+        "type": "box",
+        "position": [
+          -61.33,
+          1.3,
+          44.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_10",
+        "type": "box",
+        "position": [
+          -65,
+          1.3,
+          58
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_10_-3.05",
+        "type": "box",
+        "position": [
+          -68.05,
+          1.3,
+          58
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_10_3.05",
+        "type": "box",
+        "position": [
+          -61.95,
+          1.3,
+          58
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_10_-0.67",
+        "type": "box",
+        "position": [
+          -65.67,
+          1.3,
+          59.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_10_0.67",
+        "type": "box",
+        "position": [
+          -64.33,
+          1.3,
+          59.24
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_11",
+        "type": "box",
+        "position": [
+          -45,
+          1.3,
+          -83
+        ],
+        "size": [
+          6.1,
+          2.6,
+          2.44
+        ],
+        "material": "container",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "container_frame_11_-3.05",
+        "type": "box",
+        "position": [
+          -48.05,
+          1.3,
+          -83
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_frame_11_3.05",
+        "type": "box",
+        "position": [
+          -41.95,
+          1.3,
+          -83
+        ],
+        "size": [
+          0.1,
+          2.64,
+          2.5
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_11_-0.67",
+        "type": "box",
+        "position": [
+          -45.67,
+          1.3,
+          -81.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "container_latch_11_0.67",
+        "type": "box",
+        "position": [
+          -44.33,
+          1.3,
+          -81.76
+        ],
+        "size": [
+          0.05,
+          2.2,
+          0.04
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "barrier_collision_0",
+        "type": "box",
+        "position": [
+          -9,
+          0.62,
+          90
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_1",
+        "type": "box",
+        "position": [
+          9,
+          0.62,
+          63
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_2",
+        "type": "box",
+        "position": [
+          -9,
+          0.62,
+          30
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_3",
+        "type": "box",
+        "position": [
+          9,
+          0.62,
+          -8
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_4",
+        "type": "box",
+        "position": [
+          -9,
+          0.62,
+          -76
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_5",
+        "type": "box",
+        "position": [
+          -34,
+          0.62,
+          -11
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_6",
+        "type": "box",
+        "position": [
+          34,
+          0.62,
+          11
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_7",
+        "type": "box",
+        "position": [
+          -57,
+          0.62,
+          12
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_8",
+        "type": "box",
+        "position": [
+          57,
+          0.62,
+          -12
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_9",
+        "type": "box",
+        "position": [
+          75,
+          0.62,
+          54
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_10",
+        "type": "box",
+        "position": [
+          -73,
+          0.62,
+          -25
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_11",
+        "type": "box",
+        "position": [
+          -45,
+          0.62,
+          48
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_12",
+        "type": "box",
+        "position": [
+          5,
+          0.62,
+          79
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_13",
+        "type": "box",
+        "position": [
+          -5,
+          0.62,
+          57
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrier_collision_14",
+        "type": "box",
+        "position": [
+          5,
+          0.62,
+          33
+        ],
+        "size": [
+          2.8,
+          1.24,
+          0.6
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "barrel_collider_0",
+        "type": "cylinder",
+        "position": [
+          -25,
+          0.48,
+          73
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_1",
+        "type": "cylinder",
+        "position": [
+          25,
+          0.48,
+          47
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_2",
+        "type": "cylinder",
+        "position": [
+          -25,
+          0.48,
+          -71
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_3",
+        "type": "cylinder",
+        "position": [
+          74,
+          0.48,
+          53
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_4",
+        "type": "cylinder",
+        "position": [
+          -70,
+          0.48,
+          -92
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_5",
+        "type": "cylinder",
+        "position": [
+          -74,
+          0.48,
+          -90
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_6",
+        "type": "cylinder",
+        "position": [
+          85,
+          0.48,
+          24
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_7",
+        "type": "cylinder",
+        "position": [
+          -61,
+          0.48,
+          81
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_8",
+        "type": "cylinder",
+        "position": [
+          53,
+          0.48,
+          -62
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "barrel_collider_9",
+        "type": "cylinder",
+        "position": [
+          54,
+          0.48,
+          -62
+        ],
+        "size": [
+          0.64,
+          0.96,
+          0.64
+        ],
+        "material": "dark",
+        "collision": true
+      },
+      {
+        "id": "vehicle_collision_0",
+        "type": "box",
+        "position": [
+          -10,
+          0.7,
+          76
+        ],
+        "size": [
+          1.75,
+          1.4,
+          4.3
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "vehicle_collision_1",
+        "type": "box",
+        "position": [
+          10,
+          0.7,
+          43
+        ],
+        "size": [
+          1.75,
+          1.4,
+          4.3
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "vehicle_collision_2",
+        "type": "box",
+        "position": [
+          -12,
+          0.7,
+          -86
+        ],
+        "size": [
+          1.75,
+          1.4,
+          4.3
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "vehicle_collision_3",
+        "type": "box",
+        "position": [
+          43,
+          0.7,
+          12
+        ],
+        "size": [
+          1.75,
+          1.4,
+          4.3
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "vehicle_collision_4",
+        "type": "box",
+        "position": [
+          -46,
+          0.7,
+          -12
+        ],
+        "size": [
+          1.75,
+          1.4,
+          4.3
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "vehicle_collision_5",
+        "type": "box",
+        "position": [
+          76,
+          0.7,
+          -12
+        ],
+        "size": [
+          1.75,
+          1.4,
+          4.3
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "vehicle_collision_6",
+        "type": "box",
+        "position": [
+          -77,
+          0.7,
+          14
+        ],
+        "size": [
+          1.75,
+          1.4,
+          4.3
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "welding_collision_0",
+        "type": "box",
+        "position": [
+          -74,
+          0.9,
+          -96
+        ],
+        "size": [
+          0.84,
+          1.6,
+          0.66
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "welding_collision_1",
+        "type": "box",
+        "position": [
+          -61,
+          0.9,
+          -97
+        ],
+        "size": [
+          0.84,
+          1.6,
+          0.66
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "welding_collision_2",
+        "type": "box",
+        "position": [
+          63,
+          0.9,
+          52
+        ],
+        "size": [
+          0.84,
+          1.6,
+          0.66
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": false
+      },
+      {
+        "id": "command_platform",
+        "type": "box",
+        "position": [
+          0,
+          3.8,
+          -44
+        ],
+        "size": [
+          18,
+          0.4,
+          18
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_back",
+        "type": "box",
+        "position": [
+          0,
+          6,
+          -53
+        ],
+        "size": [
+          18,
+          4,
+          0.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_side_-9",
+        "type": "box",
+        "position": [
+          -9,
+          6,
+          -44
+        ],
+        "size": [
+          0.5,
+          4,
+          18
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_side_9",
+        "type": "box",
+        "position": [
+          9,
+          6,
+          -44
+        ],
+        "size": [
+          0.5,
+          4,
+          18
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_roof",
+        "type": "box",
+        "position": [
+          0,
+          8.2,
+          -46
+        ],
+        "size": [
+          19,
+          0.4,
+          15
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "command_rail_-6.5",
+        "type": "box",
+        "position": [
+          -6.5,
+          4.6,
+          -35
+        ],
+        "size": [
+          5,
+          1.2,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "rail_cap_-6.5",
+        "type": "box",
+        "position": [
+          -6.5,
+          5.24,
+          -35
+        ],
+        "size": [
+          5.1,
+          0.12,
+          0.34
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "command_rail_6.5",
+        "type": "box",
+        "position": [
+          6.5,
+          4.6,
+          -35
+        ],
+        "size": [
+          5,
+          1.2,
+          0.3
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "rail_cap_6.5",
+        "type": "box",
+        "position": [
+          6.5,
+          5.24,
+          -35
+        ],
+        "size": [
+          5.1,
+          0.12,
+          0.34
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "rack_-6.4",
+        "type": "box",
+        "position": [
+          -6.4,
+          5.1,
+          -50
+        ],
+        "size": [
+          2.1,
+          2.2,
+          1.1
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "rack_6.4",
+        "type": "box",
+        "position": [
+          6.4,
+          5.1,
+          -50
+        ],
+        "size": [
+          2.1,
+          2.2,
+          1.1
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "antenna_mast",
+        "type": "cylinder",
+        "position": [
+          4,
+          14,
+          -48
+        ],
+        "size": [
+          0.18,
+          12,
+          0.18
+        ],
+        "material": "steel",
+        "collision": false
+      },
+      {
+        "id": "antenna_cross_11",
+        "type": "box",
+        "position": [
+          4,
+          11,
+          -48
+        ],
+        "size": [
+          3,
+          0.1,
+          0.12
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "antenna_cross_13",
+        "type": "box",
+        "position": [
+          4,
+          13,
+          -48
+        ],
+        "size": [
+          3,
+          0.1,
+          0.12
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "antenna_cross_15",
+        "type": "box",
+        "position": [
+          4,
+          15,
+          -48
+        ],
+        "size": [
+          3,
+          0.1,
+          0.12
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "antenna_cross_17",
+        "type": "box",
+        "position": [
+          4,
+          17,
+          -48
+        ],
+        "size": [
+          3,
+          0.1,
+          0.12
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hangar_floor",
+        "type": "box",
+        "position": [
+          -69,
+          0.08,
+          -94
+        ],
+        "size": [
+          27,
+          0.16,
+          19
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_back",
+        "type": "box",
+        "position": [
+          -69,
+          3.6,
+          -103.5
+        ],
+        "size": [
+          27,
+          7.2,
+          0.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_side_-82.5",
+        "type": "box",
+        "position": [
+          -82.5,
+          3.6,
+          -94
+        ],
+        "size": [
+          0.5,
+          7.2,
+          19
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_side_-55.5",
+        "type": "box",
+        "position": [
+          -55.5,
+          3.6,
+          -94
+        ],
+        "size": [
+          0.5,
+          7.2,
+          19
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_roof",
+        "type": "box",
+        "position": [
+          -69,
+          7.3,
+          -94
+        ],
+        "size": [
+          28,
+          0.3,
+          20
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_front_-78",
+        "type": "box",
+        "position": [
+          -78,
+          3.6,
+          -84.5
+        ],
+        "size": [
+          9,
+          7.2,
+          0.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_front_-60",
+        "type": "box",
+        "position": [
+          -60,
+          3.6,
+          -84.5
+        ],
+        "size": [
+          9,
+          7.2,
+          0.5
+        ],
+        "material": "steel",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_beam_-99",
+        "type": "box",
+        "position": [
+          -69,
+          6.8,
+          -99
+        ],
+        "size": [
+          27,
+          0.36,
+          0.3
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hangar_strip_-99",
+        "type": "box",
+        "position": [
+          -69,
+          6.55,
+          -99
+        ],
+        "size": [
+          8,
+          0.1,
+          0.22
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hangar_beam_-93",
+        "type": "box",
+        "position": [
+          -69,
+          6.8,
+          -93
+        ],
+        "size": [
+          27,
+          0.36,
+          0.3
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hangar_strip_-93",
+        "type": "box",
+        "position": [
+          -69,
+          6.55,
+          -93
+        ],
+        "size": [
+          8,
+          0.1,
+          0.22
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hangar_beam_-87",
+        "type": "box",
+        "position": [
+          -69,
+          6.8,
+          -87
+        ],
+        "size": [
+          27,
+          0.36,
+          0.3
+        ],
+        "material": "dark",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hangar_strip_-87",
+        "type": "box",
+        "position": [
+          -69,
+          6.55,
+          -87
+        ],
+        "size": [
+          8,
+          0.1,
+          0.22
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "hangar_bollard_-82",
+        "type": "box",
+        "position": [
+          -82,
+          0.65,
+          -83.5
+        ],
+        "size": [
+          0.3,
+          1.3,
+          0.3
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hangar_bollard_-56",
+        "type": "box",
+        "position": [
+          -56,
+          0.65,
+          -83.5
+        ],
+        "size": [
+          0.3,
+          1.3,
+          0.3
+        ],
+        "material": "orange",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "silo_0",
+        "type": "cylinder",
+        "position": [
+          -105,
+          8,
+          -65
+        ],
+        "size": [
+          10,
+          16,
+          10
+        ],
+        "material": "steel",
+        "collision": true
+      },
+      {
+        "id": "silo_cap_0",
+        "type": "cylinder",
+        "position": [
+          -105,
+          16.2,
+          -65
+        ],
+        "size": [
+          10.4,
+          0.4,
+          10.4
+        ],
+        "material": "dark",
+        "collision": false
+      },
+      {
+        "id": "silo_1",
+        "type": "cylinder",
+        "position": [
+          103,
+          8,
+          -106
+        ],
+        "size": [
+          10,
+          16,
+          10
+        ],
+        "material": "steel",
+        "collision": true
+      },
+      {
+        "id": "silo_cap_1",
+        "type": "cylinder",
+        "position": [
+          103,
+          16.2,
+          -106
+        ],
+        "size": [
+          10.4,
+          0.4,
+          10.4
+        ],
+        "material": "dark",
+        "collision": false
+      },
+      {
+        "id": "lamp_0",
+        "type": "box",
+        "position": [
+          -18,
+          3,
+          72
+        ],
+        "size": [
+          0.18,
+          6,
+          0.18
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_0",
+        "type": "box",
+        "position": [
+          -18,
+          6,
+          72
+        ],
+        "size": [
+          1.1,
+          0.16,
+          0.35
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_1",
+        "type": "box",
+        "position": [
+          18,
+          3,
+          18
+        ],
+        "size": [
+          0.18,
+          6,
+          0.18
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_1",
+        "type": "box",
+        "position": [
+          18,
+          6,
+          18
+        ],
+        "size": [
+          1.1,
+          0.16,
+          0.35
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_2",
+        "type": "box",
+        "position": [
+          -18,
+          3,
+          -68
+        ],
+        "size": [
+          0.18,
+          6,
+          0.18
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_2",
+        "type": "box",
+        "position": [
+          -18,
+          6,
+          -68
+        ],
+        "size": [
+          1.1,
+          0.16,
+          0.35
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_3",
+        "type": "box",
+        "position": [
+          75,
+          3,
+          83
+        ],
+        "size": [
+          0.18,
+          6,
+          0.18
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_3",
+        "type": "box",
+        "position": [
+          75,
+          6,
+          83
+        ],
+        "size": [
+          1.1,
+          0.16,
+          0.35
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_4",
+        "type": "box",
+        "position": [
+          -69,
+          3,
+          -90
+        ],
+        "size": [
+          0.18,
+          6,
+          0.18
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_4",
+        "type": "box",
+        "position": [
+          -69,
+          6,
+          -90
+        ],
+        "size": [
+          1.1,
+          0.16,
+          0.35
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_5",
+        "type": "box",
+        "position": [
+          0,
+          3,
+          -45
+        ],
+        "size": [
+          0.18,
+          6,
+          0.18
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_5",
+        "type": "box",
+        "position": [
+          0,
+          6,
+          -45
+        ],
+        "size": [
+          1.1,
+          0.16,
+          0.35
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "lamp_6",
+        "type": "box",
+        "position": [
+          0,
+          3,
+          108
+        ],
+        "size": [
+          0.18,
+          6,
+          0.18
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "lamp_head_6",
+        "type": "box",
+        "position": [
+          0,
+          6,
+          108
+        ],
+        "size": [
+          1.1,
+          0.16,
+          0.35
+        ],
+        "material": "warm_light",
+        "collision": false,
+        "visible": true
+      },
+      {
+        "id": "spawn_column_0",
+        "type": "box",
+        "position": [
+          -6,
+          3,
+          111
+        ],
+        "size": [
+          0.8,
+          6,
+          0.8
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "spawn_column_1",
+        "type": "box",
+        "position": [
+          6,
+          3,
+          111
+        ],
+        "size": [
+          0.8,
+          6,
+          0.8
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "spawn_gate",
+        "type": "box",
+        "position": [
+          0,
+          6,
+          111
+        ],
+        "size": [
+          13,
+          0.35,
+          0.7
+        ],
+        "material": "dark",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "spawn_strip",
+        "type": "box",
+        "position": [
+          0,
+          5.8,
+          110.6
+        ],
+        "size": [
+          10,
+          0.08,
+          0.12
+        ],
+        "material": "blue",
+        "collision": false,
+        "visible": true
+      }
+    ],
+    "instances": [
+      {
+        "id": "factory_0",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          -41,
+          0,
+          34
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_1",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          42,
+          0,
+          32
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_2",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          -42,
+          0,
+          65
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_3",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          108,
+          0,
+          28
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_4",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          106,
+          0,
+          60
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_5",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          -37,
+          0,
+          -30
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_6",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          39,
+          0,
+          -32
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_7",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          106,
+          0,
+          -32
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_8",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          106,
+          0,
+          -68
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_9",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          -109,
+          0,
+          -33
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_10",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          -109,
+          0,
+          28
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_11",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          -106,
+          0,
+          64
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_12",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          -109,
+          0,
+          -110
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_13",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          -67,
+          0,
+          109
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_14",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          36,
+          0,
+          109
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_15",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          106,
+          0,
+          109
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "factory_16",
+        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "position": [
+          68,
+          0,
+          -109
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_0",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          -9,
+          0,
+          90
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_1",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          9,
+          0,
+          63
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_2",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          -9,
+          0,
+          30
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_3",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          9,
+          0,
+          -8
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_4",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          -9,
+          0,
+          -76
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_5",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          -34,
+          0,
+          -11
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_6",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          34,
+          0,
+          11
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_7",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          -57,
+          0,
+          12
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_8",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          57,
+          0,
+          -12
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_9",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          75,
+          0,
+          54
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_10",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          -73,
+          0,
+          -25
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_11",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          -45,
+          0,
+          48
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_12",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          5,
+          0,
+          79
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_13",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          -5,
+          0,
+          57
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrier_14",
+        "scene": "res://assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+        "position": [
+          5,
+          0,
+          33
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_0",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          -15,
+          0,
+          96
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_1",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          18,
+          0,
+          5
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          19,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_2",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          -50,
+          0,
+          -76
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          38,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_3",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          0,
+          4,
+          -49
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          57,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_4",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          80,
+          0,
+          84
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          76,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_5",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          -70,
+          0,
+          -88
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          95,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_6",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          -73,
+          0,
+          -92
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          114,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_7",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          63,
+          0,
+          58
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          133,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_8",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          64,
+          0,
+          59
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          152,
+          0
+        ]
+      },
+      {
+        "id": "field_crate_9",
+        "scene": "res://assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+        "position": [
+          -22,
+          0,
+          10
+        ],
+        "scale": [
+          1.6,
+          1.6,
+          1.6
+        ],
+        "rotation_degrees": [
+          0,
+          171,
+          0
+        ]
+      },
+      {
+        "id": "barrel_0",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          -25,
+          0,
+          73
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_1",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          25,
+          0,
+          47
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_2",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          -25,
+          0,
+          -71
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_3",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          74,
+          0,
+          53
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_4",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          -70,
+          0,
+          -92
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_5",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          -74,
+          0,
+          -90
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_6",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          85,
+          0,
+          24
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_7",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          -61,
+          0,
+          81
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_8",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          53,
+          0,
+          -62
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "barrel_9",
+        "scene": "res://assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+        "position": [
+          54,
+          0,
+          -62
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "covered_vehicle_0",
+        "scene": "res://assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
+        "position": [
+          -10,
+          0,
+          76
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "covered_vehicle_1",
+        "scene": "res://assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
+        "position": [
+          10,
+          0,
+          43
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "covered_vehicle_2",
+        "scene": "res://assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
+        "position": [
+          -12,
+          0,
+          -86
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "covered_vehicle_3",
+        "scene": "res://assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
+        "position": [
+          43,
+          0,
+          12
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "covered_vehicle_4",
+        "scene": "res://assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
+        "position": [
+          -46,
+          0,
+          -12
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "covered_vehicle_5",
+        "scene": "res://assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
+        "position": [
+          76,
+          0,
+          -12
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "covered_vehicle_6",
+        "scene": "res://assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
+        "position": [
+          -77,
+          0,
+          14
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "welding_station_0",
+        "scene": "res://assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.gltf",
+        "position": [
+          -74,
+          0.18,
+          -96
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "welding_station_1",
+        "scene": "res://assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.gltf",
+        "position": [
+          -61,
+          0.18,
+          -97
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "welding_station_2",
+        "scene": "res://assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.gltf",
+        "position": [
+          63,
+          0,
+          52
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "service_pipe_0",
+        "scene": "res://assets/shooter/serious/pipe_segment.glb",
+        "position": [
+          -29.0,
+          2.5,
+          34
+        ],
+        "scale": [
+          2.5,
+          2.5,
+          2.5
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "service_pipe_1",
+        "scene": "res://assets/shooter/serious/pipe_segment.glb",
+        "position": [
+          30,
+          2.5,
+          32
+        ],
+        "scale": [
+          2.5,
+          2.5,
+          2.5
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "service_pipe_2",
+        "scene": "res://assets/shooter/serious/pipe_segment.glb",
+        "position": [
+          -30,
+          2.5,
+          -30
+        ],
+        "scale": [
+          2.5,
+          2.5,
+          2.5
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "service_pipe_3",
+        "scene": "res://assets/shooter/serious/pipe_segment.glb",
+        "position": [
+          27,
+          2.5,
+          -32
+        ],
+        "scale": [
+          2.5,
+          2.5,
+          2.5
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "service_pipe_4",
+        "scene": "res://assets/shooter/serious/pipe_segment.glb",
+        "position": [
+          -55.0,
+          2.5,
+          -94
+        ],
+        "scale": [
+          2.5,
+          2.5,
+          2.5
+        ],
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "geometry": [
+      {
+        "id": "command_ramp",
+        "vertices": [
+          [
+            -3,
+            0,
+            -21
+          ],
+          [
+            3,
+            0,
+            -21
+          ],
+          [
+            -3,
+            4.08,
+            -34
+          ],
+          [
+            3,
+            4.08,
+            -34
+          ],
+          [
+            -3,
+            0,
+            -34
+          ],
+          [
+            3,
+            0,
+            -34
+          ],
+          [
+            -3,
+            4.08,
+            -36
+          ],
+          [
+            3,
+            4.08,
+            -36
+          ]
+        ],
+        "indices": [
+          0,
+          2,
+          1,
+          1,
+          2,
+          3,
+          2,
+          6,
+          3,
+          3,
+          6,
+          7,
+          0,
+          2,
+          4,
+          1,
+          5,
+          3
+        ],
+        "material": "concrete",
+        "collision": true
+      }
+    ],
+    "heightfields": [],
+    "lights": [
+      {
+        "id": "sun",
+        "type": "directional",
+        "rotation_degrees": [
+          -26,
+          -34,
+          0
+        ],
+        "color": "e3d6bc",
+        "energy": 0.85,
+        "shadows": true
+      },
+      {
+        "id": "yard_light_0",
+        "type": "omni",
+        "position": [
+          -18,
+          5.8,
+          72
+        ],
+        "color": "efcca0",
+        "energy": 1.2,
+        "range": 12,
+        "shadows": false
+      },
+      {
+        "id": "yard_light_1",
+        "type": "omni",
+        "position": [
+          18,
+          5.8,
+          18
+        ],
+        "color": "efcca0",
+        "energy": 1.2,
+        "range": 12,
+        "shadows": false
+      },
+      {
+        "id": "yard_light_2",
+        "type": "omni",
+        "position": [
+          -18,
+          5.8,
+          -68
+        ],
+        "color": "efcca0",
+        "energy": 1.2,
+        "range": 12,
+        "shadows": false
+      },
+      {
+        "id": "yard_light_3",
+        "type": "omni",
+        "position": [
+          75,
+          5.8,
+          83
+        ],
+        "color": "efcca0",
+        "energy": 1.2,
+        "range": 12,
+        "shadows": false
+      },
+      {
+        "id": "yard_light_4",
+        "type": "omni",
+        "position": [
+          -69,
+          5.8,
+          -90
+        ],
+        "color": "efcca0",
+        "energy": 1.2,
+        "range": 12,
+        "shadows": false
+      },
+      {
+        "id": "yard_light_5",
+        "type": "omni",
+        "position": [
+          0,
+          5.8,
+          -45
+        ],
+        "color": "efcca0",
+        "energy": 1.2,
+        "range": 12,
+        "shadows": false
+      },
+      {
+        "id": "yard_light_6",
+        "type": "omni",
+        "position": [
+          0,
+          5.8,
+          108
+        ],
+        "color": "efcca0",
+        "energy": 1.2,
+        "range": 12,
+        "shadows": false
+      }
+    ],
+    "navigation": {
+      "mode": "world",
+      "agent_radius": 0.45,
+      "agent_height": 1.9,
+      "agent_max_climb": 0.35,
+      "agent_max_slope": 40,
+      "cell_size": 0.4,
+      "cell_height": 0.2
+    },
+    "environment": {
+      "background_color": "596c76",
+      "ambient_color": "c0c8d0",
+      "ambient_energy": 0.5,
+      "fog_color": "596c76",
+      "fog_density": 0.0022
+    }
+  },
+  "shooter_design": {
+    "name": "NEXO · Complejo industrial",
+    "art_revision": "military-pbr-02",
+    "player_spawn": [
+      0,
+      0.08,
+      106
+    ],
+    "beacons": [
+      {
+        "id": "A",
+        "name": "Taller y almacén",
+        "position": [
+          -69,
+          0,
+          -67
+        ]
+      },
+      {
+        "id": "B",
+        "name": "Comunicaciones",
+        "position": [
+          0,
+          4,
+          -44
+        ]
+      },
+      {
+        "id": "C",
+        "name": "Patio logístico",
+        "position": [
+          68,
+          0,
+          57
+        ]
+      }
+    ],
+    "extraction": [
+      0,
+      0,
+      113
+    ],
+    "enemy_spawns": [
+      [
+        10,
+        0,
+        70
+      ],
+      [
+        -12,
+        0,
+        49
+      ],
+      [
+        8,
+        0,
+        18
+      ],
+      [
+        -24,
+        0,
+        5
+      ],
+      [
+        24,
+        0,
+        -11
+      ],
+      [
+        -66,
+        0,
+        -29
+      ],
+      [
+        -44,
+        0,
+        -61
+      ],
+      [
+        -78,
+        0,
+        -68
+      ],
+      [
+        -69,
+        0.2,
+        -93
+      ],
+      [
+        -3,
+        4,
+        -45
+      ],
+      [
+        5,
+        0,
+        -80
+      ],
+      [
+        62,
+        0,
+        52
+      ],
+      [
+        78,
+        0,
+        71
+      ],
+      [
+        53,
+        0,
+        90
+      ],
+      [
+        76,
+        0,
+        -48
+      ],
+      [
+        -64,
+        0,
+        72
+      ]
+    ],
+    "pickups": [
+      [
+        -15,
+        0,
+        96
+      ],
+      [
+        18,
+        0,
+        5
+      ],
+      [
+        -50,
+        0,
+        -76
+      ],
+      [
+        0,
+        4,
+        -49
+      ],
+      [
+        80,
+        0,
+        84
+      ]
+    ],
+    "cover_points": [
+      [
+        -9,
+        0,
+        91.4
+      ],
+      [
+        9,
+        0,
+        64.4
+      ],
+      [
+        -9,
+        0,
+        31.4
+      ],
+      [
+        9,
+        0,
+        -6.6
+      ],
+      [
+        -9,
+        0,
+        -74.6
+      ],
+      [
+        -34,
+        0,
+        -9.6
+      ],
+      [
+        34,
+        0,
+        12.4
+      ],
+      [
+        -57,
+        0,
+        13.4
+      ],
+      [
+        57,
+        0,
+        -10.6
+      ],
+      [
+        75,
+        0,
+        55.4
+      ],
+      [
+        -73,
+        0,
+        -23.6
+      ],
+      [
+        -45,
+        0,
+        49.4
+      ],
+      [
+        5,
+        0,
+        80.4
+      ],
+      [
+        -5,
+        0,
+        58.4
+      ],
+      [
+        5,
+        0,
+        34.4
+      ]
+    ],
+    "navigation_checks": [
+      [
+        [
+          -2,
+          0,
+          100
+        ],
+        [
+          -69,
+          0,
+          -67
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          100
+        ],
+        [
+          0,
+          4,
+          -44
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          100
+        ],
+        [
+          68,
+          0,
+          57
+        ]
+      ]
+    ],
+    "zone_labels": [
+      {
+        "text": "01 / TALLER",
+        "position": [
+          -69,
+          4.8,
+          -84.2
+        ]
+      },
+      {
+        "text": "02 / COMMS",
+        "position": [
+          0,
+          7.4,
+          -35.7
+        ]
+      },
+      {
+        "text": "03 / LOGÍSTICA",
+        "position": [
+          68,
+          3.6,
+          38
+        ]
+      },
+      {
+        "text": "NEXO / ACCESO SUR",
+        "position": [
+          0,
+          5.45,
+          110.5
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+Nexo Industrial 0.2 — third-party asset credits
+
+Sci-fi Soldier — Irondust
+https://opengameart.org/content/sci-fi-soldier
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Changes: selected helmet/body/hand, cleaned skin weights, metre units,
+first-person arm extraction, 1K texture conversion, new combat animations.
+
+Weathered AKM Rifle — LonesomeDucky
+https://opengameart.org/content/weathered-akm-rifle
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Changes: orientation, separate magazine, GLB and 1K PBR texture conversion.
+
+Environment — Poly Haven contributors
+https://polyhaven.com
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Assets: modular_factory_facade, modular_industrial_pipes_01,
+old_military_crate, wooden_military_crate, concrete_road_barrier, barrel_03,
+covered_car, portable_welding_cart, asphalt_06, rough_concrete,
+worn_corrugated_iron, container_side, evening_road_01_puresky.
+Individual URLs: https://polyhaven.com/a/<asset name>
+Changes: assembled/decimated factory, selected pipe, 1K JPEG textures,
+world-scaled materials, explicitly authored placement and collision proxies.
+
+Assault Rifle Reload 1 — SpringySpringo
+https://opengameart.org/content/gun-reload-sounds
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Changes: mono, 22050 Hz, PCM WAV conversion.
+
+Gunshot Sounds / sks.wav — Vincent Sevedge (Tabasco)
+Copyright (c) 2009 Vincent Sevedge
+https://opengameart.org/content/gunshot-sounds
+Creative Commons Attribution 3.0 Unported:
+https://creativecommons.org/licenses/by/3.0/
+Changes: 0.65-second excerpt starting at 13.443729 seconds, noise reduction,
+high/low-pass filtering, gain/limiting, fade, mono 22050 Hz PCM conversion.
+The listing advertises CC0, but the downloaded archive's creativecommons.txt
+specifies CC BY 3.0. This project follows the stricter archive license and
+provides attribution here and in the game's CRÉDITOS menu.
+
+Original map, animation clips, combat code and synthesized hit/step/secure
+effects are authored for Closeseal using the Arcont technical toolchain.
+This edition's isolated build excludes the earlier Kenney asset packs.
