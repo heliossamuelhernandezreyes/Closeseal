@@ -21,6 +21,12 @@ var skin_name := "military"
 var clip := "idle"
 var aim_pitch := 0.0
 var hit_weight := 0.0
+var stance_weight := 0.0
+var action_pose := ""
+var action_phase := 0.0
+var action_weight := 0.0
+var current_action := ""
+var vault_hand_target := Vector3.ZERO
 
 func _ready() -> void:
 	var model: Node3D = load("res://assets/shooter/serious/soldier.glb").instantiate()
@@ -47,7 +53,17 @@ func _ready() -> void:
 	graph.add_node("Gait", blend)
 	graph.add_node("Cadence", AnimationNodeTimeScale.new())
 	graph.connect_node("Cadence", 0, "Gait")
-	graph.connect_node("output", 0, "Cadence")
+	var action := AnimationNodeAnimation.new()
+	action.animation = "crouch_idle"
+	graph.add_node("ActionClip", action)
+	graph.add_node("ActionTime", AnimationNodeTimeSeek.new())
+	graph.add_node("ActionCadence", AnimationNodeTimeScale.new())
+	graph.add_node("ActionBlend", AnimationNodeBlend2.new())
+	graph.connect_node("ActionTime", 0, "ActionClip")
+	graph.connect_node("ActionBlend", 0, "Cadence")
+	graph.connect_node("ActionCadence", 0, "ActionTime")
+	graph.connect_node("ActionBlend", 1, "ActionCadence")
+	graph.connect_node("output", 0, "ActionBlend")
 	tree = AnimationTree.new()
 	tree.name = "LocomotionBlend"
 	add_child(tree)
@@ -119,9 +135,20 @@ func _process(delta: float) -> void:
 	tree.set("parameters/Gait/blend_position", direction * magnitude if not airborne else Vector2.ZERO)
 	var gait_speed := lerpf(1.83, 3.81, maxf(0, magnitude - 1))
 	tree.set("parameters/Cadence/scale", clampf(motion_speed / gait_speed, 0.65, 2.6) if motion_speed > 0.2 else 1.0)
+	if not action_pose.is_empty() and action_pose != current_action:
+		var action: AnimationNodeAnimation = tree.tree_root.get_node("ActionClip")
+		action.animation = action_pose
+		current_action = action_pose
+		tree.set("parameters/ActionTime/seek_request", 0.0)
+	if action_pose in ["vault", "slide", "cover_enter"]:
+		tree.set("parameters/ActionTime/seek_request", action_phase * animation.get_animation(action_pose).length)
+	tree.set("parameters/ActionCadence/scale", clampf(motion_speed / (1.37 if action_pose in ["cover_left", "cover_right"] else 1.22), 0.7, 2.7) if action_pose in ["cover_left", "cover_right", "crouch_walk"] else 1.0)
+	action_weight = move_toward(action_weight, 0.0 if action_pose.is_empty() else 1.0, delta * 12)
+	tree.set("parameters/ActionBlend/blend_amount", action_weight)
 	var phase := 1.0 - reload_time / 1.6
 	var reload_curve := sin(phase * PI) if reload_time > 0 else 0.0
-	weapon.position = Vector3(0.14, 1.42, -0.42 + recoil * 0.04)
+	weapon.position = Vector3(0.14, 1.42 - stance_weight * 0.52, -0.42 + recoil * 0.04)
+	if action_pose == "vault": weapon.position = Vector3(0.28, 0.96, -0.18)
 	weapon.rotation = Vector3(aim_pitch - recoil * 0.08 + reload_curve * 0.28, 0, -reload_curve * 0.12)
 	if target_enabled and weapon.global_position.distance_to(aim_target) > 0.5:
 		weapon.look_at(aim_target, Vector3.UP)

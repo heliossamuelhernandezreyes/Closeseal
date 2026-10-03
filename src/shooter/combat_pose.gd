@@ -17,17 +17,20 @@ func _process_modification() -> void:
 		skeleton.set_bone_global_pose(chest, chest_pose)
 	var right_target: Vector3 = rig.weapon.to_global(Vector3(0.015, -0.095, 0.18))
 	var left_target: Vector3 = rig.weapon.to_global(Vector3(-0.012, -0.028, -0.19 if first_person else -0.10))
+	var planting: bool = rig.action_pose == "vault" and rig.action_phase > 0.18 and rig.action_phase < 0.75
+	if planting: left_target = rig.vault_hand_target + Vector3.UP * 0.03
 	if rig.reload_time > 0:
 		var phase: float = 1.0 - rig.reload_time / 1.6
 		var reach := sin(clampf(inverse_lerp(0.12, 0.87, phase), 0, 1) * PI)
 		var magazine_target: Vector3 = rig.weapon.to_global(Vector3(-0.02, -0.16, -0.01))
 		magazine_target += rig.global_basis.y * -0.25 * sin(phase * PI)
 		left_target = left_target.lerp(magazine_target, reach)
-	var right_pole := rig.to_global(Vector3(0.60, -0.50, 0.05) if first_person else Vector3(0.65, 1.15, 0.15))
-	var left_pole := rig.to_global(Vector3(-0.55, -0.50, -0.10) if first_person else Vector3(-0.65, 1.15, 0.10))
+	var right_pole := rig.to_global(Vector3(0.60, -0.50, 0.05) if first_person else Vector3(0.65, 1.15 - rig.stance_weight * 0.5, 0.15))
+	var left_pole := rig.to_global(Vector3(-0.55, -0.50, -0.10) if first_person else Vector3(-0.65, 1.15 - rig.stance_weight * 0.5, 0.10))
 	grip_errors.x = IK.solve(skeleton, "upper_arm.R", "forearm.R", "hand.R", skeleton.to_local(right_target), skeleton.to_local(right_pole))
 	grip_errors.y = IK.solve(skeleton, "upper_arm.L", "forearm.L", "hand.L", skeleton.to_local(left_target), skeleton.to_local(left_pole))
 	for side in ["R", "L"]:
+		if side == "L" and planting: continue
 		var hand := skeleton.find_bone("hand." + side)
 		var pose := skeleton.get_bone_global_pose(hand)
 		var source := skeleton.get_bone_global_rest(hand).basis

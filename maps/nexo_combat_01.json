@@ -9186,6 +9186,306 @@
         "material": "steel",
         "collision": true,
         "visible": true
+      },
+      {
+        "id": "hero_cover_body_0",
+        "type": "box",
+        "position": [
+          -4.7,
+          0.57,
+          100
+        ],
+        "size": [
+          4.0,
+          1.14,
+          0.56
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_cap_0",
+        "type": "box",
+        "position": [
+          -4.7,
+          1.16,
+          100
+        ],
+        "size": [
+          4.08,
+          0.06,
+          0.62
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_band_0",
+        "type": "box",
+        "position": [
+          -4.7,
+          0.93,
+          100.29
+        ],
+        "size": [
+          3.86,
+          0.065,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_foot_0-1",
+        "type": "box",
+        "position": [
+          -6.4,
+          0.1,
+          100
+        ],
+        "size": [
+          0.32,
+          0.2,
+          0.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_cover_foot_01",
+        "type": "box",
+        "position": [
+          -3.0,
+          0.1,
+          100
+        ],
+        "size": [
+          0.32,
+          0.2,
+          0.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_cover_body_1",
+        "type": "box",
+        "position": [
+          5.2,
+          0.57,
+          89
+        ],
+        "size": [
+          4.6,
+          1.14,
+          0.56
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          -12,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_cap_1",
+        "type": "box",
+        "position": [
+          5.2,
+          1.16,
+          89
+        ],
+        "size": [
+          4.68,
+          0.06,
+          0.62
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          -12,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_band_1",
+        "type": "box",
+        "position": [
+          5.2,
+          0.93,
+          89.29
+        ],
+        "size": [
+          4.46,
+          0.065,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          -12,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_foot_1-1",
+        "type": "box",
+        "position": [
+          3.2,
+          0.1,
+          89
+        ],
+        "size": [
+          0.32,
+          0.2,
+          0.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_cover_foot_11",
+        "type": "box",
+        "position": [
+          7.2,
+          0.1,
+          89
+        ],
+        "size": [
+          0.32,
+          0.2,
+          0.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_cover_body_2",
+        "type": "box",
+        "position": [
+          -5.5,
+          0.57,
+          77
+        ],
+        "size": [
+          4.2,
+          1.14,
+          0.56
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          14,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_cap_2",
+        "type": "box",
+        "position": [
+          -5.5,
+          1.16,
+          77
+        ],
+        "size": [
+          4.28,
+          0.06,
+          0.62
+        ],
+        "material": "steel",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          14,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_band_2",
+        "type": "box",
+        "position": [
+          -5.5,
+          0.93,
+          77.29
+        ],
+        "size": [
+          4.0600000000000005,
+          0.065,
+          0.02
+        ],
+        "material": "orange",
+        "collision": false,
+        "visible": true,
+        "rotation_degrees": [
+          0,
+          14,
+          0
+        ]
+      },
+      {
+        "id": "hero_cover_foot_2-1",
+        "type": "box",
+        "position": [
+          -7.3,
+          0.1,
+          77
+        ],
+        "size": [
+          0.32,
+          0.2,
+          0.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
+      },
+      {
+        "id": "hero_cover_foot_21",
+        "type": "box",
+        "position": [
+          -3.7,
+          0.1,
+          77
+        ],
+        "size": [
+          0.32,
+          0.2,
+          0.8
+        ],
+        "material": "concrete",
+        "collision": true,
+        "visible": true
       }
     ],
     "instances": [
@@ -10892,7 +11192,7 @@
   },
   "shooter_design": {
     "name": "NEXO · Complejo industrial",
-    "art_revision": "third-person-industrial-03",
+    "art_revision": "third-person-industrial-04",
     "player_spawn": [
       0,
       0.08,

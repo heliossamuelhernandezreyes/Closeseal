@@ -18,7 +18,7 @@ MAP_ID = "nexo_combat_01"
 
 def contract(source=None):
     data = copy.deepcopy(source if source is not None else json.loads((ROOT / "maps" / (MAP_ID + ".json")).read_text()))
-    if data.get("shooter_design", {}).get("art_revision") not in {"military-pbr-02", "third-person-industrial-03"}:
+    if data.get("shooter_design", {}).get("art_revision") not in {"military-pbr-02", "third-person-industrial-03", "third-person-industrial-04"}:
         raise ValueError("industrial canonical map required; inspect the published industrial revision first")
     authored = data["authoring"]
     for collection in ("objects", "instances", "geometry", "lights", "materials"):
@@ -115,10 +115,17 @@ def contract(source=None):
     for index, x in enumerate([-22, 20, 28]):
         solid("roof_vent_" + str(index), [x, 7.8 if x > 0 else 5.4, 78 if x > 0 else 85], [1.2, 1.0, 1.0], "dark")
         solid("roof_vent_cap_" + str(index), [x, 8.34 if x > 0 else 5.94, 78 if x > 0 else 85], [1.4, 0.14, 1.2], "steel")
+    # Traversable low cover in the foreground; centre mission/replay route stays clear.
+    for index, (x, z, width, yaw) in enumerate([(-4.7, 100, 4.0, 0), (5.2, 89, 4.6, -12), (-5.5, 77, 4.2, 14)]):
+        solid("cover_body_" + str(index), [x, 0.57, z], [width, 1.14, 0.56], "concrete", True, [0, yaw, 0])
+        solid("cover_cap_" + str(index), [x, 1.16, z], [width+0.08, 0.06, 0.62], "steel", False, [0, yaw, 0])
+        solid("cover_band_" + str(index), [x, 0.93, z+0.29], [width-0.14, 0.065, 0.02], "orange", False, [0, yaw, 0])
+        for side in [-1, 1]:
+            solid("cover_foot_" + str(index) + str(side), [x+side*(width/2-0.3), 0.10, z], [0.32, 0.2, 0.8], "concrete", True)
     authored["environment"].update(fog_density=0.0032, fog_color="657782")
     for light in authored["lights"]:
         if light["id"] == "sun": light.update(rotation_degrees=[-24, -48, 0], color="ffe0b4", energy=1.15)
-    data["shooter_design"].update(art_revision="third-person-industrial-03", perspective="third_person")
+    data["shooter_design"].update(art_revision="third-person-industrial-04", perspective="third_person")
     labels = [item for item in data["shooter_design"].get("zone_labels", []) if not item.get("id", "").startswith("hero_")]
     labels += [{"id": "hero_bridge", "text": "SECTOR 07 / NEXO", "position": [0, 7.25, 61.42]},
                {"id": "hero_workshop", "text": "MANTENIMIENTO / 04", "position": [24, 6, 94.2]}]

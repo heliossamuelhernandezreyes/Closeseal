@@ -42,6 +42,11 @@ def main():
                          scene="scenes/nexo_third_person.tscn", session=session, options={"audio_driver": "Dummy"})
         if not replay.get("passed") or not replay["report"]["input_released"]:
             raise RuntimeError(replay.get("report", replay))
+        states = {step["id"]: step["state"] for step in replay["report"]["checkpoints"]}
+        if states["cover_settle"].get("movement_state") != "cover" or not states["cover_settle"].get("crouched"):
+            raise RuntimeError({"cover_state": states["cover_settle"]})
+        if states["vault_midpoint"].get("movement_state") != "vault" or states["land"].get("vault_aborted"):
+            raise RuntimeError({"vault_state": states["vault_midpoint"], "land": states["land"]})
         results.append(replay["report"])
     if document.read_bytes() != original or (project / "maps/nexo_combat_01.json").read_bytes() != canonical:
         raise RuntimeError("replay changed accepted source")

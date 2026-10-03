@@ -89,7 +89,7 @@ func _physics_process(delta: float) -> void:
 		rig.rotation.y = lerp_angle(rig.rotation.y, target_yaw, minf(1, delta * 10))
 	var local_motion: Vector3 = rig.global_basis.inverse() * Vector3(velocity.x, 0, velocity.z)
 	rig.set_motion(Vector2(velocity.x, velocity.z).length(), not is_on_floor(), Vector2(local_motion.x, local_motion.z))
-	rig.aim_pitch = clampf(atan2((global_position.y + 1.4) - (player.global_position.y + 1.25), maxf(distance, 0.01)), -0.55, 0.55) if sees else 0.0
+	rig.aim_pitch = clampf(atan2((global_position.y + 1.4) - (player.global_position.y + player.target_height()), maxf(distance, 0.01)), -0.55, 0.55) if sees else 0.0
 	fire_timer -= delta
 	reload_timer = maxf(0, reload_timer - delta)
 	if sees and fire_timer <= 0 and reload_timer == 0:
@@ -98,7 +98,7 @@ func _physics_process(delta: float) -> void:
 
 func line_of_sight() -> bool:
 	var query := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP * 1.4,
-		arena.player.global_position + Vector3.UP * 1.3, 1 | 2, [get_rid()])
+		arena.player.target_point(), 1 | 2, [get_rid()])
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	return not hit.is_empty() and hit.collider == arena.player
 
@@ -106,7 +106,7 @@ func fire_at_player() -> void:
 	rig.fire()
 	arena.sound_at("shot", rig.muzzle.global_position)
 	var origin: Vector3 = rig.muzzle.global_position
-	var target: Vector3 = arena.player.global_position + Vector3.UP * 1.25
+	var target: Vector3 = arena.player.target_point()
 	var distance := origin.distance_to(target)
 	target += Vector3(arena.rng.randf_range(-1, 1), arena.rng.randf_range(-0.6, 0.6), 0) * maxf(0.2, distance * 0.027)
 	var direction := (target - origin).normalized()
@@ -115,7 +115,7 @@ func fire_at_player() -> void:
 	var endpoint := origin + direction * 90
 	if not hit.is_empty():
 		endpoint = hit.position
-		if hit.collider == arena.player: arena.player.take_damage(6.0)
+		if hit.collider == arena.player: arena.player.take_damage(6.0, origin)
 		arena.impact(endpoint, hit.normal)
 	arena.tracer(origin, endpoint, Color("ff8961"))
 	shots += 1
@@ -149,7 +149,7 @@ func seek_cover() -> void:
 		var distance := global_position.distance_to(target)
 		if distance > best_distance or distance < 1: continue
 		var ray := PhysicsRayQueryParameters3D.create(target + Vector3.UP * 1.1,
-			arena.player.global_position + Vector3.UP * 1.3, 1)
+			arena.player.target_point(), 1)
 		if get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
 		var path := NavigationServer3D.map_get_path(agent.get_navigation_map(), global_position, target, true)
 		if path.size() < 2 or path[-1].distance_to(target) > 1.2: continue

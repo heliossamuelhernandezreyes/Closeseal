@@ -89,7 +89,8 @@ func _ready() -> void:
 
 func configure_input() -> void:
 	var keys := {"forward": KEY_W, "back": KEY_S, "left": KEY_A, "right": KEY_D, "reload": KEY_R,
-		"jump": KEY_SPACE, "sprint": KEY_SHIFT, "interact": KEY_E, "swap_shoulder": KEY_Q, "pause_game": KEY_ESCAPE}
+		"jump": KEY_SPACE, "sprint": KEY_SHIFT, "interact": KEY_E, "swap_shoulder": KEY_Q,
+		"cover": KEY_C, "stance": KEY_CTRL, "pause_game": KEY_ESCAPE}
 	for action in keys:
 		if not InputMap.has_action(action): InputMap.add_action(action)
 		var event := InputEventKey.new()

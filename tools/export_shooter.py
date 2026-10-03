@@ -18,8 +18,8 @@ architectures/x86_64=false
 gradle_build/use_gradle_build=false
 package/unique_name="org.closeseal.nexo"
 package/name="Nexo — Closeseal"
-version/code=3
-version/name="0.3.0"
+version/code=4
+version/name="0.4.0"
 screen/immersive_mode=true
 permissions/internet=false'''),
         ("Web", "Web", "web_nothreads_release.zip", 'variant/thread_support=false\nprogressive_web_app/enabled=true\nhtml/canvas_resize_policy=2'),

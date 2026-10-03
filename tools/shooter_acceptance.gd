@@ -238,7 +238,7 @@ func run() -> void:
 	check("skeletal_run_changes_leg_pose", maximum_angle > 0.15, {"maximum_angle_rad": maximum_angle, "samples": 16, "cycle_seconds": 0.64})
 	check("weapon_grips_aligned", animated.combat.grip_errors.x < 0.09 and animated.combat.grip_errors.y < 0.09, str(animated.combat.grip_errors))
 	check("third_person_weapon_grips", player.rig.combat.grip_errors.x < 0.09 and player.rig.combat.grip_errors.y < 0.09, str(player.rig.combat.grip_errors))
-	check("military_assets", arena.contract.shooter_design.art_revision == "third-person-industrial-03" and player.gun.find_child("Magazine", true, false) != null)
+	check("military_assets", arena.contract.shooter_design.art_revision == "third-person-industrial-04" and player.gun.find_child("Magazine", true, false) != null)
 	animated.reload()
 	await frames(45)
 	check("magazine_removal", animated.magazine.position.distance_to(animated.magazine_rest.origin) > 0.15)

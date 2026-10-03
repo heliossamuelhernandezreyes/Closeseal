@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "edition": "Nexo Industrial 0.3.0 \u2014 third person",
+  "edition": "Nexo Industrial 0.4.0 \u2014 tactical mobility",
   "verified_at": "2026-10-03",
   "arcont_commit": "678d907e742d4ecd66934c9f1d1b83858e7b9e2c",
   "license_policy": "CC0 for models, textures, sky and reload; attributed CC BY 3.0 for gunshot under stricter archive license. No NC assets.",
@@ -143,7 +143,7 @@
     "texture_max_edge": 1024,
     "factory_triangles": 97804,
     "akm_triangles": 5322,
-    "animation": "Seven authored native 30 fps skeletal clips; directional gait blend with cadence, analytic arm/leg IK, reload and recoil; no motion-capture claim. Native .res lossless compression preserves the editable AnimationLibrary.",
+    "animation": "Eighteen authored native 30 fps skeletal clips: directional gait, cover entry/idle/strafe/high, crouch, slide, vault, jump/land and death; analytic arm/leg IK and hand plant; no motion-capture claim. Compressed editable AnimationLibrary.",
     "texture_import": "Explicit mipmap chains after the initial clean Godot import, including embedded GLB textures extracted by the importer."
   },
   "delivered_files": [
@@ -159,8 +159,8 @@
     },
     {
       "path": "assets/shooter/combat_navigation.tres",
-      "sha256": "1e29b404b9d98ed2c1a868fba6f2ac31901dd08a341b9b8c32ef5bb9e082b76e",
-      "size_bytes": 66374
+      "sha256": "88ba6bf192d28f6e961df5643f68061a63d83093f6e81c19ea53661b9522436b",
+      "size_bytes": 67802
     },
     {
       "path": "assets/shooter/serious/LICENSES.txt",
@@ -204,8 +204,8 @@
     },
     {
       "path": "assets/shooter/serious/combat_motion.res",
-      "sha256": "baaac189565447ab25499ebd6e520492f2226f64cd82b9210dd15a49e677485a",
-      "size_bytes": 151857
+      "sha256": "9a5312cb90265f2b91b721ce0aa01b19d9f4a9f1d6b7033657e7e25ff16b5cf3",
+      "size_bytes": 383224
     },
     {
       "path": "assets/shooter/serious/evening_road_01_puresky.hdr",
