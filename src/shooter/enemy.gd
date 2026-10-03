@@ -18,6 +18,7 @@ var last_seen := Vector3.ZERO
 var cover_time := 0.0
 var cover_target := Vector3.ZERO
 var state := "patrol"
+var flank_time := 0.0
 
 func _ready() -> void:
 	collision_layer = 4
@@ -54,24 +55,31 @@ func _physics_process(delta: float) -> void:
 	else: search_time = maxf(0, search_time - delta)
 	alert = search_time > 0
 	cover_time = maxf(0, cover_time - delta)
+	flank_time = maxf(0, flank_time - delta)
 	state = "cover" if cover_time > 0 else "attack" if sees else "search" if alert else "patrol"
 	repath -= delta
 	if repath <= 0:
 		repath = 0.55
 		if cover_time > 0:
 			agent.target_position = cover_target
-		elif alert and (not sees or distance > 15.0):
+		elif alert and (not sees or distance > 15.0 or (arena.mission_mode == "sector07" and seed_index % 3 == 1)):
 			var target := last_seen
-			if seed_index % 4 == 1 and sees and distance > 20:
+			if seed_index % 3 == 1 and sees:
 				var approach := (last_seen - global_position).normalized()
-				target += Vector3(-approach.z, 0, approach.x) * 5.0
+				var desired := target + Vector3(-approach.z, 0, approach.x) * 8.0
+				var map := agent.get_navigation_map()
+				var nearest := NavigationServer3D.map_get_closest_point(map, desired)
+				var path := NavigationServer3D.map_get_path(map, global_position, nearest, true)
+				if nearest.distance_to(desired) < 1.5 and path.size() > 1:
+					target = nearest
+					flank_time = 1.0
 			agent.target_position = target
 		elif not alert:
 			var phase: float = arena.elapsed * 0.13 + seed_index
 			agent.target_position = home + Vector3(sin(phase) * 5, 0, cos(phase) * 5)
 		else: agent.target_position = global_position
 	var direction := Vector3.ZERO
-	if not agent.is_navigation_finished() and (cover_time > 0 or not sees or distance > 15.0):
+	if not agent.is_navigation_finished() and (cover_time > 0 or not sees or distance > 15.0 or flank_time > 0):
 		direction = agent.get_next_path_position() - global_position
 		direction.y = 0
 		direction = direction.normalized()
@@ -138,6 +146,7 @@ func take_damage(amount: float) -> void:
 		collision_mask = 0
 		rig.die()
 		arena.kills += 1
+		arena.kill_marker = 0.3
 
 func seek_cover() -> void:
 	var best_distance := 18.0

@@ -18,8 +18,8 @@ architectures/x86_64=false
 gradle_build/use_gradle_build=false
 package/unique_name="org.closeseal.nexo"
 package/name="Nexo — Closeseal"
-version/code=4
-version/name="0.4.0"
+version/code=5
+version/name="0.5.0"
 screen/immersive_mode=true
 permissions/internet=false'''),
         ("Web", "Web", "web_nothreads_release.zip", 'variant/thread_support=false\nprogressive_web_app/enabled=true\nhtml/canvas_resize_policy=2'),
@@ -34,7 +34,7 @@ platform="{platform}"
 runnable=true
 export_filter="all_resources"
 include_filter="maps/nexo_combat_01.json"
-exclude_filter="tools/*,assets/urban/sources.lock.json,assets/shooter/sources.lock.json"
+exclude_filter="tools/*,authoring/*,assets/production_candidates/*,assets/urban/sources.lock.json,assets/shooter/sources.lock.json"
 export_path=""
 
 [preset.{index}.options]

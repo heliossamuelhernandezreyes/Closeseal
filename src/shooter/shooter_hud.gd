@@ -3,6 +3,8 @@ var arena: Node3D
 var font: Font
 var menu_button: Button
 var credits_button: Button
+var full_button: Button
+var metrics_button: Button
 var credits: PopupPanel
 var mobile := OS.has_feature("mobile")
 var stick_index := -1
@@ -34,7 +36,16 @@ func _ready() -> void:
 	menu_button.add_theme_stylebox_override("normal", style)
 	menu_button.add_theme_color_override("font_color", Color("09232c"))
 	add_child(menu_button)
-	menu_button.pressed.connect(arena.begin)
+	menu_button.pressed.connect(arena.begin_slice)
+	full_button = Button.new()
+	full_button.text = "MAPA COMPLETO"
+	full_button.add_theme_font_size_override("font_size", 16)
+	add_child(full_button)
+	full_button.pressed.connect(arena.begin)
+	metrics_button = Button.new()
+	metrics_button.text = "MOSTRAR FPS"
+	add_child(metrics_button)
+	metrics_button.pressed.connect(func(): arena.metrics.enabled = not arena.metrics.enabled)
 	credits_button = Button.new()
 	credits_button.text = "CRÉDITOS"
 	credits_button.add_theme_font_size_override("font_size", 18)
@@ -45,7 +56,7 @@ func _ready() -> void:
 	credit_text.position = Vector2(22, 20)
 	credit_text.size = Vector2(666, 390)
 	credit_text.add_theme_font_size_override("normal_font_size", 18)
-	credit_text.text = "NEXO INDUSTRIAL — 0.4 / MOVILIDAD TÁCTICA\n\nSoldado: Irondust — CC0\nopengameart.org/content/sci-fi-soldier\n\nAKM: LonesomeDucky — CC0\nopengameart.org/content/weathered-akm-rifle\n\nEntorno, materiales y cielo: Poly Haven — CC0\npolyhaven.com\n\nRecarga: SpringySpringo — CC0\nopengameart.org/content/gun-reload-sounds\n\nDisparo: Copyright (c) 2009 Vincent Sevedge (Tabasco)\nCC BY 3.0 — creativecommons.org/licenses/by/3.0/\nopengameart.org/content/gunshot-sounds\nFragmento SKS recortado, filtrado y convertido a mono.\n\nAnimación, mapa y otros efectos: Closeseal / Arcont.\nLicencias y procedencia completas incluidas en el proyecto."
+	credit_text.text = "NEXO INDUSTRIAL — 0.5 / SECTOR 07\n\nSoldado: Irondust — CC0\nopengameart.org/content/sci-fi-soldier\n\nAKM: LonesomeDucky — CC0\nopengameart.org/content/weathered-akm-rifle\n\nEntorno, materiales y cielo: Poly Haven — CC0\npolyhaven.com\n\nRecarga: SpringySpringo — CC0\nopengameart.org/content/gun-reload-sounds\n\nDisparo: Copyright (c) 2009 Vincent Sevedge (Tabasco)\nCC BY 3.0 — creativecommons.org/licenses/by/3.0/\nopengameart.org/content/gunshot-sounds\nFragmento SKS recortado, filtrado y convertido a mono.\n\nAnimación, mapa y otros efectos: Closeseal / Arcont.\nLicencias y procedencia completas incluidas en el proyecto."
 	credits.add_child(credit_text)
 	var close_button := Button.new()
 	close_button.text = "CERRAR"
@@ -59,7 +70,9 @@ func _ready() -> void:
 func update_menu() -> void:
 	menu_button.visible = not arena.playing
 	credits_button.visible = not arena.playing
-	menu_button.text = "REINTENTAR OPERACIÓN" if not arena.outcome.is_empty() else "CONTINUAR" if arena.started else "INICIAR OPERACIÓN"
+	full_button.visible = not arena.started
+	metrics_button.visible = not arena.playing
+	menu_button.text = "REINTENTAR OPERACIÓN" if not arena.outcome.is_empty() else "CONTINUAR" if arena.started else "INICIAR SECTOR 07"
 
 func update_layout() -> void:
 	ui_scale = minf(size.x / 1280.0, size.y / 720.0)
@@ -71,6 +84,11 @@ func _process(_delta: float) -> void:
 	menu_button.size = Vector2(330, 62) * ui_scale
 	credits_button.position = ui_offset + Vector2(410, 594) * ui_scale
 	credits_button.size = Vector2(190, 62) * ui_scale
+	full_button.position = ui_offset + Vector2(625, 594) * ui_scale
+	full_button.size = Vector2(185, 62) * ui_scale
+	metrics_button.position = ui_offset + Vector2(835, 594) * ui_scale
+	metrics_button.size = Vector2(170, 62) * ui_scale
+	if is_instance_valid(arena.metrics): metrics_button.text = "OCULTAR FPS" if arena.metrics.enabled else "MOSTRAR FPS"
 	queue_redraw()
 
 func label_at(text: String, point: Vector2, pixels := 18, color := Color("e9f2f4")) -> void:
@@ -87,10 +105,10 @@ func _draw() -> void:
 		draw_rect(Rect2(48, 43, 42, 4), cyan)
 		label_at("CLOSESEAL    /    OPERACIÓN 01", Vector2(48, 80), 16, cyan)
 		label_at("NEXO", Vector2(44, 196), 92)
-		label_at("ZONA DE COMBATE", Vector2(48, 245), 30, muted)
+		label_at("SECTOR 07 / MANTENIMIENTO", Vector2(48, 245), 28, muted)
 		label_at("Asegura tres puntos. Sobrevive. Regresa a la salida.", Vector2(48, 306), 20)
-		label_at("256 × 256 m   ·   16 hostiles   ·   Rutas de flanqueo", Vector2(48, 344), 17, muted)
-		label_at("Puesto elevado, hangar abierto y patios con cobertura.", Vector2(48, 378), 17, muted)
+		label_at("Suministros → relé elevado → control de acceso → extracción", Vector2(48, 344), 17, muted)
+		label_at("Operación corta de 6 hostiles · También disponible: mapa completo", Vector2(48, 378), 17, muted)
 		if not arena.outcome.is_empty():
 			label_at(arena.outcome, Vector2(48, 445), 25, cyan)
 			label_at("%d bajas   ·   %d/3 puntos   ·   %02d:%02d" % [arena.kills, arena.secured.size(), int(arena.elapsed) / 60, int(arena.elapsed) % 60], Vector2(48, 482), 18)
@@ -99,7 +117,7 @@ func _draw() -> void:
 			label_at("Extiende la palanca: correr · CUBRIR: pegarse a una pared" if mobile else "R recargar   ·   E asegurar   ·   Espacio saltar", Vector2(48, 480), 18, muted)
 			label_at("DESLIZAR al correr · PASAR para saltar cobertura" if mobile else "Shift correr · Ctrl deslizar/agachar · C cubrir · Espacio pasar", Vector2(48, 510), 18, muted)
 		if w > 1000: draw_map(Vector2(w - 340, 170), 270)
-		label_at("NEXO 0.4   /   MOVILIDAD TÁCTICA", Vector2(48, h - 28), 13, muted)
+		label_at("NEXO 0.5   /   SECTOR 07", Vector2(48, h - 28), 13, muted)
 		return
 	var player = arena.player
 	var movement = player.mobility
@@ -117,8 +135,8 @@ func _draw() -> void:
 	label_at("%02d:%02d  ·  %02d BAJAS" % [int(arena.elapsed) / 60, int(arena.elapsed) % 60, arena.kills], Vector2(217, 111), 12, muted)
 	draw_map(Vector2(1036, 28), 144)
 	var center := Vector2(w, h) * 0.5
-	var unavailable: bool = movement.state in ["vault", "slide"] or (movement.state == "cover" and not movement.cover_low and not movement.peek)
-	var cross_color := Color("ffbd78") if arena.hit_marker > 0 else Color(ink, 0.4) if unavailable else ink
+	var unavailable: bool = movement.state in ["vault", "slide", "corner", "transfer"] or (movement.state == "cover" and not movement.cover_low and not movement.peek)
+	var cross_color := Color("f47d68") if arena.kill_marker > 0 else Color("ffbd78") if arena.hit_marker > 0 else Color(ink, 0.4) if unavailable else ink
 	var spread := 5.0 if player.is_aiming() else 8.0 + minf(6, Vector2(player.velocity.x, player.velocity.z).length() * 0.6)
 	draw_circle(center, 1.7, cross_color)
 	if not unavailable:
@@ -144,7 +162,7 @@ func _draw() -> void:
 	if player.reload_remaining > 0:
 		label_at("RECARGA", ammo_origin + Vector2(133, 45), 10, cyan)
 		draw_rect(Rect2(ammo_origin + Vector2(12, 55), Vector2(176 * (1.0 - player.reload_remaining / 1.6), 3)), cyan)
-	var mode: String = {"free": "AGACHADO" if movement.capsule_height < 1.8 else "CORRIENDO" if Vector2(player.velocity.x, player.velocity.z).length() > 6 else "", "cover": "ASOMADO" if movement.peek else "EN COBERTURA", "vault": "PASANDO COBERTURA", "slide": "DESLIZANDO"}[movement.state]
+	var mode: String = {"free": "AGACHADO" if movement.capsule_height < 1.8 else "CORRIENDO" if Vector2(player.velocity.x, player.velocity.z).length() > 6 else "", "cover": "ASOMADO" if movement.peek else "EN COBERTURA", "vault": "PASANDO COBERTURA", "slide": "DESLIZANDO", "corner": "GIRANDO ESQUINA", "transfer": "CAMBIANDO COBERTURA"}[movement.state]
 	if not mode.is_empty(): label_centered(mode, Vector2(640, 580), 12, cyan)
 	if movement.state == "cover": label_centered("MIRA PARA ASOMARTE  ·  SALTO PARA PASAR" if movement.cover_low else "MUÉVETE AL BORDE PARA ASOMARTE", Vector2(640, 603), 11, muted)
 	elif not movement.candidate.is_empty(): label_centered("CUBRIR" if mobile else "[C] CUBRIR   [ESPACIO] PASAR", Vector2(640, 603), 12, cyan)
@@ -157,6 +175,10 @@ func _draw() -> void:
 		for definition in arena.design.beacons:
 			if definition.id not in arena.secured and player.global_position.distance_to(arena.vec(definition.position)) < 3.8: label_centered("USAR / ASEGURAR " + definition.id if mobile else "[E] ASEGURAR " + definition.id, center + Vector2(0, 77), 16, cyan)
 	if arena.secured.size() == 3: label_centered("3/3 ASEGURADOS  ·  REGRESA A SALIDA", Vector2(640, 60), 15, Color("75ddb1"))
+	elif arena.mission_mode == "sector07":
+		label_centered("SIGUIENTE: " + arena.design.beacons[arena.secured.size()].name.to_upper(), Vector2(640, 60), 13, cyan)
+	if arena.metrics.enabled:
+		label_at("%d FPS  ·  %.0f MiB" % [arena.metrics.fps, arena.metrics.memory_mib], Vector2(390, 30), 12, muted)
 	draw_objective_markers()
 	if mobile: draw_touch()
 	else: label_centered("SHIFT CORRER   CTRL DESLIZAR / AGACHAR   C CUBRIR   ESPACIO PASAR   Q HOMBRO   E USAR", Vector2(640, 696), 11, muted)
@@ -219,7 +241,7 @@ func button_rect(action: String) -> Rect2:
 func touch_title(action: String) -> String:
 	var movement = arena.player.mobility
 	return {"fire": "FUEGO", "aim": "MIRA", "reload": "CARGAR", "jump": "PASAR" if movement.state == "cover" and movement.cover_low else "SALTO",
-		"interact": "USAR", "cover": "SALIR" if movement.state == "cover" else "CUBRIR",
+		"interact": "USAR", "cover": "CAMBIAR" if movement.state == "cover" and not movement.transfer_candidate.is_empty() else "SALIR" if movement.state == "cover" else "CUBRIR",
 		"stance": "DESLIZAR" if Vector2(arena.player.velocity.x, arena.player.velocity.z).length() > 6 else "LEVANTAR" if movement.capsule_height < 1.8 else "AGACHAR", "shoulder": "HOMBRO", "pause": "II"}[action]
 
 func draw_touch() -> void:

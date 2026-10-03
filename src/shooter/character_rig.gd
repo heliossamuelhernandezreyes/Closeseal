@@ -1,9 +1,11 @@
 extends Node3D
 const POSE = preload("res://src/shooter/combat_pose.gd")
+const GROUND_POSE = preload("res://src/shooter/ground_pose.gd")
 var skeleton: Skeleton3D
 var animation: AnimationPlayer
 var tree: AnimationTree
 var combat: SkeletonModifier3D
+var ground_contact: SkeletonModifier3D
 var weapon: Node3D
 var muzzle: Node3D
 var magazine: MeshInstance3D
@@ -82,6 +84,9 @@ func _ready() -> void:
 	combat = POSE.new()
 	combat.rig = self
 	skeleton.add_child(combat)
+	ground_contact = GROUND_POSE.new()
+	ground_contact.rig = self
+	skeleton.add_child(ground_contact)
 
 static func apply_skin(node: Node, variant: String) -> void:
 	var material := StandardMaterial3D.new()
@@ -91,6 +96,7 @@ static func apply_skin(node: Node, variant: String) -> void:
 	material.normal_texture = load(prefix + "normal.jpg")
 	material.normal_scale = 0.75
 	material.roughness = 0.85
+	material.roughness_texture = load(prefix + "roughness.jpg")
 	material.ao_enabled = true
 	material.ao_texture = load(prefix + "ao.jpg")
 	material.metallic = 0.08
@@ -140,10 +146,11 @@ func _process(delta: float) -> void:
 		action.animation = action_pose
 		current_action = action_pose
 		tree.set("parameters/ActionTime/seek_request", 0.0)
+	elif action_pose.is_empty(): current_action = ""
 	if action_pose in ["vault", "slide", "cover_enter"]:
 		tree.set("parameters/ActionTime/seek_request", action_phase * animation.get_animation(action_pose).length)
 	tree.set("parameters/ActionCadence/scale", clampf(motion_speed / (1.37 if action_pose in ["cover_left", "cover_right"] else 1.22), 0.7, 2.7) if action_pose in ["cover_left", "cover_right", "crouch_walk"] else 1.0)
-	action_weight = move_toward(action_weight, 0.0 if action_pose.is_empty() else 1.0, delta * 12)
+	action_weight = lerpf(action_weight, 0.0 if action_pose.is_empty() else 1.0, 1.0 - exp(-delta * 18))
 	tree.set("parameters/ActionBlend/blend_amount", action_weight)
 	var phase := 1.0 - reload_time / 1.6
 	var reload_curve := sin(phase * PI) if reload_time > 0 else 0.0

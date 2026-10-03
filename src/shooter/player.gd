@@ -125,7 +125,13 @@ func _physics_process(delta: float) -> void:
 	if not mobility.tick(delta, direction, sprint, cover_aim): move_and_slide()
 	var moving := Vector2(velocity.x, velocity.z).length()
 	var facing := 0.0 if is_aiming() or fire_held or Input.is_action_pressed("fire") else atan2(-move_input.x, -move_input.y)
-	if mobility.state == "cover" and not cover_aim:
+	if mobility.state == "corner":
+		var progress: float = mobility.path_progress / maxf(mobility.path_distance, 0.001)
+		var normal: Vector3 = mobility.cover_normal.lerp(mobility.path_end_normal, progress).normalized()
+		facing = atan2(-normal.x, -normal.z) - rotation.y
+	elif mobility.state == "transfer":
+		facing = atan2(-velocity.x, -velocity.z) - rotation.y
+	elif mobility.state == "cover" and not cover_aim:
 		facing = atan2(-mobility.cover_normal.x, -mobility.cover_normal.z) - rotation.y
 	elif mobility.state == "vault":
 		var heading: Vector3 = mobility.vault_end - mobility.vault_start
@@ -188,7 +194,7 @@ func start_reload() -> bool:
 	return true
 
 func shoot() -> Dictionary:
-	if mobility.state in ["vault", "slide"]: return {}
+	if mobility.state in ["vault", "slide", "corner", "transfer"]: return {}
 	if ammo <= 0:
 		start_reload()
 		return {}
@@ -271,4 +277,6 @@ func playtest_snapshot() -> Dictionary:
 		"interactions": playtest_interactions, "camera_distance": spring_arm.get_hit_length(),
 		"perspective": "third_person", "on_floor": is_on_floor(), "movement_state": mobility.state,
 		"crouched": mobility.capsule_height < 1.8, "cover_low": mobility.cover_low,
-		"peek": mobility.peek, "vault_aborted": mobility.vault_aborted}
+		"peek": mobility.peek, "vault_aborted": mobility.vault_aborted,
+		"completed_corners": mobility.completed_corners, "completed_transfers": mobility.completed_transfers,
+		"transition_aborted": mobility.transition_aborted}

@@ -1,0 +1,809 @@
+{
+  "version": 1,
+  "date": "2026-10-03",
+  "scope": "linux-real-engine",
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "arcont_commit": "86fa0e7b97341205f9c3e42b6ecfe09efde4ca6b",
+  "base_commit": "3615bfc1b9b58a376d7d779e01fb742ec57d9e0d",
+  "map_revision": "593e05493103650d8abb3b9bff43700abf228dddb4ba0a8aeed90d2ec431d746",
+  "map_sha256": "e8110d680e020de7eee987205c60f0a820b08d658b8c0b18b2bbcfdf6abd59a8",
+  "totals": {
+    "slice-acceptance.json": 24,
+    "mobility-acceptance.json": 37,
+    "acceptance.json": 42
+  },
+  "gameplay": {
+    "checks": {
+      "active_enemy_can_damage_player": {
+        "details": 64.0,
+        "ok": true
+      },
+      "active_enemy_navigation_and_fire": {
+        "details": {
+          "distance_m": 7.91389965824783,
+          "shots": 6
+        },
+        "ok": true
+      },
+      "all_enemy_spawns_clear_and_navigable": {
+        "details": [
+          {
+            "blockers": [],
+            "index": 0,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(10.0, 0.0, 70.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 1,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(-12.0, 0.0, 49.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 2,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(8.0, 0.0, 18.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 3,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(-24.0, 0.0, 5.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 4,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(24.0, 0.0, -11.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 5,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(-66.0, 0.0, -29.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 6,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(-44.0, 0.0, -61.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 7,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(-78.0, 0.0, -68.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 8,
+            "navigation_distance": 0.30000251531601,
+            "ok": true,
+            "position": "(-69.0, 0.2, -93.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 9,
+            "navigation_distance": 0.400000095367432,
+            "ok": true,
+            "position": "(-3.0, 4.0, -45.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 10,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(5.0, 0.0, -80.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 11,
+            "navigation_distance": 0.41230833530426,
+            "ok": true,
+            "position": "(62.0, 0.0, 52.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 12,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(78.0, 0.0, 71.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 13,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(53.0, 0.0, 90.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 14,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(76.0, 0.0, -48.0)",
+            "reachable": true
+          },
+          {
+            "blockers": [],
+            "index": 15,
+            "navigation_distance": 0.399999976158142,
+            "ok": true,
+            "position": "(-64.0, 0.0, 72.0)",
+            "reachable": true
+          }
+        ],
+        "ok": true
+      },
+      "authored_map": {
+        "details": {
+          "asset_instances": 82,
+          "authored_lights": 13,
+          "custom_meshes": 2,
+          "environment_objects": 625,
+          "errors": [],
+          "heightfields": 0,
+          "landforms": 0,
+          "objectives": 0,
+          "route_segments": 0,
+          "scatter_instances": 0,
+          "structures": 0,
+          "terrain_triangles": 0
+        },
+        "ok": true
+      },
+      "barrel_cannot_shoot_through_near_cover": {
+        "details": {
+          "enemy_health": 90.0,
+          "hit_cover": true
+        },
+        "ok": true
+      },
+      "body_damage": {
+        "details": 56.0,
+        "ok": true
+      },
+      "boundary_collision": {
+        "details": "(127.16, 0.000195, 19.74757)",
+        "ok": true
+      },
+      "bullets_blocked_by_cover": {
+        "details": null,
+        "ok": true
+      },
+      "camera_recovers_distance": {
+        "details": 3.5,
+        "ok": true
+      },
+      "camera_retracts_before_wall": {
+        "details": 1.5859375,
+        "ok": true
+      },
+      "camera_shoulder_clears_side_wall": {
+        "details": 0.259999990463257,
+        "ok": true
+      },
+      "enemy_cannot_see_through_cover": {
+        "details": null,
+        "ok": true
+      },
+      "enemy_death": {
+        "details": null,
+        "ok": true
+      },
+      "enemy_line_of_sight": {
+        "details": null,
+        "ok": true
+      },
+      "enemy_searches_last_seen": {
+        "details": null,
+        "ok": true
+      },
+      "facade_texture_has_mipmaps": {
+        "details": null,
+        "ok": true
+      },
+      "fire_recoil_animation": {
+        "details": null,
+        "ok": true
+      },
+      "four_finger_controls": {
+        "details": null,
+        "ok": true
+      },
+      "four_finger_release": {
+        "details": null,
+        "ok": true
+      },
+      "free_orbit_preserves_body_heading": {
+        "details": null,
+        "ok": true
+      },
+      "injured_enemy_seeks_navigable_cover": {
+        "details": {
+          "path_points": 5,
+          "target": "(-10.3419, 0.0, 88.9563)"
+        },
+        "ok": true
+      },
+      "input_release": {
+        "details": null,
+        "ok": true
+      },
+      "left_shoulder_available": {
+        "details": -0.615342020988464,
+        "ok": true
+      },
+      "magazine_removal": {
+        "details": null,
+        "ok": true
+      },
+      "map_dimensions": {
+        "details": null,
+        "ok": true
+      },
+      "military_assets": {
+        "details": null,
+        "ok": true
+      },
+      "mission_defeat": {
+        "details": null,
+        "ok": true
+      },
+      "mission_victory": {
+        "details": null,
+        "ok": true
+      },
+      "physical_ramp_ascent": {
+        "details": "(0.0, 4.000446, -41.78267)",
+        "ok": true
+      },
+      "player_jump": {
+        "details": 1.28585207462311,
+        "ok": true
+      },
+      "reload_animation": {
+        "details": null,
+        "ok": true
+      },
+      "reload_conserves_ammo": {
+        "details": null,
+        "ok": true
+      },
+      "reload_prevents_shots": {
+        "details": null,
+        "ok": true
+      },
+      "skeletal_run_changes_leg_pose": {
+        "details": {
+          "cycle_seconds": 0.64,
+          "maximum_angle_rad": 1.43295383453369,
+          "samples": 16
+        },
+        "ok": true
+      },
+      "third_person_full_body": {
+        "details": null,
+        "ok": true
+      },
+      "third_person_weapon_grips": {
+        "details": "(0.0, 0.00895)",
+        "ok": true
+      },
+      "three_objectives_navigable": {
+        "details": [
+          {
+            "end": "(-69.00001, 0.4, -67.00001)",
+            "points": 58,
+            "reaches": true
+          },
+          {
+            "end": "(0.0, 4.4, -44.0)",
+            "points": 51,
+            "reaches": true
+          },
+          {
+            "end": "(68.0, 0.4, 57.0)",
+            "points": 25,
+            "reaches": true
+          }
+        ],
+        "ok": true
+      },
+      "three_points_secured": {
+        "details": {
+          "captures": [
+            {
+              "began": "A",
+              "id": "A",
+              "position": "(-69.0, 0.000859, -67.0)",
+              "timer": 0.0
+            },
+            {
+              "began": "B",
+              "id": "B",
+              "position": "(0.0, 3.999687, -44.0)",
+              "timer": 0.0
+            },
+            {
+              "began": "C",
+              "id": "C",
+              "position": "(68.0, 0.000859, 57.0)",
+              "timer": 0.0
+            }
+          ],
+          "secured": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "ok": true
+      },
+      "touch_movement": {
+        "details": null,
+        "ok": true
+      },
+      "touch_release": {
+        "details": null,
+        "ok": true
+      },
+      "visible_weapon_matches_reticle": {
+        "details": null,
+        "ok": true
+      },
+      "weapon_grips_aligned": {
+        "details": "(0.0, 0.005098)",
+        "ok": true
+      }
+    },
+    "engine": {
+      "build": "official",
+      "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "hex": 263938,
+      "major": 4,
+      "minor": 7,
+      "patch": 2,
+      "status": "stable",
+      "string": "4.7.2-stable (official)",
+      "timestamp": 0
+    },
+    "failures": [],
+    "ok": true
+  },
+  "mobility": {
+    "checks": {
+      "aim_peek_exposes_capsule": {
+        "details": {
+          "height": 1.85,
+          "peek": true,
+          "sight": "{  }"
+        },
+        "ok": true
+      },
+      "authored_cover_supports_vault": {
+        "details": null,
+        "ok": true
+      },
+      "authored_foreground_cover_is_usable": {
+        "details": null,
+        "ok": true
+      },
+      "ceiling_prevents_standing": {
+        "details": null,
+        "ok": true
+      },
+      "clear_ground_still_jumps": {
+        "details": null,
+        "ok": true
+      },
+      "cover_input_snaps_and_crouches": {
+        "details": {
+          "height": 1.06,
+          "position": "(3.0, 0.000937, 109.7142)",
+          "state": "cover"
+        },
+        "ok": true
+      },
+      "cover_strafe_preserves_face": {
+        "details": "(3.993332, 0.000937, 109.71)",
+        "ok": true
+      },
+      "covered_muzzle_cannot_hit_through_wall": {
+        "details": null,
+        "ok": true
+      },
+      "coyote_jump_after_leaving_ledge": {
+        "details": "(4.743943, 0.988064, 118.0)",
+        "ok": true
+      },
+      "crouch_changes_actual_capsule": {
+        "details": null,
+        "ok": true
+      },
+      "diagonal_speed_is_normalized": {
+        "details": null,
+        "ok": true
+      },
+      "dynamic_blocker_aborts_without_warp": {
+        "details": "(3.0, 0.000165, 109.84)",
+        "ok": true
+      },
+      "edge_peek_returns_to_cover": {
+        "details": null,
+        "ok": true
+      },
+      "fast_ground_acceleration": {
+        "details": -5.40000009536743,
+        "ok": true
+      },
+      "high_cover_edge_peek_moves_real_capsule": {
+        "details": {
+          "offset": "(0.65, 0.0, 0.0)",
+          "state": "cover"
+        },
+        "ok": true
+      },
+      "high_cover_requires_edge_for_peek": {
+        "details": null,
+        "ok": true
+      },
+      "high_obstacle_rejects_vault": {
+        "details": null,
+        "ok": true
+      },
+      "hud_buttons_fit_without_overlap": {
+        "details": [
+          {
+            "ok": true,
+            "size": "(1280.0, 720.0)"
+          },
+          {
+            "ok": true,
+            "size": "(960.0, 540.0)"
+          },
+          {
+            "ok": true,
+            "size": "(1920.0, 864.0)"
+          },
+          {
+            "ok": true,
+            "size": "(1024.0, 768.0)"
+          }
+        ],
+        "ok": true
+      },
+      "jump_buffer_relaunches_on_landing": {
+        "details": {
+          "height": 0.735863268375397,
+          "velocity": 5.19999933242798
+        },
+        "ok": true
+      },
+      "jump_input_starts_swept_vault": {
+        "details": {
+          "position": "(3.0, 1.078574, 109.95)",
+          "reason": "",
+          "state": "vault"
+        },
+        "ok": true
+      },
+      "jump_lands_without_state_lock": {
+        "details": null,
+        "ok": true
+      },
+      "low_cover_physically_hides_player": {
+        "details": null,
+        "ok": true
+      },
+      "native_action_clips_exist": {
+        "details": null,
+        "ok": true
+      },
+      "outward_movement_releases_cover": {
+        "details": null,
+        "ok": true
+      },
+      "pause_release_clears_inputs": {
+        "details": null,
+        "ok": true
+      },
+      "removed_cover_releases_player": {
+        "details": null,
+        "ok": true
+      },
+      "responsive_braking": {
+        "details": null,
+        "ok": true
+      },
+      "slide_blocks_weapon": {
+        "details": null,
+        "ok": true
+      },
+      "slide_finishes_without_sticking": {
+        "details": 4.80022430419922,
+        "ok": true
+      },
+      "sprint_input_enters_slide": {
+        "details": null,
+        "ok": true
+      },
+      "sprint_speed": {
+        "details": -8.80000019073486,
+        "ok": true
+      },
+      "stands_when_ceiling_clears": {
+        "details": null,
+        "ok": true
+      },
+      "vault_accepted_before_dynamic_blocker": {
+        "details": "",
+        "ok": true
+      },
+      "vault_crosses_and_lands": {
+        "details": "(3.0, 0.000859, 108.28)",
+        "ok": true
+      },
+      "vault_disables_fire": {
+        "details": null,
+        "ok": true
+      },
+      "vault_rejects_blocked_landing": {
+        "details": null,
+        "ok": true
+      },
+      "vault_rejects_low_ceiling": {
+        "details": null,
+        "ok": true
+      }
+    },
+    "engine": {
+      "build": "official",
+      "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "hex": 263938,
+      "major": 4,
+      "minor": 7,
+      "patch": 2,
+      "status": "stable",
+      "string": "4.7.2-stable (official)",
+      "timestamp": 0
+    },
+    "failures": [],
+    "limits": [
+      "Linux engine evidence; no Android device FPS or comfort measurement"
+    ],
+    "ok": true
+  },
+  "sector": {
+    "checks": {
+      "adjacent_cover_candidate_found": {
+        "details": null,
+        "ok": true
+      },
+      "airborne_disables_ground_correction": {
+        "details": null,
+        "ok": true
+      },
+      "blocked_corner_rejected_without_warp": {
+        "details": null,
+        "ok": true
+      },
+      "blocked_cover_gap_rejected": {
+        "details": null,
+        "ok": true
+      },
+      "corner_blocks_weapon": {
+        "details": null,
+        "ok": true
+      },
+      "corner_changes_face_with_collision": {
+        "details": {
+          "normal": "(1.0, 0.0, 0.0)",
+          "position": "(5.432485, 0.00023, 115.78)",
+          "state": "cover"
+        },
+        "ok": true
+      },
+      "corner_fixture_attaches": {
+        "details": null,
+        "ok": true
+      },
+      "corner_retry_after_clearance": {
+        "details": null,
+        "ok": true
+      },
+      "cover_dash_accepted": {
+        "details": null,
+        "ok": true
+      },
+      "cover_dash_attaches_to_destination": {
+        "details": {
+          "position": "(1.0, 0.000938, 116.71)",
+          "state": "cover"
+        },
+        "ok": true
+      },
+      "dynamic_corner_blocker_aborts": {
+        "details": null,
+        "ok": true
+      },
+      "runtime_observation_records_real_frames": {
+        "details": null,
+        "ok": true
+      },
+      "sector_flanker_uses_navigation_and_fires": {
+        "details": {
+          "shots": 2,
+          "target": "(-4.100863, 0.4, 104.869)",
+          "travelled": 8.59875580854714
+        },
+        "ok": true
+      },
+      "sector_menu_starts_focused_operation": {
+        "details": null,
+        "ok": true
+      },
+      "six_sector_spawns_clear_and_reachable": {
+        "details": [
+          {
+            "ok": true,
+            "overlaps": 0,
+            "position": "(-4.0, 0.0, 81.0)"
+          },
+          {
+            "ok": true,
+            "overlaps": 0,
+            "position": "(9.0, 0.0, 70.0)"
+          },
+          {
+            "ok": true,
+            "overlaps": 0,
+            "position": "(23.0, 0.0, 80.0)"
+          },
+          {
+            "ok": true,
+            "overlaps": 0,
+            "position": "(18.0, 0.0, 78.0)"
+          },
+          {
+            "ok": true,
+            "overlaps": 0,
+            "position": "(26.0, 3.1, 72.0)"
+          },
+          {
+            "ok": true,
+            "overlaps": 0,
+            "position": "(-8.0, 0.0, 60.0)"
+          }
+        ],
+        "ok": true
+      },
+      "slice_enforces_objective_order": {
+        "details": null,
+        "ok": true
+      },
+      "slice_extracts_after_three_objectives": {
+        "details": null,
+        "ok": true
+      },
+      "slice_routes_baked_and_reachable": {
+        "details": [
+          {
+            "points": 14,
+            "reaches": true
+          },
+          {
+            "points": 15,
+            "reaches": true
+          },
+          {
+            "points": 24,
+            "reaches": true
+          }
+        ],
+        "ok": true
+      },
+      "slice_secures_A": {
+        "details": null,
+        "ok": true
+      },
+      "slice_secures_B": {
+        "details": null,
+        "ok": true
+      },
+      "slice_secures_C": {
+        "details": null,
+        "ok": true
+      },
+      "slope_pose_correction_bounded": {
+        "details": {
+          "errors": "(0.0, 0.0)",
+          "offsets": "(-0.026993, -0.026494)"
+        },
+        "ok": true
+      },
+      "strafe_enters_corner_path": {
+        "details": null,
+        "ok": true
+      },
+      "workshop_ramp_actual_ascent": {
+        "details": "(31.00002, 3.100695, 74.53786)",
+        "ok": true
+      }
+    },
+    "engine": {
+      "build": "official",
+      "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "hex": 263938,
+      "major": 4,
+      "minor": 7,
+      "patch": 2,
+      "status": "stable",
+      "string": "4.7.2-stable (official)",
+      "timestamp": 0
+    },
+    "failures": [],
+    "limits": [
+      "Linux engine/collision evidence; 3–5 minute target needs human playtest; Android device unmeasured"
+    ],
+    "ok": true
+  },
+  "production": {
+    "asset_count": 3,
+    "clips": 18,
+    "routes": 3,
+    "canonical_map_preserved": true,
+    "source_motion_preserved": true
+  },
+  "replay": {
+    "ok": true,
+    "reopened": 2,
+    "ticks": 233
+  },
+  "other_validation": {
+    "python_tests": 21,
+    "maps": 6,
+    "physical_profiles": 1,
+    "map_writer_operations": 10,
+    "delivered_file_hashes": 97,
+    "map_authoring_idempotent": true
+  },
+  "limits": [
+    "Android installation and Poco performance unmeasured",
+    "3–5 minute target needs human playtest",
+    "Foot correction does not establish full foot locking or arbitrary retargeting"
+  ]
+}

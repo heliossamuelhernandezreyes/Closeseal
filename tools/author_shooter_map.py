@@ -18,7 +18,7 @@ MAP_ID = "nexo_combat_01"
 
 def contract(source=None):
     data = copy.deepcopy(source if source is not None else json.loads((ROOT / "maps" / (MAP_ID + ".json")).read_text()))
-    if data.get("shooter_design", {}).get("art_revision") not in {"military-pbr-02", "third-person-industrial-03", "third-person-industrial-04"}:
+    if data.get("shooter_design", {}).get("art_revision") not in {"military-pbr-02", "third-person-industrial-03", "third-person-industrial-04", "industrial-slice-05"}:
         raise ValueError("industrial canonical map required; inspect the published industrial revision first")
     authored = data["authoring"]
     for collection in ("objects", "instances", "geometry", "lights", "materials"):
@@ -102,8 +102,8 @@ def contract(source=None):
     for index in range(12):
         solid("bay_hatch_" + str(index), [19+index*0.5, 0.071, 96], [0.14, 0.018, 2.3], "orange", False, [0, 32, 0])
     props = [("barrel_03", [-17.8, 0.06, 97], 14), ("barrel_03", [-18.5, 0.06, 96.5], 65),
-             ("barrel_03", [29, 0.06, 69], 40), ("portable_welding_cart", [29, 0.06, 83], 20),
-             ("wooden_military_crate", [31, 0.06, 88], 90), ("old_military_crate", [26, 0.06, 71], -16),
+             ("barrel_03", [29, 0.06, 69], 40), ("portable_welding_cart", [25, 0.06, 83], 20),
+             ("wooden_military_crate", [26, 0.06, 88], 90), ("old_military_crate", [26, 0.06, 71], -16),
              ("wooden_military_crate", [-23, 0.06, 82], 4), ("barrel_03", [-24, 0.06, 84], 35)]
     for index, (model, position, yaw) in enumerate(props):
         asset("yard_prop_" + str(index), f"polyhaven/{model}/{model}.gltf", position, yaw)
@@ -122,13 +122,76 @@ def contract(source=None):
         solid("cover_band_" + str(index), [x, 0.93, z+0.29], [width-0.14, 0.065, 0.02], "orange", False, [0, yaw, 0])
         for side in [-1, 1]:
             solid("cover_foot_" + str(index) + str(side), [x+side*(width/2-0.3), 0.10, z], [0.32, 0.2, 0.8], "concrete", True)
-    authored["environment"].update(fog_density=0.0032, fog_color="657782")
+    # A usable upper route inside the existing workshop: sloped collision,
+    # open ramp landing, physical rails and headroom for a standing capsule.
+    authored["materials"] += [
+        {"id": "hero_painted", "albedo": "304853", "roughness": 0.78, "metallic": 0.45},
+        {"id": "hero_rubber", "albedo": "151b20", "roughness": 0.92},
+    ]
+    solid("slice_mezzanine", [24, 2.98, 72], [18, 0.24, 8], "hero_painted")
+    for x in [15.3, 24, 32.7]:
+        solid("slice_support_" + str(x), [x, 1.45, 69], [0.22, 2.9, 0.22], "hero_painted")
+        solid("slice_mezz_beam_" + str(x), [x, 2.75, 72], [0.2, 0.22, 8], "hero_painted")
+    # 3.1m rise over 12m run; top joins the platform without a step.
+    authored["geometry"].append({"id": "hero_slice_ramp", "vertices": [
+        [29.3, 0.02, 88], [32.7, 0.02, 88], [29.3, 3.1, 76], [32.7, 3.1, 76],
+        [29.3, 0, 76], [32.7, 0, 76]],
+        "indices": [0, 2, 1, 1, 2, 3, 0, 4, 2, 1, 3, 5], "material": "hero_painted", "collision": True})
+    for side_x in [29.3, 32.7]:
+        for index in range(7):
+            z = 88-index*2
+            y = 3.08*index/6 + 0.55
+            solid("slice_ramp_post_"+str(side_x)+str(index), [side_x,y,z], [0.07,1.1,0.07], "orange")
+        solid("slice_ramp_rail_"+str(side_x), [side_x,2.64,82], [0.08,0.08,12.4], "orange", True, [14.4,0,0])
+    for x,z,w,d in [(24,68,18,0.09),(15,72,0.09,8),(22,76,14,0.09),(33,72,0.09,8)]:
+        solid("slice_rail_"+str(x)+str(z), [x,3.68,z], [w,1.12,d], "hero_painted")
+        solid("slice_rail_cap_"+str(x)+str(z), [x,4.28,z], [w+0.02,0.07,d+0.02], "orange", False)
+    for index in range(9):
+        solid("slice_floor_grip_"+str(index), [31,0.05+index*0.32,87.8-index*1.25], [3,0.01,0.035], "hero_rubber", False, [14.4,0,0])
+    # Interior composition: work benches and a lower side route remain clear.
+    for index,z in enumerate([78,83,89]):
+        solid("slice_bench_"+str(index), [34,0.86,z], [1.3,0.18,3.4], "hero_painted")
+        for offset in [-1.25,1.25]:
+            solid("slice_bench_leg_"+str(index)+str(offset), [34,0.4,z+offset], [0.12,0.8,0.12], "dark")
+        solid("slice_bench_lamp_"+str(index), [34.3,2.7,z], [0.2,0.10,2.4], "warm_light", False)
+    for index,(x,z) in enumerate([(18,84),(20,92),(-19,87),(-24,91)]):
+        asset("slice_crate_"+str(index), "polyhaven/old_military_crate/old_military_crate.gltf", [x,0.04,z], index*24)
+        solid("slice_crate_collision_"+str(index), [x,0.49,z], [0.85,0.9,0.75], "dark")
+        objects[-1]["visible"] = False
+    # A second cover pair supports a deliberate dash across a clear 2m gap.
+    for index,x in enumerate([-8, -2]):
+        solid("slice_gap_cover_"+str(index), [x,0.57,87], [4,1.14,0.56], "concrete")
+        solid("slice_gap_cap_"+str(index), [x,1.16,87], [4.04,0.05,0.60], "hero_painted", False)
+    for index,(x,z) in enumerate([(-9,94),(9,79),(14,92)]):
+        solid("slice_high_cover_"+str(index), [x,1.1,z], [2.2,2.2,1.5], "hero_painted")
+        for y in [0.18,2.05]:
+            solid("slice_high_trim_"+str(index)+str(y), [x,y,z+0.76], [2.12,0.05,0.02], "orange", False)
+    for x in [-15.4,13.4]:
+        for index,z in enumerate([71,78,85,92]):
+            solid("slice_facade_trim_"+str(x)+str(index), [x,1.4,z], [0.06,0.12,1.3], "orange", False)
+    for z in [82,94]:
+        solid("slice_cable_tray_"+str(z), [24,5.9,z], [19,0.14,0.35], "hero_painted", False)
+    for index,(x,z) in enumerate([(-22,90),(24,88),(22,72)]):
+        authored["lights"].append({"id":"hero_slice_fill_"+str(index),"type":"omni","position":[x,4.9,z],
+                                  "color":"a5c9de" if index!=2 else "ffb96e","energy":1.25,"range":11,"shadows":False})
+    authored["environment"].update(fog_density=0.0018, fog_color="657782")
     for light in authored["lights"]:
         if light["id"] == "sun": light.update(rotation_degrees=[-24, -48, 0], color="ffe0b4", energy=1.15)
-    data["shooter_design"].update(art_revision="third-person-industrial-04", perspective="third_person")
+    data["shooter_design"].update(art_revision="industrial-slice-05", perspective="third_person")
+    data["shooter_design"]["slice"] = {
+        "name":"SECTOR 07 / MANTENIMIENTO", "target_minutes":[3,5],
+        "beacons":[{"id":"A","name":"Suministros","position":[19,0,90]},
+                   {"id":"B","name":"Relé elevado","position":[21,3.1,72]},
+                   {"id":"C","name":"Control de acceso","position":[0,0,64]}],
+        "enemy_spawns":[[-4,0,81],[9,0,70],[23,0,80],[18,0,78],[26,3.1,72],[-8,0,60]],
+        "pickups":[[18,0,96],[20,3.1,70]], "extraction":[0,0,106],
+        "navigation_checks":[[[0,0,106],[19,0,90]],[[19,0,90],[21,3.1,72]],[[21,3.1,72],[0,0,64]]]
+    }
     labels = [item for item in data["shooter_design"].get("zone_labels", []) if not item.get("id", "").startswith("hero_")]
     labels += [{"id": "hero_bridge", "text": "SECTOR 07 / NEXO", "position": [0, 7.25, 61.42]},
-               {"id": "hero_workshop", "text": "MANTENIMIENTO / 04", "position": [24, 6, 94.2]}]
+               {"id": "hero_workshop", "text": "MANTENIMIENTO / 04", "position": [24, 6, 94.2]},
+               {"id": "hero_relay", "text": "RELE / 07", "position": [21,4.5,68.15]},
+               {"id": "hero_service", "text": "SUMINISTROS", "position": [-21,3.3,99.9]}]
     data["shooter_design"]["zone_labels"] = labels
     return data
 
