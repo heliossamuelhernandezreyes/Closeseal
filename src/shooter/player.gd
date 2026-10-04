@@ -142,6 +142,7 @@ func _physics_process(delta: float) -> void:
 	var local_motion: Vector3 = rig.global_basis.inverse() * Vector3(velocity.x, 0, velocity.z)
 	rig.set_motion(moving, not is_on_floor(), Vector2(local_motion.x, local_motion.z))
 	rig.stance_weight = mobility.crouch_weight
+	rig.cover_peeking = mobility.state == "cover" and mobility.cover_low and mobility.peek
 	rig.position = global_basis.inverse() * mobility.peek_offset
 	rig.action_pose = mobility.pose_name()
 	rig.action_phase = clampf(mobility.elapsed / (0.68 if mobility.state == "vault" else 0.62), 0, 1)
@@ -252,7 +253,9 @@ func clear_input() -> void:
 	jump_requested = false
 	if is_instance_valid(mobility): mobility.jump_buffer = 0
 
-func target_height() -> float: return mobility.capsule_height * 0.68
+func target_height() -> float:
+	if mobility.state == "cover" and mobility.cover_low and mobility.peek: return mobility.capsule_height - 0.1
+	return mobility.capsule_height * 0.68
 func target_point() -> Vector3: return global_position + mobility.peek_offset + Vector3.UP * target_height()
 
 func begin_playtest() -> void:
@@ -279,4 +282,4 @@ func playtest_snapshot() -> Dictionary:
 		"crouched": mobility.capsule_height < 1.8, "cover_low": mobility.cover_low,
 		"peek": mobility.peek, "vault_aborted": mobility.vault_aborted,
 		"completed_corners": mobility.completed_corners, "completed_transfers": mobility.completed_transfers,
-		"transition_aborted": mobility.transition_aborted}
+		"transition_aborted": mobility.transition_aborted, "automatic_vaults": mobility.automatic_vaults}

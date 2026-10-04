@@ -17,6 +17,7 @@ func _process_modification() -> void:
 		var side := "L" if index == 0 else "R"
 		var foot := skeleton.find_bone("foot." + side)
 		var pose := skeleton.get_bone_global_pose(foot)
+		var knee := skeleton.get_bone_global_pose(skeleton.find_bone("shin." + side)).origin
 		var point := skeleton.to_global(pose.origin)
 		var query := PhysicsRayQueryParameters3D.create(point + Vector3.UP * 0.35,
 			Vector3(point.x, actor.global_position.y - 0.42, point.z), 1, [actor.get_rid()])
@@ -25,7 +26,13 @@ func _process_modification() -> void:
 		if not hit.is_empty() and hit.normal.y > 0.8:
 			correction = clampf(hit.position.y - actor.global_position.y, -0.18, 0.18)
 		offsets[index] = lerpf(offsets[index], correction, 1.0 - exp(-delta * 18))
+		# Flat ground must not replace the animation's knee bend or boot rotation.
+		if absf(offsets[index]) < 0.001:
+			contact_errors[index] = 0.0
+			continue
 		var target := point + Vector3.UP * offsets[index]
-		var pole := rig.to_global(Vector3(0.2 if side == "L" else -0.2, 0.5, -0.65))
 		contact_errors[index] = IK.solve(skeleton, "thigh." + side, "shin." + side, "foot." + side,
-			skeleton.to_local(target), skeleton.to_local(pole))
+			skeleton.to_local(target), knee)
+		var corrected := skeleton.get_bone_global_pose(foot)
+		corrected.basis = pose.basis
+		skeleton.set_bone_global_pose(foot, corrected)

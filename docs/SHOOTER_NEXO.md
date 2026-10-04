@@ -1,4 +1,18 @@
-# Nexo Industrial 0.5 — third-person playable prototype
+# Nexo Industrial 0.5.1 — third-person playable prototype
+
+0.5.1 fixes the reported mobility and facade defects. Intentional unaimed
+movement into a nearby low obstacle automatically invokes the same collision
+sweep and clear-landing gate as Space. Low-cover aim/fire keeps a 1.50m capsule,
+a bent pose and directional strafe; its raised muzzle and exposed target remain
+physical. Flat-ground foot adaptation leaves every animated leg transform
+unchanged; slope corrections preserve the existing knee bend and boot basis.
+Lateral crouch strides keep the feet separated. The delivered CC0 facade is
+reassembled into four outward-facing walls, preserving the original source GLB.
+
+Regression evidence samples 248 poses through complete gait/action cycles and
+casts 84 rays against all repaired facade modules. Mobility acceptance also
+checks automatic traversal, blocked landings, ADS exclusion and firing while
+moving in a bent low-cover posture. [Real engine captures and results](evidence/nexo-industrial-051.json) accompany the reports.
 
 The authoring pipeline now includes [production preparation 0.1](PRODUCTION_TOOLCHAIN.md): versioned Arcont tools, immutable asset candidates, explicit animation profiles, an editable tactical-sector review and rendered evidence.
 
@@ -36,8 +50,8 @@ world/enemy geometry. The lateral shoulder offset also checks walls, including
 while changing shoulders. Orbit preserves idle body heading. Movement turns
 the body into the travel direction; aiming and firing face the reticle.
 
-Eighteen authored skeletal clips provide idle, directional gait, run, death,
-cover entry/idle/strafe/high cover, crouch, slide, vault, jump and landing. A 2D AnimationTree blends gait direction and adjusts cadence to
+Twenty-one authored skeletal clips provide idle, directional gait, run, death,
+cover entry/idle/strafe/high cover, bent peek/peek-strafe, crouch, slide, vault, jump and landing. A 2D AnimationTree blends gait direction and adjusts cadence to
 travel speed. The native compressed AnimationLibrary remains editable in Godot;
 `tools/shooter_bake_animations.gd` rebuilds it. These are authored clips, not
 motion capture. A SkeletonModifier3D solves hands to weapon grips, with recoil,
@@ -62,7 +76,8 @@ Ctrl while running starts a 620ms decelerating slide with a shorter real capsule
 Standing up requires actual overhead clearance. Slide and vault suppress firing.
 
 C detects supported wall faces within 1.25m and attaches at 0.43m clearance.
-Low cover lowers the capsule; aim/fire rises above it, exposing the player.
+Low cover lowers the capsule; aim/fire partially rises above it while keeping
+the knees flexed and exposing the upper body.
 High-cover edge peeking shifts the visible body and real capsule together, with
 clearance checks; enemy targeting follows that exposed position. Strafe follows
 the face; moving away, sprinting, toggling C or removing the collider releases it.
@@ -108,7 +123,7 @@ polygons from the actual authored world colliders.
 
 The edition uses Irondust's Sci-fi Soldier, LonesomeDucky's weathered AKM and Poly
 Haven environment models/materials/HDR sky. The manifest records licenses,
-conversion details and **97 delivered file hashes**. The industrial build
+conversion details and **98 delivered file hashes**. The industrial build
 excludes the earlier Kenney packs. Models, textures and sky are CC0; the gunshot
 uses the downloaded archive's CC BY 3.0 attribution, included in credits and
 `assets/shooter/serious/LICENSES.txt`. No source archive or Blender is needed to
@@ -136,13 +151,14 @@ Kernel-backed locks prevent interrupted jobs from stranding the editor. A real
 SIGKILL recovery regression and concurrent-writer rejection pass on POSIX.
 The Windows byte-lock implementation still needs Windows CI.
 
-Local verification: 42 gameplay checks, 37 mobility/HUD checks and 24 sector checks in Godot,
+Local verification: 42 gameplay checks, 44 mobility/HUD checks, 24 sector checks and 4 visual
+regression checks in Godot,
 21 game Python tests,
 6 canonical map validations, one physical profile, Map Forge control smoke,
-97 asset hashes and two reopened production-player replays. Rendered checkpoints
+98 asset hashes and two reopened production-player replays. Rendered checkpoints
 were inspected; acceptance renders evidence checkpoints and is not an FPS test.
 GitHub's shooter workflow repeats import, mipmap configuration, physics/navigation
-baking, rendered gameplay/mobility/sector acceptance and production-player
+baking, rendered gameplay/mobility/sector/visual acceptance and production-player
 Arcont replay, then asset/animation/sector production reviews.
 
 ## Build
@@ -158,6 +174,7 @@ godot --headless --path /tmp/nexo-shooter --script res://tools/shooter_bake.gd
 godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter_acceptance.gd -- --captures=/tmp/nexo-evidence
 godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter_mobility_acceptance.gd -- --captures=/tmp/nexo-evidence
 godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter_slice_acceptance.gd -- --captures=/tmp/nexo-evidence
+godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter_visual_acceptance.gd -- --captures=/tmp/nexo-evidence
 GODOT_BIN=godot python tools/shooter_authoring_smoke.py --arcont /path/to/arcont --project /tmp/nexo-shooter
 python tools/export_shooter.py --stage /tmp/nexo-shooter --templates /path/to/4.7.2-stable/templates --engine /path/to/godot --output /tmp/Nexo.apk --platform Android
 ```
@@ -168,7 +185,9 @@ configured in Godot. Staging rejects unmanaged destinations and preserves the
 old build if preparation fails. A signed arm64 debug APK was exported locally
 with Godot 4.7.2, JDK 17 and Android build tools 35.0.1. Signature/ZIP alignment
 checks validate packaging; installation and frame rate on a Poco remain untested.
-The APK package is `org.closeseal.nexo`, version 0.5.0 / code 5.
+The APK package is `org.closeseal.nexo`, version 0.5.1 / code 6. This local
+build uses a different debug certificate from the previously delivered 0.5;
+uninstall that build before installing 0.5.1.
 
 F3 or the pause menu toggles an FPS/static-memory overlay. The actual running
 build records a bounded session (18,000 frame intervals, 600 one-second samples)

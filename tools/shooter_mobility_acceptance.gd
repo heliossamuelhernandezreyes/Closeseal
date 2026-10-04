@@ -116,7 +116,23 @@ func run() -> void:
 	check("covered_muzzle_cannot_hit_through_wall", observer.health == 90 and player.last_hit.get("collider") == low)
 	player.aim_held = true
 	await frames(15)
-	check("aim_peek_exposes_capsule", player.mobility.peek and player.mobility.capsule_height > 1.8 and observer.line_of_sight(), {"peek": player.mobility.peek, "height": player.mobility.capsule_height, "sight": str(player.ray(observer.position + Vector3.UP * 1.4, player.position + Vector3.UP * player.target_height()))})
+	check("aim_peek_keeps_bent_stance", player.mobility.peek and player.mobility.capsule_height > 1.4 and player.mobility.capsule_height < 1.6 and player.rig.action_pose == "cover_peek_idle", {"peek": player.mobility.peek, "height": player.mobility.capsule_height})
+	check("low_peek_exposes_actual_target", observer.line_of_sight())
+	player.camera.look_at(observer.global_position + Vector3.UP * 1.4)
+	player.fire_held = true
+	player.touch_move = Vector2.RIGHT
+	var fire_start := player.position
+	var fire_ammo: int = player.ammo
+	await frames(20)
+	check("low_cover_fire_preserves_lateral_movement", player.mobility.state == "cover" and player.position.x > fire_start.x + 0.55 and player.ammo < fire_ammo and player.rig.action_pose == "cover_peek_right" and player.mobility.capsule_height < 1.6,
+		{"position": str(player.position), "height": player.mobility.capsule_height, "pose": player.rig.action_pose, "ammo": player.ammo})
+	check("peek_weapon_clears_cover", player.muzzle.global_position.y > 1.22, player.muzzle.global_position.y)
+	await capture("12-low-cover-moving-fire")
+	player.fire_held = false
+	player.touch_move = Vector2.ZERO
+	await reset_at(Vector3(3, 0.04, 109.95))
+	player.mobility.toggle_cover()
+	await frames(20)
 	player.aim_held = false
 	await frames(12)
 	var side_start: float = player.position.x
@@ -164,6 +180,27 @@ func run() -> void:
 	check("vault_rejects_blocked_landing", not player.mobility.try_vault())
 	landing_blocker.queue_free()
 	await frames(5)
+	player.touch_move = Vector2(0,-1)
+	var automatic_before: int = player.mobility.automatic_vaults
+	await frames(12)
+	check("movement_auto_vaults_without_jump_input", player.mobility.state == "vault" and player.mobility.automatic_vaults == automatic_before + 1, {"position": str(player.position), "reason": player.mobility.vault_reason})
+	player.clear_input()
+	await frames(40)
+	check("automatic_vault_lands_with_collision", player.mobility.state == "free" and not player.mobility.vault_aborted and player.position.z < 108.4 and player.is_on_floor())
+	await reset_at(Vector3(3, 0.04, 109.95))
+	landing_blocker = box(Vector3(3, 1, 107.9), Vector3(4, 2, 1.7))
+	await frames(3)
+	player.touch_move = Vector2(0,-1)
+	await frames(25)
+	check("auto_vault_rejects_blocked_landing", player.mobility.state == "free" and player.position.z > 109.28 and player.mobility.automatic_vaults == automatic_before + 1)
+	player.clear_input()
+	landing_blocker.queue_free()
+	await reset_at(Vector3(3, 0.04, 109.95))
+	player.aim_held = true
+	player.touch_move = Vector2(0,-1)
+	await frames(20)
+	check("aiming_does_not_auto_vault", player.mobility.state == "free" and player.mobility.automatic_vaults == automatic_before + 1)
+	await reset_at(Vector3(3, 0.04, 109.95))
 	await action("jump")
 	await frames(10)
 	check("jump_input_starts_swept_vault", player.mobility.state == "vault" and player.position.y > 0.8, {"position": str(player.position), "state": player.mobility.state, "reason": player.mobility.vault_reason})
@@ -210,7 +247,7 @@ func run() -> void:
 	ledge.queue_free()
 	player.clear_input()
 	await frames(60)
-	var clips := ["cover_enter", "cover_idle", "cover_left", "cover_right", "cover_high", "crouch_idle", "crouch_walk", "slide", "vault", "jump", "land"]
+	var clips := ["cover_enter", "cover_idle", "cover_left", "cover_right", "cover_high", "cover_peek_idle", "cover_peek_left", "cover_peek_right", "crouch_idle", "crouch_walk", "slide", "vault", "jump", "land"]
 	check("native_action_clips_exist", clips.all(func(clip): return player.rig.animation.has_animation(clip)))
 	var hud = arena.hud
 	hud.mobile = true
