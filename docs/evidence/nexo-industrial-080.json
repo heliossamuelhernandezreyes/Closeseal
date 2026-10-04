@@ -1,0 +1,45 @@
+{
+  "version": "0.8.0",
+  "arcont_commit": "4930d4521380535e1d6bb81c4231a5f23d711c09",
+  "parent_game_commit": "f2777dc092c7803f8d90c198a9c79044b7dc72cc",
+  "native_checks": 172,
+  "python_tests": {
+    "Arcont": 143,
+    "Closeseal": 21
+  },
+  "motion": {
+    "clips": 22,
+    "keys": 96768,
+    "source": "Quaternius Universal Animation Library Standard CC0",
+    "rotation_weight": 0.45,
+    "cleanup": "Project authored metre-based foot trajectories, traversal and rifle IK"
+  },
+  "audio": {
+    "banks": 8,
+    "clips": 24,
+    "foley": "Project-authored DSP added to licensed delivered sounds",
+    "indoor_tails": "Roof ray query selects baked indoor variants; not geometric acoustic simulation"
+  },
+  "capture_scope": "Fixed matched Linux camera and animation samples; actual renderer output, not phone captures",
+  "limits": [
+    "Prototype character, world and audio finish; AAA art is not established.",
+    "No target-device installation, sustained FPS, thermal or touch latency test in this run.",
+    "New package org.closeseal.nexo.preview080 uses a new preview signing identity and installs alongside earlier versions."
+  ],
+  "production_reviews": {
+    "assets": 3,
+    "clips": 22,
+    "routes": 3,
+    "scenes_reopened": true,
+    "identity_pose_error": 2.38418692788399e-07
+  },
+  "android_build": {
+    "file": "Nexo-0.8-Sector-07.apk",
+    "bytes": 150673142,
+    "sha256": "201354e057254addc2a5599a76b9af32c4e250e3dc291ff430a310e8867337a5",
+    "arm64_only": true,
+    "signature_v2_v3_verified": true,
+    "zip_alignment_verified": true,
+    "device_installation_tested": false
+  }
+}

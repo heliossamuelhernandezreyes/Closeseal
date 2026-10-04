@@ -39,6 +39,7 @@ var turn_lean := 0.0
 var previous_yaw := 0.0
 var acceleration_lean := 0.0
 var previous_speed := 0.0
+var weapon_sway := Vector2.ZERO
 
 func _ready() -> void:
 	var model: Node3D = load("res://assets/shooter/serious/soldier.glb").instantiate()
@@ -87,6 +88,7 @@ func _ready() -> void:
 	weapon.name = "Weapon"
 	add_child(weapon)
 	dynamic_lighting(weapon)
+	near_fade(weapon)
 	weapon.position = Vector3(0.14, 1.42, -0.42)
 	magazine = weapon.find_child("Magazine", true, false)
 	magazine_rest = magazine.transform
@@ -136,6 +138,24 @@ static func dynamic_lighting(node: Node) -> void:
 	if node is MeshInstance3D:node.gi_mode=GeometryInstance3D.GI_MODE_DYNAMIC
 	for child in node.get_children():dynamic_lighting(child)
 
+static func near_fade(node: Node) -> void:
+	if node is MeshInstance3D:
+		if node.material_override is BaseMaterial3D:
+			var override_material: BaseMaterial3D=node.material_override.duplicate()
+			override_material.distance_fade_mode=BaseMaterial3D.DISTANCE_FADE_PIXEL_DITHER
+			override_material.distance_fade_min_distance=0.24
+			override_material.distance_fade_max_distance=0.85
+			node.material_override=override_material
+		for surface in node.mesh.get_surface_count():
+			var source: Material=node.get_active_material(surface)
+			if source is BaseMaterial3D:
+				var material: BaseMaterial3D=source.duplicate()
+				material.distance_fade_mode=BaseMaterial3D.DISTANCE_FADE_PIXEL_DITHER
+				material.distance_fade_min_distance=0.24
+				material.distance_fade_max_distance=0.85
+				node.set_surface_override_material(surface,material)
+	for child in node.get_children():near_fade(child)
+
 func set_motion(speed: float, in_air := false, direction := Vector2(0, -1)) -> void:
 	motion_speed = speed
 	motion_direction = direction.normalized() if direction.length() > 0.1 else Vector2(0, -1)
@@ -168,6 +188,7 @@ func _process(delta: float) -> void:
 	var acceleration := (motion_speed-previous_speed) / maxf(delta, 0.001)
 	previous_speed = motion_speed
 	acceleration_lean = lerpf(acceleration_lean, clampf(acceleration * 0.003, -0.055, 0.065), 1.0-exp(-delta*10))
+	weapon_sway=weapon_sway.lerp(Vector2(turn_lean,acceleration_lean)*0.10,1.0-exp(-delta*9))
 	var magnitude := minf(motion_blend / 1.8, 1.0) if motion_blend < 1.8 else 1.0 + clampf((motion_blend - 4.3) / 2.9, 0, 1)
 	var direction := motion_direction
 	# Sprint is forward; aiming uses the directional walk clips.
@@ -185,11 +206,13 @@ func _process(delta: float) -> void:
 		tree.set("parameters/ActionTime/seek_request", action_phase * animation.get_animation(action_pose).length)
 	var strafing := action_pose in ["cover_left", "cover_right", "cover_peek_left", "cover_peek_right"]
 	tree.set("parameters/ActionCadence/scale", clampf(motion_speed / MOTION.nominal_speed(action_pose), 0.35, 3.2) if strafing or action_pose in ["crouch_walk", "crouch_run"] else 1.0)
-	action_weight = lerpf(action_weight, 0.0 if action_pose.is_empty() else 1.0, 1.0 - exp(-delta * 18))
+	var blend_rate:=12.0 if action_pose in ["jump","land","vault","slide"] else 5.5
+	action_weight = move_toward(action_weight, 0.0 if action_pose.is_empty() else 1.0, delta*blend_rate)
 	tree.set("parameters/ActionBlend/blend_amount", action_weight)
 	var phase := 1.0 - reload_time / reload_duration
 	var reload_curve := sin(phase * PI) if reload_time > 0 else 0.0
-	weapon.position = Vector3(0.14, 1.42 - stance_weight * 0.52, -0.42 + recoil * 0.04)
+	weapon.position = Vector3(0.14, 1.42 - stance_weight * 0.52, -0.35 + recoil * 0.04)
+	weapon.position+=Vector3(weapon_sway.x,weapon_sway.y,0)
 	if cover_peeking: weapon.position.y += 0.17
 	if action_pose == "vault": weapon.position = Vector3(0.28, 0.96, -0.18)
 	weapon.rotation = Vector3(aim_pitch - recoil * 0.08 + reload_curve * 0.28, 0, -reload_curve * 0.12)

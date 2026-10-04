@@ -133,6 +133,11 @@ func retarget(source: Skeleton3D, target: Skeleton3D, library: AnimationLibrary,
 		output.add_animation(clip, animation)
 	return {"ok": true, "library": output, "keys": total_keys}
 
+func rotation_error(a: Quaternion, b: Quaternion) -> float:
+	# atan2 avoids acos(dot) precision loss near identical single-precision poses.
+	var relative := (a.normalized().inverse() * b.normalized()).normalized()
+	return 2.0 * atan2(Vector3(relative.x, relative.y, relative.z).length(), absf(relative.w))
+
 func animation_review(context, profile: Dictionary) -> Dictionary:
 	var packed: PackedScene = load(profile.source_model)
 	var model: Node3D = packed.instantiate()
@@ -161,10 +166,10 @@ func animation_review(context, profile: Dictionary) -> Dictionary:
 				var old_value = a.track_get_key_value(track, key)
 				var new_value = b.track_get_key_value(track, key)
 				if old_value is Vector3: max_error = maxf(max_error, old_value.distance_to(new_value))
-				elif old_value is Quaternion: max_error = maxf(max_error, old_value.angle_to(new_value))
+				elif old_value is Quaternion: max_error = maxf(max_error, rotation_error(old_value, new_value))
 	# Identity rest-map is the Nexo baseline; different proportions require review.
 	if profile.get("identity_baseline", false) and max_error > 0.001:
-		model.free(); target_model.free(); return failure("identity retarget altered accepted poses")
+		model.free(); target_model.free(); return failure("identity retarget altered accepted poses: " + str(max_error))
 	var missing := profile.duplicate(true)
 	missing.bone_map.erase("hips")
 	var missing_rejected: bool = not retarget(source, target, library, missing).ok
@@ -187,7 +192,7 @@ func animation_review(context, profile: Dictionary) -> Dictionary:
 		var changed: Animation = fixture_result.library.get_animation(profile.clips[0])
 		var old_q: Quaternion = original.track_get_key_value(1, 0)
 		var new_q: Quaternion = changed.track_get_key_value(1, 0)
-		fixture_passed = new_q.angle_to((Quaternion(Vector3.UP, 0.1) * old_q).normalized()) < 0.001 and String(changed.track_get_path(1)).contains("mapped_")
+		fixture_passed = rotation_error(new_q, (Quaternion(Vector3.UP, 0.1) * old_q).normalized()) < 0.001 and String(changed.track_get_path(1)).contains("mapped_")
 		var position_bone := String(original.track_get_path(0).get_subname(0))
 		var source_origin := source.get_bone_rest(source.find_bone(position_bone)).origin
 		var target_origin := fixture.get_bone_rest(fixture.find_bone("mapped_" + position_bone)).origin

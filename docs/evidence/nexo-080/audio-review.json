@@ -1,0 +1,155 @@
+{
+  "ok": true,
+  "banks": 8,
+  "clips": [
+    {
+      "file": "reload_charge-0.wav",
+      "seconds": 0.15555555555555556,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -20.228102614475546
+    },
+    {
+      "file": "reload_charge-1.wav",
+      "seconds": 0.15555555555555556,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -20.439617416870448
+    },
+    {
+      "file": "reload_in-0.wav",
+      "seconds": 0.5133786848072562,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -28.180522325210177
+    },
+    {
+      "file": "reload_in-1.wav",
+      "seconds": 0.5133786848072562,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -27.417631593380683
+    },
+    {
+      "file": "reload_out-0.wav",
+      "seconds": 0.38893424036281177,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -26.707028631903643
+    },
+    {
+      "file": "reload_out-1.wav",
+      "seconds": 0.38893424036281177,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -26.850787496280518
+    },
+    {
+      "file": "shot_indoor-0.wav",
+      "seconds": 0.8800453514739229,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -16.047538455010976
+    },
+    {
+      "file": "shot_indoor-1.wav",
+      "seconds": 0.8800453514739229,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -16.701632897416058
+    },
+    {
+      "file": "shot_indoor-2.wav",
+      "seconds": 0.8800453514739229,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -16.528630642642888
+    },
+    {
+      "file": "shot_outdoor-0.wav",
+      "seconds": 0.6500226757369615,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -13.939574892768167
+    },
+    {
+      "file": "shot_outdoor-1.wav",
+      "seconds": 0.6500226757369615,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -13.83512770866078
+    },
+    {
+      "file": "shot_outdoor-2.wav",
+      "seconds": 0.6500226757369615,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -14.220598576712307
+    },
+    {
+      "file": "step_concrete-0.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -21.24983989838489
+    },
+    {
+      "file": "step_concrete-1.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -23.96169608716353
+    },
+    {
+      "file": "step_concrete-2.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.3495254936335908,
+      "rms_dbfs": -21.21293496920135
+    },
+    {
+      "file": "step_concrete-3.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -4.2849251247454365,
+      "rms_dbfs": -23.017268168255264
+    },
+    {
+      "file": "step_ground-0.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.1900122434384413,
+      "rms_dbfs": -20.593197579819332
+    },
+    {
+      "file": "step_ground-1.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -4.235575805913937,
+      "rms_dbfs": -20.99462938789315
+    },
+    {
+      "file": "step_ground-2.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -21.889487988881466
+    },
+    {
+      "file": "step_ground-3.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -20.925541011080288
+    },
+    {
+      "file": "step_metal-0.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.098645100425797,
+      "rms_dbfs": -19.703622185755215
+    },
+    {
+      "file": "step_metal-1.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -4.304482563831203,
+      "rms_dbfs": -22.565322905752407
+    },
+    {
+      "file": "step_metal-2.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.6392471316161505,
+      "rms_dbfs": -19.732568110659404
+    },
+    {
+      "file": "step_metal-3.wav",
+      "seconds": 0.16,
+      "peak_dbfs": -3.8245846416542832,
+      "rms_dbfs": -21.854478871080453
+    }
+  ],
+  "limits": [
+    "Diagnostics describe the same bounded byte snapshots as the recorded hashes.",
+    "PCM/hash validation does not approve sound design, spatial mix or device latency.",
+    "Native playback/event routing and human review are required."
+  ]
+}

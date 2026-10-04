@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "banks": {
+    "shot_outdoor": [
+      "shot_outdoor-0.wav",
+      "shot_outdoor-1.wav",
+      "shot_outdoor-2.wav"
+    ],
+    "shot_indoor": [
+      "shot_indoor-0.wav",
+      "shot_indoor-1.wav",
+      "shot_indoor-2.wav"
+    ],
+    "step_concrete": [
+      "step_concrete-0.wav",
+      "step_concrete-1.wav",
+      "step_concrete-2.wav",
+      "step_concrete-3.wav"
+    ],
+    "step_metal": [
+      "step_metal-0.wav",
+      "step_metal-1.wav",
+      "step_metal-2.wav",
+      "step_metal-3.wav"
+    ],
+    "step_ground": [
+      "step_ground-0.wav",
+      "step_ground-1.wav",
+      "step_ground-2.wav",
+      "step_ground-3.wav"
+    ],
+    "reload_out": [
+      "reload_out-0.wav",
+      "reload_out-1.wav"
+    ],
+    "reload_in": [
+      "reload_in-0.wav",
+      "reload_in-1.wav"
+    ],
+    "reload_charge": [
+      "reload_charge-0.wav",
+      "reload_charge-1.wav"
+    ]
+  },
+  "source_hashes": {
+    "assets/shooter/audio/shot.wav": "526fd8149f88ecf88cba32f779b0c1dc50da34d5997b4f2a4bc451927001867a",
+    "assets/shooter/audio/reload.wav": "ce6409283202ab4282ade374b96e074a36e341429c199640103aef390a30d5b0",
+    "assets/shooter/audio/step.wav": "a91495196a723c39cd89398608e1fc5177238b51fc1dbe08e78fdd1ed691ea50",
+    "tools/build_shooter_audio.py": "4f8e78fd078e7393596dfa7ece39fea43bbf451c5df419bfe6c8642395214ec9"
+  },
+  "output_hashes": {
+    "shot_outdoor-0.wav": "793e37cf4a9fbe08d5ebc8c66ffad146544e094d8cc7d73eb293537c1d8e670f",
+    "shot_outdoor-1.wav": "22f318c7e552f8d42f6cf05b0492690eabdf3be1de98b323a7818fb72d420e1e",
+    "shot_outdoor-2.wav": "02d516bb5948aec0bce2deec3286dac7e4e8d1375abca0f12f115ba2d859ddb7",
+    "shot_indoor-0.wav": "f883e277fe91d08f4d158ceab1cad3581605a31d66da8e0aff9adf8155c9a78c",
+    "shot_indoor-1.wav": "62c73cc5ba93fd33f7886c9a77fa96338f1eae0eecd10a219026ce77ad5a5ef0",
+    "shot_indoor-2.wav": "e0403838735541c709a6c749ac0bae263fa0c7beafa0cd18be3042f9ba474a03",
+    "step_concrete-0.wav": "fcf5618dc8b48c77535f6882e3ab80919884e4060f19f2c0d616972b88ac6420",
+    "step_concrete-1.wav": "c62708dc890c8e4083165af5541d4a6d3626be67c02c47e0d8e9581427f66d62",
+    "step_concrete-2.wav": "4dc3283a54ededaa897c4bd54612aa1ec1dee4557ec5abea813bdea5dff1118f",
+    "step_concrete-3.wav": "d0d43e78e4d172346a3ee4f8353bd53e03aa081c50052784557badd5b812b976",
+    "step_metal-0.wav": "758c472b75a3d01f27d388264311607b5465bff8cca28c168c441eabe14e30c3",
+    "step_metal-1.wav": "7e1b8ded2a6e24ee74f152366503843c9f8f3b2cddc8b8dd012177c20c79dd6e",
+    "step_metal-2.wav": "6e5107258b22a4ffca20ebd6d4a9436ebf4b9ce53b11e5c8bd7e769f52b3a097",
+    "step_metal-3.wav": "c6ebafbc02b3526f938fea04c0030d42fb2ae5c2ec1d3070d239492bb52fdac0",
+    "step_ground-0.wav": "92f30248485418128a6759bd6175c58f52e522f3c3475f6c1f079e4ee5a38949",
+    "step_ground-1.wav": "ee2939b9599be26b6a7ddc2d74385e74bc9547a50c2166baeabbd28dfa0d0276",
+    "step_ground-2.wav": "cc1303ae5fa056c624ff4a400abc1e57d905825a07af109d53b13c08a2b9311f",
+    "step_ground-3.wav": "c0e6634488b87065e76b72baa5344ed51ea5cf9f2792a1e88f389ff3d898b339",
+    "reload_out-0.wav": "1acffd47460ccbbbc86af6d9032d47ae0bdd8d89a37f33a09be95c7649a8aeac",
+    "reload_out-1.wav": "2c1c993d4e07526e468f08b3620741cefc9467a8f3cdc87db9691a74c23d5dfe",
+    "reload_in-0.wav": "e0ffd04c25c5993dd2fec78122c0ac61bd8a5c095c2e2d913f8e01be8035811d",
+    "reload_in-1.wav": "e378bf4d25ae9d6e903f6e68dcef38a7cf25a41bd416b91d02071e3387fe5347",
+    "reload_charge-0.wav": "5fa58191a2f9a499828e6d5e65b075a0715542ee9c330f840273afd6e36b810b",
+    "reload_charge-1.wav": "2aa65d8db90f7f8e6fd80d7be5a409096aca4e60668ecc230ffa21ed52e9d51d"
+  },
+  "provenance": "Original licenses and attribution: assets/shooter/serious/manifest.json. Footstep additions and indoor tails are project-authored DSP, not field recordings."
+}

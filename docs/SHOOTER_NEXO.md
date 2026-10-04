@@ -248,3 +248,36 @@ This remains a single-player prototype. AAA art quality, handset frame rate,
 multiplayer, controller support and console packaging are not established by
 these checks. Character detail, animation polish and broader level composition
 need further art work and actual target-device review.
+
+
+## 0.8 — source motion, transitions and audio
+
+Nexo 0.8 adapts 22 clips from the CC0 Quaternius Universal Animation Library
+Standard. The original GLTF/BIN, source hashes, license and explicit 51-bone map
+are retained in a verified source archive. Native ARCONT authoring reconstructs
+the delivered 96,768 animation keys exactly. Source rotations contribute at
+0.45 weight; project-authored metre-based foot paths, traversal and rifle IK
+retain control of contacts. This is an adaptation, not unmodified motion capture.
+
+Grounded pose changes limit hip motion to 1.4 metres per second and preserve
+velocity across interruptions. The rifle sits closer to the shoulder; the
+maximum sampled grip error is 0.01683 metres. Body, weapon and muzzle-flash
+materials share a progressive near-camera fade. These replace the previous
+0.6 review's abrupt body-hiding limitation.
+
+Eight audio banks contain 24 seeded variants for shots, three walking surfaces
+and three reload phases. A roof query selects baked indoor shot tails. New
+foley is synthesized from delivered licensed sounds; this is not field-recorded
+foley or geometric acoustic simulation. Bounded voice pools remain in use.
+
+Validation includes 172 native gameplay checks, 21 project Python tests and
+143 ARCONT Python tests, plus native source rebuild, reopened player replay
+and rendered production reviews. Matched 0.7/0.8 captures use the same Linux
+camera and animation phases. Evidence is in `docs/evidence/nexo-080/` and
+`docs/evidence/nexo-industrial-080.json`. No Android performance result is inferred.
+
+The ARM64 preview is version 0.8.0 (code 9), with package
+`org.closeseal.nexo.preview080` and a new preview signing identity. It installs
+alongside earlier previews. Extract the delivered ZIP and install its APK;
+measure at least 15 active minutes on the Poco X7 Pro and copy the in-game
+performance report. Visual polish remains below the requested AAA reference.

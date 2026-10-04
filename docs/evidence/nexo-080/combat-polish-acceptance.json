@@ -1,0 +1,80 @@
+{
+  "checks": {
+    "all_weapon_surfaces_fade": {
+      "ok": true,
+      "value": [
+        {
+          "fade": 2,
+          "material": "StandardMaterial3D",
+          "mesh": "Receiver"
+        },
+        {
+          "fade": 2,
+          "material": "StandardMaterial3D",
+          "mesh": "Magazine"
+        },
+        {
+          "fade": 2,
+          "material": "StandardMaterial3D",
+          "mesh": "@MeshInstance3D@16"
+        }
+      ]
+    },
+    "audio_bank_closure": {
+      "ok": true,
+      "value": null
+    },
+    "crouch_transition_30fps": {
+      "ok": true,
+      "value": 0.0466666966676712
+    },
+    "crouch_transition_60fps": {
+      "ok": true,
+      "value": 0.0233333613723516
+    },
+    "crouch_transition_variable": {
+      "ok": true,
+      "value": 0.0630000159144402
+    },
+    "empty_reload_routes_three_phases": {
+      "ok": true,
+      "value": {
+        "reload_charge": 1,
+        "reload_in": 1,
+        "reload_out": 1
+      }
+    },
+    "explicit_renamed_root_translation": {
+      "ok": true,
+      "value": "(2.6, 0.2, 0.0)"
+    },
+    "target_scale_preserved": {
+      "ok": true,
+      "value": null
+    },
+    "unmapped_translation_rejected": {
+      "ok": true,
+      "value": null
+    },
+    "voices_stay_bounded": {
+      "ok": true,
+      "value": null
+    }
+  },
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "limits": [
+    "Controlled native motion/audio routing; does not establish handset FPS or human sound quality."
+  ],
+  "ok": true
+}

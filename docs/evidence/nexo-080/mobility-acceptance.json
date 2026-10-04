@@ -1,0 +1,238 @@
+{
+  "checks": {
+    "aim_peek_keeps_bent_stance": {
+      "details": {
+        "height": 1.5,
+        "peek": true
+      },
+      "ok": true
+    },
+    "aiming_does_not_auto_vault": {
+      "details": null,
+      "ok": true
+    },
+    "authored_cover_supports_vault": {
+      "details": null,
+      "ok": true
+    },
+    "authored_foreground_cover_is_usable": {
+      "details": null,
+      "ok": true
+    },
+    "auto_vault_rejects_blocked_landing": {
+      "details": null,
+      "ok": true
+    },
+    "automatic_vault_lands_with_collision": {
+      "details": null,
+      "ok": true
+    },
+    "ceiling_prevents_standing": {
+      "details": null,
+      "ok": true
+    },
+    "clear_ground_still_jumps": {
+      "details": null,
+      "ok": true
+    },
+    "cover_input_snaps_and_crouches": {
+      "details": {
+        "height": 1.06,
+        "position": "(3.0, 0.000937, 109.7142)",
+        "state": "cover"
+      },
+      "ok": true
+    },
+    "cover_strafe_preserves_face": {
+      "details": "(3.993332, 0.000937, 109.71)",
+      "ok": true
+    },
+    "covered_muzzle_cannot_hit_through_wall": {
+      "details": null,
+      "ok": true
+    },
+    "coyote_jump_after_leaving_ledge": {
+      "details": "(4.743943, 0.988064, 118.0)",
+      "ok": true
+    },
+    "crouch_changes_actual_capsule": {
+      "details": null,
+      "ok": true
+    },
+    "diagonal_speed_is_normalized": {
+      "details": null,
+      "ok": true
+    },
+    "dynamic_blocker_aborts_without_warp": {
+      "details": "(3.0, 0.000165, 109.84)",
+      "ok": true
+    },
+    "edge_peek_returns_to_cover": {
+      "details": null,
+      "ok": true
+    },
+    "fast_ground_acceleration": {
+      "details": -5.40000009536743,
+      "ok": true
+    },
+    "high_cover_edge_peek_moves_real_capsule": {
+      "details": {
+        "offset": "(0.65, 0.0, 0.0)",
+        "state": "cover"
+      },
+      "ok": true
+    },
+    "high_cover_requires_edge_for_peek": {
+      "details": null,
+      "ok": true
+    },
+    "high_obstacle_rejects_vault": {
+      "details": null,
+      "ok": true
+    },
+    "hud_buttons_fit_without_overlap": {
+      "details": [
+        {
+          "ok": true,
+          "size": "(1280.0, 720.0)"
+        },
+        {
+          "ok": true,
+          "size": "(960.0, 540.0)"
+        },
+        {
+          "ok": true,
+          "size": "(1920.0, 864.0)"
+        },
+        {
+          "ok": true,
+          "size": "(1024.0, 768.0)"
+        }
+      ],
+      "ok": true
+    },
+    "jump_buffer_relaunches_on_landing": {
+      "details": {
+        "height": 0.735863268375397,
+        "velocity": 5.19999933242798
+      },
+      "ok": true
+    },
+    "jump_input_starts_swept_vault": {
+      "details": {
+        "position": "(3.0, 1.078636, 109.95)",
+        "reason": "",
+        "state": "vault"
+      },
+      "ok": true
+    },
+    "jump_lands_without_state_lock": {
+      "details": null,
+      "ok": true
+    },
+    "low_cover_fire_preserves_lateral_movement": {
+      "details": {
+        "ammo": 26,
+        "height": 1.5,
+        "pose": "cover_peek_right",
+        "position": "(3.763333, 0.000937, 109.71)"
+      },
+      "ok": true
+    },
+    "low_cover_physically_hides_player": {
+      "details": null,
+      "ok": true
+    },
+    "low_peek_exposes_actual_target": {
+      "details": null,
+      "ok": true
+    },
+    "movement_auto_vaults_without_jump_input": {
+      "details": {
+        "position": "(3.0, 1.22, 109.9461)",
+        "reason": ""
+      },
+      "ok": true
+    },
+    "native_action_clips_exist": {
+      "details": null,
+      "ok": true
+    },
+    "outward_movement_releases_cover": {
+      "details": null,
+      "ok": true
+    },
+    "pause_release_clears_inputs": {
+      "details": null,
+      "ok": true
+    },
+    "peek_weapon_clears_cover": {
+      "details": 1.36079967021942,
+      "ok": true
+    },
+    "removed_cover_releases_player": {
+      "details": null,
+      "ok": true
+    },
+    "responsive_braking": {
+      "details": null,
+      "ok": true
+    },
+    "slide_blocks_weapon": {
+      "details": null,
+      "ok": true
+    },
+    "slide_finishes_without_sticking": {
+      "details": 4.80022430419922,
+      "ok": true
+    },
+    "sprint_input_enters_slide": {
+      "details": null,
+      "ok": true
+    },
+    "sprint_speed": {
+      "details": -8.80000019073486,
+      "ok": true
+    },
+    "stands_when_ceiling_clears": {
+      "details": null,
+      "ok": true
+    },
+    "vault_accepted_before_dynamic_blocker": {
+      "details": "",
+      "ok": true
+    },
+    "vault_crosses_and_lands": {
+      "details": "(3.0, 0.000859, 108.28)",
+      "ok": true
+    },
+    "vault_disables_fire": {
+      "details": null,
+      "ok": true
+    },
+    "vault_rejects_blocked_landing": {
+      "details": null,
+      "ok": true
+    },
+    "vault_rejects_low_ceiling": {
+      "details": null,
+      "ok": true
+    }
+  },
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "limits": [
+    "Linux engine evidence; no Android device FPS or comfort measurement"
+  ],
+  "ok": true
+}

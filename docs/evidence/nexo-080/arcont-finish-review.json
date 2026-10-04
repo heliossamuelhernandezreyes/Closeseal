@@ -1,0 +1,138 @@
+{
+  "ok": true,
+  "technical_passed": true,
+  "checks": [
+    {
+      "id": "walk.signed_cadence",
+      "value": 0.006666600939512417,
+      "limit": 0.015,
+      "ok": true
+    },
+    {
+      "id": "walk.stance_drift",
+      "value": 0.01805351591106905,
+      "limit": 0.03,
+      "ok": true,
+      "samples": 240
+    },
+    {
+      "id": "run.signed_cadence",
+      "value": 0.008931379604547152,
+      "limit": 0.015,
+      "ok": true
+    },
+    {
+      "id": "run.stance_drift",
+      "value": 0.023132755046091972,
+      "limit": 0.03,
+      "ok": true,
+      "samples": 240
+    },
+    {
+      "id": "cover_left.signed_cadence",
+      "value": 0.0009801108269215882,
+      "limit": 0.015,
+      "ok": true
+    },
+    {
+      "id": "cover_left.stance_drift",
+      "value": 0.016572713853643263,
+      "limit": 0.03,
+      "ok": true,
+      "samples": 264
+    },
+    {
+      "id": "cover_right.signed_cadence",
+      "value": 0.00023458978671726653,
+      "limit": 0.015,
+      "ok": true
+    },
+    {
+      "id": "cover_right.stance_drift",
+      "value": 0.01653769612484191,
+      "limit": 0.03,
+      "ok": true,
+      "samples": 264
+    },
+    {
+      "id": "cover_peek_left.signed_cadence",
+      "value": 0.001610029900537393,
+      "limit": 0.015,
+      "ok": true
+    },
+    {
+      "id": "cover_peek_left.stance_drift",
+      "value": 0.01650625467472647,
+      "limit": 0.03,
+      "ok": true,
+      "samples": 264
+    },
+    {
+      "id": "cover_peek_right.signed_cadence",
+      "value": 0.00018063515034846733,
+      "limit": 0.015,
+      "ok": true
+    },
+    {
+      "id": "cover_peek_right.stance_drift",
+      "value": 0.016519099475673437,
+      "limit": 0.03,
+      "ok": true,
+      "samples": 264
+    },
+    {
+      "id": "crouch_walk.signed_cadence",
+      "value": 0.00046307705922609815,
+      "limit": 0.015,
+      "ok": true
+    },
+    {
+      "id": "crouch_walk.stance_drift",
+      "value": 0.016607403755187697,
+      "limit": 0.03,
+      "ok": true,
+      "samples": 264
+    },
+    {
+      "id": "crouch_run.signed_cadence",
+      "value": 0.0008777916380622496,
+      "limit": 0.015,
+      "ok": true
+    },
+    {
+      "id": "crouch_run.stance_drift",
+      "value": 0.016351617872714594,
+      "limit": 0.03,
+      "ok": true,
+      "samples": 264
+    },
+    {
+      "id": "weapon.grips",
+      "value": 0.0168269015848637,
+      "limit": 0.04,
+      "ok": true,
+      "samples": 180
+    }
+  ],
+  "visual_review": {
+    "notes": "Matched 0.7/0.8 poses and the rendered runtime were inspected. Source rotations are adapted to project foot paths and rifle IK. Cover feet stay separated and grips remain aligned; nearby body and weapon materials now fade progressively. Pose weight, reload detail and sky/material cohesion still need art work. Native contacts and synthetic recorder checks do not approve AAA finish or handset performance.",
+    "reviewer": "Codex engine/visual review"
+  },
+  "scope": "godot-native-controlled-motion",
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "limits": [
+    "Technical motion acceptance is not AAA art approval.",
+    "Controlled motion observations do not establish complete gameplay animation quality.",
+    "Android performance, thermal stability and touch comfort require device observations."
+  ]
+}

@@ -15,3 +15,7 @@ authoring/documents/urban_roads.json
 # Ephemeral maps used by the public control smoke test
 maps/control_authored_demo.json
 maps/physical/control_authored_demo.json
+
+# Verified source members are unpacked into independent shooter stages.
+/assets/shooter/animation_sources/quaternius/AnimationLibrary_Godot_Standard.gltf
+/assets/shooter/animation_sources/quaternius/AnimationLibrary_Godot_Standard.bin
