@@ -20,6 +20,7 @@ var reserve := 180
 var health := 100.0
 var reload_remaining := 0.0
 var reload_duration := 1.6
+var reload_audio_phase := 0
 var shot_cooldown := 0.0
 var hurt_time := 0.0
 var fire_held := false
@@ -93,6 +94,7 @@ func _ready() -> void:
 	material.albedo_color = Color(1, 0.85, 0.25)
 	flash.material_override = material
 	muzzle.add_child(flash)
+	rig.near_fade(flash)
 	flash.visible = false
 
 func look(delta: Vector2) -> void:
@@ -117,6 +119,11 @@ func _physics_process(delta: float) -> void:
 	hurt_time = maxf(0.0, hurt_time - delta)
 	if reload_remaining > 0.0:
 		reload_remaining = maxf(0.0, reload_remaining - delta)
+		var reload_phase:=1.0-reload_remaining/reload_duration
+		if reload_audio_phase<1 and reload_phase>=0.55:
+			arena.sound("reload_in");reload_audio_phase=1
+		if reload_audio_phase<2 and rig.reload_empty and reload_phase>=0.84:
+			arena.sound("reload_charge");reload_audio_phase=2
 		if reload_remaining == 0.0:
 			var count := mini(MAGAZINE - ammo, reserve)
 			ammo += count
@@ -179,14 +186,15 @@ func is_aiming() -> bool: return aim_held or Input.is_action_pressed("aim")
 func _footstep(_side: int, point: Vector3, collider: Object) -> void:
 	if not arena.playing: return
 	var surface: String = arena.surface_kind(collider)
-	arena.sound_at("step",point,-18.0,0.84 if surface=="metal" else 1.12 if surface=="ground" else 1.0)
+	arena.sound_at("step_"+surface if surface in ["metal","ground","concrete"] else "step_concrete",point,-18.0,1.0)
 
 func start_reload() -> bool:
 	if reload_remaining > 0.0 or ammo >= MAGAZINE or reserve <= 0: return false
 	reload_duration=1.95 if ammo==0 else 1.6
 	reload_remaining = reload_duration
 	rig.reload(ammo==0)
-	arena.sound("reload")
+	reload_audio_phase=0
+	arena.sound("reload_out")
 	return true
 
 func shoot() -> Dictionary:

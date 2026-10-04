@@ -9,6 +9,7 @@ import shutil
 import struct
 import tempfile
 import wave
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,10 +37,27 @@ def audio():
 
 
 def _populate(target):
+    from verify_shooter_sector import verify
+    report = verify(ROOT)
+    if not report["ok"]:
+        raise ValueError("invalid derived sector: " + str(report["errors"]))
     target.mkdir(parents=True, exist_ok=True)
     for path in ["assets/shooter", "src/shooter", "src/map", "src/prototype"]:
         shutil.copytree(ROOT / path, target / path, dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns("*.import", "*.uid", "kenney", "sources.lock.json"))
+                        ignore=shutil.ignore_patterns("*.import", "*.uid", "kenney", "sources.lock.json","AnimationLibrary_Godot_Standard.gltf","AnimationLibrary_Godot_Standard.bin"))
+    source=target / "assets/shooter/animation_sources/quaternius"
+    provenance=json.loads((source / "source.json").read_text())
+    archive=source / provenance["archive"]["file"]
+    if hashlib.sha256(archive.read_bytes()).hexdigest()!=provenance["archive"]["sha256"]:
+        raise ValueError("animation source archive changed")
+    with zipfile.ZipFile(archive) as packed:
+        names={"AnimationLibrary_Godot_Standard.gltf","AnimationLibrary_Godot_Standard.bin"}
+        if set(packed.namelist())!=names:raise ValueError("unexpected animation source member")
+        for name in names:
+            if packed.getinfo(name).file_size>16*1024*1024:raise ValueError("animation source member exceeds bound")
+            data=packed.read(name)
+            if hashlib.sha256(data).hexdigest()!=provenance["files"][name]:raise ValueError("animation source member changed")
+            (source / name).write_bytes(data)
     # Native lightmap atlases use a layered importer, not the default 2D EXR importer.
     for metadata in (ROOT / "assets/shooter/sector07").glob("*.exr.import"):
         shutil.copy(metadata, target / "assets/shooter/sector07" / metadata.name)
@@ -50,11 +68,13 @@ def _populate(target):
         shutil.copy(script, target / "tools" / script.name)
     for name in ["godot_authoring_adapter.py", "godot_authoring_worker.gd", "godot_playtest_runner.gd"]:
         shutil.copy(ROOT / "tools" / name, target / "tools" / name)
+    shutil.copy(ROOT / "tools/build_shooter_audio.py",target / "tools/build_shooter_audio.py")
     shutil.copy(ROOT / "godot-authoring.json", target / "godot-authoring.json")
     for folder in ["recipes", "scenarios"]:
         (target / "authoring" / folder).mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / "authoring" / folder / "shooter_third_person.json", target / "authoring" / folder / "shooter_third_person.json")
     shutil.copy(ROOT / "authoring/recipes/sector07_presentation.json", target / "authoring/recipes/sector07_presentation.json")
+    shutil.copy(ROOT / "authoring/recipes/nexo_motion_source.json",target / "authoring/recipes/nexo_motion_source.json")
     shutil.copytree(ROOT / "authoring/production", target / "authoring/production")
     (target / "project.godot").write_text('''config_version=5
 [application]

@@ -44,8 +44,12 @@ func _ready() -> void:
 	design = contract.shooter_design
 	if ResourceLoader.exists("res://assets/shooter/sector07/sector_world.tscn"):
 		world=load("res://assets/shooter/sector07/sector_world.tscn").instantiate()
+		if world.get_meta("canonical_sha256")!=FileAccess.get_sha256("res://maps/nexo_combat_01.json"):
+			world.free()
+			push_error("Rebuild the derived sector scene after changing its canonical map")
+			get_tree().quit(1)
+			return
 		add_child(world)
-		assert(world.get_meta("canonical_sha256")==FileAccess.get_sha256("res://maps/nexo_combat_01.json"),"Rebuild the derived sector scene after changing its canonical map")
 		visual_stats=world.get_meta("visual_stats")
 		for path in world.get_meta("baked_replaced_paths",[]):world.get_node(path).hide()
 	else:
@@ -95,6 +99,11 @@ func _ready() -> void:
 		pickups.append(pickup)
 	for sound_name in ["shot", "hit", "reload", "secure", "step"]:
 		sounds[sound_name] = load("res://assets/shooter/audio/" + sound_name + ".wav")
+	var bank: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/shooter/audio/banks/bank.json"))
+	for category in bank.banks:
+		var variants: Array=[]
+		for filename in bank.banks[category]:variants.append(load("res://assets/shooter/audio/banks/"+filename))
+		sounds[category]=variants
 	effects=EFFECTS.new();effects.arena=self;add_child(effects)
 	var layer := CanvasLayer.new()
 	add_child(layer)
@@ -317,7 +326,12 @@ func effect_material(color: Color) -> StandardMaterial3D:
 	return material
 
 func sound(sound_name: String) -> void:
-	effects.sound(sound_name,Vector3.INF,-16.0 if sound_name=="shot" else -10.0)
+	if sound_name=="shot":sound_name="shot_indoor" if is_indoor(player.global_position+Vector3.UP*1.4) else "shot_outdoor"
+	effects.sound(sound_name,Vector3.INF,-14.0 if sound_name.begins_with("shot") else -10.0)
+
+func is_indoor(point: Vector3) -> bool:
+	var query:=PhysicsRayQueryParameters3D.create(point+Vector3.UP*0.2,point+Vector3.UP*8.0,1,[player.get_rid()])
+	return not get_world_3d().direct_space_state.intersect_ray(query).is_empty()
 
 func sound_at(sound_name: String, point: Vector3, volume := -9.0, pitch := 1.0) -> void:
 	effects.sound(sound_name,point,volume,pitch*rng.randf_range(0.97,1.03))

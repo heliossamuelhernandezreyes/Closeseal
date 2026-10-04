@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "edition": "Nexo Industrial 0.6.0 \u2014 Motion, combat and mobile finish",
+  "edition": "Nexo Industrial 0.8.0 \u2014 Source motion and combat audio",
   "verified_at": "2026-10-04",
-  "arcont_commit": "6d6d567a419be52424e6939b7360e28a631e7369",
+  "arcont_commit": "4930d4521380535e1d6bb81c4231a5f23d711c09",
   "license_policy": "CC0 for models, textures, sky and reload; attributed CC BY 3.0 for gunshot under stricter archive license. No NC assets.",
   "sources": [
     {
@@ -131,6 +131,14 @@
       "url": "https://polyhaven.com/a/evening_road_01_puresky",
       "license": "CC0-1.0",
       "arcont_catalog_id": "ARC-ASSET-POLYHAVEN-A5E43605B370BAF7"
+    },
+    {
+      "name": "Universal Animation Library Standard",
+      "author": "Quaternius",
+      "license": "CC0-1.0",
+      "url": "https://quaternius.com/packs/universalanimationlibrary.html",
+      "mirror": "https://github.com/J-Ponzo/gltf-universal-animation-library",
+      "mirror_commit": "e24c23cf2a1323488a3faa226ea7ea21f644b73e"
     }
   ],
   "conversion": {
@@ -161,494 +169,634 @@
   },
   "delivered_files": [
     {
+      "path": "assets/shooter/animation_sources/quaternius/LICENSE",
+      "size_bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "assets/shooter/animation_sources/quaternius/source.json",
+      "size_bytes": 763,
+      "sha256": "e96cfe7b8de32db677a8ff75a38c03efcbbeef1de2f8f7d7f9b0fe5d123b120c"
+    },
+    {
+      "path": "assets/shooter/animation_sources/quaternius/source.zip",
+      "size_bytes": 1044033,
+      "sha256": "b9a0852a0e893221a7f71272bd754649219f61cc5ed3f3a7d172983c31519c0c"
+    },
+    {
+      "path": "assets/shooter/audio/banks/bank.json",
+      "size_bytes": 3790,
+      "sha256": "84f06816f04d94eed47294b093b99821d006858902bda5b9bf5fb522d53ef61d"
+    },
+    {
+      "path": "assets/shooter/audio/banks/reload_charge-0.wav",
+      "size_bytes": 6904,
+      "sha256": "5fa58191a2f9a499828e6d5e65b075a0715542ee9c330f840273afd6e36b810b"
+    },
+    {
+      "path": "assets/shooter/audio/banks/reload_charge-1.wav",
+      "size_bytes": 6904,
+      "sha256": "2aa65d8db90f7f8e6fd80d7be5a409096aca4e60668ecc230ffa21ed52e9d51d"
+    },
+    {
+      "path": "assets/shooter/audio/banks/reload_in-0.wav",
+      "size_bytes": 22684,
+      "sha256": "e0ffd04c25c5993dd2fec78122c0ac61bd8a5c095c2e2d913f8e01be8035811d"
+    },
+    {
+      "path": "assets/shooter/audio/banks/reload_in-1.wav",
+      "size_bytes": 22684,
+      "sha256": "e378bf4d25ae9d6e903f6e68dcef38a7cf25a41bd416b91d02071e3387fe5347"
+    },
+    {
+      "path": "assets/shooter/audio/banks/reload_out-0.wav",
+      "size_bytes": 17196,
+      "sha256": "1acffd47460ccbbbc86af6d9032d47ae0bdd8d89a37f33a09be95c7649a8aeac"
+    },
+    {
+      "path": "assets/shooter/audio/banks/reload_out-1.wav",
+      "size_bytes": 17196,
+      "sha256": "2c1c993d4e07526e468f08b3620741cefc9467a8f3cdc87db9691a74c23d5dfe"
+    },
+    {
+      "path": "assets/shooter/audio/banks/shot_indoor-0.wav",
+      "size_bytes": 38854,
+      "sha256": "f883e277fe91d08f4d158ceab1cad3581605a31d66da8e0aff9adf8155c9a78c"
+    },
+    {
+      "path": "assets/shooter/audio/banks/shot_indoor-1.wav",
+      "size_bytes": 38854,
+      "sha256": "62c73cc5ba93fd33f7886c9a77fa96338f1eae0eecd10a219026ce77ad5a5ef0"
+    },
+    {
+      "path": "assets/shooter/audio/banks/shot_indoor-2.wav",
+      "size_bytes": 38854,
+      "sha256": "e0403838735541c709a6c749ac0bae263fa0c7beafa0cd18be3042f9ba474a03"
+    },
+    {
+      "path": "assets/shooter/audio/banks/shot_outdoor-0.wav",
+      "size_bytes": 28710,
+      "sha256": "793e37cf4a9fbe08d5ebc8c66ffad146544e094d8cc7d73eb293537c1d8e670f"
+    },
+    {
+      "path": "assets/shooter/audio/banks/shot_outdoor-1.wav",
+      "size_bytes": 28710,
+      "sha256": "22f318c7e552f8d42f6cf05b0492690eabdf3be1de98b323a7818fb72d420e1e"
+    },
+    {
+      "path": "assets/shooter/audio/banks/shot_outdoor-2.wav",
+      "size_bytes": 28710,
+      "sha256": "02d516bb5948aec0bce2deec3286dac7e4e8d1375abca0f12f115ba2d859ddb7"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_concrete-0.wav",
+      "size_bytes": 7100,
+      "sha256": "fcf5618dc8b48c77535f6882e3ab80919884e4060f19f2c0d616972b88ac6420"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_concrete-1.wav",
+      "size_bytes": 7100,
+      "sha256": "c62708dc890c8e4083165af5541d4a6d3626be67c02c47e0d8e9581427f66d62"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_concrete-2.wav",
+      "size_bytes": 7100,
+      "sha256": "4dc3283a54ededaa897c4bd54612aa1ec1dee4557ec5abea813bdea5dff1118f"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_concrete-3.wav",
+      "size_bytes": 7100,
+      "sha256": "d0d43e78e4d172346a3ee4f8353bd53e03aa081c50052784557badd5b812b976"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_ground-0.wav",
+      "size_bytes": 7100,
+      "sha256": "92f30248485418128a6759bd6175c58f52e522f3c3475f6c1f079e4ee5a38949"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_ground-1.wav",
+      "size_bytes": 7100,
+      "sha256": "ee2939b9599be26b6a7ddc2d74385e74bc9547a50c2166baeabbd28dfa0d0276"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_ground-2.wav",
+      "size_bytes": 7100,
+      "sha256": "cc1303ae5fa056c624ff4a400abc1e57d905825a07af109d53b13c08a2b9311f"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_ground-3.wav",
+      "size_bytes": 7100,
+      "sha256": "c0e6634488b87065e76b72baa5344ed51ea5cf9f2792a1e88f389ff3d898b339"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_metal-0.wav",
+      "size_bytes": 7100,
+      "sha256": "758c472b75a3d01f27d388264311607b5465bff8cca28c168c441eabe14e30c3"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_metal-1.wav",
+      "size_bytes": 7100,
+      "sha256": "7e1b8ded2a6e24ee74f152366503843c9f8f3b2cddc8b8dd012177c20c79dd6e"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_metal-2.wav",
+      "size_bytes": 7100,
+      "sha256": "6e5107258b22a4ffca20ebd6d4a9436ebf4b9ce53b11e5c8bd7e769f52b3a097"
+    },
+    {
+      "path": "assets/shooter/audio/banks/step_metal-3.wav",
+      "size_bytes": 7100,
+      "sha256": "c6ebafbc02b3526f938fea04c0030d42fb2ae5c2ec1d3070d239492bb52fdac0"
+    },
+    {
       "path": "assets/shooter/audio/reload.wav",
-      "sha256": "ce6409283202ab4282ade374b96e074a36e341429c199640103aef390a30d5b0",
-      "size_bytes": 68686
+      "size_bytes": 68686,
+      "sha256": "ce6409283202ab4282ade374b96e074a36e341429c199640103aef390a30d5b0"
     },
     {
       "path": "assets/shooter/audio/shot.wav",
-      "sha256": "526fd8149f88ecf88cba32f779b0c1dc50da34d5997b4f2a4bc451927001867a",
-      "size_bytes": 28778
+      "size_bytes": 28778,
+      "sha256": "526fd8149f88ecf88cba32f779b0c1dc50da34d5997b4f2a4bc451927001867a"
     },
     {
       "path": "assets/shooter/combat_navigation.tres",
-      "sha256": "bef1752b4cd5b89839817283793284aa730c7bec4010e3ed5a7dc783f2778cca",
-      "size_bytes": 73202
+      "size_bytes": 73202,
+      "sha256": "bef1752b4cd5b89839817283793284aa730c7bec4010e3ed5a7dc783f2778cca"
     },
     {
       "path": "assets/shooter/serious/LICENSES.txt",
-      "sha256": "c831535d712cf5773d560937022abddc57275bfaa271b8c55d987d0535c6307b",
-      "size_bytes": 2158
+      "size_bytes": 2158,
+      "sha256": "c831535d712cf5773d560937022abddc57275bfaa271b8c55d987d0535c6307b"
     },
     {
       "path": "assets/shooter/serious/akm.glb",
-      "sha256": "3c3ab64dbc64a579949899ffa9c3c9f53ff0c09d6ab5c960a36cae95014960ee",
-      "size_bytes": 555948
+      "size_bytes": 555948,
+      "sha256": "3c3ab64dbc64a579949899ffa9c3c9f53ff0c09d6ab5c960a36cae95014960ee"
     },
     {
       "path": "assets/shooter/serious/akm_Material_AmbientOcclusion-Material_Roughness-Material_Metallic.jpg",
-      "sha256": "1150bae38896e362953d8b5f72ec05d9fbd8b06837106445f347cbf4545c9ab9",
-      "size_bytes": 149058
+      "size_bytes": 149058,
+      "sha256": "1150bae38896e362953d8b5f72ec05d9fbd8b06837106445f347cbf4545c9ab9"
     },
     {
       "path": "assets/shooter/serious/akm_Material_BaseColor.jpg",
-      "sha256": "1320d153953db16386bd5880c8f0f625e06088f718938d9cd179d869d97ed71d",
-      "size_bytes": 112384
+      "size_bytes": 112384,
+      "sha256": "1320d153953db16386bd5880c8f0f625e06088f718938d9cd179d869d97ed71d"
     },
     {
       "path": "assets/shooter/serious/akm_Material_Normal.jpg",
-      "sha256": "7f9e1e9cee7c6e4046a67fcd20be104c3a63eac0b2588d0967b8da76518dd28e",
-      "size_bytes": 128132
+      "size_bytes": 128132,
+      "sha256": "7f9e1e9cee7c6e4046a67fcd20be104c3a63eac0b2588d0967b8da76518dd28e"
     },
     {
       "path": "assets/shooter/serious/arms.glb",
-      "sha256": "e860feb1c110a9a004f308d81fee852651af6887519a5d8bc4fd5a57329eb90c",
-      "size_bytes": 413120
+      "size_bytes": 413120,
+      "sha256": "e860feb1c110a9a004f308d81fee852651af6887519a5d8bc4fd5a57329eb90c"
     },
     {
       "path": "assets/shooter/serious/arms_MilitarySkin_Albedo.jpg",
-      "sha256": "d71a3d5d0e1a3ba3649510124d5e2e0e89d0a341ad0c46b0711666d16c4893d8",
-      "size_bytes": 160048
+      "size_bytes": 160048,
+      "sha256": "d71a3d5d0e1a3ba3649510124d5e2e0e89d0a341ad0c46b0711666d16c4893d8"
     },
     {
       "path": "assets/shooter/serious/arms_MilitarySkin_Albedo_1.jpg",
-      "sha256": "d71a3d5d0e1a3ba3649510124d5e2e0e89d0a341ad0c46b0711666d16c4893d8",
-      "size_bytes": 160048
+      "size_bytes": 160048,
+      "sha256": "d71a3d5d0e1a3ba3649510124d5e2e0e89d0a341ad0c46b0711666d16c4893d8"
     },
     {
       "path": "assets/shooter/serious/combat_motion.res",
-      "sha256": "249b89efc31d0c9e1881fcee4ad0440b1fcef1e21563e6cff883c5ed54958b52",
-      "size_bytes": 471664
+      "size_bytes": 923233,
+      "sha256": "43a736e23917b144419a13bc70873ff4cc9fbac0d267182bf101fe3aab4d44b1"
     },
     {
       "path": "assets/shooter/serious/evening_road_01_puresky.hdr",
-      "sha256": "f5523ccff787d3811eb88b1eba0b6aad12444a4af743710777c9c68ae2e3b81e",
-      "size_bytes": 1309268
+      "size_bytes": 1309268,
+      "sha256": "f5523ccff787d3811eb88b1eba0b6aad12444a4af743710777c9c68ae2e3b81e"
     },
     {
       "path": "assets/shooter/serious/factory_building.glb",
-      "sha256": "966cc25c6f66add12013721ea68f513cee8eca78555bd70572db9bed4a5e782b",
-      "size_bytes": 9402292
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_brick_arm_1k.jpg",
-      "sha256": "5562584bb2448d29986b7ce0709727c8f48a68407d6fb93165cb23d62121e543",
-      "size_bytes": 170700
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_brick_diff_1k.jpg",
-      "sha256": "0b8cdb5f93aea95a8c9b3fe94cf478472e516408133bd597e04d9f4a9d97e248",
-      "size_bytes": 374231
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_brick_nor_gl_1k.jpg",
-      "sha256": "fbbe63227f2e33c6f42dfdff4aa45ba8d1f4b4a4f7072da6ef20ab97d1156a29",
-      "size_bytes": 432255
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_trim_01_arm_1k.jpg",
-      "sha256": "b9cca6399c9822c896c0463037255e21386520592f3a7df9f05eb749e227605d",
-      "size_bytes": 148140
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_trim_01_diff_1k.jpg",
-      "sha256": "7418b8791a32e25a9602bc45e6113590c907baa1030801c1cbaf062ae186b6a0",
-      "size_bytes": 159037
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_trim_01_nor_gl_1k.jpg",
-      "sha256": "dfe4fb599077f63db6022a744889b4fdd72e07b80324c707c6264d6cd1ef9eb3",
-      "size_bytes": 296902
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_windows_arm_1k.jpg",
-      "sha256": "da38305a33ed7d0266899272c35bcd71ba38b4be2adc713ba8faa5b32a5526b2",
-      "size_bytes": 249740
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_windows_diff_1k.jpg",
-      "sha256": "9e429b529161136d693edb4c4fde490a4f38bf5364807e8c4ef23c0d720e2d44",
-      "size_bytes": 189042
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_windows_diff_1k_6.png",
-      "sha256": "aa333fa1416f08b01c18e0ab28b786bd160c27a8d1a58f08c24402313846eac8",
-      "size_bytes": 1062132
-    },
-    {
-      "path": "assets/shooter/serious/factory_building_modular_factory_facade_windows_nor_gl_1k.jpg",
-      "sha256": "1c37943cd26795470e9f7bc5da00c1d90f50180831793911dd3b544ab5c11ccf",
-      "size_bytes": 242685
-    },
-    {
-      "path": "assets/shooter/serious/materials/asphalt.tres",
-      "sha256": "31b927f9ca0db06bc1ef3bbafde9521526e9c3bb938b427514b6ccede1754070",
-      "size_bytes": 663
-    },
-    {
-      "path": "assets/shooter/serious/materials/concrete.tres",
-      "sha256": "9387ef37b6fa62131167b55ab228191f6197d53a3ea4f73b9d1f631a43933cbb",
-      "size_bytes": 678
-    },
-    {
-      "path": "assets/shooter/serious/materials/container.tres",
-      "sha256": "4e2b789e1fd160550d5cac4340ab6d5eb1e64ce5a37ca02199285a76972a60b6",
-      "size_bytes": 691
-    },
-    {
-      "path": "assets/shooter/serious/materials/oxide.tres",
-      "sha256": "fe2c788781340ed5271ad329164ab7e0feded28cdb2f994912107c6f8c1b8e3f",
-      "size_bytes": 724
-    },
-    {
-      "path": "assets/shooter/serious/materials/steel.tres",
-      "sha256": "d6f1eb706a05d5d1972282a2380cfc9a0cf84e48f1c19a097a4b02602a73d78b",
-      "size_bytes": 724
-    },
-    {
-      "path": "assets/shooter/serious/materials/yard.tres",
-      "sha256": "f65cfbc37fd022d0b5cdc1b8469cd24284c54ede92140df2ffff7ac0c288569a",
-      "size_bytes": 660
-    },
-    {
-      "path": "assets/shooter/serious/pipe_segment.glb",
-      "sha256": "4f78d857c2e1f9bf895ab5e1208e40ee5dfe9c9e0fcfefd6f1c693c79ff0c5de",
-      "size_bytes": 631076
-    },
-    {
-      "path": "assets/shooter/serious/pipe_segment_modular_industrial_pipes_01_group01_arm_1k.jpg",
-      "sha256": "5aa64edba480f4a0998bbcdf70a6737a5172ecc70e5a12cd387a1d401e6230ba",
-      "size_bytes": 221797
-    },
-    {
-      "path": "assets/shooter/serious/pipe_segment_modular_industrial_pipes_01_group01_diff_1k.jpg",
-      "sha256": "1361647250d92882b09218436083961560bfba7daafa25b007a7b5cd96ac15e7",
-      "size_bytes": 145729
-    },
-    {
-      "path": "assets/shooter/serious/pipe_segment_modular_industrial_pipes_01_group01_nor_gl_1k.jpg",
-      "sha256": "6892aedc7024538f65c0b6e86324fedb08a3baf342ccca77985dee364d351182",
-      "size_bytes": 230503
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/barrel_03/barrel_03.bin",
-      "sha256": "10f3202e9ac9acf8dd896f1562c64db58311ffef89efb402d8433e03ad486427",
-      "size_bytes": 44872
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
-      "sha256": "e561bfeac1d2f26efea52b6b5bb47890123d9031c1e8e73a66696b02c772922c",
-      "size_bytes": 1743
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_arm_1k.jpg",
-      "sha256": "b58b10c7ab1169ee9a85c91816c57c42fb670b9c39f46982735f4eda95ba39aa",
-      "size_bytes": 244665
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_diff_1k.jpg",
-      "sha256": "726565289fc7c36910e945ede1319b0ff0ceb5dd356813f3e5e79a30000064b4",
-      "size_bytes": 149982
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_nor_gl_1k.jpg",
-      "sha256": "817c739cc1eabdca0c1e257be52905e820045ed5db4f2c190e48f078a20a6c80",
-      "size_bytes": 165837
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.bin",
-      "sha256": "64a4f9bc6e4af64d714a252c3c13428c430a60569deba3d52ca6b7dd3aa70d8c",
-      "size_bytes": 1374016
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
-      "sha256": "619a6208136fe5e1c0025a9af81ecd8c1857b03b7df9f6e144bde71e791d0ff9",
-      "size_bytes": 1940
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/textures/concrete_road_barrier_arm_1k.jpg",
-      "sha256": "13c3572260f425c74675175e06fe44cfc5fdc2662048706b2019bbf33821435c",
-      "size_bytes": 116614
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/textures/concrete_road_barrier_diff_1k.jpg",
-      "sha256": "31101dc537f1fc79fb9576f9fef8e9e3c67e3503cd66c14441409ee486777a02",
-      "size_bytes": 230773
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/textures/concrete_road_barrier_nor_gl_1k.jpg",
-      "sha256": "b58b2d313386723551a699664dfc0aab4939b75e5b738d4c00966d2630c94721",
-      "size_bytes": 376237
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/covered_car/covered_car.bin",
-      "sha256": "dcbd7bf82d415e30d02c3e7056013b44729de7b712868b5ab9bf29f2b3b8bc57",
-      "size_bytes": 394464
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
-      "sha256": "80b210b08673833a8085812b9ee71286213b2af92654886e5a1a368977265aa7",
-      "size_bytes": 9687
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/covered_car/textures/covered_car_arm_1k.jpg",
-      "sha256": "528cdb10d2cac3315bc84cba691006e8b84d770ecab51ddbcdb4a9164d72d921",
-      "size_bytes": 203406
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/covered_car/textures/covered_car_diff_1k.jpg",
-      "sha256": "241fca2c7779da74ed6fe9140efad85f652056bad25c0a9f940643620890abd6",
-      "size_bytes": 149133
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/covered_car/textures/covered_car_nor_gl_1k.jpg",
-      "sha256": "c6f70b5b321c4c62b2e58c1318ee9020187409121d9a15a56176c5c499cd5a40",
-      "size_bytes": 211759
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/modular_industrial_pipes_01.bin",
-      "sha256": "2e11e1a7dabd56b1e158364f48b0b388bf316fcab61a01274740db75dbafa448",
-      "size_bytes": 515160
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/modular_industrial_pipes_01.gltf",
-      "sha256": "455d3a0fe95b7900a08cbebb23cfb2c341672fcb67ae7355d776e53cfa3d0688",
-      "size_bytes": 15014
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group01_arm_1k.jpg",
-      "sha256": "5aa64edba480f4a0998bbcdf70a6737a5172ecc70e5a12cd387a1d401e6230ba",
-      "size_bytes": 221797
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group01_diff_1k.jpg",
-      "sha256": "1361647250d92882b09218436083961560bfba7daafa25b007a7b5cd96ac15e7",
-      "size_bytes": 145729
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group01_nor_gl_1k.jpg",
-      "sha256": "6892aedc7024538f65c0b6e86324fedb08a3baf342ccca77985dee364d351182",
-      "size_bytes": 230503
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group02_arm_1k.jpg",
-      "sha256": "9ce6fc662a989dac2a009b117fc083dab26decd536bca1fd87f08fca81cdf883",
-      "size_bytes": 234837
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group02_diff_1k.jpg",
-      "sha256": "05af9c23bfd5d8e3edcef694fb702e8a1bbb12fba566910317be85e0b3411068",
-      "size_bytes": 151959
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group02_nor_gl_1k.jpg",
-      "sha256": "7248bcdc64c43cd5f2a35448ce023954dfe94a8d04b54ee7fe6e0822c481b264",
-      "size_bytes": 260454
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.bin",
-      "sha256": "80eb5ad690aaa6f4f401df0f8e323666bf8f3f9943c7cb703eb37002f5084ce1",
-      "size_bytes": 329004
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf",
-      "sha256": "932cf6d25061c5df544f454da3d8ad8e412375f9505af87149986d8fa9dfa9c7",
-      "size_bytes": 6567
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/old_military_crate/textures/old_military_crate_arm_1k.jpg",
-      "sha256": "86e8542ba8218a54e63980531f9cdf7d4feefdc5823c4f2d07ee83651d8ec178",
-      "size_bytes": 162120
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/old_military_crate/textures/old_military_crate_diff_1k.jpg",
-      "sha256": "f28f53710d683016c421ad06e2cb16f8c2c7f5bdde7fc85edb1e5b150979c869",
-      "size_bytes": 183333
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/old_military_crate/textures/old_military_crate_nor_gl_1k.jpg",
-      "sha256": "48685f5729050f929a046a33bc2ff25444931909f03dead2400a0b581b71ba94",
-      "size_bytes": 260735
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.bin",
-      "sha256": "b5b073932eeb1d39f9b33893d5b96432e24a067000db8a15e53a0508516700a6",
-      "size_bytes": 864348
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.gltf",
-      "sha256": "2ee1f60ab9985755bd4a18bd6296bbfa60939909ffce802b6fd0dcbac3e6e113",
-      "size_bytes": 4797
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_arm_1k.jpg",
-      "sha256": "104efdb9c98dab0ab948dac8ca581c3f14cc461b64b61757b942134a3ff970eb",
-      "size_bytes": 187847
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_diff_1k.jpg",
-      "sha256": "3a953a0042a253b6a1e63a2cb82ba352918aab64caf6d8f94b6a5ba1fce6c33f",
-      "size_bytes": 197186
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_nor_gl_1k.jpg",
-      "sha256": "2cd606989e3275a91497f4d707d6741de9d48c1446f9a7737909e10929aa5920",
-      "size_bytes": 134738
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/textures/wooden_military_crate_arm_1k.jpg",
-      "sha256": "66a6d090d5dbf4cf2b44683e4f82a8c3d4ffe166aa066183659c74d417503adc",
-      "size_bytes": 215320
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/textures/wooden_military_crate_diff_1k.jpg",
-      "sha256": "f9a183259b8542b62532dbe971f2d2751ebafa5a9cb0723c9ccf9e378e93221e",
-      "size_bytes": 239502
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/textures/wooden_military_crate_nor_gl_1k.jpg",
-      "sha256": "0f9a9354baaf92f1c1e42cf54283dd9ad3ff89a47a6c9be37dc8eea007a87688",
-      "size_bytes": 260291
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.bin",
-      "sha256": "cf6fd469a476d834f9724f8b8f762630040d8e785e8697c5d7994ae3e840e727",
-      "size_bytes": 687548
-    },
-    {
-      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
-      "sha256": "902d78e95d25b20e04dec288900b03a6a97312e8625c90a410e5452ed88a2797",
-      "size_bytes": 3960
-    },
-    {
-      "path": "assets/shooter/serious/skins/hostile_albedo.jpg",
-      "sha256": "b10dcef8f1ab6c85efcd4c8bd58729b5f86fcc0cd1de649810ace4082a0353f9",
-      "size_bytes": 175214
-    },
-    {
-      "path": "assets/shooter/serious/skins/hostile_ao.jpg",
-      "sha256": "025396b48e8c848b1b9095b0c2f9da52da5d0d2bfe74fdc8ba13e433be1154f9",
-      "size_bytes": 196371
-    },
-    {
-      "path": "assets/shooter/serious/skins/hostile_emission.jpg",
-      "sha256": "34a0b00265cd06a7d7ba766f76badf7cfafd19e0b497c4ced497c3b0577477bc",
-      "size_bytes": 105905
-    },
-    {
-      "path": "assets/shooter/serious/skins/hostile_normal.jpg",
-      "sha256": "6cd68330187c24288571d9d012ff0117e119d9f3ff6844eecd26f5c6601d4f04",
-      "size_bytes": 276164
-    },
-    {
-      "path": "assets/shooter/serious/skins/hostile_roughness.jpg",
-      "sha256": "3d06b37e73a8bde1fe51c339e2ada9c2514c3538eb873dfb2b23dd8380c007ce",
-      "size_bytes": 140291
-    },
-    {
-      "path": "assets/shooter/serious/skins/military_albedo.jpg",
-      "sha256": "fffc3d2fdd096aa37776ca65bc476c680143dff5e47cc1e3e093b3409062a401",
-      "size_bytes": 111316
-    },
-    {
-      "path": "assets/shooter/serious/skins/military_ao.jpg",
-      "sha256": "88623368e35877c4392c755c410c0935c9a2ea77f15f56708d58f6a3de02adf2",
-      "size_bytes": 150512
-    },
-    {
-      "path": "assets/shooter/serious/skins/military_emission.jpg",
-      "sha256": "1538e86d5fc923b231fc94941a6aeeef3c9c2ba1ed23457bea095aea304479df",
-      "size_bytes": 20126
-    },
-    {
-      "path": "assets/shooter/serious/skins/military_normal.jpg",
-      "sha256": "3095c3ef4c046d3fe199067b4d23e44e96c3776321def7656d7082ad29287b2d",
-      "size_bytes": 214145
-    },
-    {
-      "path": "assets/shooter/serious/skins/military_roughness.jpg",
-      "sha256": "3a7b2d470b9080492ca7b68309464c1752a81e2c68855489c56d1ad4202ffe04",
-      "size_bytes": 120747
-    },
-    {
-      "path": "assets/shooter/serious/soldier.glb",
-      "sha256": "de6a92704bf476f74480882fdb69909a868f75989e3dc779204f11edf169e260",
-      "size_bytes": 497184
-    },
-    {
-      "path": "assets/shooter/serious/soldier_MilitarySkin_Albedo.jpg",
-      "sha256": "d71a3d5d0e1a3ba3649510124d5e2e0e89d0a341ad0c46b0711666d16c4893d8",
-      "size_bytes": 160048
-    },
-    {
-      "path": "assets/shooter/serious/soldier_MilitarySkin_Albedo_1.jpg",
-      "sha256": "d71a3d5d0e1a3ba3649510124d5e2e0e89d0a341ad0c46b0711666d16c4893d8",
-      "size_bytes": 160048
-    },
-    {
-      "path": "assets/shooter/serious/textures/asphalt_06_diff.jpg",
-      "sha256": "eb513e6d769aa1b43850826b6eb75a4f361b80ce7694153beacc0ea1a0399c26",
-      "size_bytes": 789488
-    },
-    {
-      "path": "assets/shooter/serious/textures/asphalt_06_nor_gl.jpg",
-      "sha256": "89fe919f479481becb32d011b5636892c030571d7f0964cc65ef5d21f563b800",
-      "size_bytes": 829479
-    },
-    {
-      "path": "assets/shooter/serious/textures/asphalt_06_rough.jpg",
-      "sha256": "d08364cdb6c14e7cd0d0e8520ec91133c60994d6f9f3409b45280b80c219377b",
-      "size_bytes": 323473
-    },
-    {
-      "path": "assets/shooter/serious/textures/container_side_diff.jpg",
-      "sha256": "9d6a8a9a243b6111f9d13af12d90325f0f1d52e45c2e1731f2d496702f024452",
-      "size_bytes": 667470
-    },
-    {
-      "path": "assets/shooter/serious/textures/container_side_nor_gl.jpg",
-      "sha256": "1e9e54d5816c97e5abeb448c3468b1eafb4add9acb41fcdc26817563c8f21f22",
-      "size_bytes": 538519
-    },
-    {
-      "path": "assets/shooter/serious/textures/container_side_rough.jpg",
-      "sha256": "3abb38fc3e00424e9d63156f7c51469ecf13442469900ed2605365c2ef519478",
-      "size_bytes": 235685
-    },
-    {
-      "path": "assets/shooter/serious/textures/rough_concrete_diff.jpg",
-      "sha256": "dd7fc03e152eb8c2fd511248aa2e9bf7428a645bd0e0b74ac1d887ad136cb0bc",
-      "size_bytes": 1042065
-    },
-    {
-      "path": "assets/shooter/serious/textures/rough_concrete_nor_gl.jpg",
-      "sha256": "54c85854ad5cafb16840df91a605c857bdf3d07fa79f11921c8327fccf6423ae",
-      "size_bytes": 1447537
-    },
-    {
-      "path": "assets/shooter/serious/textures/rough_concrete_rough.jpg",
-      "sha256": "2d392a3e0d44087ddecc0cd3fd27367a6cc0c16f94bbba2e8fbfbdf77eb105be",
-      "size_bytes": 566436
-    },
-    {
-      "path": "assets/shooter/serious/textures/worn_corrugated_iron_diff.jpg",
-      "sha256": "8980bec97815510c828cb6b3d840c05345eb44212e34c212c39ec54c0abecaa3",
-      "size_bytes": 868207
-    },
-    {
-      "path": "assets/shooter/serious/textures/worn_corrugated_iron_nor_gl.jpg",
-      "sha256": "e3972aa29ba1443f44f51a0fd5e5ca178cdbaf0b24b1af93d9e71c7b81c34d95",
-      "size_bytes": 1032507
-    },
-    {
-      "path": "assets/shooter/serious/textures/worn_corrugated_iron_rough.jpg",
-      "sha256": "aad215f1b076f763e2d239b5312a80d9fee3d2f4b39768abec8bb1b667e9e86c",
-      "size_bytes": 553083
+      "size_bytes": 9402292,
+      "sha256": "966cc25c6f66add12013721ea68f513cee8eca78555bd70572db9bed4a5e782b"
     },
     {
       "path": "assets/shooter/serious/factory_building_fixed.glb",
-      "sha256": "fd12eec49e5292baa20ae366f91fda0abd1666f984d67e635b650e815447251b",
-      "size_bytes": 15018660
+      "size_bytes": 15018660,
+      "sha256": "fd12eec49e5292baa20ae366f91fda0abd1666f984d67e635b650e815447251b"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_brick_arm_1k.jpg",
+      "size_bytes": 170700,
+      "sha256": "5562584bb2448d29986b7ce0709727c8f48a68407d6fb93165cb23d62121e543"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_brick_diff_1k.jpg",
+      "size_bytes": 374231,
+      "sha256": "0b8cdb5f93aea95a8c9b3fe94cf478472e516408133bd597e04d9f4a9d97e248"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_brick_nor_gl_1k.jpg",
+      "size_bytes": 432255,
+      "sha256": "fbbe63227f2e33c6f42dfdff4aa45ba8d1f4b4a4f7072da6ef20ab97d1156a29"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_trim_01_arm_1k.jpg",
+      "size_bytes": 148140,
+      "sha256": "b9cca6399c9822c896c0463037255e21386520592f3a7df9f05eb749e227605d"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_trim_01_diff_1k.jpg",
+      "size_bytes": 159037,
+      "sha256": "7418b8791a32e25a9602bc45e6113590c907baa1030801c1cbaf062ae186b6a0"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_trim_01_nor_gl_1k.jpg",
+      "size_bytes": 296902,
+      "sha256": "dfe4fb599077f63db6022a744889b4fdd72e07b80324c707c6264d6cd1ef9eb3"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_windows_arm_1k.jpg",
+      "size_bytes": 249740,
+      "sha256": "da38305a33ed7d0266899272c35bcd71ba38b4be2adc713ba8faa5b32a5526b2"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_windows_diff_1k.jpg",
+      "size_bytes": 189042,
+      "sha256": "9e429b529161136d693edb4c4fde490a4f38bf5364807e8c4ef23c0d720e2d44"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_windows_diff_1k_6.png",
+      "size_bytes": 1062132,
+      "sha256": "aa333fa1416f08b01c18e0ab28b786bd160c27a8d1a58f08c24402313846eac8"
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_modular_factory_facade_windows_nor_gl_1k.jpg",
+      "size_bytes": 242685,
+      "sha256": "1c37943cd26795470e9f7bc5da00c1d90f50180831793911dd3b544ab5c11ccf"
+    },
+    {
+      "path": "assets/shooter/serious/materials/asphalt.tres",
+      "size_bytes": 663,
+      "sha256": "31b927f9ca0db06bc1ef3bbafde9521526e9c3bb938b427514b6ccede1754070"
+    },
+    {
+      "path": "assets/shooter/serious/materials/concrete.tres",
+      "size_bytes": 678,
+      "sha256": "9387ef37b6fa62131167b55ab228191f6197d53a3ea4f73b9d1f631a43933cbb"
+    },
+    {
+      "path": "assets/shooter/serious/materials/container.tres",
+      "size_bytes": 691,
+      "sha256": "4e2b789e1fd160550d5cac4340ab6d5eb1e64ce5a37ca02199285a76972a60b6"
+    },
+    {
+      "path": "assets/shooter/serious/materials/oxide.tres",
+      "size_bytes": 724,
+      "sha256": "fe2c788781340ed5271ad329164ab7e0feded28cdb2f994912107c6f8c1b8e3f"
+    },
+    {
+      "path": "assets/shooter/serious/materials/steel.tres",
+      "size_bytes": 724,
+      "sha256": "d6f1eb706a05d5d1972282a2380cfc9a0cf84e48f1c19a097a4b02602a73d78b"
+    },
+    {
+      "path": "assets/shooter/serious/materials/yard.tres",
+      "size_bytes": 660,
+      "sha256": "f65cfbc37fd022d0b5cdc1b8469cd24284c54ede92140df2ffff7ac0c288569a"
+    },
+    {
+      "path": "assets/shooter/serious/pipe_segment.glb",
+      "size_bytes": 631076,
+      "sha256": "4f78d857c2e1f9bf895ab5e1208e40ee5dfe9c9e0fcfefd6f1c693c79ff0c5de"
+    },
+    {
+      "path": "assets/shooter/serious/pipe_segment_modular_industrial_pipes_01_group01_arm_1k.jpg",
+      "size_bytes": 221797,
+      "sha256": "5aa64edba480f4a0998bbcdf70a6737a5172ecc70e5a12cd387a1d401e6230ba"
+    },
+    {
+      "path": "assets/shooter/serious/pipe_segment_modular_industrial_pipes_01_group01_diff_1k.jpg",
+      "size_bytes": 145729,
+      "sha256": "1361647250d92882b09218436083961560bfba7daafa25b007a7b5cd96ac15e7"
+    },
+    {
+      "path": "assets/shooter/serious/pipe_segment_modular_industrial_pipes_01_group01_nor_gl_1k.jpg",
+      "size_bytes": 230503,
+      "sha256": "6892aedc7024538f65c0b6e86324fedb08a3baf342ccca77985dee364d351182"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/barrel_03/barrel_03.bin",
+      "size_bytes": 44872,
+      "sha256": "10f3202e9ac9acf8dd896f1562c64db58311ffef89efb402d8433e03ad486427"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf",
+      "size_bytes": 1743,
+      "sha256": "e561bfeac1d2f26efea52b6b5bb47890123d9031c1e8e73a66696b02c772922c"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_arm_1k.jpg",
+      "size_bytes": 244665,
+      "sha256": "b58b10c7ab1169ee9a85c91816c57c42fb670b9c39f46982735f4eda95ba39aa"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_diff_1k.jpg",
+      "size_bytes": 149982,
+      "sha256": "726565289fc7c36910e945ede1319b0ff0ceb5dd356813f3e5e79a30000064b4"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_nor_gl_1k.jpg",
+      "size_bytes": 165837,
+      "sha256": "817c739cc1eabdca0c1e257be52905e820045ed5db4f2c190e48f078a20a6c80"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.bin",
+      "size_bytes": 1374016,
+      "sha256": "64a4f9bc6e4af64d714a252c3c13428c430a60569deba3d52ca6b7dd3aa70d8c"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/concrete_road_barrier.gltf",
+      "size_bytes": 1940,
+      "sha256": "619a6208136fe5e1c0025a9af81ecd8c1857b03b7df9f6e144bde71e791d0ff9"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/textures/concrete_road_barrier_arm_1k.jpg",
+      "size_bytes": 116614,
+      "sha256": "13c3572260f425c74675175e06fe44cfc5fdc2662048706b2019bbf33821435c"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/textures/concrete_road_barrier_diff_1k.jpg",
+      "size_bytes": 230773,
+      "sha256": "31101dc537f1fc79fb9576f9fef8e9e3c67e3503cd66c14441409ee486777a02"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/concrete_road_barrier/textures/concrete_road_barrier_nor_gl_1k.jpg",
+      "size_bytes": 376237,
+      "sha256": "b58b2d313386723551a699664dfc0aab4939b75e5b738d4c00966d2630c94721"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/covered_car/covered_car.bin",
+      "size_bytes": 394464,
+      "sha256": "dcbd7bf82d415e30d02c3e7056013b44729de7b712868b5ab9bf29f2b3b8bc57"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/covered_car/covered_car.gltf",
+      "size_bytes": 9687,
+      "sha256": "80b210b08673833a8085812b9ee71286213b2af92654886e5a1a368977265aa7"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/covered_car/textures/covered_car_arm_1k.jpg",
+      "size_bytes": 203406,
+      "sha256": "528cdb10d2cac3315bc84cba691006e8b84d770ecab51ddbcdb4a9164d72d921"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/covered_car/textures/covered_car_diff_1k.jpg",
+      "size_bytes": 149133,
+      "sha256": "241fca2c7779da74ed6fe9140efad85f652056bad25c0a9f940643620890abd6"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/covered_car/textures/covered_car_nor_gl_1k.jpg",
+      "size_bytes": 211759,
+      "sha256": "c6f70b5b321c4c62b2e58c1318ee9020187409121d9a15a56176c5c499cd5a40"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/modular_industrial_pipes_01.bin",
+      "size_bytes": 515160,
+      "sha256": "2e11e1a7dabd56b1e158364f48b0b388bf316fcab61a01274740db75dbafa448"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/modular_industrial_pipes_01.gltf",
+      "size_bytes": 15014,
+      "sha256": "455d3a0fe95b7900a08cbebb23cfb2c341672fcb67ae7355d776e53cfa3d0688"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group01_arm_1k.jpg",
+      "size_bytes": 221797,
+      "sha256": "5aa64edba480f4a0998bbcdf70a6737a5172ecc70e5a12cd387a1d401e6230ba"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group01_diff_1k.jpg",
+      "size_bytes": 145729,
+      "sha256": "1361647250d92882b09218436083961560bfba7daafa25b007a7b5cd96ac15e7"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group01_nor_gl_1k.jpg",
+      "size_bytes": 230503,
+      "sha256": "6892aedc7024538f65c0b6e86324fedb08a3baf342ccca77985dee364d351182"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group02_arm_1k.jpg",
+      "size_bytes": 234837,
+      "sha256": "9ce6fc662a989dac2a009b117fc083dab26decd536bca1fd87f08fca81cdf883"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group02_diff_1k.jpg",
+      "size_bytes": 151959,
+      "sha256": "05af9c23bfd5d8e3edcef694fb702e8a1bbb12fba566910317be85e0b3411068"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/modular_industrial_pipes_01/textures/modular_industrial_pipes_01_group02_nor_gl_1k.jpg",
+      "size_bytes": 260454,
+      "sha256": "7248bcdc64c43cd5f2a35448ce023954dfe94a8d04b54ee7fe6e0822c481b264"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.bin",
+      "size_bytes": 329004,
+      "sha256": "80eb5ad690aaa6f4f401df0f8e323666bf8f3f9943c7cb703eb37002f5084ce1"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/old_military_crate/old_military_crate.gltf",
+      "size_bytes": 6567,
+      "sha256": "932cf6d25061c5df544f454da3d8ad8e412375f9505af87149986d8fa9dfa9c7"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/old_military_crate/textures/old_military_crate_arm_1k.jpg",
+      "size_bytes": 162120,
+      "sha256": "86e8542ba8218a54e63980531f9cdf7d4feefdc5823c4f2d07ee83651d8ec178"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/old_military_crate/textures/old_military_crate_diff_1k.jpg",
+      "size_bytes": 183333,
+      "sha256": "f28f53710d683016c421ad06e2cb16f8c2c7f5bdde7fc85edb1e5b150979c869"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/old_military_crate/textures/old_military_crate_nor_gl_1k.jpg",
+      "size_bytes": 260735,
+      "sha256": "48685f5729050f929a046a33bc2ff25444931909f03dead2400a0b581b71ba94"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.bin",
+      "size_bytes": 864348,
+      "sha256": "b5b073932eeb1d39f9b33893d5b96432e24a067000db8a15e53a0508516700a6"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/portable_welding_cart.gltf",
+      "size_bytes": 4797,
+      "sha256": "2ee1f60ab9985755bd4a18bd6296bbfa60939909ffce802b6fd0dcbac3e6e113"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_arm_1k.jpg",
+      "size_bytes": 187847,
+      "sha256": "104efdb9c98dab0ab948dac8ca581c3f14cc461b64b61757b942134a3ff970eb"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_diff_1k.jpg",
+      "size_bytes": 197186,
+      "sha256": "3a953a0042a253b6a1e63a2cb82ba352918aab64caf6d8f94b6a5ba1fce6c33f"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_nor_gl_1k.jpg",
+      "size_bytes": 134738,
+      "sha256": "2cd606989e3275a91497f4d707d6741de9d48c1446f9a7737909e10929aa5920"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/textures/wooden_military_crate_arm_1k.jpg",
+      "size_bytes": 215320,
+      "sha256": "66a6d090d5dbf4cf2b44683e4f82a8c3d4ffe166aa066183659c74d417503adc"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/textures/wooden_military_crate_diff_1k.jpg",
+      "size_bytes": 239502,
+      "sha256": "f9a183259b8542b62532dbe971f2d2751ebafa5a9cb0723c9ccf9e378e93221e"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/textures/wooden_military_crate_nor_gl_1k.jpg",
+      "size_bytes": 260291,
+      "sha256": "0f9a9354baaf92f1c1e42cf54283dd9ad3ff89a47a6c9be37dc8eea007a87688"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.bin",
+      "size_bytes": 687548,
+      "sha256": "cf6fd469a476d834f9724f8b8f762630040d8e785e8697c5d7994ae3e840e727"
+    },
+    {
+      "path": "assets/shooter/serious/polyhaven/wooden_military_crate/wooden_military_crate.gltf",
+      "size_bytes": 3960,
+      "sha256": "902d78e95d25b20e04dec288900b03a6a97312e8625c90a410e5452ed88a2797"
+    },
+    {
+      "path": "assets/shooter/serious/skins/hostile_albedo.jpg",
+      "size_bytes": 175214,
+      "sha256": "b10dcef8f1ab6c85efcd4c8bd58729b5f86fcc0cd1de649810ace4082a0353f9"
+    },
+    {
+      "path": "assets/shooter/serious/skins/hostile_ao.jpg",
+      "size_bytes": 196371,
+      "sha256": "025396b48e8c848b1b9095b0c2f9da52da5d0d2bfe74fdc8ba13e433be1154f9"
+    },
+    {
+      "path": "assets/shooter/serious/skins/hostile_emission.jpg",
+      "size_bytes": 105905,
+      "sha256": "34a0b00265cd06a7d7ba766f76badf7cfafd19e0b497c4ced497c3b0577477bc"
+    },
+    {
+      "path": "assets/shooter/serious/skins/hostile_normal.jpg",
+      "size_bytes": 276164,
+      "sha256": "6cd68330187c24288571d9d012ff0117e119d9f3ff6844eecd26f5c6601d4f04"
+    },
+    {
+      "path": "assets/shooter/serious/skins/hostile_roughness.jpg",
+      "size_bytes": 140291,
+      "sha256": "3d06b37e73a8bde1fe51c339e2ada9c2514c3538eb873dfb2b23dd8380c007ce"
+    },
+    {
+      "path": "assets/shooter/serious/skins/military_albedo.jpg",
+      "size_bytes": 111316,
+      "sha256": "fffc3d2fdd096aa37776ca65bc476c680143dff5e47cc1e3e093b3409062a401"
+    },
+    {
+      "path": "assets/shooter/serious/skins/military_ao.jpg",
+      "size_bytes": 150512,
+      "sha256": "88623368e35877c4392c755c410c0935c9a2ea77f15f56708d58f6a3de02adf2"
+    },
+    {
+      "path": "assets/shooter/serious/skins/military_emission.jpg",
+      "size_bytes": 20126,
+      "sha256": "1538e86d5fc923b231fc94941a6aeeef3c9c2ba1ed23457bea095aea304479df"
+    },
+    {
+      "path": "assets/shooter/serious/skins/military_normal.jpg",
+      "size_bytes": 214145,
+      "sha256": "3095c3ef4c046d3fe199067b4d23e44e96c3776321def7656d7082ad29287b2d"
+    },
+    {
+      "path": "assets/shooter/serious/skins/military_roughness.jpg",
+      "size_bytes": 120747,
+      "sha256": "3a7b2d470b9080492ca7b68309464c1752a81e2c68855489c56d1ad4202ffe04"
+    },
+    {
+      "path": "assets/shooter/serious/soldier.glb",
+      "size_bytes": 497184,
+      "sha256": "de6a92704bf476f74480882fdb69909a868f75989e3dc779204f11edf169e260"
+    },
+    {
+      "path": "assets/shooter/serious/soldier_MilitarySkin_Albedo.jpg",
+      "size_bytes": 160048,
+      "sha256": "d71a3d5d0e1a3ba3649510124d5e2e0e89d0a341ad0c46b0711666d16c4893d8"
+    },
+    {
+      "path": "assets/shooter/serious/soldier_MilitarySkin_Albedo_1.jpg",
+      "size_bytes": 160048,
+      "sha256": "d71a3d5d0e1a3ba3649510124d5e2e0e89d0a341ad0c46b0711666d16c4893d8"
+    },
+    {
+      "path": "assets/shooter/serious/textures/asphalt_06_diff.jpg",
+      "size_bytes": 789488,
+      "sha256": "eb513e6d769aa1b43850826b6eb75a4f361b80ce7694153beacc0ea1a0399c26"
+    },
+    {
+      "path": "assets/shooter/serious/textures/asphalt_06_nor_gl.jpg",
+      "size_bytes": 829479,
+      "sha256": "89fe919f479481becb32d011b5636892c030571d7f0964cc65ef5d21f563b800"
+    },
+    {
+      "path": "assets/shooter/serious/textures/asphalt_06_rough.jpg",
+      "size_bytes": 323473,
+      "sha256": "d08364cdb6c14e7cd0d0e8520ec91133c60994d6f9f3409b45280b80c219377b"
+    },
+    {
+      "path": "assets/shooter/serious/textures/container_side_diff.jpg",
+      "size_bytes": 667470,
+      "sha256": "9d6a8a9a243b6111f9d13af12d90325f0f1d52e45c2e1731f2d496702f024452"
+    },
+    {
+      "path": "assets/shooter/serious/textures/container_side_nor_gl.jpg",
+      "size_bytes": 538519,
+      "sha256": "1e9e54d5816c97e5abeb448c3468b1eafb4add9acb41fcdc26817563c8f21f22"
+    },
+    {
+      "path": "assets/shooter/serious/textures/container_side_rough.jpg",
+      "size_bytes": 235685,
+      "sha256": "3abb38fc3e00424e9d63156f7c51469ecf13442469900ed2605365c2ef519478"
+    },
+    {
+      "path": "assets/shooter/serious/textures/rough_concrete_diff.jpg",
+      "size_bytes": 1042065,
+      "sha256": "dd7fc03e152eb8c2fd511248aa2e9bf7428a645bd0e0b74ac1d887ad136cb0bc"
+    },
+    {
+      "path": "assets/shooter/serious/textures/rough_concrete_nor_gl.jpg",
+      "size_bytes": 1447537,
+      "sha256": "54c85854ad5cafb16840df91a605c857bdf3d07fa79f11921c8327fccf6423ae"
+    },
+    {
+      "path": "assets/shooter/serious/textures/rough_concrete_rough.jpg",
+      "size_bytes": 566436,
+      "sha256": "2d392a3e0d44087ddecc0cd3fd27367a6cc0c16f94bbba2e8fbfbdf77eb105be"
+    },
+    {
+      "path": "assets/shooter/serious/textures/worn_corrugated_iron_diff.jpg",
+      "size_bytes": 868207,
+      "sha256": "8980bec97815510c828cb6b3d840c05345eb44212e34c212c39ec54c0abecaa3"
+    },
+    {
+      "path": "assets/shooter/serious/textures/worn_corrugated_iron_nor_gl.jpg",
+      "size_bytes": 1032507,
+      "sha256": "e3972aa29ba1443f44f51a0fd5e5ca178cdbaf0b24b1af93d9e71c7b81c34d95"
+    },
+    {
+      "path": "assets/shooter/serious/textures/worn_corrugated_iron_rough.jpg",
+      "size_bytes": 553083,
+      "sha256": "aad215f1b076f763e2d239b5312a80d9fee3d2f4b39768abec8bb1b667e9e86c"
     }
   ]
 }

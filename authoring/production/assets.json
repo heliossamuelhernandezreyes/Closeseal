@@ -2,7 +2,7 @@
   "version": 1,
   "id": "nexo-industrial",
   "provenance_manifest": "assets/shooter/serious/manifest.json",
-  "provenance_sha256": "942f4715da7df1b471aa799ecd674e967711ea1fc6067985809fbdee490a4a3d",
+  "provenance_sha256": "744574b3114c15f252ef0777890e05893936f08806af303d6a22edf28ccb04d0",
   "assets": [
     {
       "id": "character.soldier",

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "nexo_motion_source",
+  "dependencies": {
+    "assets/shooter/animation_sources/quaternius/LICENSE": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+    "assets/shooter/animation_sources/quaternius/source.json": "e96cfe7b8de32db677a8ff75a38c03efcbbeef1de2f8f7d7f9b0fe5d123b120c",
+    "assets/shooter/animation_sources/quaternius/source.zip": "b9a0852a0e893221a7f71272bd754649219f61cc5ed3f3a7d172983c31519c0c",
+    "assets/shooter/serious/soldier.glb": "de6a92704bf476f74480882fdb69909a868f75989e3dc779204f11edf169e260",
+    "authoring/production/motion-source.json": "babc727f9c20ebf956f512673e25b14a84eddeee43d7f6db171ab05e48496991",
+    "src/shooter/limb_ik.gd": "58382e504e09eb8a4b423a59413fb9995d6974db7c363cb53ffede3408c22d8c",
+    "src/shooter/motion_profile.gd": "cc14d38acccdb6b6bde32c014fd703ed4cf599e2f4d6d43a81ad02eabd1be3e5",
+    "tools/shooter_motion_authoring.gd": "c8e03098c3a2a69d029b1bbbd44dbc00a96cf0e843b506b3e0846e6d9e8c2180",
+    "tools/shooter_motion_builder.gd": "ff06ada0e74012e237842991eb128f33b5d40d2894457590349208c0927e36a4",
+    "tools/shooter_rest_retarget.gd": "845caff2891b76a5b12ba834429076db78d120dd958fee1a7afe650ae214be26"
+  },
+  "steps": [
+    {
+      "op": "script",
+      "path": "res://tools/shooter_motion_authoring.gd",
+      "arguments": {}
+    },
+    {
+      "op": "save",
+      "target": "motion_library",
+      "path": "motion.res"
+    }
+  ]
+}

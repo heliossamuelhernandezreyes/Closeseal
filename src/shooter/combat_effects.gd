@@ -12,6 +12,8 @@ var dropped := 0
 var arena: Node3D
 var ball: SphereMesh
 var line: CylinderMesh
+var sound_variants: Dictionary={}
+var audio_events: Dictionary={}
 
 func _ready() -> void:
 	ball = SphereMesh.new(); ball.radius = 1; ball.height = 2; ball.radial_segments = 8; ball.rings = 4
@@ -87,13 +89,21 @@ func _process(delta: float) -> void:
 
 func sound(name_: String, point := Vector3.INF, volume := -10.0, pitch := 1.0) -> void:
 	if not arena.sounds.has(name_):return
+	var bank: Variant=arena.sounds[name_]
+	var stream: AudioStream
+	if bank is Array:
+		var variant: int=int(sound_variants.get(name_,0))%bank.size()
+		stream=bank[variant]
+		sound_variants[name_]=variant+1
+	else:stream=bank
+	audio_events[name_]=int(audio_events.get(name_,0))+1
 	var voice: Node
 	if point==Vector3.INF:
 		voice=local_voices[local_cursor]; local_cursor=(local_cursor+1)%local_voices.size()
 	else:
 		voice=spatial_voices[spatial_cursor]; spatial_cursor=(spatial_cursor+1)%spatial_voices.size()
 		voice.global_position=point
-	voice.stop(); voice.stream=arena.sounds[name_]; voice.volume_db=volume; voice.pitch_scale=pitch; voice.play()
+	voice.stop(); voice.stream=stream; voice.volume_db=volume; voice.pitch_scale=pitch; voice.play()
 
 func stop_audio() -> void:
 	for voice in local_voices+spatial_voices:

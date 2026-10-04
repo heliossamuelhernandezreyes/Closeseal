@@ -34,7 +34,7 @@ func run() -> void:
 	player.position=start
 	var record: Dictionary={"version":1,"scope":"godot-native-controlled-motion","engine":Engine.get_version_info(),
 		"source_hashes":{},"cadence":[],"contacts":[],"grips":[],
-		"visual_review":{"reviewer":"Codex engine/visual review","notes":"Rendered poses and fixed-step runtime sequence inspected. Cover feet stay separated and weapon grips remain aligned; movement timing improves. Remaining issues: narrow obstructions abruptly hide the body, pose/reload weight is still procedural, and sky/material cohesion needs further art work. Native contacts and synthetic recorder checks do not approve AAA finish or handset performance."}}
+		"visual_review":{"reviewer":"Codex engine/visual review","notes":"Matched 0.7/0.8 poses and the rendered runtime were inspected. Source rotations are adapted to project foot paths and rifle IK. Cover feet stay separated and grips remain aligned; nearby body and weapon materials now fade progressively. Pose weight, reload detail and sky/material cohesion still need art work. Native contacts and synthetic recorder checks do not approve AAA finish or handset performance."}}
 	for path in ["src/shooter/motion_profile.gd","src/shooter/ground_pose.gd","src/shooter/character_rig.gd","tools/shooter_bake_animations.gd","assets/shooter/serious/combat_motion.res"]:
 		record.source_hashes[path]=FileAccess.get_sha256("res://"+path)
 	for definition in [["walk",1.8,Vector3.FORWARD],["run",8.8,Vector3.FORWARD],
