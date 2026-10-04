@@ -201,6 +201,8 @@ func run() -> void:
 	file.close()
 	print("SLICE_ACCEPTANCE_RESULT "+JSON.stringify(report))
 	player.end_playtest()
+	OS.delay_msec(250)
+	await create_timer(0.1).timeout
 	arena.queue_free()
 	await frames(3)
 	quit(0 if failures.is_empty() else 1)
