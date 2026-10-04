@@ -1,0 +1,18 @@
+[gd_resource type="ArrayMesh" format=4]
+
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-000.tres" id="1_0pgbs"]
+
+[resource]
+lightmap_size_hint = Vector2i(38, 38)
+_surfaces = [{
+"aabb": AABB(29.3, 0, 76, 3.4000015, 3.1, 12),
+"attribute_data": PackedByteArray("NpRXPK+hfD82lFc8NpRXPA3ltT6voXw/DeW1PjaUVzyvoXw/r6F8P6+hfD82lFc8AABAPwdyXjwbyis/NpRXPNhQ3j44hnw/G8orP6+hfD8="),
+"format": 34359742503,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABwAIAAkA"),
+"material": ExtResource("1_0pgbs"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray("ZmbqQQrXozwAALBCZmbqQWZmRkAAAJhCzcwCQgrXozwAALBCzcwCQmZmRkAAAJhCZmbqQQrXozwAALBCZmbqQQAAAAAAAJhCZmbqQWZmRkAAAJhCzcwCQgrXozwAALBCzcwCQmZmRkAAAJhCzcwCQgAAAAAAAJhCREbqty9iuam6WjLItUccrUSlMsgoO67Nurnqt3BSZtFERuq3L2K5qQAAAID/f/+/uloyyLVHHK1EpTLIKDuuzbq56rdwUmbR//8AgP9//78=")
+}]

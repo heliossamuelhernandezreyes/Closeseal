@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/worn_corrugated_iron_diff.jpg" id="1_pcgoq"]
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/worn_corrugated_iron_nor_gl.jpg" id="2_ibcup"]
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/worn_corrugated_iron_rough.jpg" id="3_1e3u2"]
+
+[resource]
+albedo_color = Color(0.58, 0.3, 0.16, 1)
+albedo_texture = ExtResource("1_pcgoq")
+metallic = 0.35
+roughness = 0.8
+roughness_texture = ExtResource("3_1e3u2")
+normal_enabled = true
+normal_scale = 0.6
+normal_texture = ExtResource("2_ibcup")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+uv1_world_triplanar = true

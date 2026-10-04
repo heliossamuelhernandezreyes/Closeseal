@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/rough_concrete_diff.jpg" id="1_epcry"]
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/rough_concrete_nor_gl.jpg" id="2_2qb1p"]
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/rough_concrete_rough.jpg" id="3_8ylxl"]
+
+[resource]
+albedo_color = Color(0.53, 0.55, 0.52, 1)
+albedo_texture = ExtResource("1_epcry")
+roughness_texture = ExtResource("3_8ylxl")
+normal_enabled = true
+normal_scale = 0.4
+normal_texture = ExtResource("2_2qb1p")
+uv1_scale = Vector3(0.333, 0.333, 0.333)
+uv1_triplanar = true
+uv1_world_triplanar = true

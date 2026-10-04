@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.318 - Forward Mobile - Using Device #0: Unknown - llvmpipe (LLVM 20.1.2, 256 bits)
+
+NEXO_LIGHTMAP_EDITOR_BEGIN res://assets/shooter/sector07/sector_bake.tscn
+NEXO_LIGHTMAP_DATA_PATH res://assets/shooter/sector07/sector_bake.lmbake
+NEXO_LIGHTMAP_BUTTON [P: (744.0, 62.0), S: (100.0, 23.0)] false
+NEXO_LIGHTMAP_SELECTION /root/@EditorNode@19513/@Panel@14/@VBoxContainer@15/DockVSplitMain/DockHSplitMain/@VBoxContainer@37/DockVSplitCenter/@VSplitContainer@101/@VBoxContainer@102/@EditorMainScreen@160/MainScreen/@CanvasItemEditor@10138/@VSplitContainer@9897/@HSplitContainer@9899/@HSplitContainer@9901/@Control@9902/@SubViewportContainer@9903/@SubViewport@9904/SectorBake/SectorIndirectLight 1
+NEXO_LIGHTMAP_ACTION_CONNECTIONS [{ "signal": Button::[signal]pressed, "callable": LightmapGIEditorPlugin::_bake, "flags": 0 }]
+Done baking lightmaps in 00:01:24.87.
+NEXO_LIGHTMAP_ACTION_RETURN 1
+NEXO_LIGHTMAP_EDITOR_DONE {"mesh_binding_fields":1684,"probes":100,"textures":1}
+ERROR: Condition "p_I->data != this" is true. Returning: false
+   at: erase (./core/templates/list.h:228)
+ERROR: Can't use get_node() with absolute paths from outside the active scene tree.
+   at: get_node_or_null (scene/main/node.cpp:1910)

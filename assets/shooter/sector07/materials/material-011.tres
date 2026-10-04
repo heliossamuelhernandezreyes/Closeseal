@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_diff_1k.jpg" id="1_rsrb6"]
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_arm_1k.jpg" id="2_ch3gc"]
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/polyhaven/portable_welding_cart/textures/portable_welding_cart_nor_gl_1k.jpg" id="3_lgmgx"]
+
+[resource]
+resource_name = "portable_welding_cart_glass"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_rsrb6")
+metallic = 1.0
+metallic_texture = ExtResource("2_ch3gc")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_ch3gc")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_lgmgx")
+metadata/_gltf_primary_texture_coord = 0

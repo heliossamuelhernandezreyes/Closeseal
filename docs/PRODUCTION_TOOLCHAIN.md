@@ -37,3 +37,5 @@ Frame records specify warmup, resolution, engine, renderer, device and scenario.
 Retargeting requires an explicit one-to-one bone map and matching parent topology. Different body proportions still require contact and visual acceptance. External mesh simplification, automatic LOD creation, FBX conversion and texture recompression are not exercised by this integration.
 
 The 0.2 release adds controlled native TPS finish records through `production_toolchain.py finish`. Nexo owns `shooter_finish_acceptance.gd`, runtime clips and captures; Arcont owns the reusable validator/profile. See [SHOOTER_NEXO.md](SHOOTER_NEXO.md) for handset and visual limits.
+
+The 0.3 release adds hash-checked native scene bundles for portable mesh/material/lightmap inputs. Sector presentation authoring and the tested native editor bake adapter stay in Closeseal; see [SECTOR_PRESENTATION.md](SECTOR_PRESENTATION.md). Bake outputs keep a separate post-bake hash record.

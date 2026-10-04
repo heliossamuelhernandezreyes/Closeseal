@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "sector07_presentation",
+  "dependencies": {
+    "maps/nexo_combat_01.json": "61a30869db2d5c1e9ac182bf71e62824ddac43c50fc8f98a7f67f2e401941bce",
+    "src/shooter/sector_presentation.gd": "08c8468c256d64827c547b5e1549ec39d31f19b9bca918c362d5f2553314af5d",
+    "tools/shooter_sector_authoring.gd": "77e36258391dd0e98274b5888e900ffe733ae8663a6160afcbe020671561de43",
+    "assets/shooter/maintenance_paint.gdshader": "1a50be80f4818b01a8fed86ff7c0ae7fb3acf06caed8d8f3d7f1ce6ad01a1bec"
+  },
+  "steps": [
+    {
+      "op": "script",
+      "path": "res://tools/shooter_sector_authoring.gd",
+      "arguments": {
+        "texel_size": 0.32
+      }
+    },
+    {
+      "op": "save",
+      "target": "sector_scene",
+      "path": "sector_world.tscn"
+    },
+    {
+      "op": "save",
+      "target": "sector_bake",
+      "path": "sector_bake.tscn"
+    }
+  ]
+}

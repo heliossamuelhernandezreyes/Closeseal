@@ -5,6 +5,7 @@ const ENEMY = preload("res://src/shooter/enemy.gd")
 const HUD = preload("res://src/shooter/shooter_hud.gd")
 const METRICS = preload("res://src/shooter/runtime_metrics.gd")
 const EFFECTS = preload("res://src/shooter/combat_effects.gd")
+const PRESENTATION = preload("res://src/shooter/sector_presentation.gd")
 var contract: Dictionary
 var design: Dictionary
 var world: Node3D
@@ -41,10 +42,17 @@ func _ready() -> void:
 	rng.seed = 7326
 	contract = JSON.parse_string(FileAccess.get_file_as_string("res://maps/nexo_combat_01.json"))
 	design = contract.shooter_design
-	world = Node3D.new()
-	world.name = "AuthoredCombatMap"
-	add_child(world)
-	visual_stats = VISUALS.new(world, contract).build()
+	if ResourceLoader.exists("res://assets/shooter/sector07/sector_world.tscn"):
+		world=load("res://assets/shooter/sector07/sector_world.tscn").instantiate()
+		add_child(world)
+		assert(world.get_meta("canonical_sha256")==FileAccess.get_sha256("res://maps/nexo_combat_01.json"),"Rebuild the derived sector scene after changing its canonical map")
+		visual_stats=world.get_meta("visual_stats")
+		for path in world.get_meta("baked_replaced_paths",[]):world.get_node(path).hide()
+	else:
+		world = Node3D.new()
+		world.name = "AuthoredCombatMap"
+		add_child(world)
+		visual_stats = VISUALS.new(world, contract).build()
 	assert(visual_stats.errors.is_empty(), str(visual_stats.errors))
 	configure_presentation()
 	navigation = NavigationRegion3D.new()
@@ -267,30 +275,13 @@ func add_beacon_visual(node: Node3D, text: String, color: Color) -> void:
 	node.add_child(label)
 
 func configure_presentation() -> void:
-	var reflections: Node3D=load("res://assets/shooter/sector_lighting.tscn").instantiate()
-	world.add_child(reflections)
-	var environments := world.find_children("*", "WorldEnvironment", true, false)
-	if environments.size() > 0:
-		var environment: Environment = environments[0].environment
-		var sky := Sky.new()
-		var sky_material := PanoramaSkyMaterial.new()
-		sky_material.panorama = load("res://assets/shooter/serious/evening_road_01_puresky.hdr")
-		sky_material.energy_multiplier = 0.55
-		sky.sky_material = sky_material
-		environment.sky = sky
-		environment.background_mode = Environment.BG_SKY
-		environment.background_energy_multiplier = 0.4
-		environment.sky_rotation.y = 0.55
-		environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-		environment.ambient_light_color = Color("9bafbf")
-		environment.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
-		environment.ambient_light_energy = 0.85
-		environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-		environment.tonemap_exposure = 0.95
-	for sun in world.find_children("*", "DirectionalLight3D", true, false):
-		sun.directional_shadow_max_distance = 110
-		sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
+	if not world.has_meta("presentation_details"):
+		PRESENTATION.lighting(world)
+		world.set_meta("presentation_details",PRESENTATION.details(world))
+		var reflections: Node3D=load("res://assets/shooter/sector_lighting.tscn").instantiate()
+		world.add_child(reflections)
 	for definition in design.get("zone_labels", []):
+		if str(definition.get("id","")).begins_with("hero_"):continue
 		var label := Label3D.new()
 		label.text = definition.text
 		label.font_size = 64

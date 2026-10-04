@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "repository": "heliossamuelhernandezreyes/Arcont",
-  "commit": "6d6d567a419be52424e6939b7360e28a631e7369",
-  "release": "production-0.2.0",
+  "commit": "0c41e16874ae463ca9418dee5f16d7ba6732da91",
+  "release": "production-0.3.0",
   "manifest": "production-toolchain.json",
   "authoring_only": true,
   "engine_version": "4.7.2-stable",

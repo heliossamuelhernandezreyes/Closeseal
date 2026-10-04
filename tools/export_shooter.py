@@ -17,9 +17,9 @@ architectures/x86=false
 architectures/x86_64=false
 gradle_build/use_gradle_build=false
 package/unique_name="org.closeseal.nexo.preview"
-package/name="Nexo 0.6 — Preview"
-version/code=7
-version/name="0.6.0"
+package/name="Nexo 0.7 — Sector 07"
+version/code=8
+version/name="0.7.0"
 screen/immersive_mode=true
 permissions/internet=false'''),
         ("Web", "Web", "web_nothreads_release.zip", 'variant/thread_support=false\nprogressive_web_app/enabled=true\nhtml/canvas_resize_policy=2'),
@@ -34,7 +34,7 @@ platform="{platform}"
 runnable=true
 export_filter="all_resources"
 include_filter="maps/nexo_combat_01.json"
-exclude_filter="tools/*,authoring/*,assets/production_candidates/*,assets/urban/sources.lock.json,assets/shooter/sources.lock.json,assets/shooter/serious/factory_building.glb"
+exclude_filter="tools/*,authoring/*,assets/production_candidates/*,assets/urban/sources.lock.json,assets/shooter/sources.lock.json,assets/shooter/serious/factory_building.glb,assets/shooter/sector07/sector_bake.tscn,assets/shooter/sector07/*.json"
 export_path=""
 
 [preset.{index}.options]

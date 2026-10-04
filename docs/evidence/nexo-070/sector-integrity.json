@@ -1,0 +1,1 @@
+{"ok": true, "files": 400, "properties": {"mesh_binding_fields": 1684, "probes": 100, "textures": 1}, "errors": [], "limits": ["byte/import integrity; native runtime acceptance and device playtest remain separate", "native editor teardown diagnostics retained in bake-output.json"]}

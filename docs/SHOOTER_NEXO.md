@@ -1,4 +1,26 @@
-# Nexo Industrial 0.6.0 — third-person playable prototype
+# Nexo Industrial 0.7.0 — presentation and camera milestone
+
+0.7 keeps the playable 0.6 combat and traversal while improving camera continuity,
+action transitions and Sector 07 presentation. A 22 cm sphere clears the shoulder
+offset, including swaps. Camera obstruction retracts immediately and returns with
+damping. Native per-pixel distance fade affects nearby character surfaces while the
+rig remains present. Sub-centimetre locomotion sway is reduced further in ADS.
+Bounded Hermite position offsets and quaternion offsets bridge action changes before
+combat/contact IK; these are authored-clip transitions, not motion capture.
+
+The industrial palette combines a readable sky, cool fill and warm practical lights.
+Maintenance panels, restrained safety paint, conduits and machine feet add 39
+decorative meshes without adding collision. Arcont authors and relocates the derived
+scene with explicit input/output hashes. A native RenderingDevice editor bake produces
+UV2 lightmaps and actor probes; the shipped renderer remains Compatibility.
+The canonical map and its navigation ownership stay unchanged.
+
+Use the separate [presentation authoring guide](SECTOR_PRESENTATION.md) to rebuild
+the scene. This is an improvement milestone, not a claim that the prototype matches
+the art, animation, audio or content of a finished AAA shooter. Android frame pacing,
+thermal behaviour and touch comfort must be tested on the handset after export.
+
+## Previous 0.6 finish milestone
 
 This finish milestone follows the October 4 audit. It adds shared metre-based gait/cadence definitions, world-space foot contacts, a crouched run clip, asymmetrical cover stance and bounded acceleration/turn lean. Cover directions are selected in rig space, including bent firing. Eight controlled native motion cases validate signed cadence within 1.5%, foot-anchor drift within 3 cm and three-stance weapon grips within 4 cm. These are project targets, not an industry AAA certification.
 
