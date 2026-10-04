@@ -1,4 +1,4 @@
-# Nexo production preparation 0.1
+# Nexo production preparation 0.2
 
 Nexo consumes Arcont at authoring time. `arcont-production.lock.json` and the shooter workflow pin its exact revision; the shipped game has no Arcont runtime dependency. Shared validators and contracts stay in Arcont. This repository owns the native Godot adapter and production profiles.
 
@@ -35,3 +35,5 @@ Review scenes reference project resources and their run-local outputs; reopen th
 Frame records specify warmup, resolution, engine, renderer, device and scenario. Arcont reports mean/p50/p95/p99/max and rejects incompatible comparisons. Linux GL compatibility observations, often through a software renderer, do not establish Android FPS, thermals, GPU memory or touch latency. No Android-device acceptance is included in this release.
 
 Retargeting requires an explicit one-to-one bone map and matching parent topology. Different body proportions still require contact and visual acceptance. External mesh simplification, automatic LOD creation, FBX conversion and texture recompression are not exercised by this integration.
+
+The 0.2 release adds controlled native TPS finish records through `production_toolchain.py finish`. Nexo owns `shooter_finish_acceptance.gd`, runtime clips and captures; Arcont owns the reusable validator/profile. See [SHOOTER_NEXO.md](SHOOTER_NEXO.md) for handset and visual limits.

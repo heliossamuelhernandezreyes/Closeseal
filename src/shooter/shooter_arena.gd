@@ -4,6 +4,7 @@ const PLAYER = preload("res://src/shooter/player.gd")
 const ENEMY = preload("res://src/shooter/enemy.gd")
 const HUD = preload("res://src/shooter/shooter_hud.gd")
 const METRICS = preload("res://src/shooter/runtime_metrics.gd")
+const EFFECTS = preload("res://src/shooter/combat_effects.gd")
 var contract: Dictionary
 var design: Dictionary
 var world: Node3D
@@ -33,6 +34,7 @@ var visual_stats: Dictionary
 var mission_mode := "full"
 var metrics: Node
 var kill_marker := 0.0
+var effects: Node3D
 
 func _ready() -> void:
 	configure_input()
@@ -85,6 +87,7 @@ func _ready() -> void:
 		pickups.append(pickup)
 	for sound_name in ["shot", "hit", "reload", "secure", "step"]:
 		sounds[sound_name] = load("res://assets/shooter/audio/" + sound_name + ".wav")
+	effects=EFFECTS.new();effects.arena=self;add_child(effects)
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	hud = HUD.new()
@@ -164,6 +167,7 @@ func begin() -> void:
 	if not outcome.is_empty():
 		get_tree().reload_current_scene()
 		return
+	if not started: metrics.reset_session()
 	started = true
 	playing = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if hud.mobile else Input.MOUSE_MODE_CAPTURED
@@ -263,6 +267,8 @@ func add_beacon_visual(node: Node3D, text: String, color: Color) -> void:
 	node.add_child(label)
 
 func configure_presentation() -> void:
+	var reflections: Node3D=load("res://assets/shooter/sector_lighting.tscn").instantiate()
+	world.add_child(reflections)
 	var environments := world.find_children("*", "WorldEnvironment", true, false)
 	if environments.size() > 0:
 		var environment: Environment = environments[0].environment
@@ -278,7 +284,7 @@ func configure_presentation() -> void:
 		environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 		environment.ambient_light_color = Color("9bafbf")
 		environment.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
-		environment.ambient_light_energy = 0.75
+		environment.ambient_light_energy = 0.85
 		environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 		environment.tonemap_exposure = 0.95
 	for sun in world.find_children("*", "DirectionalLight3D", true, false):
@@ -296,33 +302,22 @@ func configure_presentation() -> void:
 		label.rotation.y = PI if definition.text.begins_with("NEXO") else 0
 
 func tracer(start: Vector3, end: Vector3, color: Color) -> void:
-	if effect_count > 40: return
-	var mesh := MeshInstance3D.new()
-	var immediate := ImmediateMesh.new()
-	immediate.surface_begin(Mesh.PRIMITIVE_LINES)
-	immediate.surface_add_vertex(start)
-	immediate.surface_add_vertex(end)
-	immediate.surface_end()
-	mesh.mesh = immediate
-	mesh.material_override = effect_material(color)
-	add_child(mesh)
-	effect_count += 1
-	get_tree().create_timer(0.07).timeout.connect(func(): mesh.queue_free(); effect_count -= 1)
+	effects.tracer(start,end,color==Color("ff8961"))
 
-func impact(position_value: Vector3, normal: Vector3) -> void:
-	if effect_count > 40: return
-	var spark := MeshInstance3D.new()
-	var sphere := SphereMesh.new()
-	sphere.radius = 0.045
-	sphere.height = 0.09
-	spark.mesh = sphere
-	spark.material_override = effect_material(Color("ffbf72"))
-	add_child(spark)
-	spark.global_position = position_value + normal * 0.035
-	effect_count += 1
-	var tween := create_tween()
-	tween.tween_property(spark, "scale", Vector3.ONE * 0.05, 0.2)
-	tween.tween_callback(func(): spark.queue_free(); effect_count -= 1)
+func impact(position_value: Vector3, normal: Vector3, surface := "concrete") -> void:
+	effects.impact(position_value,normal,surface)
+	effects.sound("hit",position_value,-25.0,1.3 if surface=="metal" else 0.72 if surface=="concrete" else 0.92)
+
+func surface_kind(collider: Object) -> String:
+	if not is_instance_valid(collider):return "concrete"
+	if collider.has_method("take_damage"):return "flesh"
+	var node := collider as Node
+	while node:
+		var name_: String=node.name.to_lower()
+		if "pipe" in name_ or "steel" in name_ or "rail" in name_ or "mezz" in name_ or "ramp" in name_ or "hangar" in name_:return "metal"
+		if "ground" in name_ or "yard" in name_ or "asphalt" in name_:return "ground"
+		node=node.get_parent()
+	return "concrete"
 
 func effect_material(color: Color) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
@@ -331,23 +326,9 @@ func effect_material(color: Color) -> StandardMaterial3D:
 	return material
 
 func sound(sound_name: String) -> void:
-	var speaker := AudioStreamPlayer.new()
-	speaker.stream = sounds[sound_name]
-	speaker.volume_db = -16 if sound_name == "shot" else -10
-	add_child(speaker)
-	speaker.finished.connect(speaker.queue_free)
-	speaker.play()
+	effects.sound(sound_name,Vector3.INF,-16.0 if sound_name=="shot" else -10.0)
 
-func sound_at(sound_name: String, point: Vector3) -> void:
-	var speaker := AudioStreamPlayer3D.new()
-	speaker.stream = sounds[sound_name]
-	speaker.volume_db = -9
-	speaker.unit_size = 10
-	speaker.max_distance = 70
-	speaker.pitch_scale = rng.randf_range(0.96, 1.04)
-	add_child(speaker)
-	speaker.global_position = point
-	speaker.finished.connect(speaker.queue_free)
-	speaker.play()
+func sound_at(sound_name: String, point: Vector3, volume := -9.0, pitch := 1.0) -> void:
+	effects.sound(sound_name,point,volume,pitch*rng.randf_range(0.97,1.03))
 
 static func vec(value: Array) -> Vector3: return Vector3(value[0], value[1], value[2])

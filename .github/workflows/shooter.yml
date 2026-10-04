@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 86fa0e7b97341205f9c3e42b6ecfe09efde4ca6b
+          ref: 6d6d567a419be52424e6939b7360e28a631e7369
           path: .arcont-tools
       - name: Install exact Godot
         run: |
@@ -50,7 +50,9 @@ jobs:
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_mobility_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-mobility.log
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_slice_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-slice.log
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_visual_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-visual.log
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log shooter-mobility.log shooter-slice.log shooter-visual.log; then exit 1; fi
+          xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_finish_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-finish.log
+          python .arcont-tools/tools/production_toolchain.py finish shooter-evidence/finish-record.json > shooter-evidence/arcont-finish-review.json
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log shooter-mobility.log shooter-slice.log shooter-visual.log shooter-finish.log; then exit 1; fi
           python -c 'import json; r=json.load(open("shooter-evidence/acceptance.json")); assert r["ok"],r["failures"]'
       - name: Replay real third-person player through ARCONT
         env:
@@ -90,6 +92,7 @@ jobs:
             shooter-mobility.log
             shooter-slice.log
             shooter-visual.log
+            shooter-finish.log
             shooter-evidence/
           include-hidden-files: true
           retention-days: 30

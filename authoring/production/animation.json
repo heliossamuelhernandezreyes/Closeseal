@@ -87,6 +87,7 @@
     "cover_peek_right",
     "crouch_idle",
     "crouch_walk",
+    "crouch_run",
     "slide",
     "vault",
     "jump",

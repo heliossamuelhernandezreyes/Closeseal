@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "edition": "Nexo Industrial 0.5.1 \u2014 Mobility and facade fixes",
-  "verified_at": "2026-10-03",
-  "arcont_commit": "86fa0e7b97341205f9c3e42b6ecfe09efde4ca6b",
+  "edition": "Nexo Industrial 0.6.0 \u2014 Motion, combat and mobile finish",
+  "verified_at": "2026-10-04",
+  "arcont_commit": "6d6d567a419be52424e6939b7360e28a631e7369",
   "license_policy": "CC0 for models, textures, sky and reload; attributed CC BY 3.0 for gunshot under stricter archive license. No NC assets.",
   "sources": [
     {
@@ -217,8 +217,8 @@
     },
     {
       "path": "assets/shooter/serious/combat_motion.res",
-      "sha256": "a2629b314bc5bf784407a506da6f42600269eeac20b428d31a6a7dd18fb68b30",
-      "size_bytes": 458661
+      "sha256": "249b89efc31d0c9e1881fcee4ad0440b1fcef1e21563e6cff883c5ed54958b52",
+      "size_bytes": 471664
     },
     {
       "path": "assets/shooter/serious/evening_road_01_puresky.hdr",

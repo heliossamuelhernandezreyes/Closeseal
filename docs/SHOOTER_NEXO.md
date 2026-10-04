@@ -1,4 +1,14 @@
-# Nexo Industrial 0.5.1 — third-person playable prototype
+# Nexo Industrial 0.6.0 — third-person playable prototype
+
+This finish milestone follows the October 4 audit. It adds shared metre-based gait/cadence definitions, world-space foot contacts, a crouched run clip, asymmetrical cover stance and bounded acceleration/turn lean. Cover directions are selected in rig space, including bent firing. Eight controlled native motion cases validate signed cadence within 1.5%, foot-anchor drift within 3 cm and three-stance weapon grips within 4 cm. These are project targets, not an industry AAA certification.
+
+Combat now uses bounded reusable effect and voice pools, distinct metal/concrete/flesh impact feedback, spatial contact-timed footsteps, mild horizontal recoil, actual posed-head damage checks and separate tactical/empty reload durations. The reticle projects the same accuracy cone used by the shot ray. All enemies use the hostile skin and lower their actual collision capsule while taking cover.
+
+The menu includes saved look/ADS sensitivity, opacity, button size and dragged HUD positions. Invalid overlaps and out-of-screen edits preserve the usable layout; the display safe area is respected. Two local native reflection volumes, authored through Arcont recipes, supplement the sky lighting. They are not baked GI.
+
+The reusable TPS mobile quality policy and validator live in [Arcont PR21](https://github.com/heliossamuelhernandezreyes/Arcont/pull/21). Native measurements, rendered runtime sequences and remaining visual limitations are preserved in [0.6 evidence](evidence/nexo-industrial-060.json).
+
+## Previous 0.5.1 fixes
 
 0.5.1 fixes the reported mobility and facade defects. Intentional unaimed
 movement into a nearby low obstacle automatically invokes the same collision
@@ -145,14 +155,14 @@ interaction, input release and matching positions within 1mm. Each replay
 completes 233 measured actor ticks and preserves the canonical map and accepted
 scene document. Audio voices are stopped and retired before teardown.
 
-The build pins Arcont commit `86fa0e7b97341205f9c3e42b6ecfe09efde4ca6b`:
-[production preparation, PR20](https://github.com/heliossamuelhernandezreyes/Arcont/pull/20).
+The build pins Arcont commit `6d6d567a419be52424e6939b7360e28a631e7369`, production preparation 0.2 with TPS finish review:
+[Arcont PR21](https://github.com/heliossamuelhernandezreyes/Arcont/pull/21).
 Kernel-backed locks prevent interrupted jobs from stranding the editor. A real
 SIGKILL recovery regression and concurrent-writer rejection pass on POSIX.
 The Windows byte-lock implementation still needs Windows CI.
 
 Local verification: 42 gameplay checks, 44 mobility/HUD checks, 24 sector checks and 4 visual
-regression checks in Godot,
+regression checks plus 31 controlled motion/mobile/recorder checks in Godot,
 21 game Python tests,
 6 canonical map validations, one physical profile, Map Forge control smoke,
 98 asset hashes and two reopened production-player replays. Rendered checkpoints
@@ -175,6 +185,8 @@ godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter
 godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter_mobility_acceptance.gd -- --captures=/tmp/nexo-evidence
 godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter_slice_acceptance.gd -- --captures=/tmp/nexo-evidence
 godot --path /tmp/nexo-shooter --audio-driver Dummy --script res://tools/shooter_visual_acceptance.gd -- --captures=/tmp/nexo-evidence
+godot --headless --path /tmp/nexo-shooter --script res://tools/shooter_finish_acceptance.gd -- --captures=/tmp/nexo-evidence
+python /path/to/arcont/tools/production_toolchain.py finish /tmp/nexo-evidence/finish-record.json
 GODOT_BIN=godot python tools/shooter_authoring_smoke.py --arcont /path/to/arcont --project /tmp/nexo-shooter
 python tools/export_shooter.py --stage /tmp/nexo-shooter --templates /path/to/4.7.2-stable/templates --engine /path/to/godot --output /tmp/Nexo.apk --platform Android
 ```
@@ -183,19 +195,32 @@ Android export uses the arm64 native template with landscape touch controls,
 offline permissions and debug signing; Java and Android SDK tools must be
 configured in Godot. Staging rejects unmanaged destinations and preserves the
 old build if preparation fails. A signed arm64 debug APK was exported locally
-with Godot 4.7.2, JDK 17 and Android build tools 35.0.1. Signature/ZIP alignment
+with Godot 4.7.2, JDK 17 and Android build tools 35.0.0. Signature/ZIP alignment
 checks validate packaging; installation and frame rate on a Poco remain untested.
-The APK package is `org.closeseal.nexo`, version 0.5.1 / code 6. This local
-build uses a different debug certificate from the previously delivered 0.5;
-uninstall that build before installing 0.5.1.
+The preview APK package is `org.closeseal.nexo.preview`, version 0.6.0 / code 7.
+It uses a new debug certificate and installs alongside previous Nexo packages;
+there is no need to remove the older build.
 
-F3 or the pause menu toggles an FPS/static-memory overlay. The actual running
-build records a bounded session (18,000 frame intervals, 600 one-second samples)
-and writes `user://nexo-performance-latest.json` on pause or mission completion.
-It identifies OS/model/renderer/resolution and computes p95 frame intervals.
-These include warmup; static memory is not total process or GPU memory. They do
-not establish thermal behavior or touch latency, and Linux observations are
-never labelled as Android device results.
+F3 or the pause menu toggles an FPS/static-memory overlay. Every active-play
+frame contributes to a 0.25 ms quantized distribution and 60-second p50/p95/p99
+windows. Actual wall-clock intervals are read from the monotonic clock rather
+than simulated delta. The most recent 10,800 raw intervals are a ring; up to
+60 completed minute windows and 3,600 one-second summaries are retained.
+Pause excludes inactive time; a new operation resets the session. Pause or
+mission completion saves `user://nexo-performance-latest.json`; COPIAR INFORME
+copies the compact session/device summary for handset feedback.
+
+The 20-minute slowdown regression injects 54,000 synthetic intervals. It verifies
+recorder retention and warm-tail detection, not a 20-minute Android benchmark.
+Static memory is not total process or GPU memory. No direct thermal, touch-latency
+or display refresh measurement is available. Test 15+ active minutes on the Poco
+X7 Pro, compare cold/warm windows and report control comfort separately.
+
+Rendered review still identifies limits: tight obstructions can abruptly hide
+the body through the existing camera safety rule; material/sky cohesion, pose
+weight and reload polish remain below the reference AAA finish. The reflection
+volumes need handset cost measurement, and impact surfaces currently use collider
+name heuristics rather than explicit authored physical material tags.
 
 This remains a single-player prototype. AAA art quality, handset frame rate,
 multiplayer, controller support and console packaging are not established by

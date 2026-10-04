@@ -18,12 +18,31 @@ var muted := Color("9fb4bf")
 var panel := Color(0.025, 0.045, 0.058, 0.68)
 var ui_scale := 1.0
 var ui_offset := Vector2.ZERO
+const PREFERENCES=preload("res://src/shooter/control_preferences.gd")
+var preferences=PREFERENCES.new()
+var settings_button: Button
+var copy_button: Button
+var settings: PopupPanel
+var hud_save: Button
+var hud_reset: Button
+var hud_editing := false
+var drag_action := ""
+var drag_index := -1
+var drag_offset := Vector2.ZERO
+var layout_message := "ARRASTRA LOS BOTONES · LOS CAMBIOS SE GUARDAN EN ESTE TELÉFONO"
+var selected_action := "fire"
+var safe_area_override := Rect2()
+const DEFAULT_BUTTONS={"fire": Rect2(48,244,92,92),"aim":Rect2(1082,244,92,92),
+	"reload":Rect2(1140,432,78,66),"cover":Rect2(1037,444,82,80),"stance":Rect2(938,461,80,72),
+	"jump":Rect2(1126,574,92,82),"interact":Rect2(1015,581,86,72),"shoulder":Rect2(1077,186,110,39),"pause":Rect2(1200,28,44,40)}
 const ACTIONS = ["fire", "aim", "reload", "jump", "interact", "cover", "stance", "shoulder", "pause"]
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	font = ThemeDB.fallback_font
+	preferences.load_saved()
+	preferences.validate_saved(DEFAULT_BUTTONS)
 	menu_button = Button.new()
 	menu_button.text = "INICIAR OPERACIÓN"
 	menu_button.add_theme_font_size_override("font_size", 21)
@@ -52,31 +71,87 @@ func _ready() -> void:
 	add_child(credits_button)
 	credits = PopupPanel.new()
 	add_child(credits)
+	var credit_content:=Control.new();credit_content.custom_minimum_size=Vector2(710,490);credits.add_child(credit_content)
 	var credit_text := RichTextLabel.new()
 	credit_text.position = Vector2(22, 20)
 	credit_text.size = Vector2(666, 390)
 	credit_text.add_theme_font_size_override("normal_font_size", 18)
-	credit_text.text = "NEXO INDUSTRIAL — 0.5 / SECTOR 07\n\nSoldado: Irondust — CC0\nopengameart.org/content/sci-fi-soldier\n\nAKM: LonesomeDucky — CC0\nopengameart.org/content/weathered-akm-rifle\n\nEntorno, materiales y cielo: Poly Haven — CC0\npolyhaven.com\n\nRecarga: SpringySpringo — CC0\nopengameart.org/content/gun-reload-sounds\n\nDisparo: Copyright (c) 2009 Vincent Sevedge (Tabasco)\nCC BY 3.0 — creativecommons.org/licenses/by/3.0/\nopengameart.org/content/gunshot-sounds\nFragmento SKS recortado, filtrado y convertido a mono.\n\nAnimación, mapa y otros efectos: Closeseal / Arcont.\nLicencias y procedencia completas incluidas en el proyecto."
-	credits.add_child(credit_text)
+	credit_text.text = "NEXO INDUSTRIAL — 0.6 / SECTOR 07\n\nSoldado: Irondust — CC0\nopengameart.org/content/sci-fi-soldier\n\nAKM: LonesomeDucky — CC0\nopengameart.org/content/weathered-akm-rifle\n\nEntorno, materiales y cielo: Poly Haven — CC0\npolyhaven.com\n\nRecarga: SpringySpringo — CC0\nopengameart.org/content/gun-reload-sounds\n\nDisparo: Copyright (c) 2009 Vincent Sevedge (Tabasco)\nCC BY 3.0 — creativecommons.org/licenses/by/3.0/\nopengameart.org/content/gunshot-sounds\nFragmento SKS recortado, filtrado y convertido a mono.\n\nAnimación, mapa y otros efectos: Closeseal / Arcont.\nLicencias y procedencia completas incluidas en el proyecto."
+	credit_content.add_child(credit_text)
 	var close_button := Button.new()
 	close_button.text = "CERRAR"
 	close_button.position = Vector2(490, 425)
 	close_button.size = Vector2(180, 48)
-	credits.add_child(close_button)
+	credit_content.add_child(close_button)
 	close_button.pressed.connect(credits.hide)
 	credits_button.pressed.connect(func(): credits.popup_centered(Vector2i(710, 490)))
+	build_settings()
 	update_menu()
+
+func build_settings() -> void:
+	settings_button=Button.new();settings_button.text="AJUSTES";add_child(settings_button)
+	settings_button.pressed.connect(func():settings.popup_centered(Vector2i(440,460)))
+	copy_button=Button.new();copy_button.text="COPIAR INFORME DE RENDIMIENTO";add_child(copy_button)
+	copy_button.pressed.connect(func():arena.metrics.copy_summary();copy_button.text="INFORME COPIADO")
+	settings=PopupPanel.new();add_child(settings)
+	var content:=Control.new();content.custom_minimum_size=Vector2(440,460);settings.add_child(content)
+	var title:=Label.new();title.text="CONTROLES · 4 DEDOS";title.position=Vector2(22,16);content.add_child(title)
+	var row:=0
+	for key in ["look_sensitivity","ads_sensitivity","opacity"]:
+		var label:=Label.new();label.text={"look_sensitivity":"Sensibilidad de mirada","ads_sensitivity":"Sensibilidad al apuntar","opacity":"Opacidad de botones"}[key]
+		label.position=Vector2(22,65+row*55);content.add_child(label)
+		var input:=SpinBox.new();input.position=Vector2(295,60+row*55);input.size=Vector2(115,36)
+		input.min_value=0.35 if key=="opacity" else 0.4;input.max_value=1.0 if key=="opacity" else 2.5;input.step=0.05
+		input.value=preferences.get(key);content.add_child(input);input.value_changed.connect(_setting_changed.bind(key));row+=1
+	var selector:=OptionButton.new();selector.position=Vector2(22,236);selector.size=Vector2(170,36)
+	for action in ACTIONS:selector.add_item({"fire":"FUEGO","aim":"MIRA","reload":"RECARGA","stance":"DESLIZAR","cover":"CUBRIR","jump":"SALTAR","interact":"USAR","shoulder":"HOMBRO","pause":"PAUSA"}[action])
+	content.add_child(selector);selector.item_selected.connect(func(index):selected_action=ACTIONS[index])
+	var grow:=Button.new();grow.text="+ TAMAÑO";grow.position=Vector2(200,236);grow.size=Vector2(100,36);content.add_child(grow)
+	grow.pressed.connect(func():resize_button(1.08))
+	var shrink:=Button.new();shrink.text="− TAMAÑO";shrink.position=Vector2(310,236);shrink.size=Vector2(100,36);content.add_child(shrink)
+	shrink.pressed.connect(func():resize_button(0.92))
+	var edit:=Button.new();edit.text="EDITAR POSICIONES DEL HUD";edit.position=Vector2(22,292);edit.size=Vector2(388,42);content.add_child(edit)
+	edit.pressed.connect(func():settings.hide();hud_editing=true;mobile=true;clear_touch();update_menu())
+	var done:=Button.new();done.text="GUARDAR Y CERRAR";done.position=Vector2(22,350);done.size=Vector2(388,42);content.add_child(done)
+	done.pressed.connect(func():preferences.save();settings.hide())
+	var note:=Label.new();note.text="Pausa para ajustar. El tamaño evita solapamientos.";note.position=Vector2(22,411);content.add_child(note)
+	hud_save=Button.new();hud_save.text="GUARDAR HUD";add_child(hud_save)
+	hud_save.pressed.connect(func():preferences.save();hud_editing=false;drag_action="";update_menu())
+	hud_reset=Button.new();hud_reset.text="RESTABLECER";add_child(hud_reset)
+	hud_reset.pressed.connect(func():preferences.layouts.clear();layout_message="POSICIONES RESTABLECIDAS · PULSA GUARDAR")
+
+func _setting_changed(value: float, key: String) -> void:
+	preferences.set(key,value)
+	preferences.save()
+
+func resize_button(factor: float) -> void:
+	var old: Rect2=design_button_rect(selected_action)
+	var dimensions:=old.size*factor
+	var accepted:=preferences.update_button(selected_action,Rect2(old.get_center()-dimensions*0.5,dimensions),DEFAULT_BUTTONS)
+	if accepted:preferences.save()
 
 func update_menu() -> void:
 	menu_button.visible = not arena.playing
 	credits_button.visible = not arena.playing
 	full_button.visible = not arena.started
 	metrics_button.visible = not arena.playing
+	settings_button.visible=not arena.playing and not hud_editing
+	copy_button.visible=not arena.playing and arena.started and not hud_editing
+	hud_save.visible=hud_editing;hud_reset.visible=hud_editing
+	if hud_editing:
+		menu_button.hide();credits_button.hide();full_button.hide();metrics_button.hide()
 	menu_button.text = "REINTENTAR OPERACIÓN" if not arena.outcome.is_empty() else "CONTINUAR" if arena.started else "INICIAR SECTOR 07"
 
 func update_layout() -> void:
-	ui_scale = minf(size.x / 1280.0, size.y / 720.0)
-	ui_offset = (size - Vector2(1280, 720) * ui_scale) * 0.5
+	var usable:=Rect2(Vector2.ZERO,size)
+	if safe_area_override.has_area():usable=safe_area_override
+	elif mobile and OS.get_name()=="Android":
+		var screen: Vector2=DisplayServer.screen_get_size()
+		var safe:=Rect2(DisplayServer.get_display_safe_area())
+		if safe.has_area() and screen.x>0 and screen.y>0:
+			var ratio:=size/screen;usable=Rect2(safe.position*ratio,safe.size*ratio)
+	ui_scale = minf(usable.size.x / 1280.0, usable.size.y / 720.0)
+	ui_offset = usable.position+(usable.size-Vector2(1280,720)*ui_scale)*0.5
 
 func _process(_delta: float) -> void:
 	update_layout()
@@ -88,6 +163,10 @@ func _process(_delta: float) -> void:
 	full_button.size = Vector2(185, 62) * ui_scale
 	metrics_button.position = ui_offset + Vector2(835, 594) * ui_scale
 	metrics_button.size = Vector2(170, 62) * ui_scale
+	settings_button.position=ui_offset+Vector2(1040,594)*ui_scale;settings_button.size=Vector2(180,62)*ui_scale
+	copy_button.position=ui_offset+Vector2(48,666)*ui_scale;copy_button.size=Vector2(380,32)*ui_scale
+	hud_save.position=ui_offset+Vector2(410,667)*ui_scale;hud_save.size=Vector2(210,40)*ui_scale
+	hud_reset.position=ui_offset+Vector2(640,667)*ui_scale;hud_reset.size=Vector2(210,40)*ui_scale
 	if is_instance_valid(arena.metrics): metrics_button.text = "OCULTAR FPS" if arena.metrics.enabled else "MOSTRAR FPS"
 	queue_redraw()
 
@@ -100,6 +179,11 @@ func _draw() -> void:
 	draw_set_transform(ui_offset, 0, Vector2.ONE * ui_scale)
 	var w := 1280.0
 	var h := 720.0
+	if hud_editing:
+		draw_rect(Rect2(0,0,w,h),Color(0.025,0.065,0.092,0.94))
+		label_centered(layout_message,Vector2(640,45),13,cyan)
+		draw_touch()
+		return
 	if not arena.playing:
 		draw_rect(Rect2(0, 0, w, h), Color(0.025, 0.065, 0.092, 0.92))
 		draw_rect(Rect2(48, 43, 42, 4), cyan)
@@ -117,7 +201,7 @@ func _draw() -> void:
 			label_at("Extiende la palanca: correr · CUBRIR: pegarse a una pared" if mobile else "R recargar   ·   E asegurar   ·   Espacio saltar", Vector2(48, 480), 18, muted)
 			label_at("DESLIZAR al correr · PASAR para saltar cobertura" if mobile else "Shift correr · Ctrl deslizar/agachar · C cubrir · Espacio pasar", Vector2(48, 510), 18, muted)
 		if w > 1000: draw_map(Vector2(w - 340, 170), 270)
-		label_at("NEXO 0.5.1   /   SECTOR 07", Vector2(48, h - 28), 13, muted)
+		label_at("NEXO 0.6.0   /   SECTOR 07", Vector2(48, h - 28), 13, muted)
 		return
 	var player = arena.player
 	var movement = player.mobility
@@ -137,7 +221,10 @@ func _draw() -> void:
 	var center := Vector2(w, h) * 0.5
 	var unavailable: bool = movement.state in ["vault", "slide", "corner", "transfer"] or (movement.state == "cover" and not movement.cover_low and not movement.peek)
 	var cross_color := Color("f47d68") if arena.kill_marker > 0 else Color("ffbd78") if arena.hit_marker > 0 else Color(ink, 0.4) if unavailable else ink
-	var spread := 5.0 if player.is_aiming() else 8.0 + minf(6, Vector2(player.velocity.x, player.velocity.z).length() * 0.6)
+	# Design-space projection of the same angular cone used by the shot ray.
+	var viewport_size := get_viewport_rect().size
+	var focal_pixels := (viewport_size.y if player.camera.keep_aspect == Camera3D.KEEP_HEIGHT else viewport_size.x) / (2.0*tan(deg_to_rad(player.camera.fov)*0.5))
+	var spread: float = tan(player.accuracy_angle())*focal_pixels/ui_scale
 	draw_circle(center, 1.7, cross_color)
 	if not unavailable:
 		for dir in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]: draw_line(center + dir * spread, center + dir * (spread + 6), cross_color, 1.6, true)
@@ -161,7 +248,7 @@ func _draw() -> void:
 	label_at("/ %03d" % player.reserve, ammo_origin + Vector2(67, 47), 16, muted)
 	if player.reload_remaining > 0:
 		label_at("RECARGA", ammo_origin + Vector2(133, 45), 10, cyan)
-		draw_rect(Rect2(ammo_origin + Vector2(12, 55), Vector2(176 * (1.0 - player.reload_remaining / 1.6), 3)), cyan)
+		draw_rect(Rect2(ammo_origin + Vector2(12, 55), Vector2(176 * (1.0 - player.reload_remaining / player.reload_duration), 3)), cyan)
 	var mode: String = {"free": "AGACHADO" if movement.capsule_height < 1.8 else "CORRIENDO" if Vector2(player.velocity.x, player.velocity.z).length() > 6 else "", "cover": "ASOMADO" if movement.peek else "EN COBERTURA", "vault": "PASANDO COBERTURA", "slide": "DESLIZANDO", "corner": "GIRANDO ESQUINA", "transfer": "CAMBIANDO COBERTURA"}[movement.state]
 	if not mode.is_empty(): label_centered(mode, Vector2(640, 580), 12, cyan)
 	if movement.state == "cover": label_centered("MIRA PARA ASOMARTE  ·  SALTO PARA PASAR" if movement.cover_low else "MUÉVETE AL BORDE PARA ASOMARTE", Vector2(640, 603), 11, muted)
@@ -227,11 +314,7 @@ func draw_map(origin: Vector2, extent: float) -> void:
 	draw_rect(Rect2(origin, Vector2.ONE * extent), Color("51748a"), false, 1)
 
 func design_button_rect(action: String) -> Rect2:
-	var positions := {"fire": Rect2(48, 244, 92, 92), "aim": Rect2(1082, 244, 92, 92),
-		"reload": Rect2(1140, 432, 78, 66), "cover": Rect2(1037, 444, 82, 80),
-		"stance": Rect2(938, 461, 80, 72), "jump": Rect2(1126, 574, 92, 82),
-		"interact": Rect2(1015, 581, 86, 72), "shoulder": Rect2(1077, 186, 110, 39), "pause": Rect2(1200, 28, 44, 40)}
-	return positions[action]
+	return preferences.rect(action,DEFAULT_BUTTONS)
 
 func button_rect(action: String) -> Rect2:
 	update_layout()
@@ -255,10 +338,10 @@ func draw_touch() -> void:
 		var rect := design_button_rect(action)
 		var pressed: bool = action in touch_buttons.values()
 		var available: bool = action != "cover" or arena.player.mobility.state == "cover" or not arena.player.mobility.candidate.is_empty()
-		var color := cyan if pressed else ink if available else muted
+		var color := Color(cyan if pressed else ink if available else muted,preferences.opacity)
 		if action in ["fire", "aim", "cover", "jump"]:
-			draw_circle(rect.get_center(), minf(rect.size.x, rect.size.y) * 0.5, Color(0.025, 0.05, 0.07, 0.42))
-			draw_arc(rect.get_center(), minf(rect.size.x, rect.size.y) * 0.5, 0, TAU, 48, Color(color, 0.8 if pressed else 0.5), 2 if pressed else 1.2, true)
+			draw_circle(rect.get_center(), minf(rect.size.x, rect.size.y) * 0.5, Color(0.025, 0.05, 0.07, 0.42*preferences.opacity))
+			draw_arc(rect.get_center(), minf(rect.size.x, rect.size.y) * 0.5, 0, TAU, 48, Color(color, (0.8 if pressed else 0.5)*preferences.opacity), 2 if pressed else 1.2, true)
 		else:
 			draw_style_box(card(), rect)
 			if pressed: draw_rect(rect, cyan, false, 2)
@@ -271,6 +354,16 @@ func clear_touch() -> void:
 	arena.player.clear_input()
 
 func _input(event: InputEvent) -> void:
+	if hud_editing:
+		if event is InputEventScreenTouch:
+			if event.pressed:begin_hud_drag(event.position,event.index)
+			elif event.index==drag_index:drag_action="";drag_index=-1
+		elif event is InputEventScreenDrag and event.index==drag_index:move_hud_button(event.position)
+		elif event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT:
+			if event.pressed:begin_hud_drag(event.position,-2)
+			else:drag_action="";drag_index=-1
+		elif event is InputEventMouseMotion and drag_index==-2:move_hud_button(event.position)
+		return
 	if event is InputEventScreenTouch:
 		mobile = true
 		if not event.pressed:
@@ -286,8 +379,8 @@ func _input(event: InputEvent) -> void:
 				touch_buttons.erase(event.index)
 			return
 		if not arena.playing:
-			if menu_button.get_rect().has_point(event.position):
-				arena.begin()
+			if menu_button.get_rect().has_point(event.position) and not settings.visible:
+				arena.begin_slice()
 				get_viewport().set_input_as_handled()
 			return
 		for action in ACTIONS:
@@ -306,6 +399,7 @@ func _input(event: InputEvent) -> void:
 						arena.playing = false
 						clear_touch()
 						update_menu()
+						arena.metrics.save_session()
 				get_viewport().set_input_as_handled()
 				return
 		if event.position.x < size.x * 0.4 and event.position.y > size.y * 0.4 and stick_index < 0:
@@ -322,5 +416,18 @@ func _input(event: InputEvent) -> void:
 			stick_point = stick_origin + offset
 			arena.player.touch_move = offset / radius
 			arena.player.touch_sprint = offset.length() > radius * 0.92 and offset.y < -radius * 0.65
-		elif event.index == look_index: arena.player.look(event.relative * (0.95 if arena.player.is_aiming() else 1.45) / ui_scale)
+		elif event.index == look_index: arena.player.look(event.relative * (0.95*preferences.ads_sensitivity if arena.player.is_aiming() else 1.45*preferences.look_sensitivity) / ui_scale)
 		get_viewport().set_input_as_handled()
+
+func begin_hud_drag(point: Vector2, index: int) -> void:
+	for action in ACTIONS:
+		if button_rect(action).has_point(point):
+			drag_action=action;drag_index=index;drag_offset=(point-ui_offset)/ui_scale-design_button_rect(action).position
+			return
+
+func move_hud_button(point: Vector2) -> void:
+	if drag_action.is_empty():return
+	var rect:=design_button_rect(drag_action)
+	rect.position=(point-ui_offset)/ui_scale-drag_offset
+	var accepted:=preferences.update_button(drag_action,rect,DEFAULT_BUTTONS)
+	layout_message="POSICIÓN ACTUALIZADA · PULSA GUARDAR" if accepted else "MANTÉN EL BOTÓN DENTRO DE LA PANTALLA Y SIN SOLAPAMIENTOS"

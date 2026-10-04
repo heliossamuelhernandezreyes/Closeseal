@@ -212,7 +212,7 @@ func run() -> void:
 	player.start_reload()
 	player.shoot()
 	check("reload_prevents_shots", player.ammo == 0 and player.reload_remaining > 0)
-	await frames(100)
+	await frames(130)
 	check("reload_conserves_ammo", player.ammo == 5 and player.reserve == 0)
 	var animated: Node3D = arena.enemies[1].rig
 	animated.set_motion(0.0)
@@ -323,6 +323,7 @@ func run() -> void:
 	output.store_string(JSON.stringify(report, "  "))
 	output.close()
 	print("SHOOTER_ACCEPTANCE_RESULT " + JSON.stringify(report))
+	arena.effects.stop_audio()
 	for speaker in arena.get_children():
 		if speaker is AudioStreamPlayer or speaker is AudioStreamPlayer3D:
 			speaker.stop()

@@ -17,6 +17,7 @@ var ammo := MAGAZINE
 var reserve := 180
 var health := 100.0
 var reload_remaining := 0.0
+var reload_duration := 1.6
 var shot_cooldown := 0.0
 var hurt_time := 0.0
 var fire_held := false
@@ -32,6 +33,8 @@ var playtest_ticks := 0
 var playtest_interactions := 0
 signal playtest_tick(snapshot: Dictionary)
 var recoil := 0.0
+var recoil_yaw := 0.0
+var shot_sequence := 0
 var step_phase := 0.0
 var step_distance := 0.0
 var last_hit: Dictionary = {}
@@ -53,6 +56,7 @@ func _ready() -> void:
 	rig = load("res://src/shooter/character_rig.gd").new()
 	rig.name = "Character"
 	add_child(rig)
+	rig.ground_contact.foot_planted.connect(_footstep)
 	gun = rig.weapon
 	muzzle = rig.muzzle
 	camera_pivot = Node3D.new()
@@ -151,6 +155,7 @@ func _physics_process(delta: float) -> void:
 	rig.vault_hand_target = mobility.vault_hand
 	camera_pivot.position.y = lerpf(camera_pivot.position.y, 1.55 - mobility.crouch_weight * 0.50, minf(1, delta * 14))
 	camera_pivot.rotation.x = look_pitch + recoil * 0.025
+	camera_pivot.rotation.y = recoil_yaw
 	var shoulder_target := camera_pivot.to_global(Vector3(0.62 * shoulder, 0, 0))
 	var lateral_hit := ray(camera_pivot.global_position, shoulder_target)
 	var lateral_distance := 0.62
@@ -164,11 +169,6 @@ func _physics_process(delta: float) -> void:
 	rig.aim_target = aim_point()
 	rig.target_enabled = is_aiming() or fire_held or Input.is_action_pressed("fire") or shot_cooldown > 0.0
 	if (Input.is_action_pressed("fire") or fire_held) and shot_cooldown == 0.0: shoot()
-	if is_on_floor():
-		step_distance += Vector2(global_position.x - previous.x, global_position.z - previous.z).length()
-		if step_distance > (1.6 if sprint else 1.1):
-			step_distance = 0
-			arena.sound("step")
 	if hurt_time == 0.0: health = minf(100.0, health + delta * 6)
 	if global_position.y < -10: take_damage(100)
 	if playtest_active:
@@ -178,6 +178,7 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	if not is_instance_valid(camera): return
 	recoil = move_toward(recoil, 0.0, delta * 5.0)
+	recoil_yaw = move_toward(recoil_yaw,0.0,delta*0.06)
 	step_phase += delta * Vector2(velocity.x, velocity.z).length() * 1.8
 	var fast := Vector2(velocity.x, velocity.z).length() > 6.0
 	camera.fov = lerpf(camera.fov, 52.0 if is_aiming() else 73.0 if fast else 65.0, minf(1.0, delta * 10))
@@ -187,10 +188,16 @@ func _process(delta: float) -> void:
 
 func is_aiming() -> bool: return aim_held or Input.is_action_pressed("aim")
 
+func _footstep(_side: int, point: Vector3, collider: Object) -> void:
+	if not arena.playing: return
+	var surface: String = arena.surface_kind(collider)
+	arena.sound_at("step",point,-18.0,0.84 if surface=="metal" else 1.12 if surface=="ground" else 1.0)
+
 func start_reload() -> bool:
 	if reload_remaining > 0.0 or ammo >= MAGAZINE or reserve <= 0: return false
-	reload_remaining = 1.6
-	rig.reload()
+	reload_duration=1.95 if ammo==0 else 1.6
+	reload_remaining = reload_duration
+	rig.reload(ammo==0)
 	arena.sound("reload")
 	return true
 
@@ -203,10 +210,16 @@ func shoot() -> Dictionary:
 	ammo -= 1
 	shot_cooldown = FIRE_INTERVAL
 	recoil = minf(recoil + 0.6, 1.4)
-	rig.rotation.y = 0.0
+	shot_sequence += 1
+	recoil_yaw = clampf(recoil_yaw+sin(float(shot_sequence)*1.7)*0.004,-0.012,0.012)
 	rig.fire()
 	var origin := camera.global_position
-	var end := aim_point()
+	var radius := tan(accuracy_angle()) * sqrt(arena.rng.randf())
+	var angle: float = arena.rng.randf() * TAU
+	var direction := (-camera.global_basis.z + camera.global_basis.x * cos(angle) * radius + camera.global_basis.y * sin(angle) * radius).normalized()
+	var end := origin + direction * 180.0
+	var sight := ray(origin,end)
+	if not sight.is_empty():end=sight.position
 	gun.look_at(end, Vector3.UP)
 	# Check the whole barrel: its tip can extend through a wall while the capsule
 	# remains outside. Then resolve the shot from the actual muzzle to the reticle.
@@ -216,11 +229,11 @@ func shoot() -> Dictionary:
 		end = last_hit.position
 		var victim: Node = last_hit.collider
 		if victim.has_method("take_damage"):
-			var headshot: bool = end.y > victim.global_position.y + 1.68
-			victim.take_damage(60.0 if headshot else 34.0)
+			var multiplier: float=victim.damage_multiplier(end) if victim.has_method("damage_multiplier") else 1.0
+			victim.take_damage(34.0*multiplier)
 			arena.hit_marker = 0.18
 			arena.sound("hit")
-		arena.impact(end, last_hit.normal)
+		arena.impact(end, last_hit.normal, arena.surface_kind(victim))
 	arena.tracer(muzzle.global_position, end, Color("ffda7d"))
 	arena.sound("shot")
 	return last_hit
@@ -234,6 +247,13 @@ func aim_point() -> Vector3:
 	var end := origin - camera.global_basis.z * 180.0
 	var sight := ray(origin, end)
 	return sight.position if not sight.is_empty() else end
+
+func accuracy_angle() -> float:
+	var speed := Vector2(velocity.x,velocity.z).length()
+	var degrees := 0.10 + speed*0.025 if is_aiming() else 0.28 + speed*0.065
+	degrees += recoil * 0.12
+	if mobility.crouch_weight>0.5:degrees*=0.8
+	return deg_to_rad(degrees)
 
 func take_damage(amount: float, source := Vector3.ZERO) -> void:
 	if not arena.playing: return
@@ -268,6 +288,7 @@ func end_playtest() -> void:
 	playtest_active = false
 	clear_input()
 	arena.playing = false
+	arena.effects.stop_audio()
 	for speaker in arena.get_children():
 		if speaker is AudioStreamPlayer or speaker is AudioStreamPlayer3D:
 			speaker.stop()

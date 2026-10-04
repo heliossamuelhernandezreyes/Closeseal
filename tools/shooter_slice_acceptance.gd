@@ -130,6 +130,8 @@ func run() -> void:
 	check("slice_routes_baked_and_reachable",paths.all(func(p):return p.reaches),paths)
 	# Start the new operation from the actual menu entry on a fresh scene.
 	player.end_playtest()
+	OS.delay_msec(250)
+	await create_timer(0.1).timeout
 	arena.queue_free()
 	await frames(3)
 	arena = load("res://src/shooter/shooter_arena.tscn").instantiate()
@@ -199,6 +201,8 @@ func run() -> void:
 	file.close()
 	print("SLICE_ACCEPTANCE_RESULT "+JSON.stringify(report))
 	player.end_playtest()
+	OS.delay_msec(250)
+	await create_timer(0.1).timeout
 	arena.queue_free()
 	await frames(3)
 	quit(0 if failures.is_empty() else 1)
