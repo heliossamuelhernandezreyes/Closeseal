@@ -1,6 +1,7 @@
 extends Node3D
 const POSE = preload("res://src/shooter/combat_pose.gd")
 const GROUND_POSE = preload("res://src/shooter/ground_pose.gd")
+const MOTION = preload("res://src/shooter/motion_profile.gd")
 var skeleton: Skeleton3D
 var animation: AnimationPlayer
 var tree: AnimationTree
@@ -12,6 +13,8 @@ var magazine: MeshInstance3D
 var magazine_rest := Transform3D.IDENTITY
 var death_time := 0.0
 var reload_time := 0.0
+var reload_duration := 1.6
+var reload_empty := false
 var recoil := 0.0
 var motion_speed := 0.0
 var motion_blend := 0.0
@@ -30,6 +33,10 @@ var action_phase := 0.0
 var action_weight := 0.0
 var current_action := ""
 var vault_hand_target := Vector3.ZERO
+var turn_lean := 0.0
+var previous_yaw := 0.0
+var acceleration_lean := 0.0
+var previous_speed := 0.0
 
 func _ready() -> void:
 	var model: Node3D = load("res://assets/shooter/serious/soldier.glb").instantiate()
@@ -119,7 +126,10 @@ func set_motion(speed: float, in_air := false, direction := Vector2(0, -1)) -> v
 	clip = "run" if speed > 2.6 else "walk" if speed > 0.2 else "idle"
 
 func fire() -> void: recoil = 1.0
-func reload() -> void: reload_time = 1.6
+func reload(empty := false) -> void:
+	reload_empty=empty
+	reload_duration=1.95 if empty else 1.6
+	reload_time=reload_duration
 func hit() -> void: hit_weight = 1.0
 func die() -> void:
 	death_time = 0.001
@@ -135,13 +145,19 @@ func _process(delta: float) -> void:
 		weapon.visible = death_time < 0.55
 		return
 	motion_blend = move_toward(motion_blend, motion_speed, delta * 12)
+	var yaw_rate := angle_difference(previous_yaw, global_rotation.y) / maxf(delta, 0.001)
+	previous_yaw = global_rotation.y
+	turn_lean = lerpf(turn_lean, clampf(-yaw_rate * motion_speed * 0.004, -0.075, 0.075), 1.0-exp(-delta*12))
+	var acceleration := (motion_speed-previous_speed) / maxf(delta, 0.001)
+	previous_speed = motion_speed
+	acceleration_lean = lerpf(acceleration_lean, clampf(acceleration * 0.003, -0.055, 0.065), 1.0-exp(-delta*10))
 	var magnitude := minf(motion_blend / 1.8, 1.0) if motion_blend < 1.8 else 1.0 + clampf((motion_blend - 4.3) / 2.9, 0, 1)
 	var direction := motion_direction
 	# Sprint is forward; aiming uses the directional walk clips.
 	if direction.y > -0.8: magnitude = minf(magnitude, 1.0)
 	tree.set("parameters/Gait/blend_position", direction * magnitude if not airborne else Vector2.ZERO)
-	var gait_speed := lerpf(1.83, 3.81, maxf(0, magnitude - 1))
-	tree.set("parameters/Cadence/scale", clampf(motion_speed / gait_speed, 0.65, 2.6) if motion_speed > 0.2 else 1.0)
+	var gait_speed := lerpf(MOTION.nominal_speed("walk"), MOTION.nominal_speed("run"), maxf(0, magnitude - 1))
+	tree.set("parameters/Cadence/scale", clampf(motion_speed / gait_speed, 0.65, 3.2) if motion_speed > 0.2 else 1.0)
 	if not action_pose.is_empty() and action_pose != current_action:
 		var action: AnimationNodeAnimation = tree.tree_root.get_node("ActionClip")
 		action.animation = action_pose
@@ -151,10 +167,10 @@ func _process(delta: float) -> void:
 	if action_pose in ["vault", "slide", "cover_enter"]:
 		tree.set("parameters/ActionTime/seek_request", action_phase * animation.get_animation(action_pose).length)
 	var strafing := action_pose in ["cover_left", "cover_right", "cover_peek_left", "cover_peek_right"]
-	tree.set("parameters/ActionCadence/scale", clampf(motion_speed / (0.78 if cover_peeking else 1.37 if strafing else 1.22), 0.7, 2.7) if strafing or action_pose == "crouch_walk" else 1.0)
+	tree.set("parameters/ActionCadence/scale", clampf(motion_speed / MOTION.nominal_speed(action_pose), 0.35, 3.2) if strafing or action_pose in ["crouch_walk", "crouch_run"] else 1.0)
 	action_weight = lerpf(action_weight, 0.0 if action_pose.is_empty() else 1.0, 1.0 - exp(-delta * 18))
 	tree.set("parameters/ActionBlend/blend_amount", action_weight)
-	var phase := 1.0 - reload_time / 1.6
+	var phase := 1.0 - reload_time / reload_duration
 	var reload_curve := sin(phase * PI) if reload_time > 0 else 0.0
 	weapon.position = Vector3(0.14, 1.42 - stance_weight * 0.52, -0.42 + recoil * 0.04)
 	if cover_peeking: weapon.position.y += 0.17

@@ -19,6 +19,9 @@ var cover_time := 0.0
 var cover_target := Vector3.ZERO
 var state := "patrol"
 var flank_time := 0.0
+var body_shape: CollisionShape3D
+var cover_crouched := false
+var cover_exposed := false
 
 func _ready() -> void:
 	collision_layer = 4
@@ -31,8 +34,9 @@ func _ready() -> void:
 	shape.shape = capsule
 	shape.position.y = 0.925
 	add_child(shape)
+	body_shape=shape
 	rig = RIG.new()
-	rig.skin_name = "hostile" if seed_index % 3 else "military"
+	rig.skin_name = "hostile"
 	add_child(rig)
 	agent = NavigationAgent3D.new()
 	agent.path_desired_distance = 0.7
@@ -47,6 +51,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if dead or not arena.playing: return
 	var player: CharacterBody3D = arena.player
+	var arrived := cover_time>0 and global_position.distance_to(cover_target)<1.2
+	cover_exposed=arrived and fposmod(arena.elapsed+float(seed_index)*0.37,2.2)>1.15
+	cover_crouched=arrived and not cover_exposed
+	body_shape.shape.height=1.06 if cover_crouched else 1.50 if cover_exposed else 1.85
+	body_shape.position.y=body_shape.shape.height*0.5
+	rig.action_pose="cover_idle" if cover_crouched else "cover_peek_idle" if cover_exposed else ""
+	rig.cover_peeking=cover_exposed
+	rig.stance_weight=1.0 if cover_crouched else 0.443 if cover_exposed else 0.0
 	var distance := global_position.distance_to(player.global_position)
 	var sees := distance < 46.0 and line_of_sight()
 	if sees:
@@ -105,7 +117,8 @@ func _physics_process(delta: float) -> void:
 		fire_at_player()
 
 func line_of_sight() -> bool:
-	var query := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP * 1.4,
+	var eye := 0.86 if cover_crouched else 1.4
+	var query := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP * eye,
 		arena.player.target_point(), 1 | 2, [get_rid()])
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	return not hit.is_empty() and hit.collider == arena.player
@@ -124,7 +137,7 @@ func fire_at_player() -> void:
 	if not hit.is_empty():
 		endpoint = hit.position
 		if hit.collider == arena.player: arena.player.take_damage(6.0, origin)
-		arena.impact(endpoint, hit.normal)
+		arena.impact(endpoint, hit.normal, arena.surface_kind(hit.collider))
 	arena.tracer(origin, endpoint, Color("ff8961"))
 	shots += 1
 	if shots % 8 == 0:
@@ -147,6 +160,11 @@ func take_damage(amount: float) -> void:
 		rig.die()
 		arena.kills += 1
 		arena.kill_marker = 0.3
+
+func damage_multiplier(point: Vector3) -> float:
+	var head: int = rig.skeleton.find_bone("head")
+	var centre: Vector3=rig.skeleton.to_global(rig.skeleton.get_bone_global_pose(head).origin)
+	return 60.0/34.0 if point.distance_to(centre)<0.24 else 1.0
 
 func seek_cover() -> void:
 	var best_distance := 18.0

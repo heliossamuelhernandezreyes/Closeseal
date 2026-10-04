@@ -408,7 +408,7 @@ func tick(delta: float, direction: Vector3, sprint: bool, aiming: bool) -> bool:
 
 func pose_name() -> String:
 	if state == "corner": return "cover_left" if cover_low else "walk"
-	if state == "transfer": return "crouch_walk" if cover_low else "run"
+	if state == "transfer": return "crouch_run" if cover_low else "run"
 	if state == "vault" or state == "slide": return state
 	if state == "cover":
 		if cover_enter > 0: return "cover_enter" if cover_low else "cover_high"
@@ -418,7 +418,7 @@ func pose_name() -> String:
 		if peek: return ""
 		if not cover_low: return "" if Vector2(actor.velocity.x, actor.velocity.z).length() > 0.3 else "cover_high"
 		if Vector2(actor.velocity.x, actor.velocity.z).length() < 0.3: return "cover_idle"
-		return "cover_left" if (cover_normal.cross(Vector3.UP)).dot(actor.velocity) > 0 else "cover_right"
+		return "cover_left" if actor.rig.global_basis.x.dot(actor.velocity) < 0 else "cover_right"
 	if not actor.is_on_floor(): return "jump"
 	if landed > 0: return "land"
 	if capsule_height < 1.8: return "crouch_walk" if Vector2(actor.velocity.x, actor.velocity.z).length() > 0.2 else "crouch_idle"

@@ -16,10 +16,10 @@ architectures/arm64-v8a=true
 architectures/x86=false
 architectures/x86_64=false
 gradle_build/use_gradle_build=false
-package/unique_name="org.closeseal.nexo"
-package/name="Nexo — Closeseal"
-version/code=6
-version/name="0.5.1"
+package/unique_name="org.closeseal.nexo.preview"
+package/name="Nexo 0.6 — Preview"
+version/code=7
+version/name="0.6.0"
 screen/immersive_mode=true
 permissions/internet=false'''),
         ("Web", "Web", "web_nothreads_release.zip", 'variant/thread_support=false\nprogressive_web_app/enabled=true\nhtml/canvas_resize_policy=2'),

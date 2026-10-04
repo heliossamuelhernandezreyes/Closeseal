@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[node name="SectorPresentation" type="Node3D" unique_id=1368260321]
+
+[node name="CourtyardReflection" type="ReflectionProbe" parent="." unique_id=1844225670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 84)
+intensity = 0.55
+max_distance = 50.0
+size = Vector3(34, 10, 48)
+box_projection = true
+
+[node name="WorkshopReflection" type="ReflectionProbe" parent="." unique_id=1720608650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.2, 80)
+intensity = 0.75
+max_distance = 35.0
+size = Vector3(22, 7.2, 28)
+box_projection = true

@@ -1,0 +1,159 @@
+{
+  "ok": true,
+  "revision": "9399b5c94325fb6143c440aaba1083b1d043785b6c1adf4cf68b66a7563a23fb",
+  "recipe": {
+    "version": 1,
+    "id": "nexo_sector_lighting",
+    "description": "Native local reflection volumes for Sector 07, kept separate from the canonical map.",
+    "steps": [
+      {
+        "op": "new",
+        "id": "presentation",
+        "class": "Node3D",
+        "name": "SectorPresentation"
+      },
+      {
+        "op": "new",
+        "id": "courtyard_probe",
+        "class": "ReflectionProbe",
+        "name": "CourtyardReflection",
+        "parent": "presentation",
+        "properties": {
+          "position": {
+            "$type": "Vector3",
+            "value": [
+              0,
+              4,
+              84
+            ]
+          },
+          "size": {
+            "$type": "Vector3",
+            "value": [
+              34,
+              10,
+              48
+            ]
+          },
+          "intensity": 0.55,
+          "box_projection": true,
+          "max_distance": 50.0
+        }
+      },
+      {
+        "op": "new",
+        "id": "workshop_probe",
+        "class": "ReflectionProbe",
+        "name": "WorkshopReflection",
+        "parent": "presentation",
+        "properties": {
+          "position": {
+            "$type": "Vector3",
+            "value": [
+              24,
+              3.2,
+              80
+            ]
+          },
+          "size": {
+            "$type": "Vector3",
+            "value": [
+              22,
+              7.2,
+              28
+            ]
+          },
+          "intensity": 0.75,
+          "box_projection": true,
+          "max_distance": 35.0
+        }
+      },
+      {
+        "op": "attach",
+        "target": "presentation"
+      },
+      {
+        "op": "save",
+        "target": "presentation",
+        "path": "scenes/nexo_sector_lighting.tscn"
+      }
+    ]
+  },
+  "result": {
+    "engine": {
+      "build": "official",
+      "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "hex": 263938,
+      "major": 4,
+      "minor": 7,
+      "patch": 2,
+      "status": "stable",
+      "string": "4.7.2-stable (official)",
+      "timestamp": 0
+    },
+    "limits": [
+      "Linux authoring measurements do not establish Android performance"
+    ],
+    "ok": true,
+    "scene_tree": {
+      "children": [
+        {
+          "children": [],
+          "class": "ReflectionProbe",
+          "name": "CourtyardReflection",
+          "script": ""
+        },
+        {
+          "children": [],
+          "class": "ReflectionProbe",
+          "name": "WorkshopReflection",
+          "script": ""
+        }
+      ],
+      "class": "Node3D",
+      "name": "SectorPresentation",
+      "script": ""
+    },
+    "steps": [
+      {
+        "elapsed_ms": 0.078,
+        "id": "presentation",
+        "op": "new",
+        "value": {
+          "class": "Node3D",
+          "name": "SectorPresentation"
+        }
+      },
+      {
+        "elapsed_ms": 0.123,
+        "id": "courtyard_probe",
+        "op": "new",
+        "value": {
+          "class": "ReflectionProbe",
+          "name": "CourtyardReflection"
+        }
+      },
+      {
+        "elapsed_ms": 0.091,
+        "id": "workshop_probe",
+        "op": "new",
+        "value": {
+          "class": "ReflectionProbe",
+          "name": "WorkshopReflection"
+        }
+      },
+      {
+        "elapsed_ms": 0.017,
+        "id": "",
+        "op": "attach",
+        "value": true
+      },
+      {
+        "elapsed_ms": 0.433,
+        "id": "",
+        "op": "save",
+        "value": "/workspace/scratch/8fdb17ce2f35/audit-stage/.arcont/runs/nexo_sector_lighting/2d7f0f78849a432cae321b6d4842cdaf/scenes/nexo_sector_lighting.tscn"
+      }
+    ]
+  }
+}

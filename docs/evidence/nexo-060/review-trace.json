@@ -1,0 +1,2736 @@
+{
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "label": "idle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          116.0
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 1,
+      "label": "idle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          116.0
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 2,
+      "label": "idle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          116.0
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 3,
+      "label": "idle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          116.0
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 4,
+      "label": "idle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          116.0
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 5,
+      "label": "start-walk",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          115.783332824707
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -4.33333349227905
+        ]
+      }
+    },
+    {
+      "frame": 6,
+      "label": "start-walk",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          115.33667755127
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -5.40000009536743
+        ]
+      }
+    },
+    {
+      "frame": 7,
+      "label": "start-walk",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          114.886695861816
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -5.40000009536743
+        ]
+      }
+    },
+    {
+      "frame": 8,
+      "label": "start-walk",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          114.436714172363
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -5.40000009536743
+        ]
+      }
+    },
+    {
+      "frame": 9,
+      "label": "start-walk",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          113.98673248291
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -5.40000009536743
+        ]
+      }
+    },
+    {
+      "frame": 10,
+      "label": "start-walk",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          113.536750793457
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -5.40000009536743
+        ]
+      }
+    },
+    {
+      "frame": 11,
+      "label": "start-walk",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          113.086769104004
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -5.40000009536743
+        ]
+      }
+    },
+    {
+      "frame": 12,
+      "label": "start-walk",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          112.636787414551
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -5.40000009536743
+        ]
+      }
+    },
+    {
+      "frame": 13,
+      "label": "stop",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.066666841506958
+        ]
+      }
+    },
+    {
+      "frame": 14,
+      "label": "stop",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 15,
+      "label": "stop",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 16,
+      "label": "stop",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 17,
+      "label": "stop",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 18,
+      "label": "strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.21666669845581,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          4.33333349227905,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 19,
+      "label": "strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.66333293914795,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          5.40000009536743,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 20,
+      "label": "strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          4.11333274841309,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          5.40000009536743,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 21,
+      "label": "strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          4.56333351135254,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          5.40000009536743,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 22,
+      "label": "strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          5.01333427429199,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          5.40000009536743,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 23,
+      "label": "strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          5.46333503723145,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          5.40000009536743,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 24,
+      "label": "strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          5.9133358001709,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          5.40000009536743,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 25,
+      "label": "strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          6.36333656311035,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          5.40000009536743,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 26,
+      "label": "turn-and-settle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          6.54666996002197,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.066666841506958,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 27,
+      "label": "turn-and-settle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          6.54666996002197,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 28,
+      "label": "turn-and-settle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          6.54666996002197,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 29,
+      "label": "turn-and-settle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          6.54666996002197,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 30,
+      "label": "turn-and-settle",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": false,
+        "crouched": false,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          6.54666996002197,
+          0.000230031320825219,
+          112.453453063965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "frame": 31,
+      "label": "cover-entry",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000937499105930328,
+          109.998275756836
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -1.02411258220673
+        ]
+      }
+    },
+    {
+      "frame": 32,
+      "label": "cover-entry",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000937499105930328,
+          109.952377319336
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.335635989904404
+        ]
+      }
+    },
+    {
+      "frame": 33,
+      "label": "cover-entry",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000937499105930328,
+          109.937339782715
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.110050052404404
+        ]
+      }
+    },
+    {
+      "frame": 34,
+      "label": "cover-entry",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000937499105930328,
+          109.932403564453
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.0360754393041134
+        ]
+      }
+    },
+    {
+      "frame": 35,
+      "label": "cover-entry",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000937499105930328,
+          109.930793762207
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.0119055174291134
+        ]
+      }
+    },
+    {
+      "frame": 36,
+      "label": "cover-entry",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000937499105930328,
+          109.93025970459
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00384887703694403
+        ]
+      }
+    },
+    {
+      "frame": 37,
+      "label": "cover-entry",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 3.5,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          3.0,
+          0.000937499105930328,
+          109.930084228516
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00128540035802871
+        ]
+      }
+    },
+    {
+      "frame": 38,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 2.65959978103638,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          3.16333317756653,
+          0.000937499105930328,
+          109.930023193359
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00036987304338254
+        ]
+      }
+    },
+    {
+      "frame": 39,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 2.38421773910522,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          3.36333298683167,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 40,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 2.29398036003113,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          3.5633327960968,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 41,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 2.26441144943237,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          3.76333260536194,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 42,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 2.25472235679626,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          3.96333241462708,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 43,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 2.25154757499695,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.16333246231079,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 44,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 2.25050687789917,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.36333227157593,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 45,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 2.25016617774963,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.56333208084106,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 46,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 0.632827877998352,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.7633318901062,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 47,
+      "label": "cover-peek-strafe",
+      "snapshot": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443851172924042,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.96333169937134,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          2.40000009536743,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 48,
+      "label": "fire",
+      "snapshot": {
+        "ammo": 29,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443850487470627,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98555374145508,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          1.33333337306976,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 49,
+      "label": "fire-recovery",
+      "snapshot": {
+        "ammo": 29,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443848550319672,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 50,
+      "label": "fire-recovery",
+      "snapshot": {
+        "ammo": 29,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847924470901,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 51,
+      "label": "fire",
+      "snapshot": {
+        "ammo": 28,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847894668579,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 52,
+      "label": "fire-recovery",
+      "snapshot": {
+        "ammo": 28,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 53,
+      "label": "fire-recovery",
+      "snapshot": {
+        "ammo": 28,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 54,
+      "label": "fire",
+      "snapshot": {
+        "ammo": 27,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 55,
+      "label": "fire-recovery",
+      "snapshot": {
+        "ammo": 27,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 56,
+      "label": "fire-recovery",
+      "snapshot": {
+        "ammo": 27,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 57,
+      "label": "fire",
+      "snapshot": {
+        "ammo": 26,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 58,
+      "label": "fire-recovery",
+      "snapshot": {
+        "ammo": 26,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 59,
+      "label": "fire-recovery",
+      "snapshot": {
+        "ammo": 26,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 60,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 61,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 62,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 63,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 64,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 65,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 66,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 67,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 68,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 69,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 70,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 71,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 72,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 73,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 74,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 75,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 76,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 77,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 78,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 79,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 80,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 81,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 82,
+      "label": "empty-reload",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.443847745656967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": true,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 83,
+      "label": "touch-layout",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.449218839406967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    },
+    {
+      "frame": 84,
+      "label": "settings",
+      "snapshot": {
+        "ammo": 0,
+        "automatic_vaults": 0,
+        "camera_distance": 0.449218839406967,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": true,
+        "health": 100.0,
+        "interactions": 0,
+        "movement_state": "cover",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          4.98999834060669,
+          0.000937499105930328,
+          109.930015563965
+        ],
+        "tick": 0,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          -0.00018676757463254
+        ]
+      }
+    }
+  ],
+  "scope": "fixed-step Linux runtime visual review; output video sampled at 10 fps, not a performance measurement"
+}
