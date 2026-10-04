@@ -19,7 +19,7 @@ On a Linux desktop with a display, omit `xvfb-run`. CI also runs the existing ba
 | Profile | Native acceptance |
 | --- | --- |
 | `authoring/production/assets.json` | Soldier, AKM and industrial barrel: manifest hashes, complete glTF external dependencies, triangle/material budgets, candidate import, dimensions and soldier skeleton. |
-| `authoring/production/animation.json` | Explicit 62-bone map, 18 clips, 78,372 keys; saved/reopened library, preserved timing, identity pose tolerance, renamed bones/rest corrections and a missing-map negative control. |
+| `authoring/production/animation.json` | Explicit 62-bone map, 21 clips, 94,122 keys; saved/reopened library, preserved timing, identity pose tolerance, renamed bones/rest corrections and a missing-map negative control. |
 | `authoring/production/sector.json` | Authored 24 × 32 m review yard, three covers, three declared routes, baked navigation, capsule sweeps and cover collision rays. |
 
 Assets are copied into content-addressed `assets/production_candidates/` without modifying their sources. Imported model roots are flattened when packing native review snapshots, avoiding inherited scene duplication. The animation source library and canonical combat map are checked for preservation.

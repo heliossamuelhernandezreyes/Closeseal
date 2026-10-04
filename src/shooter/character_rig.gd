@@ -24,6 +24,7 @@ var clip := "idle"
 var aim_pitch := 0.0
 var hit_weight := 0.0
 var stance_weight := 0.0
+var cover_peeking := false
 var action_pose := ""
 var action_phase := 0.0
 var action_weight := 0.0
@@ -149,12 +150,14 @@ func _process(delta: float) -> void:
 	elif action_pose.is_empty(): current_action = ""
 	if action_pose in ["vault", "slide", "cover_enter"]:
 		tree.set("parameters/ActionTime/seek_request", action_phase * animation.get_animation(action_pose).length)
-	tree.set("parameters/ActionCadence/scale", clampf(motion_speed / (1.37 if action_pose in ["cover_left", "cover_right"] else 1.22), 0.7, 2.7) if action_pose in ["cover_left", "cover_right", "crouch_walk"] else 1.0)
+	var strafing := action_pose in ["cover_left", "cover_right", "cover_peek_left", "cover_peek_right"]
+	tree.set("parameters/ActionCadence/scale", clampf(motion_speed / (0.78 if cover_peeking else 1.37 if strafing else 1.22), 0.7, 2.7) if strafing or action_pose == "crouch_walk" else 1.0)
 	action_weight = lerpf(action_weight, 0.0 if action_pose.is_empty() else 1.0, 1.0 - exp(-delta * 18))
 	tree.set("parameters/ActionBlend/blend_amount", action_weight)
 	var phase := 1.0 - reload_time / 1.6
 	var reload_curve := sin(phase * PI) if reload_time > 0 else 0.0
 	weapon.position = Vector3(0.14, 1.42 - stance_weight * 0.52, -0.42 + recoil * 0.04)
+	if cover_peeking: weapon.position.y += 0.17
 	if action_pose == "vault": weapon.position = Vector3(0.28, 0.96, -0.18)
 	weapon.rotation = Vector3(aim_pitch - recoil * 0.08 + reload_curve * 0.28, 0, -reload_curve * 0.12)
 	if target_enabled and weapon.global_position.distance_to(aim_target) > 0.5:

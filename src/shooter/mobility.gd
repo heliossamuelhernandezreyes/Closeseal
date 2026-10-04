@@ -5,6 +5,7 @@ const SPRINT := 8.8
 const AIM := 3.25
 const STANDING := 1.85
 const CROUCHED := 1.06
+const LOW_PEEK := 1.50
 const VAULT_SECONDS := 0.68
 var actor: CharacterBody3D
 var state := "free"
@@ -43,6 +44,8 @@ var transition_aborted := false
 var completed_corners := 0
 var completed_transfers := 0
 var transfer_candidate: Dictionary = {}
+var auto_scan_remaining := 0.0
+var automatic_vaults := 0
 
 func _init(player: CharacterBody3D) -> void: actor = player
 
@@ -263,11 +266,12 @@ func vault_point(progress: float) -> Vector3:
 	if progress < 0.78: return raised_start.lerp(raised_end, smoothstep(0.28, 0.78, progress))
 	return raised_end.lerp(vault_end, smoothstep(0.78, 1, progress))
 
-func try_vault() -> bool:
+func try_vault(direction := Vector3.ZERO) -> bool:
 	vault_reason = ""
 	if state not in ["free", "cover"] or not actor.is_on_floor() or cooldown > 0.0: vault_reason = "state_or_floor"; return false
 	var heading := -cover_normal if state == "cover" else forward()
-	var start := actor.global_position + Vector3.UP * 0.6
+	if state == "free" and direction.length() > 0.2: heading = direction.normalized()
+	var start := actor.global_position + Vector3.UP * 0.35
 	var face := world_ray(start, start + heading * 1.5)
 	if face.is_empty() or absf(face.normal.y) > 0.15: vault_reason = "no_face"; return false
 	var top := world_ray(face.position + heading * 0.18 + Vector3.UP * 1.6, face.position + heading * 0.18 - Vector3.UP * 0.3)
@@ -312,6 +316,7 @@ func try_vault() -> bool:
 
 func tick(delta: float, direction: Vector3, sprint: bool, aiming: bool) -> bool:
 	cooldown = maxf(0, cooldown - delta)
+	auto_scan_remaining = maxf(0, auto_scan_remaining - delta)
 	landed = maxf(0, landed - delta)
 	var grounded := actor.is_on_floor()
 	if state in ["corner", "transfer"]:
@@ -328,6 +333,12 @@ func tick(delta: float, direction: Vector3, sprint: bool, aiming: bool) -> bool:
 		candidate = find_cover(direction)
 		transfer_candidate = nearby_transfer(direction)
 		scan_time = 0.10
+	# Intentional movement into a nearby low obstacle uses the same swept route
+	# and landing checks as the jump button; idle, ADS and crouching never trigger it.
+	if state == "free" and grounded and not crouched and not aiming and direction.length() > 0.65 and auto_scan_remaining == 0.0:
+		auto_scan_remaining = 0.10
+		if actor.test_move(actor.global_transform, direction.normalized() * 0.48) and try_vault(direction):
+			automatic_vaults += 1
 	if state == "vault":
 		elapsed += delta
 		var next := vault_point(minf(1, elapsed / VAULT_SECONDS))
@@ -383,9 +394,11 @@ func tick(delta: float, direction: Vector3, sprint: bool, aiming: bool) -> bool:
 		var horizontal := Vector2(actor.velocity.x, actor.velocity.z).move_toward(Vector2(target.x, target.z), delta * acceleration)
 		actor.velocity.x = horizontal.x
 		actor.velocity.z = horizontal.y
-	var low := crouched or state == "slide" or (state == "cover" and cover_low and not peek)
-	if not set_height(0.85 if state == "slide" else CROUCHED if low else STANDING): low = true
-	crouch_weight = move_toward(crouch_weight, 1.0 if low else 0.0, delta * 10)
+	var low := crouched or state == "slide" or (state == "cover" and cover_low)
+	var desired_height := 0.85 if state == "slide" else LOW_PEEK if state == "cover" and cover_low and peek else CROUCHED if low else STANDING
+	set_height(desired_height)
+	var stance := clampf((STANDING - capsule_height) / (STANDING - CROUCHED), 0, 1)
+	crouch_weight = move_toward(crouch_weight, stance, delta * 10)
 	if not grounded: actor.velocity.y -= 22.0 * delta
 	if jump_buffer > 0 and floor_grace > 0 and capsule_height > 1.8:
 		actor.velocity.y = 7.4
@@ -399,7 +412,10 @@ func pose_name() -> String:
 	if state == "vault" or state == "slide": return state
 	if state == "cover":
 		if cover_enter > 0: return "cover_enter" if cover_low else "cover_high"
-		if peek: return "crouch_walk" if capsule_height < 1.8 else ""
+		if peek and cover_low:
+			var lateral: float = actor.rig.global_basis.x.dot(actor.velocity)
+			return "cover_peek_idle" if absf(lateral) < 0.3 else "cover_peek_left" if lateral < 0 else "cover_peek_right"
+		if peek: return ""
 		if not cover_low: return "" if Vector2(actor.velocity.x, actor.velocity.z).length() > 0.3 else "cover_high"
 		if Vector2(actor.velocity.x, actor.velocity.z).length() < 0.3: return "cover_idle"
 		return "cover_left" if (cover_normal.cross(Vector3.UP)).dot(actor.velocity) > 0 else "cover_right"
@@ -419,5 +435,6 @@ func reset() -> void:
 	transition_aborted = false
 	jump_buffer = 0
 	cooldown = 0
+	auto_scan_remaining = 0
 	actor.velocity = Vector3.ZERO
 	set_height(STANDING)

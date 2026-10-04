@@ -21,6 +21,9 @@ def contract(source=None):
     if data.get("shooter_design", {}).get("art_revision") not in {"military-pbr-02", "third-person-industrial-03", "third-person-industrial-04", "industrial-slice-05"}:
         raise ValueError("industrial canonical map required; inspect the published industrial revision first")
     authored = data["authoring"]
+    for instance in authored["instances"]:
+        if instance["id"].startswith("factory_"):
+            instance["scene"] = "res://assets/shooter/serious/factory_building_fixed.glb"
     for collection in ("objects", "instances", "geometry", "lights", "materials"):
         authored[collection] = [item for item in authored[collection] if not item["id"].startswith("hero_")]
     objects, instances = authored["objects"], authored["instances"]

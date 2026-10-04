@@ -117,7 +117,7 @@ func _draw() -> void:
 			label_at("Extiende la palanca: correr · CUBRIR: pegarse a una pared" if mobile else "R recargar   ·   E asegurar   ·   Espacio saltar", Vector2(48, 480), 18, muted)
 			label_at("DESLIZAR al correr · PASAR para saltar cobertura" if mobile else "Shift correr · Ctrl deslizar/agachar · C cubrir · Espacio pasar", Vector2(48, 510), 18, muted)
 		if w > 1000: draw_map(Vector2(w - 340, 170), 270)
-		label_at("NEXO 0.5   /   SECTOR 07", Vector2(48, h - 28), 13, muted)
+		label_at("NEXO 0.5.1   /   SECTOR 07", Vector2(48, h - 28), 13, muted)
 		return
 	var player = arena.player
 	var movement = player.mobility

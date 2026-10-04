@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "edition": "Nexo Industrial 0.5.0 — Sector 07",
+  "edition": "Nexo Industrial 0.5.1 \u2014 Mobility and facade fixes",
   "verified_at": "2026-10-03",
   "arcont_commit": "86fa0e7b97341205f9c3e42b6ecfe09efde4ca6b",
   "license_policy": "CC0 for models, textures, sky and reload; attributed CC BY 3.0 for gunshot under stricter archive license. No NC assets.",
@@ -143,8 +143,21 @@
     "texture_max_edge": 1024,
     "factory_triangles": 97804,
     "akm_triangles": 5322,
-    "animation": "Eighteen authored native 30 fps skeletal clips: directional gait, cover entry/idle/strafe/high, crouch, slide, vault, jump/land and death; analytic arm/leg IK and hand plant; no motion-capture claim. Compressed editable AnimationLibrary.",
-    "texture_import": "Explicit mipmap chains after the initial clean Godot import, including embedded GLB textures extracted by the importer."
+    "animation": "Twenty-one authored native 30 fps skeletal clips, including bent low-cover peek and directional strafe; analytic arm/leg IK, no motion-capture claim. Compressed editable AnimationLibrary.",
+    "texture_import": "Explicit mipmap chains after the initial clean Godot import, including embedded GLB textures extracted by the importer.",
+    "factory_repair": {
+      "script": "tools/repair_factory_facade.py",
+      "source": "assets/shooter/serious/factory_building.glb",
+      "derived": "assets/shooter/serious/factory_building_fixed.glb",
+      "tiles": 84,
+      "triangles": 97524,
+      "dimensions_m": [
+        24,
+        9,
+        18
+      ],
+      "source_preserved": true
+    }
   },
   "delivered_files": [
     {
@@ -204,8 +217,8 @@
     },
     {
       "path": "assets/shooter/serious/combat_motion.res",
-      "sha256": "9a5312cb90265f2b91b721ce0aa01b19d9f4a9f1d6b7033657e7e25ff16b5cf3",
-      "size_bytes": 383224
+      "sha256": "a2629b314bc5bf784407a506da6f42600269eeac20b428d31a6a7dd18fb68b30",
+      "size_bytes": 458661
     },
     {
       "path": "assets/shooter/serious/evening_road_01_puresky.hdr",
@@ -631,6 +644,11 @@
       "path": "assets/shooter/serious/textures/worn_corrugated_iron_rough.jpg",
       "sha256": "aad215f1b076f763e2d239b5312a80d9fee3d2f4b39768abec8bb1b667e9e86c",
       "size_bytes": 553083
+    },
+    {
+      "path": "assets/shooter/serious/factory_building_fixed.glb",
+      "sha256": "fd12eec49e5292baa20ae366f91fda0abd1666f984d67e635b650e815447251b",
+      "size_bytes": 15018660
     }
   ]
 }

@@ -10900,7 +10900,7 @@
     "instances": [
       {
         "id": "factory_0",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           -41,
           0,
@@ -10919,7 +10919,7 @@
       },
       {
         "id": "factory_1",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           42,
           0,
@@ -10938,7 +10938,7 @@
       },
       {
         "id": "factory_2",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           -42,
           0,
@@ -10957,7 +10957,7 @@
       },
       {
         "id": "factory_3",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           108,
           0,
@@ -10976,7 +10976,7 @@
       },
       {
         "id": "factory_4",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           106,
           0,
@@ -10995,7 +10995,7 @@
       },
       {
         "id": "factory_5",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           -37,
           0,
@@ -11014,7 +11014,7 @@
       },
       {
         "id": "factory_6",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           39,
           0,
@@ -11033,7 +11033,7 @@
       },
       {
         "id": "factory_7",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           106,
           0,
@@ -11052,7 +11052,7 @@
       },
       {
         "id": "factory_8",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           106,
           0,
@@ -11071,7 +11071,7 @@
       },
       {
         "id": "factory_9",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           -109,
           0,
@@ -11090,7 +11090,7 @@
       },
       {
         "id": "factory_10",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           -109,
           0,
@@ -11109,7 +11109,7 @@
       },
       {
         "id": "factory_11",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           -106,
           0,
@@ -11128,7 +11128,7 @@
       },
       {
         "id": "factory_12",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           -109,
           0,
@@ -11147,7 +11147,7 @@
       },
       {
         "id": "factory_13",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           -67,
           0,
@@ -11166,7 +11166,7 @@
       },
       {
         "id": "factory_14",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           36,
           0,
@@ -11185,7 +11185,7 @@
       },
       {
         "id": "factory_15",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           106,
           0,
@@ -11204,7 +11204,7 @@
       },
       {
         "id": "factory_16",
-        "scene": "res://assets/shooter/serious/factory_building.glb",
+        "scene": "res://assets/shooter/serious/factory_building_fixed.glb",
         "position": [
           68,
           0,

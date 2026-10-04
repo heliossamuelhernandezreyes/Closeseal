@@ -49,7 +49,8 @@ jobs:
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-acceptance.log
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_mobility_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-mobility.log
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_slice_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-slice.log
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log shooter-mobility.log shooter-slice.log; then exit 1; fi
+          xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_visual_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-visual.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log shooter-mobility.log shooter-slice.log shooter-visual.log; then exit 1; fi
           python -c 'import json; r=json.load(open("shooter-evidence/acceptance.json")); assert r["ok"],r["failures"]'
       - name: Replay real third-person player through ARCONT
         env:
@@ -88,6 +89,7 @@ jobs:
             shooter-acceptance.log
             shooter-mobility.log
             shooter-slice.log
+            shooter-visual.log
             shooter-evidence/
           include-hidden-files: true
           retention-days: 30
