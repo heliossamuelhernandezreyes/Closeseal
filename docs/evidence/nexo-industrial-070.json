@@ -1,0 +1,75 @@
+{
+  "version": "0.7.0",
+  "scope": "presentation/camera milestone; not AAA certification",
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "arcont_commit": "0c41e16874ae463ca9418dee5f16d7ba6732da91",
+  "base_commit": "163e92ae3346a2835d0a273551dbb39e7851cbed",
+  "native_checks": {
+    "acceptance": {
+      "passed": 42,
+      "failures": []
+    },
+    "mobility-acceptance": {
+      "passed": 44,
+      "failures": []
+    },
+    "slice-acceptance": {
+      "passed": 24,
+      "failures": []
+    },
+    "visual-acceptance": {
+      "passed": 4,
+      "failures": []
+    },
+    "finish-acceptance": {
+      "passed": 31,
+      "failures": []
+    },
+    "presentation-acceptance": {
+      "passed": 17,
+      "failures": []
+    }
+  },
+  "canonical_sha256": "61a30869db2d5c1e9ac182bf71e62824ddac43c50fc8f98a7f67f2e401941bce",
+  "android": {
+    "package": "org.closeseal.nexo.preview",
+    "version_code": 8,
+    "certificate_sha256": "5033f189b09658d01e58368ffe56404fb434750a6916c9152f5397fdc7c35fc9",
+    "device_run": "not yet measured for 0.7.0"
+  },
+  "visual_review": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "views": [
+      "courtyard",
+      "workshop",
+      "mezzanine",
+      "close camera",
+      "crouch"
+    ],
+    "notes": [
+      "near surfaces dither instead of whole-rig hiding",
+      "courtyard self-shadow rings removed by the derived ground treatment",
+      "workshop bounce fill was increased after actual native review",
+      "art remains modular and animation/audio remain authored/procedural prototype assets"
+    ]
+  },
+  "limits": [
+    "Native editor bake produces two teardown diagnostics, retained in raw log; separate runtime import and acceptance are clean.",
+    "0.6 handset sample covered only 12.3 seconds; it does not validate this export or sustained thermal performance.",
+    "Motion video was captured before the final workshop fill adjustment; captures and APK use the final bake."
+  ],
+  "native_checks_total": 162
+}

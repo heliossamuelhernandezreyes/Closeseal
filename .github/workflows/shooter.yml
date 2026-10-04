@@ -10,7 +10,7 @@ permissions:
 jobs:
   shooter:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 6d6d567a419be52424e6939b7360e28a631e7369
+          ref: 0c41e16874ae463ca9418dee5f16d7ba6732da91
           path: .arcont-tools
       - name: Install exact Godot
         run: |
@@ -34,6 +34,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_shooter_build.py'
           python tools/verify_shooter_assets.py
+          python tools/verify_shooter_sector.py
           python tools/prepare_shooter.py --stage /tmp/nexo-shooter
           "$GODOT_BIN" --headless --path /tmp/nexo-shooter --editor --import > shooter-import.log 2>&1
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-import.log; then exit 1; fi
@@ -51,8 +52,9 @@ jobs:
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_slice_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-slice.log
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_visual_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-visual.log
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_finish_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-finish.log
+          xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_presentation_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-presentation.log
           python .arcont-tools/tools/production_toolchain.py finish shooter-evidence/finish-record.json > shooter-evidence/arcont-finish-review.json
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log shooter-mobility.log shooter-slice.log shooter-visual.log shooter-finish.log; then exit 1; fi
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log shooter-mobility.log shooter-slice.log shooter-visual.log shooter-finish.log shooter-presentation.log; then exit 1; fi
           python -c 'import json; r=json.load(open("shooter-evidence/acceptance.json")); assert r["ok"],r["failures"]'
       - name: Replay real third-person player through ARCONT
         env:
@@ -93,6 +95,7 @@ jobs:
             shooter-slice.log
             shooter-visual.log
             shooter-finish.log
+            shooter-presentation.log
             shooter-evidence/
           include-hidden-files: true
           retention-days: 30

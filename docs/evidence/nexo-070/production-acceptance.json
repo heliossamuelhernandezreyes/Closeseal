@@ -1,0 +1,209 @@
+{
+  "ok": true,
+  "toolchain": {
+    "ok": true,
+    "release": "production-0.3.0",
+    "failures": [],
+    "components": [
+      "authoring-control",
+      "model-forge",
+      "production-preparation",
+      "production-contracts",
+      "tps-mobile-finish",
+      "native-scene-bundles"
+    ],
+    "limits": [
+      "delivered normalized glTF only; external optimization/conversion processors not accepted by this release",
+      "explicit matching-topology animation retarget; different body proportions require contact acceptance",
+      "axis-aligned tactical-sector recipes; native game adapter required",
+      "Linux rendered runner observations are not Android device measurements"
+    ]
+  },
+  "dependency_hashes": {
+    "tools/shooter_production_probe.gd": "02162ef45c49aac7227ee9786b7b5eebede4fbea4cebfcf025f63e0d4621cada",
+    "assets/shooter/serious/combat_motion.res": "249b89efc31d0c9e1881fcee4ad0440b1fcef1e21563e6cff883c5ed54958b52",
+    "authoring/production/assets.json": "f186d181dbe1c477b44de3e63631488b9253535998ac2fc6c9e13d87bd0a4858",
+    "authoring/production/animation.json": "005dc7514b80f52c946401f1fe78190e2b51853931b98de044b46aecaaed821a",
+    "authoring/production/sector.json": "83d47c667391bbf34f8f06ce35d82b7614179d08541fb15a987735da73fbc2cd",
+    "assets/shooter/serious/manifest.json": "942f4715da7df1b471aa799ecd674e967711ea1fc6067985809fbdee490a4a3d",
+    "assets/shooter/serious/soldier.glb": "de6a92704bf476f74480882fdb69909a868f75989e3dc779204f11edf169e260",
+    "assets/shooter/serious/akm.glb": "3c3ab64dbc64a579949899ffa9c3c9f53ff0c09d6ab5c960a36cae95014960ee",
+    "assets/shooter/serious/polyhaven/barrel_03/barrel_03.bin": "10f3202e9ac9acf8dd896f1562c64db58311ffef89efb402d8433e03ad486427",
+    "assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf": "e561bfeac1d2f26efea52b6b5bb47890123d9031c1e8e73a66696b02c772922c",
+    "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_arm_1k.jpg": "b58b10c7ab1169ee9a85c91816c57c42fb670b9c39f46982735f4eda95ba39aa",
+    "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_diff_1k.jpg": "726565289fc7c36910e945ede1319b0ff0ceb5dd356813f3e5e79a30000064b4",
+    "assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_nor_gl_1k.jpg": "817c739cc1eabdca0c1e257be52905e820045ed5db4f2c190e48f078a20a6c80",
+    "assets/shooter/serious/materials/asphalt.tres": "31b927f9ca0db06bc1ef3bbafde9521526e9c3bb938b427514b6ccede1754070",
+    "assets/shooter/serious/textures/asphalt_06_diff.jpg": "eb513e6d769aa1b43850826b6eb75a4f361b80ce7694153beacc0ea1a0399c26",
+    "assets/shooter/serious/textures/asphalt_06_nor_gl.jpg": "89fe919f479481becb32d011b5636892c030571d7f0964cc65ef5d21f563b800",
+    "assets/shooter/serious/textures/asphalt_06_rough.jpg": "d08364cdb6c14e7cd0d0e8520ec91133c60994d6f9f3409b45280b80c219377b",
+    "assets/shooter/serious/materials/concrete.tres": "9387ef37b6fa62131167b55ab228191f6197d53a3ea4f73b9d1f631a43933cbb",
+    "assets/shooter/serious/textures/rough_concrete_diff.jpg": "dd7fc03e152eb8c2fd511248aa2e9bf7428a645bd0e0b74ac1d887ad136cb0bc",
+    "assets/shooter/serious/textures/rough_concrete_nor_gl.jpg": "54c85854ad5cafb16840df91a605c857bdf3d07fa79f11921c8327fccf6423ae",
+    "assets/shooter/serious/textures/rough_concrete_rough.jpg": "2d392a3e0d44087ddecc0cd3fd27367a6cc0c16f94bbba2e8fbfbdf77eb105be",
+    "assets/production_candidates/nexo-industrial-02dcdae3463a7661/assets/shooter/serious/soldier.glb": "de6a92704bf476f74480882fdb69909a868f75989e3dc779204f11edf169e260",
+    "assets/production_candidates/nexo-industrial-02dcdae3463a7661/assets/shooter/serious/akm.glb": "3c3ab64dbc64a579949899ffa9c3c9f53ff0c09d6ab5c960a36cae95014960ee",
+    "assets/production_candidates/nexo-industrial-02dcdae3463a7661/assets/shooter/serious/polyhaven/barrel_03/barrel_03.bin": "10f3202e9ac9acf8dd896f1562c64db58311ffef89efb402d8433e03ad486427",
+    "assets/production_candidates/nexo-industrial-02dcdae3463a7661/assets/shooter/serious/polyhaven/barrel_03/barrel_03.gltf": "e561bfeac1d2f26efea52b6b5bb47890123d9031c1e8e73a66696b02c772922c",
+    "assets/production_candidates/nexo-industrial-02dcdae3463a7661/assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_arm_1k.jpg": "b58b10c7ab1169ee9a85c91816c57c42fb670b9c39f46982735f4eda95ba39aa",
+    "assets/production_candidates/nexo-industrial-02dcdae3463a7661/assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_diff_1k.jpg": "726565289fc7c36910e945ede1319b0ff0ceb5dd356813f3e5e79a30000064b4",
+    "assets/production_candidates/nexo-industrial-02dcdae3463a7661/assets/shooter/serious/polyhaven/barrel_03/textures/barrel_03_nor_gl_1k.jpg": "817c739cc1eabdca0c1e257be52905e820045ed5db4f2c190e48f078a20a6c80",
+    "assets/production_candidates/nexo-industrial-02dcdae3463a7661/bundle.json": "01bb69341e3d218ce91054b5914706402fb334a73cbef7d059ad2dcead532660"
+  },
+  "asset_bundle": "02dcdae3463a7661686d68234200102d05a4477748d8809588bebb8309cca19c",
+  "asset_count": 3,
+  "dependency_files": 7,
+  "reviews": {
+    "assets": {
+      "report": {
+        "assets": [
+          {
+            "bounds_size": [
+              1.35463118553162,
+              1.98128128051758,
+              0.430655956268311
+            ],
+            "extent_m": 1.98128128051758,
+            "id": "character.soldier",
+            "loaded_from_bundle": true,
+            "native_triangles": 3908
+          },
+          {
+            "bounds_size": [
+              0.0540547147393227,
+              0.273830413818359,
+              0.972334086894989
+            ],
+            "extent_m": 0.972334086894989,
+            "id": "weapon.akm",
+            "loaded_from_bundle": true,
+            "native_triangles": 5322
+          },
+          {
+            "bounds_size": [
+              0.633943498134613,
+              0.930473625659943,
+              0.638599514961243
+            ],
+            "extent_m": 0.930473625659943,
+            "id": "prop.barrel",
+            "loaded_from_bundle": true,
+            "native_triangles": 1473
+          }
+        ],
+        "bundle_sha256": "02dcdae3463a7661686d68234200102d05a4477748d8809588bebb8309cca19c",
+        "device": "AMD EPYC 9V74 80-Core Processor / Mesa / llvmpipe (LLVM 20.1.2, 256 bits)",
+        "limits": [
+          "native import and rendered review; no mobile performance claim"
+        ],
+        "ok": true
+      },
+      "summary": {
+        "scope": "linux-rendered",
+        "sample_count": 120,
+        "mean_ms": 17.195558333333334,
+        "p50_ms": 16.84,
+        "p95_ms": 21.59725,
+        "p99_ms": 25.859470000000005,
+        "max_ms": 27.16,
+        "measurement_scope": "linux-rendered",
+        "limits": [
+          "wall frame intervals; not isolated GPU time or touch latency",
+          "short runner observations do not establish sustained handset performance"
+        ]
+      },
+      "directory": ".arcont/runs/nexo_production_assets/2bbb5e7162b941eaa0917e612462d4fa",
+      "saved_scene_reopened": true,
+      "recipe_revision": "d95e1a9b70b9cf65fa922e2ee9ca8681718a4634c77e1affd5ff21b1c9298472"
+    },
+    "animation": {
+      "report": {
+        "clips": 22,
+        "device": "AMD EPYC 9V74 80-Core Processor / Mesa / llvmpipe (LLVM 20.1.2, 256 bits)",
+        "identity_pose_error": 0.0009765625,
+        "keys": 96768,
+        "library": "/workspace/scratch/8fdb17ce2f35/nexo-070-check/.arcont/runs/nexo_production_animation/ad28090d3c254c55b6af7f8f47493aa1/retargeted-motion.res",
+        "limits": [
+          "explicit matching bone topology; no automatic humanoid inference",
+          "different proportions require new contact/visual acceptance; no motion-capture claim"
+        ],
+        "missing_mapping_rejected": true,
+        "ok": true,
+        "renamed_rest_fixture": true
+      },
+      "summary": {
+        "scope": "linux-rendered",
+        "sample_count": 120,
+        "mean_ms": 13.195108333333334,
+        "p50_ms": 12.777000000000001,
+        "p95_ms": 16.11125,
+        "p99_ms": 18.039940000000005,
+        "max_ms": 18.671,
+        "measurement_scope": "linux-rendered",
+        "limits": [
+          "wall frame intervals; not isolated GPU time or touch latency",
+          "short runner observations do not establish sustained handset performance"
+        ]
+      },
+      "directory": ".arcont/runs/nexo_production_animation/ad28090d3c254c55b6af7f8f47493aa1",
+      "saved_scene_reopened": true,
+      "recipe_revision": "b72d9b9a25cb3e2578f6ef8f7e8a280b559bec9dad81a836c9c105397f29a0e9"
+    },
+    "sector": {
+      "report": {
+        "cover_colliders": [
+          "cover_west",
+          "cover_east",
+          "cover_high"
+        ],
+        "device": "AMD EPYC 9V74 80-Core Processor / Mesa / llvmpipe (LLVM 20.1.2, 256 bits)",
+        "limits": [
+          "separate editable sector recipe; canonical Nexo map unchanged",
+          "capsule sweeps and navigation; production input controller tested by existing shooter replay"
+        ],
+        "navigation_polygons": 41,
+        "ok": true,
+        "routes": [
+          {
+            "capsule_clear": true,
+            "id": "central",
+            "navigation_reachable": true
+          },
+          {
+            "capsule_clear": true,
+            "id": "east",
+            "navigation_reachable": true
+          },
+          {
+            "capsule_clear": true,
+            "id": "west",
+            "navigation_reachable": true
+          }
+        ]
+      },
+      "summary": {
+        "scope": "linux-rendered",
+        "sample_count": 120,
+        "mean_ms": 11.94175,
+        "p50_ms": 11.449000000000002,
+        "p95_ms": 14.6615,
+        "p99_ms": 19.721750000000004,
+        "max_ms": 26.495,
+        "measurement_scope": "linux-rendered",
+        "limits": [
+          "wall frame intervals; not isolated GPU time or touch latency",
+          "short runner observations do not establish sustained handset performance"
+        ]
+      },
+      "directory": ".arcont/runs/nexo_production_sector/21cdf4dd0759408e9ebb892c859e9852",
+      "saved_scene_reopened": true,
+      "recipe_revision": "79f460aa070d31fe5c0a1a75ada43475a94d25f58b528710d27df69758aa0a3c"
+    }
+  },
+  "canonical_map_preserved": true,
+  "source_motion_preserved": true,
+  "limits": [
+    "Linux GL compatibility observations; Android device unmeasured",
+    "explicit topology retarget; different body proportions need additional contact acceptance"
+  ]
+}

@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/shooter/maintenance_paint.gdshader" id="1_shrte"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shrte")
+shader_parameter/paint_color = null
+shader_parameter/stripes = 1.0
+shader_parameter/wear = null

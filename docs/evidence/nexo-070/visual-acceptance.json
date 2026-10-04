@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "boots_never_cross_in_sampled_cycles": {
+      "details": 0.100000031292439,
+      "ok": true
+    },
+    "every_facade_module_has_real_geometry": {
+      "details": {
+        "misses": [],
+        "rays": 84
+      },
+      "ok": true
+    },
+    "flat_ground_preserves_entire_animated_pose": {
+      "details": {
+        "maximum_delta": 0.0,
+        "samples": 248
+      },
+      "ok": true
+    },
+    "knees_never_cross_in_sampled_cycles": {
+      "details": 0.252583205699921,
+      "ok": true
+    }
+  },
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "ok": true
+}

@@ -1,0 +1,892 @@
+{
+  "ok": true,
+  "calls": [
+    {
+      "operation": "discover",
+      "ok": true,
+      "passed": null
+    },
+    {
+      "operation": "inspect",
+      "ok": true,
+      "passed": null
+    },
+    {
+      "operation": "replace",
+      "ok": true,
+      "passed": null
+    },
+    {
+      "operation": "inspect",
+      "ok": true,
+      "passed": null
+    },
+    {
+      "operation": "playtest",
+      "ok": true,
+      "passed": true
+    },
+    {
+      "operation": "playtest",
+      "ok": true,
+      "passed": true
+    }
+  ],
+  "reopened_replays": 2,
+  "ticks": 233,
+  "final_position": [
+    -5.06563758850098,
+    0.000859355553984642,
+    99.2799987792969
+  ],
+  "source_map_sha256": "61a30869db2d5c1e9ac182bf71e62824ddac43c50fc8f98a7f67f2e401941bce",
+  "replay_reports": [
+    {
+      "captures": [],
+      "checkpoints": [
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "settle",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.5,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": false,
+            "crouched": false,
+            "health": 100.0,
+            "interactions": 0,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              0.0,
+              0.00014972873032093,
+              106.0
+            ],
+            "tick": 12,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "approach_left",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.4965913988938,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": false,
+            "crouched": false,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -4.71333312988281,
+              0.00014972873032093,
+              106.0
+            ],
+            "tick": 67,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              -5.40000009536743,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "approach_cover",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999928081426,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": false,
+            "crouched": false,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.00014972873032093,
+              101.312484741211
+            ],
+            "tick": 123,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              -5.40000009536743
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "enter_cover",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999936532081,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": true,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "cover",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.00014972873032093,
+              101.294708251953
+            ],
+            "tick": 124,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              -1.06666672229767
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true,
+            "position_distance_m": 0.0137003753334284
+          },
+          "id": "cover_settle",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999996775111,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": true,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "cover",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.00014972873032093,
+              100.723693847656
+            ],
+            "tick": 144,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              -0.205448001623154
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "vault_input",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999997322781,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": true,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "vault",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.0272507723420858,
+              100.723693847656
+            ],
+            "tick": 145,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "height_reached": true,
+            "passed": true
+          },
+          "id": "vault_midpoint",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999999814764,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": true,
+            "health": 88.0,
+            "interactions": 0,
+            "movement_state": "vault",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              1.22000002861023,
+              100.27424621582
+            ],
+            "tick": 163,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true,
+            "position_distance_m": 0.000932643015403301
+          },
+          "id": "land",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.48695559984204,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": false,
+            "health": 88.0,
+            "interactions": 0,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.000859355553984642,
+              99.2799987792969
+            ],
+            "tick": 228,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "interaction_reached": true,
+            "passed": true
+          },
+          "id": "interaction",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49206474146533,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": false,
+            "health": 88.0,
+            "interactions": 1,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.000859355553984642,
+              99.2799987792969
+            ],
+            "tick": 231,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "release",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49380989570809,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": false,
+            "health": 88.0,
+            "interactions": 1,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.000859355553984642,
+              99.2799987792969
+            ],
+            "tick": 233,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "body_visible": true,
+        "camera_distance": 3.5,
+        "camera_render_distance": 3.49937838917478,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": false,
+        "health": 88.0,
+        "interactions": 1,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          -5.06563758850098,
+          0.000859355553984642,
+          99.2799987792969
+        ],
+        "tick": 233,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "input_method": "Input.parse_input_event(InputEventAction)",
+      "input_released": true,
+      "navigation": {
+        "available": false
+      },
+      "ok": true,
+      "passed": true,
+      "physics_frames": 233,
+      "physics_hz": 60,
+      "scope": "instrumented fixture, bounded batch input replay; no cross-platform determinism/device FPS claim",
+      "seed": 7326.0,
+      "session_id": "third_person_cover_route",
+      "source_scene_reopened": true
+    },
+    {
+      "captures": [],
+      "checkpoints": [
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "settle",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.38702221036651,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": false,
+            "crouched": false,
+            "health": 100.0,
+            "interactions": 0,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              0.0,
+              0.00014972873032093,
+              106.0
+            ],
+            "tick": 12,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "approach_left",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49660439522055,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": false,
+            "crouched": false,
+            "health": 100.0,
+            "interactions": 0,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -4.71333312988281,
+              0.00014972873032093,
+              106.0
+            ],
+            "tick": 67,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              -5.40000009536743,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "approach_cover",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999922364845,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": false,
+            "crouched": false,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.00014972873032093,
+              101.312484741211
+            ],
+            "tick": 123,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              -5.40000009536743
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "enter_cover",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999935570194,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": true,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "cover",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.00014972873032093,
+              101.294708251953
+            ],
+            "tick": 124,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              -1.06666672229767
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true,
+            "position_distance_m": 0.0137003753334284
+          },
+          "id": "cover_settle",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999996729237,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": true,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "cover",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.00014972873032093,
+              100.723693847656
+            ],
+            "tick": 144,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              -0.205448001623154
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "vault_input",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49999997111122,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": true,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "vault",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.0272507723420858,
+              100.723693847656
+            ],
+            "tick": 145,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "height_reached": true,
+            "passed": true
+          },
+          "id": "vault_midpoint",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.4999999981194,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": true,
+            "health": 94.0,
+            "interactions": 0,
+            "movement_state": "vault",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              1.22000002861023,
+              100.27424621582
+            ],
+            "tick": 163,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true,
+            "position_distance_m": 0.000932643015403301
+          },
+          "id": "land",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.48697181506605,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": false,
+            "health": 88.0,
+            "interactions": 0,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.000859355553984642,
+              99.2799987792969
+            ],
+            "tick": 228,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "interaction_reached": true,
+            "passed": true
+          },
+          "id": "interaction",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49188966574514,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": false,
+            "health": 88.0,
+            "interactions": 1,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.000859355553984642,
+              99.2799987792969
+            ],
+            "tick": 231,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "checks": {
+            "passed": true
+          },
+          "id": "release",
+          "passed": true,
+          "state": {
+            "ammo": 30,
+            "automatic_vaults": 0,
+            "body_visible": true,
+            "camera_distance": 3.5,
+            "camera_render_distance": 3.49372862125952,
+            "completed_corners": 0,
+            "completed_transfers": 0,
+            "cover_low": true,
+            "crouched": false,
+            "health": 88.0,
+            "interactions": 1,
+            "movement_state": "free",
+            "on_floor": true,
+            "peek": false,
+            "perspective": "third_person",
+            "position": [
+              -5.06563758850098,
+              0.000859355553984642,
+              99.2799987792969
+            ],
+            "tick": 233,
+            "transition_aborted": false,
+            "vault_aborted": false,
+            "velocity": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "final_state": {
+        "ammo": 30,
+        "automatic_vaults": 0,
+        "body_visible": true,
+        "camera_distance": 3.5,
+        "camera_render_distance": 3.49935956654628,
+        "completed_corners": 0,
+        "completed_transfers": 0,
+        "cover_low": true,
+        "crouched": false,
+        "health": 88.0,
+        "interactions": 1,
+        "movement_state": "free",
+        "on_floor": true,
+        "peek": false,
+        "perspective": "third_person",
+        "position": [
+          -5.06563758850098,
+          0.000859355553984642,
+          99.2799987792969
+        ],
+        "tick": 233,
+        "transition_aborted": false,
+        "vault_aborted": false,
+        "velocity": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "input_method": "Input.parse_input_event(InputEventAction)",
+      "input_released": true,
+      "navigation": {
+        "available": false
+      },
+      "ok": true,
+      "passed": true,
+      "physics_frames": 233,
+      "physics_hz": 60,
+      "scope": "instrumented fixture, bounded batch input replay; no cross-platform determinism/device FPS claim",
+      "seed": 7326.0,
+      "session_id": "third_person_cover_route",
+      "source_scene_reopened": true
+    }
+  ],
+  "limits": [
+    "bounded production-player replay; not Android FPS or full gameplay coverage"
+  ]
+}

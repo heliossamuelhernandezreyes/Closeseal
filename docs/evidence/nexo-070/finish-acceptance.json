@@ -1,0 +1,178 @@
+{
+  "checks": {
+    "all_enemies_use_hostile_skin": {
+      "details": null,
+      "ok": true
+    },
+    "cover_left_planted_contacts": {
+      "details": {
+        "maximum_drift_m": 0.0165729895234108,
+        "samples": 264
+      },
+      "ok": true
+    },
+    "cover_left_signed_cadence": {
+      "details": 0.000160656582011143,
+      "ok": true
+    },
+    "cover_peek_left_planted_contacts": {
+      "details": {
+        "maximum_drift_m": 0.0165378153324127,
+        "samples": 264
+      },
+      "ok": true
+    },
+    "cover_peek_left_signed_cadence": {
+      "details": 0.000071638066098482,
+      "ok": true
+    },
+    "cover_peek_right_planted_contacts": {
+      "details": {
+        "maximum_drift_m": 0.0165218114852905,
+        "samples": 264
+      },
+      "ok": true
+    },
+    "cover_peek_right_signed_cadence": {
+      "details": 0.0000834659961886549,
+      "ok": true
+    },
+    "cover_right_planted_contacts": {
+      "details": {
+        "maximum_drift_m": 0.0165346339344978,
+        "samples": 264
+      },
+      "ok": true
+    },
+    "cover_right_signed_cadence": {
+      "details": 0.000115009934233967,
+      "ok": true
+    },
+    "crouch_run_planted_contacts": {
+      "details": {
+        "maximum_drift_m": 0.0163453221321106,
+        "samples": 264
+      },
+      "ok": true
+    },
+    "crouch_run_signed_cadence": {
+      "details": 0.000643862397683894,
+      "ok": true
+    },
+    "crouch_walk_planted_contacts": {
+      "details": {
+        "maximum_drift_m": 0.0166068822145462,
+        "samples": 264
+      },
+      "ok": true
+    },
+    "crouch_walk_signed_cadence": {
+      "details": 0.000404995279731574,
+      "ok": true
+    },
+    "editable_touch_position": {
+      "details": null,
+      "ok": true
+    },
+    "effects_pool_is_bounded": {
+      "details": 88,
+      "ok": true
+    },
+    "empty_reload_has_charge_phase": {
+      "details": null,
+      "ok": true
+    },
+    "expired_pool_slots_are_reusable": {
+      "details": null,
+      "ok": true
+    },
+    "hostile_cover_has_physical_crouch": {
+      "details": null,
+      "ok": true
+    },
+    "new_session_discards_old_samples": {
+      "details": null,
+      "ok": true
+    },
+    "offscreen_touch_edit_rejected": {
+      "details": null,
+      "ok": true
+    },
+    "overlapping_touch_edit_rejected": {
+      "details": null,
+      "ok": true
+    },
+    "recent_raw_buffer_is_bounded": {
+      "details": 10800,
+      "ok": true
+    },
+    "recorder_counts_all_twenty_minutes": {
+      "details": {
+        "frames": 54000,
+        "seconds": 1199.99999999924
+      },
+      "ok": true
+    },
+    "run_planted_contacts": {
+      "details": {
+        "maximum_drift_m": 0.0169948842376471,
+        "samples": 236
+      },
+      "ok": true
+    },
+    "run_signed_cadence": {
+      "details": 0.0103829674084078,
+      "ok": true
+    },
+    "safe_area_keeps_buttons_inside": {
+      "details": null,
+      "ok": true
+    },
+    "tactical_reload_duration": {
+      "details": null,
+      "ok": true
+    },
+    "walk_planted_contacts": {
+      "details": {
+        "maximum_drift_m": 0.0219312496483326,
+        "samples": 244
+      },
+      "ok": true
+    },
+    "walk_signed_cadence": {
+      "details": 0.00575575770603286,
+      "ok": true
+    },
+    "warm_tail_detects_synthetic_slowdown": {
+      "details": {
+        "end_s": 1199.99999999924,
+        "frames": 1787,
+        "max_ms": 33.3333333333333,
+        "mean_ms": 33.3333333333342,
+        "p50_ms": 33.375,
+        "p95_ms": 33.375,
+        "p99_ms": 33.375,
+        "start_s": 1140.43333333262
+      },
+      "ok": true
+    },
+    "weapon_grips_in_three_stances": {
+      "details": 0.0278118271380663,
+      "ok": true
+    }
+  },
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "ok": true,
+  "scope": "Native controlled motion and functional checks; recorder slowdown is synthetic, not device performance."
+}

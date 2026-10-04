@@ -1,0 +1,174 @@
+{
+  "checks": {
+    "adjacent_cover_candidate_found": {
+      "details": null,
+      "ok": true
+    },
+    "airborne_disables_ground_correction": {
+      "details": null,
+      "ok": true
+    },
+    "blocked_corner_rejected_without_warp": {
+      "details": null,
+      "ok": true
+    },
+    "blocked_cover_gap_rejected": {
+      "details": null,
+      "ok": true
+    },
+    "corner_blocks_weapon": {
+      "details": null,
+      "ok": true
+    },
+    "corner_changes_face_with_collision": {
+      "details": {
+        "normal": "(1.0, 0.0, 0.0)",
+        "position": "(5.432485, 0.00023, 115.78)",
+        "state": "cover"
+      },
+      "ok": true
+    },
+    "corner_fixture_attaches": {
+      "details": null,
+      "ok": true
+    },
+    "corner_retry_after_clearance": {
+      "details": null,
+      "ok": true
+    },
+    "cover_dash_accepted": {
+      "details": null,
+      "ok": true
+    },
+    "cover_dash_attaches_to_destination": {
+      "details": {
+        "position": "(1.0, 0.000938, 116.71)",
+        "state": "cover"
+      },
+      "ok": true
+    },
+    "dynamic_corner_blocker_aborts": {
+      "details": null,
+      "ok": true
+    },
+    "runtime_observation_records_real_frames": {
+      "details": null,
+      "ok": true
+    },
+    "sector_flanker_uses_navigation_and_fires": {
+      "details": {
+        "shots": 2,
+        "target": "(-4.100863, 0.4, 104.869)",
+        "travelled": 8.59875580854714
+      },
+      "ok": true
+    },
+    "sector_menu_starts_focused_operation": {
+      "details": null,
+      "ok": true
+    },
+    "six_sector_spawns_clear_and_reachable": {
+      "details": [
+        {
+          "ok": true,
+          "overlaps": 0,
+          "position": "(-4.0, 0.0, 81.0)"
+        },
+        {
+          "ok": true,
+          "overlaps": 0,
+          "position": "(9.0, 0.0, 70.0)"
+        },
+        {
+          "ok": true,
+          "overlaps": 0,
+          "position": "(23.0, 0.0, 80.0)"
+        },
+        {
+          "ok": true,
+          "overlaps": 0,
+          "position": "(18.0, 0.0, 78.0)"
+        },
+        {
+          "ok": true,
+          "overlaps": 0,
+          "position": "(26.0, 3.1, 72.0)"
+        },
+        {
+          "ok": true,
+          "overlaps": 0,
+          "position": "(-8.0, 0.0, 60.0)"
+        }
+      ],
+      "ok": true
+    },
+    "slice_enforces_objective_order": {
+      "details": null,
+      "ok": true
+    },
+    "slice_extracts_after_three_objectives": {
+      "details": null,
+      "ok": true
+    },
+    "slice_routes_baked_and_reachable": {
+      "details": [
+        {
+          "points": 14,
+          "reaches": true
+        },
+        {
+          "points": 15,
+          "reaches": true
+        },
+        {
+          "points": 24,
+          "reaches": true
+        }
+      ],
+      "ok": true
+    },
+    "slice_secures_A": {
+      "details": null,
+      "ok": true
+    },
+    "slice_secures_B": {
+      "details": null,
+      "ok": true
+    },
+    "slice_secures_C": {
+      "details": null,
+      "ok": true
+    },
+    "slope_pose_correction_bounded": {
+      "details": {
+        "errors": "(0.0, 0.0)",
+        "offsets": "(-0.026778, -0.02676)"
+      },
+      "ok": true
+    },
+    "strafe_enters_corner_path": {
+      "details": null,
+      "ok": true
+    },
+    "workshop_ramp_actual_ascent": {
+      "details": "(31.00002, 3.100695, 74.53786)",
+      "ok": true
+    }
+  },
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "limits": [
+    "Linux engine/collision evidence; 3–5 minute target needs human playtest; Android device unmeasured"
+  ],
+  "ok": true
+}

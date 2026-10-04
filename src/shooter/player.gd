@@ -2,6 +2,8 @@ extends CharacterBody3D
 const MAGAZINE := 30
 const FIRE_INTERVAL := 0.125
 const MOBILITY = preload("res://src/shooter/mobility.gd")
+const CAMERA_MOTION = preload("res://src/shooter/camera_motion.gd")
+var camera_motion: RefCounted
 var mobility: RefCounted
 var body_shape: CollisionShape3D
 var damage_direction := Vector3.ZERO
@@ -80,6 +82,7 @@ func _ready() -> void:
 	camera.near = 0.12
 	spring_arm.add_child(camera)
 	camera.current = true
+	camera_motion = CAMERA_MOTION.new(self)
 	flash = MeshInstance3D.new()
 	var ball := SphereMesh.new()
 	ball.radius = 0.055
@@ -153,19 +156,7 @@ func _physics_process(delta: float) -> void:
 	if mobility.state == "vault": rig.position.y -= sin(rig.action_phase * PI) * 0.40
 	if mobility.state == "cover" and mobility.cover_enter > 0: rig.action_phase = 1.0 - mobility.cover_enter / 0.22
 	rig.vault_hand_target = mobility.vault_hand
-	camera_pivot.position.y = lerpf(camera_pivot.position.y, 1.55 - mobility.crouch_weight * 0.50, minf(1, delta * 14))
-	camera_pivot.rotation.x = look_pitch + recoil * 0.025
-	camera_pivot.rotation.y = recoil_yaw
-	var shoulder_target := camera_pivot.to_global(Vector3(0.62 * shoulder, 0, 0))
-	var lateral_hit := ray(camera_pivot.global_position, shoulder_target)
-	var lateral_distance := 0.62
-	if not lateral_hit.is_empty(): lateral_distance = maxf(0.0, camera_pivot.global_position.distance_to(lateral_hit.position) - 0.24)
-	spring_arm.position.x = lerpf(spring_arm.position.x, lateral_distance * shoulder, minf(1.0, delta * 16))
-	# Retraction is immediate even while swapping shoulders beside a side wall.
-	var offset_hit := ray(camera_pivot.global_position, camera_pivot.to_global(Vector3(spring_arm.position.x, 0, 0)))
-	if not offset_hit.is_empty():
-		spring_arm.position.x = signf(spring_arm.position.x) * maxf(0.0, camera_pivot.global_position.distance_to(offset_hit.position) - 0.24)
-	spring_arm.spring_length = lerpf(spring_arm.spring_length, 2.25 if is_aiming() else 3.5, minf(1.0, delta * 12))
+	camera_motion.physics_tick(delta)
 	rig.aim_target = aim_point()
 	rig.target_enabled = is_aiming() or fire_held or Input.is_action_pressed("fire") or shot_cooldown > 0.0
 	if (Input.is_action_pressed("fire") or fire_held) and shot_cooldown == 0.0: shoot()
@@ -180,10 +171,7 @@ func _process(delta: float) -> void:
 	recoil = move_toward(recoil, 0.0, delta * 5.0)
 	recoil_yaw = move_toward(recoil_yaw,0.0,delta*0.06)
 	step_phase += delta * Vector2(velocity.x, velocity.z).length() * 1.8
-	var fast := Vector2(velocity.x, velocity.z).length() > 6.0
-	camera.fov = lerpf(camera.fov, 52.0 if is_aiming() else 73.0 if fast else 65.0, minf(1.0, delta * 10))
-	# Hide the body only if a tight obstruction brings the camera into its mesh.
-	rig.visible = camera.global_position.distance_to(global_position + Vector3.UP) > 0.95
+	camera_motion.render_tick(delta)
 	flash.visible = shot_cooldown > FIRE_INTERVAL - 0.04
 
 func is_aiming() -> bool: return aim_held or Input.is_action_pressed("aim")
@@ -300,6 +288,7 @@ func playtest_snapshot() -> Dictionary:
 		"velocity": [velocity.x, velocity.y, velocity.z], "health": health, "ammo": ammo,
 		"interactions": playtest_interactions, "camera_distance": spring_arm.get_hit_length(),
 		"perspective": "third_person", "on_floor": is_on_floor(), "movement_state": mobility.state,
+		"camera_render_distance":camera_motion.distance,"body_visible":rig.visible,
 		"crouched": mobility.capsule_height < 1.8, "cover_low": mobility.cover_low,
 		"peek": mobility.peek, "vault_aborted": mobility.vault_aborted,
 		"completed_corners": mobility.completed_corners, "completed_transfers": mobility.completed_transfers,

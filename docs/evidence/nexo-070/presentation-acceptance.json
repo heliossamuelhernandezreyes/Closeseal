@@ -1,0 +1,86 @@
+{
+  "checks": {
+    "action_pose_has_bounded_hip_steps": {
+      "ok": true,
+      "value": 0.0989917069673538
+    },
+    "camera_release_is_smoothed": {
+      "ok": true,
+      "value": 0.46484375
+    },
+    "camera_release_recovers": {
+      "ok": true,
+      "value": 3.49686222784912
+    },
+    "close_camera_does_not_overlap_wall": {
+      "ok": true,
+      "value": null
+    },
+    "close_camera_preserves_rig": {
+      "ok": true,
+      "value": null
+    },
+    "close_camera_retracts": {
+      "ok": true,
+      "value": 0.46484375
+    },
+    "derived_map_matches_canonical": {
+      "ok": true,
+      "value": null
+    },
+    "lightmap_bindings_resolve_to_visible_geometry": {
+      "ok": true,
+      "value": []
+    },
+    "pose_offsets_are_bounded": {
+      "ok": true,
+      "value": 0.0154992453753948
+    },
+    "saved_lightmap_has_actor_probes": {
+      "ok": true,
+      "value": null
+    },
+    "saved_lightmap_has_mesh_bindings": {
+      "ok": true,
+      "value": null
+    },
+    "saved_lightmap_has_textures": {
+      "ok": true,
+      "value": null
+    },
+    "saved_lightmap_present": {
+      "ok": true,
+      "value": null
+    },
+    "sector_details_preserve_collision": {
+      "ok": true,
+      "value": null
+    },
+    "shoulder_swap_preserves_rig": {
+      "ok": true,
+      "value": null
+    },
+    "sphere_shoulder_clears_side_wall": {
+      "ok": true,
+      "value": 0.299598515033722
+    },
+    "weapon_grips_survive_transition": {
+      "ok": true,
+      "value": "(0.0, 0.027473)"
+    }
+  },
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "ok": true,
+  "scope": "saved native scene and controlled runtime; not Android performance"
+}

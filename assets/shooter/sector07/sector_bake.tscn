@@ -1,0 +1,2576 @@
+[gd_scene format=3 uid="uid://2hor16uxjrmx"]
+
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0000.tres" id="1_xn7wi"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0001.tres" id="2_b7xuh"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0002.tres" id="3_qfn73"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0003.tres" id="4_jmfhe"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0004.tres" id="5_scwo6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0005.tres" id="6_1wqmv"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0006.tres" id="7_crwb8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0007.tres" id="8_u7mtr"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0008.tres" id="9_tfyhj"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0009.tres" id="10_he4jt"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0010.tres" id="11_f8d1t"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0011.tres" id="12_2fbvk"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0012.tres" id="13_0j8k6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0013.tres" id="14_wrp6i"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0014.tres" id="15_oum1x"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0015.tres" id="16_h5c76"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0016.tres" id="17_s0eao"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0017.tres" id="18_b77d8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0018.tres" id="19_j34aa"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0019.tres" id="20_rngkg"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0020.tres" id="21_psdqn"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0021.tres" id="22_wm6ki"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-014.tres" id="23_5s6j0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0022.tres" id="24_5v2bm"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0023.tres" id="25_ws4dl"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0024.tres" id="26_3rmqk"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0025.tres" id="27_7cu20"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-015.tres" id="28_5tuk7"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0026.tres" id="29_o34am"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0027.tres" id="30_f47nm"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0028.tres" id="31_5qd81"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0029.tres" id="32_6g87f"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0030.tres" id="33_8kjnp"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0031.tres" id="34_66tjh"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-016.tres" id="35_wfgrn"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0032.tres" id="36_mw618"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0033.tres" id="37_123dg"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0034.tres" id="38_yi7pq"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0035.tres" id="39_nseud"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0036.tres" id="40_w8m1i"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0037.tres" id="41_kg8bh"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0038.tres" id="42_ntqws"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0039.tres" id="43_vnqco"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-017.tres" id="44_je6j2"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0040.tres" id="45_37v55"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0041.tres" id="46_vhgwh"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0042.tres" id="47_73ihe"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0043.tres" id="48_46m2m"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-018.tres" id="49_ox3af"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0044.tres" id="50_3thh8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0045.tres" id="51_xdhxe"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0046.tres" id="52_w2h40"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0047.tres" id="53_p3yi6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0048.tres" id="54_b7u7u"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0049.tres" id="55_ntuys"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-019.tres" id="56_whq16"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0050.tres" id="57_mt8y2"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-020.tres" id="58_f64rl"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0051.tres" id="59_jabf6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0052.tres" id="60_klyr0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0053.tres" id="61_xmjxw"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-021.tres" id="62_paub6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0054.tres" id="63_i4lsf"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0055.tres" id="64_uq24q"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0056.tres" id="65_2380g"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0057.tres" id="66_kr53u"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0058.tres" id="67_hpl32"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0059.tres" id="68_ip1nm"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0060.tres" id="69_k4lro"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0061.tres" id="70_pdpt4"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0062.tres" id="71_xp4f6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0063.tres" id="72_ur06l"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0064.tres" id="73_go20r"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0065.tres" id="74_agkyx"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0066.tres" id="75_yil2f"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0067.tres" id="76_8w4fy"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0068.tres" id="77_fv5v8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0069.tres" id="78_ndue8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0070.tres" id="79_dliwl"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-022.tres" id="80_f4hj1"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0071.tres" id="81_lsmux"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0072.tres" id="82_wkdtl"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0073.tres" id="83_u0a35"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0074.tres" id="84_675cy"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0075.tres" id="85_cj7q8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0076.tres" id="86_kq31b"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0077.tres" id="87_p5od1"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-023.tres" id="88_vp7q1"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0078.tres" id="89_dhwwx"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0079.tres" id="90_1alxf"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0080.tres" id="91_uoo23"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0081.tres" id="92_4w3rw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0082.tres" id="93_erb0e"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0083.tres" id="94_kqds6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0084.tres" id="95_ipkba"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0085.tres" id="96_cghl0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0086.tres" id="97_2pdx5"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0087.tres" id="98_p3dht"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0088.tres" id="99_motft"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0089.tres" id="100_evm7u"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0090.tres" id="101_btyf0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0091.tres" id="102_7t7np"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0092.tres" id="103_6ijx5"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0093.tres" id="104_yc5n1"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0094.tres" id="105_rnvek"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0095.tres" id="106_ggick"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0096.tres" id="107_ujqmh"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0097.tres" id="108_bi8rr"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0098.tres" id="109_t1o1o"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0099.tres" id="110_he4o3"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0100.tres" id="111_bpc0p"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0101.tres" id="112_ayn81"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0102.tres" id="113_2g7j1"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0103.tres" id="114_gye0y"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0104.tres" id="115_162ug"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0105.tres" id="116_dfo6e"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0106.tres" id="117_1fbg7"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0107.tres" id="118_dcjxt"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0108.tres" id="119_ejb23"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0109.tres" id="120_cul8d"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0110.tres" id="121_7v0ml"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0111.tres" id="122_wfajr"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0112.tres" id="123_gyscv"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0113.tres" id="124_51gg8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0114.tres" id="125_gjds8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0115.tres" id="126_2nig7"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0116.tres" id="127_b4mrc"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0117.tres" id="128_8y1ii"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0118.tres" id="129_xayov"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0119.tres" id="130_342gh"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0120.tres" id="131_nr8ui"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0121.tres" id="132_u28en"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0122.tres" id="133_flntd"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0123.tres" id="134_7a4r8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0124.tres" id="135_vrpmf"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0125.tres" id="136_75a7g"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0126.tres" id="137_th2yp"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0127.tres" id="138_eq0d4"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0128.tres" id="139_ep348"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0129.tres" id="140_e1q4r"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0130.tres" id="141_0id5g"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0131.tres" id="142_7v23s"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0132.tres" id="143_lurjj"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0133.tres" id="144_07vlu"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0134.tres" id="145_p5b1s"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0135.tres" id="146_2o7vd"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0136.tres" id="147_ngg71"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0137.tres" id="148_qv3bm"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0138.tres" id="149_1c2g3"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0139.tres" id="150_xkxp2"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0140.tres" id="151_bladd"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0141.tres" id="152_k0qjx"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0142.tres" id="153_es3x7"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0143.tres" id="154_urt8h"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0144.tres" id="155_o7v47"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0145.tres" id="156_sqqnp"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0146.tres" id="157_xfqae"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0147.tres" id="158_7dewk"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0148.tres" id="159_1mt70"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0149.tres" id="160_bulfp"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0150.tres" id="161_y68ko"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0151.tres" id="162_pkcsk"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0152.tres" id="163_36a8f"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0153.tres" id="164_y1orc"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0154.tres" id="165_wck5s"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0155.tres" id="166_hy8b3"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0156.tres" id="167_l83fr"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0157.tres" id="168_gv1vs"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0158.tres" id="169_x7q4j"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0159.tres" id="170_x2o6p"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0160.tres" id="171_8427m"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0161.tres" id="172_pdp8d"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0162.tres" id="173_muoto"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0163.tres" id="174_ev7e0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0164.tres" id="175_adpb0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0165.tres" id="176_5uxbl"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0166.tres" id="177_uqcb8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0167.tres" id="178_iq3gf"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0168.tres" id="179_b463l"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0169.tres" id="180_idyd3"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0170.tres" id="181_ikris"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0171.tres" id="182_cv4q8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0172.tres" id="183_44lgy"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0173.tres" id="184_sc0c0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0174.tres" id="185_ccwsj"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0175.tres" id="186_ega0r"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0176.tres" id="187_1fqa4"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0177.tres" id="188_p3vx4"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0178.tres" id="189_kq7c8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0179.tres" id="190_pw73j"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0180.tres" id="191_pc1ci"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0181.tres" id="192_k5hh5"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0182.tres" id="193_bvhds"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0183.tres" id="194_nyeab"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0184.tres" id="195_sqhxg"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0185.tres" id="196_8qv85"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0186.tres" id="197_ur0ra"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0187.tres" id="198_xcgff"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0188.tres" id="199_2eok6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0189.tres" id="200_annmp"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0190.tres" id="201_cyywb"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0191.tres" id="202_w3j65"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0192.tres" id="203_mf7sa"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0193.tres" id="204_frdt5"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0194.tres" id="205_s27pq"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0195.tres" id="206_whrtk"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0196.tres" id="207_i1h7s"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0197.tres" id="208_rn4hd"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0198.tres" id="209_rk8pd"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0199.tres" id="210_nbgan"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0200.tres" id="211_c05te"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0201.tres" id="212_ddh5w"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0202.tres" id="213_2qtxv"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0203.tres" id="214_kws2g"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0204.tres" id="215_ia1ki"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0205.tres" id="216_ryu0f"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0206.tres" id="217_sq4w3"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0207.tres" id="218_fkgd0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0208.tres" id="219_qr2qd"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0209.tres" id="220_o4qfa"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0210.tres" id="221_ljwrt"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0211.tres" id="222_2n2s6"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-024.tres" id="223_niuau"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0212.tres" id="224_lb17w"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0213.tres" id="225_mda30"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0214.tres" id="226_4xyvv"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0215.tres" id="227_eb4wq"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0216.tres" id="228_mb552"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0217.tres" id="229_6wnn1"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0218.tres" id="230_ukb34"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0219.tres" id="231_m7tck"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0220.tres" id="232_2oqdp"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0221.tres" id="233_hhj8d"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0222.tres" id="234_xfkeo"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0223.tres" id="235_0xx0i"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0224.tres" id="236_jsea4"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0225.tres" id="237_gf8bu"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0226.tres" id="238_35kho"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0227.tres" id="239_nfjie"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0228.tres" id="240_gmcua"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0229.tres" id="241_rcj6a"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0230.tres" id="242_g0k2p"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0231.tres" id="243_f05tw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0232.tres" id="244_88h3h"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0233.tres" id="245_wfu38"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0234.tres" id="246_77oom"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0235.tres" id="247_2bchm"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0236.tres" id="248_pd3eg"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0237.tres" id="249_8adk6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0238.tres" id="250_ku3ja"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0239.tres" id="251_wul44"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0240.tres" id="252_xsgvt"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0241.tres" id="253_qdtth"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0242.tres" id="254_ft5ce"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0243.tres" id="255_3v3dx"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0244.tres" id="256_r7txn"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0245.tres" id="257_mvpua"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0246.tres" id="258_27ijn"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0247.tres" id="259_2dqpl"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0248.tres" id="260_xa8gm"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0249.tres" id="261_hh7q0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0250.tres" id="262_kl1r7"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-000.tres" id="263_k7kkt"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0251.tres" id="264_d3l2c"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0252.tres" id="265_fbgao"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0253.tres" id="266_dac04"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0254.tres" id="267_uopsm"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0255.tres" id="268_3m8gc"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0256.tres" id="269_6xsm0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0257.tres" id="270_mdc03"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0258.tres" id="271_4eg5g"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0259.tres" id="272_xtf7k"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0260.tres" id="273_7qxnh"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0261.tres" id="274_iwhlt"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0262.tres" id="275_fq1qw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0263.tres" id="276_5gmyi"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0264.tres" id="277_1c25h"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0265.tres" id="278_kge7d"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0266.tres" id="279_xemxh"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0267.tres" id="280_2y8l3"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0268.tres" id="281_5sgpd"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0269.tres" id="282_bv66m"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0270.tres" id="283_icu5a"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0271.tres" id="284_882d4"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0272.tres" id="285_huajw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0273.tres" id="286_0agt2"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0274.tres" id="287_8wp4a"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0275.tres" id="288_kh615"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0276.tres" id="289_kvjne"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0277.tres" id="290_buecj"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0278.tres" id="291_yhkpp"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0279.tres" id="292_js073"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0280.tres" id="293_iqerl"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0281.tres" id="294_ny5xf"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-025.tres" id="295_wsoc2"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0282.tres" id="296_fdoeg"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0283.tres" id="297_7a2v5"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0284.tres" id="298_cilqo"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0285.tres" id="299_y6drr"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0286.tres" id="300_du66c"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0287.tres" id="301_2mw11"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0288.tres" id="302_m0x0t"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0289.tres" id="303_8i67r"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0290.tres" id="304_42can"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0291.tres" id="305_kcggo"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0292.tres" id="306_r01sc"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0293.tres" id="307_yrdih"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0294.tres" id="308_0ileo"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0295.tres" id="309_re1ka"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0296.tres" id="310_d2fct"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0297.tres" id="311_c4kjr"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0298.tres" id="312_omfj7"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0299.tres" id="313_jljiq"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0300.tres" id="314_hxguw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0301.tres" id="315_h3gno"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0302.tres" id="316_r4bgw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0303.tres" id="317_ycena"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0304.tres" id="318_xoexg"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0305.tres" id="319_2afqb"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0306.tres" id="320_cjwfs"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0307.tres" id="321_l0bia"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0308.tres" id="322_b2eax"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0309.tres" id="323_kai6j"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0310.tres" id="324_mpedu"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0311.tres" id="325_0ci0n"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0312.tres" id="326_th78r"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0313.tres" id="327_hiekb"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0314.tres" id="328_sb1q5"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0315.tres" id="329_53ug8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0316.tres" id="330_4ssye"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0317.tres" id="331_nvowy"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0318.tres" id="332_p8qpk"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0319.tres" id="333_q8vu4"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0320.tres" id="334_yhk7d"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0321.tres" id="335_tyyah"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0322.tres" id="336_8xnl7"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0323.tres" id="337_s2xrb"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0324.tres" id="338_ug6qu"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0325.tres" id="339_rekoy"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-026.tres" id="340_65sk4"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0326.tres" id="341_7dvxe"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0327.tres" id="342_x1vdo"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0328.tres" id="343_pknjw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0329.tres" id="344_1cunu"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0330.tres" id="345_euk2v"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0331.tres" id="346_2q7xp"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-027.tres" id="347_ptnjw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0332.tres" id="348_nnfmo"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0333.tres" id="349_rmgpw"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0334.tres" id="350_wkwad"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0335.tres" id="351_1vn8v"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0336.tres" id="352_kwhe3"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0337.tres" id="353_epve8"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0338.tres" id="354_rilt1"]
+[ext_resource type="Material" path="res://assets/shooter/sector07/materials/material-028.tres" id="355_d5bn0"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0339.tres" id="356_h7jvd"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0340.tres" id="357_slfft"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0341.tres" id="358_8hsqs"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0342.tres" id="359_mn436"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0343.tres" id="360_nqrxm"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0344.tres" id="361_wsl5b"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0345.tres" id="362_mrkmc"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0346.tres" id="363_uerwu"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0347.tres" id="364_s3wv6"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0348.tres" id="365_qpwgy"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0349.tres" id="366_1jet3"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0350.tres" id="367_py0vk"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0351.tres" id="368_kiyap"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0352.tres" id="369_6wnla"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0353.tres" id="370_yi1pp"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0354.tres" id="371_u36i7"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0355.tres" id="372_dyt53"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0356.tres" id="373_2n67b"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0357.tres" id="374_1f2ua"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0358.tres" id="375_7gjof"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0359.tres" id="376_5c8fi"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0360.tres" id="377_44pcr"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/uv2-0361.tres" id="378_7o1yr"]
+[ext_resource type="Texture2D" uid="uid://cb3ad882b50a3" path="res://assets/shooter/serious/textures/asphalt_06_diff.jpg" id="379_37snw"]
+[ext_resource type="Texture2D" uid="uid://dbae7a0ux2y1h" path="res://assets/shooter/serious/textures/asphalt_06_nor_gl.jpg" id="380_ea16e"]
+[ext_resource type="Texture2D" uid="uid://1gdc6aklst17" path="res://assets/shooter/serious/textures/asphalt_06_rough.jpg" id="381_2ko4p"]
+[ext_resource type="ArrayMesh" path="res://assets/shooter/sector07/meshes/courtyard.tres" id="382_u7qn3"]
+[ext_resource type="Texture2D" uid="uid://8idlotuic4or" path="res://assets/shooter/serious/evening_road_01_puresky.hdr" id="383_d3c17"]
+[ext_resource type="LightmapGIData" uid="uid://be21rp3l8etou" path="res://assets/shooter/sector07/sector_bake-light.tres" id="384_xkebp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_caw6x"]
+albedo_color = Color(0.36, 0.4, 0.41, 1)
+albedo_texture = ExtResource("379_37snw")
+metallic_specular = 0.12
+roughness = 0.98
+roughness_texture = ExtResource("381_2ko4p")
+normal_scale = 0.65
+normal_texture = ExtResource("380_ea16e")
+uv1_scale = Vector3(0.35, 0.35, 0.35)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_mvshl"]
+panorama = ExtResource("383_d3c17")
+energy_multiplier = 0.85
+
+[sub_resource type="Sky" id="Sky_u8l1r"]
+sky_material = SubResource("PanoramaSkyMaterial_mvshl")
+
+[sub_resource type="Environment" id="Environment_4yivy"]
+background_mode = 2
+background_color = Color(0.34901962, 0.42352942, 0.4627451, 1)
+background_energy_multiplier = 0.85
+sky = SubResource("Sky_u8l1r")
+sky_rotation = Vector3(0, 0.55, 0)
+ambient_light_source = 2
+ambient_light_color = Color(0.64705884, 0.7176471, 0.7607843, 1)
+ambient_light_energy = 0.65
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 1.05
+fog_enabled = true
+fog_light_color = Color(0.50980395, 0.57254905, 0.60784316, 1)
+fog_density = 0.0016
+fog_sky_affect = 0.08
+adjustment_enabled = true
+adjustment_contrast = 1.04
+adjustment_saturation = 0.8
+
+[node name="SectorBake" type="Node3D" unique_id=703736462]
+
+[node name="LightmappedGeometry" type="Node3D" parent="." unique_id=223761097]
+
+[node name="BakedAsset0000" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1921781008]
+mesh = ExtResource("1_xn7wi")
+
+[node name="BakedAsset0001" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1251143763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, 65)
+mesh = ExtResource("2_b7xuh")
+
+[node name="BakedAsset0002" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=79741056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 109)
+mesh = ExtResource("2_b7xuh")
+
+[node name="BakedAsset0003" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1495645566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 90)
+mesh = ExtResource("3_qfn73")
+
+[node name="BakedAsset0004" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1358307281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 63)
+mesh = ExtResource("3_qfn73")
+
+[node name="BakedAsset0005" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=92550408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 79)
+mesh = ExtResource("3_qfn73")
+
+[node name="BakedAsset0006" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=839485809]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 57)
+mesh = ExtResource("3_qfn73")
+
+[node name="BakedAsset0007" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=132145541]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, -15, 0.054757215, 96)
+mesh = ExtResource("4_jmfhe")
+
+[node name="BakedAsset0008" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1852488695]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, -15, 0.6650972, 95.62826)
+mesh = ExtResource("5_scwo6")
+
+[node name="BakedAsset0009" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1729224249]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, -15, 0.63465273, 96.37612)
+mesh = ExtResource("6_1wqmv")
+
+[node name="BakedAsset0010" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2008984051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0, 73)
+mesh = ExtResource("7_crwb8")
+
+[node name="BakedAsset0011" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=340429829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2424, 0.3, 77.2806)
+mesh = ExtResource("8_u7mtr")
+
+[node name="BakedAsset0012" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1994172104]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6824, 0.3, 77.2806)
+mesh = ExtResource("9_tfyhj")
+
+[node name="BakedAsset0013" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=363446679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6724, 0.3, 74.7006)
+mesh = ExtResource("10_he4jt")
+
+[node name="BakedAsset0014" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1143161901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2524, 0.3, 74.7006)
+mesh = ExtResource("11_f8d1t")
+
+[node name="BakedAsset0015" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1203122209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.9624, 0, 76.0376)
+mesh = ExtResource("12_2fbvk")
+
+[node name="BakedAsset0016" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1250357773]
+transform = Transform3D(0.9702957, 0, 0.2419219, 0, 1, 0, -0.2419219, 0, 0.9702957, -17.8, 0.06, 97)
+mesh = ExtResource("7_crwb8")
+
+[node name="BakedAsset0017" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=264232184]
+transform = Transform3D(0.42261824, 0, 0.9063078, 0, 1, 0, -0.9063078, 0, 0.42261824, -18.5, 0.06, 96.5)
+mesh = ExtResource("7_crwb8")
+
+[node name="BakedAsset0018" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1878480568]
+transform = Transform3D(0.76604444, 0, 0.6427876, 0, 1, 0, -0.6427876, 0, 0.76604444, 29, 0.06, 69)
+mesh = ExtResource("7_crwb8")
+
+[node name="BakedAsset0019" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=646426090]
+transform = Transform3D(0.9396926, 0, 0.34202012, 0, 1, 0, -0.34202012, 0, 0.9396926, 25, 0.06, 83)
+mesh = ExtResource("13_0j8k6")
+
+[node name="BakedAsset0020" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2119267620]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 26, 0.09422326, 88)
+mesh = ExtResource("14_wrp6i")
+
+[node name="BakedAsset0021" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1641552591]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 25.767662, 0.47568572, 88)
+mesh = ExtResource("15_oum1x")
+
+[node name="BakedAsset0022" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1821557817]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 26.235077, 0.45665795, 88)
+mesh = ExtResource("16_h5c76")
+
+[node name="BakedAsset0023" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=736757053]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, 25.72089, 0.31093848, 70.689)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0024" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1435740235]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, 25.457874, 0.26923832, 71.07664)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0025" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1667282641]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, 25.456757, 0.28712147, 71.080536)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0026" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=349951105]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, 25.51937, 0.084129915, 70.86218)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0027" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2083243129]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, 25.51937, 0.06, 70.86218)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0028" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1195776987]
+transform = Transform3D(0.9612617, -0.051778574, 0.2707304, 0, -0.98219776, -0.18785034, 0.27563736, 0.18057333, -0.9441491, 26.682152, 0.31093848, 70.96464)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0029" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1103499959]
+transform = Transform3D(0.9612617, -0.099241905, 0.2571517, 0, -0.9329349, -0.3600452, 0.27563736, 0.34609765, -0.89679456, 26.419136, 0.26923832, 71.35227)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0030" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1497091737]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, 26.418018, 0.28712147, 71.35617)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0031" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=179161447]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, 26.48063, 0.084129915, 71.13782)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0032" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=248877500]
+transform = Transform3D(0.9612617, 0, -0.27563736, 0, 1, 0, 0.27563736, 0, 0.9612617, 26.48063, 0.06, 71.13782)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0033" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=103191842]
+transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, -23, 0.09422326, 82)
+mesh = ExtResource("14_wrp6i")
+
+[node name="BakedAsset0034" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=121702108]
+transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, -23.016207, 0.47568572, 81.76823)
+mesh = ExtResource("15_oum1x")
+
+[node name="BakedAsset0035" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=406625166]
+transform = Transform3D(0.9975641, 0, 0.06975647, 0, 1, 0, -0.06975647, 0, 0.9975641, -22.983603, 0.45665795, 82.234505)
+mesh = ExtResource("16_h5c76")
+
+[node name="BakedAsset0036" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=345710118]
+transform = Transform3D(0.81915206, 0, 0.57357645, 0, 1, 0, -0.57357645, 0, 0.81915206, -24, 0.06, 84)
+mesh = ExtResource("7_crwb8")
+
+[node name="BakedAsset0037" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=764406564]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, -14.7, 2.7, 84)
+mesh = ExtResource("22_wm6ki")
+
+[node name="BakedAsset0038" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1519460483]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, 13.35, 4.6, 72)
+mesh = ExtResource("22_wm6ki")
+
+[node name="BakedAsset0039" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1650266077]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, 13.35, 4.6, 87)
+mesh = ExtResource("22_wm6ki")
+
+[node name="BakedAsset0040" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=426782480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.645979, 0.29093847, 83.777985)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0041" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=752047013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.24923834, 84.2231)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0042" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=782435246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.2671215, 84.22715)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0043" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1541879416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.06412991, 84)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0044" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=84570190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.04, 84)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0045" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=194751396]
+transform = Transform3D(1, 0, 0, 0, -0.98219776, -0.18785034, 0, 0.18785034, -0.98219776, 18.645979, 0.29093847, 83.777985)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0046" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1877362330]
+transform = Transform3D(1, 0, 0, 0, -0.9329349, -0.3600452, 0, 0.3600452, -0.9329349, 18.5, 0.24923834, 84.2231)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0047" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1712683713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0.2671215, 84.22715)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0048" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1934933587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0.06412991, 84)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0049" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1357689328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0.04, 84)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0050" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=487478465]
+transform = Transform3D(0.9135454, 0, 0.40673664, 0, 1, 0, -0.40673664, 0, 0.9135454, 19.586285, 0.29093847, 91.94117)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0051" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=377334147]
+transform = Transform3D(0.9135454, 0, 0.40673664, 0, 1, 0, -0.40673664, 0, 0.9135454, 19.63397, 0.24923834, 92.40718)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0052" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=616830887]
+transform = Transform3D(0.9135454, 0, 0.40673664, 0, 1, 0, -0.40673664, 0, 0.9135454, 19.635618, 0.2671215, 92.41088)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0053" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1071992571]
+transform = Transform3D(0.9135454, 0, 0.40673664, 0, 1, 0, -0.40673664, 0, 0.9135454, 19.543228, 0.06412991, 92.20337)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0054" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=645064137]
+transform = Transform3D(0.9135454, 0, 0.40673664, 0, 1, 0, -0.40673664, 0, 0.9135454, 19.543228, 0.04, 92.20337)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0055" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1371745763]
+transform = Transform3D(0.9135454, 0.076405615, -0.3994958, 0, -0.98219776, -0.18785034, -0.40673664, 0.17160982, -0.8972823, 20.49983, 0.29093847, 91.53443)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0056" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1764406577]
+transform = Transform3D(0.9135454, 0.14644358, -0.3794588, 0, -0.9329349, -0.3600452, -0.40673664, 0.32891765, -0.8522784, 20.547516, 0.24923834, 92.00044)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0057" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=271254026]
+transform = Transform3D(0.9135454, 0, 0.40673664, 0, 1, 0, -0.40673664, 0, 0.9135454, 20.549164, 0.2671215, 92.00414)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0058" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1155352071]
+transform = Transform3D(0.9135454, 0, 0.40673664, 0, 1, 0, -0.40673664, 0, 0.9135454, 20.456772, 0.06412991, 91.79663)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0059" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=730116570]
+transform = Transform3D(0.9135454, 0, 0.40673664, 0, 1, 0, -0.40673664, 0, 0.9135454, 20.456772, 0.04, 91.79663)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0060" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=640372168]
+transform = Transform3D(0.66913056, 0, 0.74314487, 0, 1, 0, -0.74314487, 0, 0.66913056, -19.401876, 0.29093847, 87.11453)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0061" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1752929044]
+transform = Transform3D(0.66913056, 0, 0.74314487, 0, 1, 0, -0.74314487, 0, 0.66913056, -19.168772, 0.24923834, 87.52085)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0062" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1825624175]
+transform = Transform3D(0.66913056, 0, 0.74314487, 0, 1, 0, -0.74314487, 0, 0.66913056, -19.165758, 0.2671215, 87.52357)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0063" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1699245370]
+transform = Transform3D(0.66913056, 0, 0.74314487, 0, 1, 0, -0.74314487, 0, 0.66913056, -19.334566, 0.06412991, 87.371574)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0064" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1950869364]
+transform = Transform3D(0.66913056, 0, 0.74314487, 0, 1, 0, -0.74314487, 0, 0.66913056, -19.334566, 0.04, 87.371574)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0065" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=414201072]
+transform = Transform3D(0.66913056, 0.13960002, -0.7299152, 0, -0.98219776, -0.18785034, -0.74314487, 0.1256964, -0.6572185, -18.732746, 0.29093847, 86.37138)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0066" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2077666793]
+transform = Transform3D(0.66913056, 0.26756573, -0.6933058, 0, -0.9329349, -0.3600452, -0.74314487, 0.24091725, -0.62425524, -18.499641, 0.24923834, 86.77771)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0067" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=385062112]
+transform = Transform3D(0.66913056, 0, 0.74314487, 0, 1, 0, -0.74314487, 0, 0.66913056, -18.496628, 0.2671215, 86.78042)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0068" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1340938345]
+transform = Transform3D(0.66913056, 0, 0.74314487, 0, 1, 0, -0.74314487, 0, 0.66913056, -18.665434, 0.06412991, 86.628426)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0069" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1155721426]
+transform = Transform3D(0.66913056, 0, 0.74314487, 0, 1, 0, -0.74314487, 0, 0.66913056, -18.665434, 0.04, 86.628426)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0070" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1193389801]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, -24.320549, 0.29093847, 91.26809)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0071" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1836263777]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, -23.94233, 0.24923834, 91.54447)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0072" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1567035285]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, -23.938475, 0.2671215, 91.54572)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0073" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=771752274]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, -24.154509, 0.06412991, 91.475525)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0074" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=593570985]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, -24.154509, 0.04, 91.475525)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0075" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=158144044]
+transform = Transform3D(0.30901697, 0.1786563, -0.9341256, 0, -0.98219776, -0.18785034, -0.95105654, 0.058048945, -0.3035158, -24.011532, 0.29093847, 90.31703)
+mesh = ExtResource("17_s0eao")
+
+[node name="BakedAsset0076" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1587060407]
+transform = Transform3D(0.30901697, 0.34242335, -0.88727385, 0, -0.9329349, -0.3600452, -0.95105654, 0.11126008, -0.2882927, -23.633312, 0.24923834, 90.593414)
+mesh = ExtResource("18_b77d8")
+
+[node name="BakedAsset0077" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2001850552]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, -23.629457, 0.2671215, 90.594666)
+mesh = ExtResource("19_j34aa")
+
+[node name="BakedAsset0078" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2027546346]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, -23.845491, 0.06412991, 90.524475)
+mesh = ExtResource("20_rngkg")
+
+[node name="BakedAsset0079" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1439972043]
+transform = Transform3D(0.30901697, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.30901697, -23.845491, 0.04, 90.524475)
+mesh = ExtResource("21_psdqn")
+
+[node name="BakedAsset0080" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1240879023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0.058, 54)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("24_5v2bm")
+
+[node name="BakedAsset0081" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1424859243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0.058, 98)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("25_ws4dl")
+
+[node name="BakedAsset0082" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=361231062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.058, 54)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("26_3rmqk")
+
+[node name="BakedAsset0083" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=231128604]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.058, 98)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("27_7cu20")
+
+[node name="BakedAsset0084" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=957906200]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.031, 52)
+material_override = ExtResource("28_5tuk7")
+mesh = ExtResource("29_o34am")
+
+[node name="BakedAsset0085" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2019623191]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.031, 64)
+material_override = ExtResource("28_5tuk7")
+mesh = ExtResource("30_f47nm")
+
+[node name="BakedAsset0086" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1145132934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.031, 76)
+material_override = ExtResource("28_5tuk7")
+mesh = ExtResource("31_5qd81")
+
+[node name="BakedAsset0087" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1528393702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.031, 88)
+material_override = ExtResource("28_5tuk7")
+mesh = ExtResource("32_6g87f")
+
+[node name="BakedAsset0088" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=979058670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.031, 100)
+material_override = ExtResource("28_5tuk7")
+mesh = ExtResource("33_8kjnp")
+
+[node name="BakedAsset0089" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1475547517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.031, 112)
+material_override = ExtResource("28_5tuk7")
+mesh = ExtResource("34_66tjh")
+
+[node name="BakedAsset0090" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1134991034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 9.08, 65)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("36_mw618")
+
+[node name="BakedAsset0091" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=292982327]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37, 9.6, 65)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("37_123dg")
+
+[node name="BakedAsset0092" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1388237466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37, 10.7, 65)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("38_yi7pq")
+
+[node name="BakedAsset0093" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2126418319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 9.08, 109)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("39_nseud")
+
+[node name="BakedAsset0094" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1226712721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 9.6, 109)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("40_w8m1i")
+
+[node name="BakedAsset0095" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1145205948]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 10.7, 109)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("41_kg8bh")
+
+[node name="BakedAsset0096" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1371807165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 9.6, 109)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("42_ntqws")
+
+[node name="BakedAsset0097" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1893333813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 10.7, 109)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("43_vnqco")
+
+[node name="BakedAsset0098" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1056428243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 1.3, 57)
+material_override = ExtResource("44_je6j2")
+mesh = ExtResource("45_37v55")
+
+[node name="BakedAsset0099" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1830892197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.95, 1.3, 57)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("46_vhgwh")
+
+[node name="BakedAsset0100" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=796364839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 0.48, 73)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("47_73ihe")
+
+[node name="BakedAsset0101" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2102612642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3, 72)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("48_46m2m")
+
+[node name="BakedAsset0102" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1352391381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 6, 72)
+material_override = ExtResource("49_ox3af")
+mesh = ExtResource("50_3thh8")
+
+[node name="BakedAsset0103" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1872453026]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 108)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("51_xdhxe")
+
+[node name="BakedAsset0104" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1889722785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 108)
+material_override = ExtResource("49_ox3af")
+mesh = ExtResource("52_w2h40")
+
+[node name="BakedAsset0105" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1724319678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 111)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("53_p3yi6")
+
+[node name="BakedAsset0106" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=856884831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 111)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("54_b7u7u")
+
+[node name="BakedAsset0107" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2085755820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 111)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("55_ntuys")
+
+[node name="BakedAsset0108" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=539007544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8, 110.6)
+material_override = ExtResource("56_whq16")
+mesh = ExtResource("57_mt8y2")
+
+[node name="BakedAsset0109" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=799296757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, -0.01, 89)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("59_jabf6")
+
+[node name="BakedAsset0110" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1164561902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 2.4, 78)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("60_klyr0")
+
+[node name="BakedAsset0111" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1614066264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 2.4, 89)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("61_xmjxw")
+
+[node name="BakedAsset0112" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=87389315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.4, 82)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("63_i4lsf")
+
+[node name="BakedAsset0113" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=776463796]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.4, 96)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("64_uq24q")
+
+[node name="BakedAsset0114" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2146815797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 4.1, 89)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("65_2380g")
+
+[node name="BakedAsset0115" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1231607691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.25, 2.4, 100)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("66_kr53u")
+
+[node name="BakedAsset0116" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1063934622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.75, 2.4, 100)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("67_hpl32")
+
+[node name="BakedAsset0117" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=228179911]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 3.8, 100)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("68_ip1nm")
+
+[node name="BakedAsset0118" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=166009260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 4.92, 89)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("69_k4lro")
+
+[node name="BakedAsset0119" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1585673152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.18, 81)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("70_pdpt4")
+
+[node name="BakedAsset0120" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1122929394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.03, 2.4, 78.5)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("71_xp4f6")
+
+[node name="BakedAsset0121" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1467590743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 4.55, 78.5)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("72_ur06l")
+
+[node name="BakedAsset0122" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2098294989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.03, 2.4, 86)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("73_go20r")
+
+[node name="BakedAsset0123" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=335404043]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 4.55, 86)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("74_agkyx")
+
+[node name="BakedAsset0124" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=332036505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.03, 2.4, 92)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("75_yil2f")
+
+[node name="BakedAsset0125" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=568043065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 4.55, 92)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("76_8w4fy")
+
+[node name="BakedAsset0126" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1197113395]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.03, 2.4, 99.5)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("77_fv5v8")
+
+[node name="BakedAsset0127" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1380344864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 4.55, 99.5)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("78_ndue8")
+
+[node name="BakedAsset0128" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2059923143]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.83, 3.8, 80)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("79_dliwl")
+
+[node name="BakedAsset0129" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1087951527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.76, 3.8, 80)
+material_override = ExtResource("80_f4hj1")
+mesh = ExtResource("81_lsmux")
+
+[node name="BakedAsset0130" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=747760692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.83, 3.8, 82.1)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("82_wkdtl")
+
+[node name="BakedAsset0131" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2064475352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.76, 3.8, 82.1)
+material_override = ExtResource("80_f4hj1")
+mesh = ExtResource("83_u0a35")
+
+[node name="BakedAsset0132" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1252144933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.83, 3.8, 84.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("84_675cy")
+
+[node name="BakedAsset0133" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=456059269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.76, 3.8, 84.2)
+material_override = ExtResource("80_f4hj1")
+mesh = ExtResource("85_cj7q8")
+
+[node name="BakedAsset0134" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1839898851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.83, 3.8, 86.3)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("86_kq31b")
+
+[node name="BakedAsset0135" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=795165662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.76, 3.8, 86.3)
+material_override = ExtResource("80_f4hj1")
+mesh = ExtResource("87_p5od1")
+
+[node name="BakedAsset0136" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2024508584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0.65, 100.7)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("89_dhwwx")
+
+[node name="BakedAsset0137" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1376139560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.65, 100.7)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("90_1alxf")
+
+[node name="BakedAsset0138" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=230805396]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 3.6, 100.16)
+material_override = ExtResource("49_ox3af")
+mesh = ExtResource("91_uoo23")
+
+[node name="BakedAsset0139" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2033314720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, -0.01, 80)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("92_4w3rw")
+
+[node name="BakedAsset0140" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=202967287]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.6, 66)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("93_erb0e")
+
+[node name="BakedAsset0141" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1807464537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 3.6, 80)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("94_kqds6")
+
+[node name="BakedAsset0142" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=947581781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3.6, 71.5)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("95_ipkba")
+
+[node name="BakedAsset0143" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=966878152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3.6, 88.5)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("96_cghl0")
+
+[node name="BakedAsset0144" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1703105564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 5.3, 80)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("97_2pdx5")
+
+[node name="BakedAsset0145" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=403246578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.25, 3.6, 94)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("98_p3dht")
+
+[node name="BakedAsset0146" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1571709394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.75, 3.6, 94)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("99_motft")
+
+[node name="BakedAsset0147" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1863548090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 6.2, 94)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("100_evm7u")
+
+[node name="BakedAsset0148" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1656795156]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 7.32, 80)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("101_btyf0")
+
+[node name="BakedAsset0149" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1616951069]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0.18, 69)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("102_7t7np")
+
+[node name="BakedAsset0150" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=462964254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.97, 3.6, 66.5)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("103_6ijx5")
+
+[node name="BakedAsset0151" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=727883345]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 6.95, 66.5)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("104_yc5n1")
+
+[node name="BakedAsset0152" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=338056706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.97, 3.6, 77)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("105_rnvek")
+
+[node name="BakedAsset0153" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=97957651]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 6.95, 77)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("106_ggick")
+
+[node name="BakedAsset0154" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=710787398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.97, 3.6, 83)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("107_ujqmh")
+
+[node name="BakedAsset0155" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1766393315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 6.95, 83)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("108_bi8rr")
+
+[node name="BakedAsset0156" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1172339006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.97, 3.6, 93.5)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("109_t1o1o")
+
+[node name="BakedAsset0157" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=376638598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 6.95, 93.5)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("110_he4o3")
+
+[node name="BakedAsset0158" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2063345790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.83, 5.8, 68)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("111_bpc0p")
+
+[node name="BakedAsset0159" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2062331607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.76, 5.8, 68)
+material_override = ExtResource("80_f4hj1")
+mesh = ExtResource("112_ayn81")
+
+[node name="BakedAsset0160" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=918517569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.83, 5.8, 70.1)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("113_2g7j1")
+
+[node name="BakedAsset0161" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1926490798]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.76, 5.8, 70.1)
+material_override = ExtResource("80_f4hj1")
+mesh = ExtResource("114_gye0y")
+
+[node name="BakedAsset0162" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1649599204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.83, 5.8, 72.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("115_162ug")
+
+[node name="BakedAsset0163" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1155075655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.76, 5.8, 72.2)
+material_override = ExtResource("80_f4hj1")
+mesh = ExtResource("116_dfo6e")
+
+[node name="BakedAsset0164" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=71906183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.83, 5.8, 74.3)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("117_1fbg7")
+
+[node name="BakedAsset0165" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1432659996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.76, 5.8, 74.3)
+material_override = ExtResource("80_f4hj1")
+mesh = ExtResource("118_dcjxt")
+
+[node name="BakedAsset0166" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1005475436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0.65, 94.7)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("119_ejb23")
+
+[node name="BakedAsset0167" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=384354169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.65, 94.7)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("120_cul8d")
+
+[node name="BakedAsset0168" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1271522123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.6, 94.16)
+material_override = ExtResource("49_ox3af")
+mesh = ExtResource("121_7v0ml")
+
+[node name="BakedAsset0169" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=555221564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 3.4, 60)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("122_wfajr")
+
+[node name="BakedAsset0170" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=506232875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.25, 60)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("123_gyscv")
+
+[node name="BakedAsset0171" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=925483953]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 3.4, 60)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("124_51gg8")
+
+[node name="BakedAsset0172" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1059646772]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0.25, 60)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("125_gjds8")
+
+[node name="BakedAsset0173" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1502316646]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, 60)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("126_2nig7")
+
+[node name="BakedAsset0174" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1759742880]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.6, 58.8)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("127_b4mrc")
+
+[node name="BakedAsset0175" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=521732608]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.55, 58.8)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("128_8y1ii")
+
+[node name="BakedAsset0176" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=140552788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("129_xayov")
+
+[node name="BakedAsset0177" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1969499106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("130_342gh")
+
+[node name="BakedAsset0178" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1645037483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("131_nr8ui")
+
+[node name="BakedAsset0179" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1488335108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("132_u28en")
+
+[node name="BakedAsset0180" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=485261876]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("133_flntd")
+
+[node name="BakedAsset0181" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1106246426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("134_7a4r8")
+
+[node name="BakedAsset0182" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=975938383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("135_vrpmf")
+
+[node name="BakedAsset0183" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2100928708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("136_75a7g")
+
+[node name="BakedAsset0184" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=924539084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("137_th2yp")
+
+[node name="BakedAsset0185" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=464415618]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("138_eq0d4")
+
+[node name="BakedAsset0186" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=137773734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("139_ep348")
+
+[node name="BakedAsset0187" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2138863498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("140_e1q4r")
+
+[node name="BakedAsset0188" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1598249860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 7.05, 58.8)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("141_0id5g")
+
+[node name="BakedAsset0189" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=744116605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.6, 61.2)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("142_7v23s")
+
+[node name="BakedAsset0190" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=771341994]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.55, 61.2)
+material_override = ExtResource("62_paub6")
+mesh = ExtResource("143_lurjj")
+
+[node name="BakedAsset0191" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=93422463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("144_07vlu")
+
+[node name="BakedAsset0192" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=134535114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("145_p5b1s")
+
+[node name="BakedAsset0193" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1613117556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("146_2o7vd")
+
+[node name="BakedAsset0194" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=440305306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("147_ngg71")
+
+[node name="BakedAsset0195" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=945530816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("148_qv3bm")
+
+[node name="BakedAsset0196" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1048338954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("149_1c2g3")
+
+[node name="BakedAsset0197" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2115181273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("150_xkxp2")
+
+[node name="BakedAsset0198" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=70485298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("151_bladd")
+
+[node name="BakedAsset0199" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=223913971]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("152_k0qjx")
+
+[node name="BakedAsset0200" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=521751387]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("153_es3x7")
+
+[node name="BakedAsset0201" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=328132093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("154_urt8h")
+
+[node name="BakedAsset0202" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=309870015]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("155_o7v47")
+
+[node name="BakedAsset0203" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1632468243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 7.05, 61.2)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("156_sqqnp")
+
+[node name="BakedAsset0204" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=588796944]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 7, 59.4)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("157_xfqae")
+
+[node name="BakedAsset0205" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1617520629]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 7, 60)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("158_7dewk")
+
+[node name="BakedAsset0206" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=500582457]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 7, 60.6)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("159_1mt70")
+
+[node name="BakedAsset0207" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=805118211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.25, 61.32)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("160_bulfp")
+
+[node name="BakedAsset0208" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1531032958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.07, 66)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("161_y68ko")
+
+[node name="BakedAsset0209" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=305050515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.07, 72)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("162_pkcsk")
+
+[node name="BakedAsset0210" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1635615730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.07, 78)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("163_36a8f")
+
+[node name="BakedAsset0211" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1930955778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.07, 84)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("164_y1orc")
+
+[node name="BakedAsset0212" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2108720246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.07, 90)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("165_wck5s")
+
+[node name="BakedAsset0213" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=461158591]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.07, 96)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("166_hy8b3")
+
+[node name="BakedAsset0214" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=723547364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.07, 102)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("167_l83fr")
+
+[node name="BakedAsset0215" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1824631783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.145, 69)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("168_gv1vs")
+
+[node name="BakedAsset0216" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=433148289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 68.55)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("169_x7q4j")
+
+[node name="BakedAsset0217" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1851819524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 68.7)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("170_x2o6p")
+
+[node name="BakedAsset0218" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=384603335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 68.85)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("171_8427m")
+
+[node name="BakedAsset0219" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=123392580]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 69)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("172_pdp8d")
+
+[node name="BakedAsset0220" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1058610548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 69.15)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("173_muoto")
+
+[node name="BakedAsset0221" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1963943445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 69.3)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("174_ev7e0")
+
+[node name="BakedAsset0222" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1277735986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 69.45)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("175_adpb0")
+
+[node name="BakedAsset0223" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=319176060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.145, 82)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("176_5uxbl")
+
+[node name="BakedAsset0224" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1028852825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 81.55)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("177_uqcb8")
+
+[node name="BakedAsset0225" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1504084297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 81.7)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("178_iq3gf")
+
+[node name="BakedAsset0226" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1509105056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 81.85)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("179_b463l")
+
+[node name="BakedAsset0227" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=854883744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 82)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("180_idyd3")
+
+[node name="BakedAsset0228" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=693843633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 82.15)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("181_ikris")
+
+[node name="BakedAsset0229" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1600168034]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 82.3)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("182_cv4q8")
+
+[node name="BakedAsset0230" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=39900660]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 82.45)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("183_44lgy")
+
+[node name="BakedAsset0231" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=155836511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.145, 99)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("184_sc0c0")
+
+[node name="BakedAsset0232" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1675657481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 98.55)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("185_ccwsj")
+
+[node name="BakedAsset0233" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=875076457]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 98.7)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("186_ega0r")
+
+[node name="BakedAsset0234" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1077419402]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 98.85)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("187_1fqa4")
+
+[node name="BakedAsset0235" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=474064008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 99)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("188_p3vx4")
+
+[node name="BakedAsset0236" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=182118997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 99.15)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("189_kq7c8")
+
+[node name="BakedAsset0237" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1347277670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 99.3)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("190_pw73j")
+
+[node name="BakedAsset0238" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=770034080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0.16, 99.45)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("191_pc1ci")
+
+[node name="BakedAsset0239" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=292757171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.07, 66)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("192_k5hh5")
+
+[node name="BakedAsset0240" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1640502193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.07, 72)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("193_bvhds")
+
+[node name="BakedAsset0241" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1403551714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.07, 78)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("194_nyeab")
+
+[node name="BakedAsset0242" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=196157620]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.07, 84)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("195_sqhxg")
+
+[node name="BakedAsset0243" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2076529898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.07, 90)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("196_8qv85")
+
+[node name="BakedAsset0244" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=106113435]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.07, 96)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("197_ur0ra")
+
+[node name="BakedAsset0245" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1090546188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.07, 102)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("198_xcgff")
+
+[node name="BakedAsset0246" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=923479164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.145, 69)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("199_2eok6")
+
+[node name="BakedAsset0247" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=798297627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 68.55)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("200_annmp")
+
+[node name="BakedAsset0248" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=245542858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 68.7)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("201_cyywb")
+
+[node name="BakedAsset0249" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=615679005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 68.85)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("202_w3j65")
+
+[node name="BakedAsset0250" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=13067683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 69)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("203_mf7sa")
+
+[node name="BakedAsset0251" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1187032420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 69.15)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("204_frdt5")
+
+[node name="BakedAsset0252" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1143898091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 69.3)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("205_s27pq")
+
+[node name="BakedAsset0253" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=130429274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 69.45)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("206_whrtk")
+
+[node name="BakedAsset0254" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1522987000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.145, 82)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("207_i1h7s")
+
+[node name="BakedAsset0255" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=473463799]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 81.55)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("208_rn4hd")
+
+[node name="BakedAsset0256" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1654694251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 81.7)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("209_rk8pd")
+
+[node name="BakedAsset0257" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1922679065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 81.85)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("210_nbgan")
+
+[node name="BakedAsset0258" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1513305314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 82)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("211_c05te")
+
+[node name="BakedAsset0259" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=248658606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 82.15)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("212_ddh5w")
+
+[node name="BakedAsset0260" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1067810379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 82.3)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("213_2qtxv")
+
+[node name="BakedAsset0261" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1973819245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 82.45)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("214_kws2g")
+
+[node name="BakedAsset0262" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=250125357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.145, 99)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("215_ia1ki")
+
+[node name="BakedAsset0263" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1763012230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 98.55)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("216_ryu0f")
+
+[node name="BakedAsset0264" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2110381320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 98.7)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("217_sq4w3")
+
+[node name="BakedAsset0265" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1930767864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 98.85)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("218_fkgd0")
+
+[node name="BakedAsset0266" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1542452699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 99)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("219_qr2qd")
+
+[node name="BakedAsset0267" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1165822215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 99.15)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("220_o4qfa")
+
+[node name="BakedAsset0268" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=723070279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 99.3)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("221_ljwrt")
+
+[node name="BakedAsset0269" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=713234866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.16, 99.45)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("222_2n2s6")
+
+[node name="BakedAsset0270" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1949064452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.009, 99)
+material_override = ExtResource("223_niuau")
+mesh = ExtResource("224_lb17w")
+
+[node name="BakedAsset0271" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1899870138]
+transform = Transform3D(0.94551855, 0, 0.32556817, 0, 1, 0, -0.32556817, 0, 0.94551855, 7, 0.009, 89)
+material_override = ExtResource("223_niuau")
+mesh = ExtResource("225_mda30")
+
+[node name="BakedAsset0272" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=160094790]
+transform = Transform3D(0.7880108, 0, 0.6156615, 0, 1, 0, -0.6156615, 0, 0.7880108, -4, 0.009, 72)
+material_override = ExtResource("223_niuau")
+mesh = ExtResource("226_4xyvv")
+
+[node name="BakedAsset0273" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=70874968]
+transform = Transform3D(0.54463905, 0, 0.83867055, 0, 1, 0, -0.83867055, 0, 0.54463905, 8, 0.009, 68)
+material_override = ExtResource("223_niuau")
+mesh = ExtResource("227_eb4wq")
+
+[node name="BakedAsset0274" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=964729706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.013, 89)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("228_mb552")
+
+[node name="BakedAsset0275" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=375688936]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.013, 89)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("229_6wnn1")
+
+[node name="BakedAsset0276" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1356323807]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 19, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("230_ukb34")
+
+[node name="BakedAsset0277" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1141032449]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 19.5, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("231_m7tck")
+
+[node name="BakedAsset0278" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1010508199]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 20, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("232_2oqdp")
+
+[node name="BakedAsset0279" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=822486331]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 20.5, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("233_hhj8d")
+
+[node name="BakedAsset0280" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=309385754]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 21, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("234_xfkeo")
+
+[node name="BakedAsset0281" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=953981596]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 21.5, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("235_0xx0i")
+
+[node name="BakedAsset0282" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1104704655]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 22, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("236_jsea4")
+
+[node name="BakedAsset0283" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1515557031]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 22.5, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("237_gf8bu")
+
+[node name="BakedAsset0284" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1376973057]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 23, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("238_35kho")
+
+[node name="BakedAsset0285" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1872917863]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 23.5, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("239_nfjie")
+
+[node name="BakedAsset0286" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=83833540]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 24, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("240_gmcua")
+
+[node name="BakedAsset0287" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=792851663]
+transform = Transform3D(0.8480481, 0, 0.52991927, 0, 1, 0, -0.52991927, 0, 0.8480481, 24.5, 0.071, 96)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("241_rcj6a")
+
+[node name="BakedAsset0288" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1875589958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 5.4, 85)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("242_g0k2p")
+
+[node name="BakedAsset0289" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1518311986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 5.94, 85)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("243_f05tw")
+
+[node name="BakedAsset0290" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=792751940]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 7.8, 78)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("244_88h3h")
+
+[node name="BakedAsset0291" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1968734176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 8.34, 78)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("245_wfu38")
+
+[node name="BakedAsset0292" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=996811228]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 7.8, 78)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("246_77oom")
+
+[node name="BakedAsset0293" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=192444877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 8.34, 78)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("247_2bchm")
+
+[node name="BakedAsset0294" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=467591909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7, 0.57, 100)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("248_pd3eg")
+
+[node name="BakedAsset0295" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1706576617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7, 1.16, 100)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("249_8adk6")
+
+[node name="BakedAsset0296" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=886196207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7, 0.93, 100.29)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("250_ku3ja")
+
+[node name="BakedAsset0297" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=513581712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4, 0.1, 100)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("251_wul44")
+
+[node name="BakedAsset0298" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1348730422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.1, 100)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("252_xsgvt")
+
+[node name="BakedAsset0299" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2115840027]
+transform = Transform3D(0.9781476, 0, -0.2079117, 0, 1, 0, 0.2079117, 0, 0.9781476, 5.2, 0.57, 89)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("253_qdtth")
+
+[node name="BakedAsset0300" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1552884012]
+transform = Transform3D(0.9781476, 0, -0.2079117, 0, 1, 0, 0.2079117, 0, 0.9781476, 5.2, 1.16, 89)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("254_ft5ce")
+
+[node name="BakedAsset0301" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=857804922]
+transform = Transform3D(0.9781476, 0, -0.2079117, 0, 1, 0, 0.2079117, 0, 0.9781476, 5.2, 0.93, 89.29)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("255_3v3dx")
+
+[node name="BakedAsset0302" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=417071282]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 0.1, 89)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("256_r7txn")
+
+[node name="BakedAsset0303" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=299197448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.1, 89)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("257_mvpua")
+
+[node name="BakedAsset0304" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=605363158]
+transform = Transform3D(0.9702957, 0, 0.2419219, 0, 1, 0, -0.2419219, 0, 0.9702957, -5.5, 0.57, 77)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("258_27ijn")
+
+[node name="BakedAsset0305" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1652594114]
+transform = Transform3D(0.9702957, 0, 0.2419219, 0, 1, 0, -0.2419219, 0, 0.9702957, -5.5, 1.16, 77)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("259_2dqpl")
+
+[node name="BakedAsset0306" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=628400206]
+transform = Transform3D(0.9702957, 0, 0.2419219, 0, 1, 0, -0.2419219, 0, 0.9702957, -5.5, 0.93, 77.29)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("260_xa8gm")
+
+[node name="BakedAsset0307" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1072289908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 0.1, 77)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("261_hh7q0")
+
+[node name="BakedAsset0308" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1003965649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7, 0.1, 77)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("262_kl1r7")
+
+[node name="BakedAsset0309" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=236998719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2.98, 72)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("264_d3l2c")
+
+[node name="BakedAsset0310" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2001519996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3, 1.45, 69)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("265_fbgao")
+
+[node name="BakedAsset0311" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=997481898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3, 2.75, 72)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("266_dac04")
+
+[node name="BakedAsset0312" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=168738272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1.45, 69)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("267_uopsm")
+
+[node name="BakedAsset0313" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=614514987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2.75, 72)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("268_3m8gc")
+
+[node name="BakedAsset0314" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=161067639]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 1.45, 69)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("269_6xsm0")
+
+[node name="BakedAsset0315" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=888719903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 2.75, 72)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("270_mdc03")
+
+[node name="BakedAsset0316" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1657092727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3, 0.55, 88)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("271_4eg5g")
+
+[node name="BakedAsset0317" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=757213729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3, 1.0633334, 86)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("272_xtf7k")
+
+[node name="BakedAsset0318" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1219976058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3, 1.5766667, 84)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("273_7qxnh")
+
+[node name="BakedAsset0319" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=48781981]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3, 2.09, 82)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("274_iwhlt")
+
+[node name="BakedAsset0320" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1484596931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3, 2.6033332, 80)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("275_fq1qw")
+
+[node name="BakedAsset0321" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=291175406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3, 3.1166666, 78)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("276_5gmyi")
+
+[node name="BakedAsset0322" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=590940133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.3, 3.63, 76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("277_1c25h")
+
+[node name="BakedAsset0323" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1482037264]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 29.3, 2.64, 82)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("278_kge7d")
+
+[node name="BakedAsset0324" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=556647719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 0.55, 88)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("279_xemxh")
+
+[node name="BakedAsset0325" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=900891651]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 1.0633334, 86)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("280_2y8l3")
+
+[node name="BakedAsset0326" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1335364747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 1.5766667, 84)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("281_5sgpd")
+
+[node name="BakedAsset0327" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=194956926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 2.09, 82)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("282_bv66m")
+
+[node name="BakedAsset0328" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1934485657]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 2.6033332, 80)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("283_icu5a")
+
+[node name="BakedAsset0329" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=424447448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 3.1166666, 78)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("284_882d4")
+
+[node name="BakedAsset0330" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=820809130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7, 3.63, 76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("285_huajw")
+
+[node name="BakedAsset0331" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=165664063]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 32.7, 2.64, 82)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("286_0agt2")
+
+[node name="BakedAsset0332" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=779006343]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.68, 68)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("287_8wp4a")
+
+[node name="BakedAsset0333" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1384281802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 4.28, 68)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("288_kh615")
+
+[node name="BakedAsset0334" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=872512667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.68, 72)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("289_kvjne")
+
+[node name="BakedAsset0335" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1183402522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 4.28, 72)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("290_buecj")
+
+[node name="BakedAsset0336" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=38867175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 3.68, 76)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("291_yhkpp")
+
+[node name="BakedAsset0337" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1498199303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 4.28, 76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("292_js073")
+
+[node name="BakedAsset0338" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=510836242]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 3.68, 72)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("293_iqerl")
+
+[node name="BakedAsset0339" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=4014396]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 4.28, 72)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("294_ny5xf")
+
+[node name="BakedAsset0340" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=21230617]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 0.05, 87.8)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("296_fdoeg")
+
+[node name="BakedAsset0341" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1716911587]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 0.37, 86.55)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("297_7a2v5")
+
+[node name="BakedAsset0342" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=554196250]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 0.69, 85.3)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("298_cilqo")
+
+[node name="BakedAsset0343" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1556529590]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 1.01, 84.05)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("299_y6drr")
+
+[node name="BakedAsset0344" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=25117175]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 1.33, 82.8)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("300_du66c")
+
+[node name="BakedAsset0345" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=555005614]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 1.65, 81.55)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("301_2mw11")
+
+[node name="BakedAsset0346" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1637332588]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 1.97, 80.3)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("302_m0x0t")
+
+[node name="BakedAsset0347" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1041708156]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 2.29, 79.05)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("303_8i67r")
+
+[node name="BakedAsset0348" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1690346638]
+transform = Transform3D(1, 0, 0, 0, 0.96858317, -0.24868988, 0, 0.24868988, 0.96858317, 31, 2.61, 77.8)
+material_override = ExtResource("295_wsoc2")
+mesh = ExtResource("304_42can")
+
+[node name="BakedAsset0349" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1057642513]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.86, 78)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("305_kcggo")
+
+[node name="BakedAsset0350" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1390595153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.4, 76.75)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("306_r01sc")
+
+[node name="BakedAsset0351" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1257462872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.4, 79.25)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("307_yrdih")
+
+[node name="BakedAsset0352" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1526055440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.3, 2.7, 78)
+material_override = ExtResource("49_ox3af")
+mesh = ExtResource("308_0ileo")
+
+[node name="BakedAsset0353" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=273330078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.86, 83)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("309_re1ka")
+
+[node name="BakedAsset0354" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2080856719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.4, 81.75)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("310_d2fct")
+
+[node name="BakedAsset0355" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1576441720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.4, 84.25)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("311_c4kjr")
+
+[node name="BakedAsset0356" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1871646332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.3, 2.7, 83)
+material_override = ExtResource("49_ox3af")
+mesh = ExtResource("312_omfj7")
+
+[node name="BakedAsset0357" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=328235250]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.86, 89)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("313_jljiq")
+
+[node name="BakedAsset0358" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1844544886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.4, 87.75)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("314_hxguw")
+
+[node name="BakedAsset0359" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=281341995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.4, 90.25)
+material_override = ExtResource("23_5s6j0")
+mesh = ExtResource("315_h3gno")
+
+[node name="BakedAsset0360" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=807600512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.3, 2.7, 89)
+material_override = ExtResource("49_ox3af")
+mesh = ExtResource("316_r4bgw")
+
+[node name="BakedAsset0361" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=318063181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.57, 87)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("317_ycena")
+
+[node name="BakedAsset0362" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1826498783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.16, 87)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("318_xoexg")
+
+[node name="BakedAsset0363" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=636268372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.57, 87)
+material_override = ExtResource("58_f64rl")
+mesh = ExtResource("319_2afqb")
+
+[node name="BakedAsset0364" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1046169702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.16, 87)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("320_cjwfs")
+
+[node name="BakedAsset0365" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2064389544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.1, 94)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("321_l0bia")
+
+[node name="BakedAsset0366" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=344669537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.18, 94.76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("322_b2eax")
+
+[node name="BakedAsset0367" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=804399769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2.05, 94.76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("323_kai6j")
+
+[node name="BakedAsset0368" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=356672850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.1, 79)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("324_mpedu")
+
+[node name="BakedAsset0369" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=267093270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.18, 79.76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("325_0ci0n")
+
+[node name="BakedAsset0370" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=718999720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2.05, 79.76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("326_th78r")
+
+[node name="BakedAsset0371" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1669234549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1.1, 92)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("327_hiekb")
+
+[node name="BakedAsset0372" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=315780968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.18, 92.76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("328_sb1q5")
+
+[node name="BakedAsset0373" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=188420605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2.05, 92.76)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("329_53ug8")
+
+[node name="BakedAsset0374" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=729417686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4, 1.4, 71)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("330_4ssye")
+
+[node name="BakedAsset0375" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1296006137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4, 1.4, 78)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("331_nvowy")
+
+[node name="BakedAsset0376" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=47137169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4, 1.4, 85)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("332_p8qpk")
+
+[node name="BakedAsset0377" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1122790498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4, 1.4, 92)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("333_q8vu4")
+
+[node name="BakedAsset0378" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=453414688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 1.4, 71)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("334_yhk7d")
+
+[node name="BakedAsset0379" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=159245863]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 1.4, 78)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("335_tyyah")
+
+[node name="BakedAsset0380" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=922222709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 1.4, 85)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("336_8xnl7")
+
+[node name="BakedAsset0381" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=992410700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4, 1.4, 92)
+material_override = ExtResource("88_vp7q1")
+mesh = ExtResource("337_s2xrb")
+
+[node name="BakedAsset0382" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=356022075]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 5.9, 82)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("338_ug6qu")
+
+[node name="BakedAsset0383" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=419771675]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 5.9, 94)
+material_override = ExtResource("263_k7kkt")
+mesh = ExtResource("339_rekoy")
+
+[node name="BakedAsset0384" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=830807371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.76, 1.55, 79.5)
+material_override = ExtResource("340_65sk4")
+mesh = ExtResource("341_7dvxe")
+
+[node name="BakedAsset0385" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=135043181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.76, 1.55, 85.5)
+material_override = ExtResource("340_65sk4")
+mesh = ExtResource("342_x1vdo")
+
+[node name="BakedAsset0386" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1802902322]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.76, 1.55, 91.5)
+material_override = ExtResource("340_65sk4")
+mesh = ExtResource("343_pknjw")
+
+[node name="BakedAsset0387" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=329092912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.76, 1.55, 79.5)
+material_override = ExtResource("340_65sk4")
+mesh = ExtResource("344_1cunu")
+
+[node name="BakedAsset0388" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=370173041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.76, 1.55, 85.5)
+material_override = ExtResource("340_65sk4")
+mesh = ExtResource("345_euk2v")
+
+[node name="BakedAsset0389" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=686831036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.76, 1.55, 91.5)
+material_override = ExtResource("340_65sk4")
+mesh = ExtResource("346_2q7xp")
+
+[node name="BakedAsset0390" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1029557000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.071, 95)
+material_override = ExtResource("347_ptnjw")
+mesh = ExtResource("348_nnfmo")
+
+[node name="BakedAsset0391" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1285374384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.071, 95)
+material_override = ExtResource("347_ptnjw")
+mesh = ExtResource("349_rmgpw")
+
+[node name="BakedAsset0392" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1404785059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.071, 86)
+material_override = ExtResource("347_ptnjw")
+mesh = ExtResource("350_wkwad")
+
+[node name="BakedAsset0393" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=906585833]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.071, 86)
+material_override = ExtResource("347_ptnjw")
+mesh = ExtResource("351_1vn8v")
+
+[node name="BakedAsset0394" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1646742731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.071, 74)
+material_override = ExtResource("347_ptnjw")
+mesh = ExtResource("352_kwhe3")
+
+[node name="BakedAsset0395" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=412413645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.071, 74)
+material_override = ExtResource("347_ptnjw")
+mesh = ExtResource("353_epve8")
+
+[node name="BakedAsset0396" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=705415659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.25, 2.55, 78)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("354_rilt1")
+
+[node name="BakedAsset0397" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=497669471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 77.4)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("356_h7jvd")
+
+[node name="BakedAsset0398" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=184070449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 77.8)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("357_slfft")
+
+[node name="BakedAsset0399" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=385672101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 78.2)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("358_8hsqs")
+
+[node name="BakedAsset0400" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=427860917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 78.6)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("359_mn436")
+
+[node name="BakedAsset0401" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=241739857]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.25, 2.55, 83)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("360_nqrxm")
+
+[node name="BakedAsset0402" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1304411124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 82.4)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("361_wsl5b")
+
+[node name="BakedAsset0403" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=408028352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 82.8)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("362_mrkmc")
+
+[node name="BakedAsset0404" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=723820212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 83.2)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("363_uerwu")
+
+[node name="BakedAsset0405" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=241054572]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 83.6)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("364_s3wv6")
+
+[node name="BakedAsset0406" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=301799526]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.25, 2.55, 89)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("365_qpwgy")
+
+[node name="BakedAsset0407" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1062127124]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 88.4)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("366_1jet3")
+
+[node name="BakedAsset0408" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=750461350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 88.8)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("367_py0vk")
+
+[node name="BakedAsset0409" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1368619670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 89.2)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("368_kiyap")
+
+[node name="BakedAsset0410" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=2129201916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.2, 0.05, 89.6)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("369_6wnla")
+
+[node name="BakedAsset0411" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1541195087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 5.4, 94.18)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("370_yi1pp")
+
+[node name="BakedAsset0412" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=361614663]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 3.05, 100.18)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("371_u36i7")
+
+[node name="BakedAsset0413" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=697361506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.15, 61.44)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("372_dyt53")
+
+[node name="BakedAsset0414" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1938122726]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7, 3.4, 78)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("373_2n67b")
+
+[node name="BakedAsset0415" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1218923599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.67, 1.5, 78)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("374_1f2ua")
+
+[node name="BakedAsset0416" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=398985048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7, 3.4, 83)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("375_7gjof")
+
+[node name="BakedAsset0417" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=885626949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.67, 1.5, 83)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("376_5c8fi")
+
+[node name="BakedAsset0418" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=99747525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7, 3.4, 89)
+material_override = ExtResource("35_wfgrn")
+mesh = ExtResource("377_44pcr")
+
+[node name="BakedAsset0419" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=901022114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.67, 1.5, 89)
+material_override = ExtResource("355_d5bn0")
+mesh = ExtResource("378_7o1yr")
+
+[node name="BakedCourtyardFloor" type="MeshInstance3D" parent="LightmappedGeometry" unique_id=1749105372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.004, 84)
+material_override = SubResource("StandardMaterial3D_caw6x")
+cast_shadow = 0
+mesh = ExtResource("382_u7qn3")
+
+[node name="sun" type="DirectionalLight3D" parent="." unique_id=236829959]
+transform = Transform3D(0.66913056, 0.30226427, -0.6788966, 0, 0.9135455, 0.40673664, 0.74314487, -0.27215993, 0.61128116, 0, 0, 0)
+light_color = Color(1, 0.88235295, 0.7411765, 1)
+light_energy = 1.1
+shadow_enabled = true
+shadow_bias = 0.035
+shadow_normal_bias = 1.0
+directional_shadow_max_distance = 90.0
+
+[node name="yard_light_0" type="OmniLight3D" parent="." unique_id=1453372132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 5.8, 72)
+light_color = Color(0.9372549, 0.8, 0.627451, 1)
+light_energy = 1.2
+omni_range = 12.0
+
+[node name="yard_light_1" type="OmniLight3D" parent="." unique_id=847761711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 5.8, 18)
+light_color = Color(0.9372549, 0.8, 0.627451, 1)
+light_energy = 1.2
+omni_range = 12.0
+
+[node name="yard_light_2" type="OmniLight3D" parent="." unique_id=1422541007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 5.8, -68)
+light_color = Color(0.9372549, 0.8, 0.627451, 1)
+light_energy = 1.2
+omni_range = 12.0
+
+[node name="yard_light_3" type="OmniLight3D" parent="." unique_id=1487585078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75, 5.8, 83)
+light_color = Color(0.9372549, 0.8, 0.627451, 1)
+light_energy = 1.2
+omni_range = 12.0
+
+[node name="yard_light_4" type="OmniLight3D" parent="." unique_id=906874954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69, 5.8, -90)
+light_color = Color(0.9372549, 0.8, 0.627451, 1)
+light_energy = 1.2
+omni_range = 12.0
+
+[node name="yard_light_5" type="OmniLight3D" parent="." unique_id=676192783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8, -45)
+light_color = Color(0.9372549, 0.8, 0.627451, 1)
+light_energy = 1.2
+omni_range = 12.0
+
+[node name="yard_light_6" type="OmniLight3D" parent="." unique_id=1268852428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8, 108)
+light_color = Color(0.9372549, 0.8, 0.627451, 1)
+light_energy = 1.2
+omni_range = 12.0
+
+[node name="hero_west_light" type="OmniLight3D" parent="." unique_id=76016319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 3.2, 99)
+light_color = Color(1, 0.8392157, 0.63529414, 1)
+light_energy = 1.4
+omni_range = 9.0
+
+[node name="hero_east_light" type="OmniLight3D" parent="." unique_id=35864121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 3.2, 93)
+light_color = Color(1, 0.8392157, 0.63529414, 1)
+light_energy = 1.4
+omni_range = 9.0
+
+[node name="hero_slice_fill_0" type="OmniLight3D" parent="." unique_id=481141703]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 4.9, 90)
+light_color = Color(0.75686276, 0.8156863, 0.8352941, 1)
+light_energy = 1.5
+omni_range = 11.0
+
+[node name="hero_slice_fill_1" type="OmniLight3D" parent="." unique_id=1540563501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 4.9, 88)
+light_color = Color(0.75686276, 0.8156863, 0.8352941, 1)
+light_energy = 1.5
+omni_range = 11.0
+
+[node name="hero_slice_fill_2" type="OmniLight3D" parent="." unique_id=930762883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 4.9, 72)
+light_color = Color(0.75686276, 0.8156863, 0.8352941, 1)
+light_energy = 1.5
+omni_range = 11.0
+
+[node name="BenchLamp" type="OmniLight3D" parent="." unique_id=225250170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6, 2.45, 78)
+light_color = Color(1, 0.8509804, 0.6784314, 1)
+light_energy = 2.0
+omni_range = 6.5
+
+[node name="_OmniLight3D_474" type="OmniLight3D" parent="." unique_id=2085801225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6, 2.45, 83)
+light_color = Color(1, 0.8509804, 0.6784314, 1)
+light_energy = 2.0
+omni_range = 6.5
+
+[node name="_OmniLight3D_480" type="OmniLight3D" parent="." unique_id=539760485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.6, 2.45, 89)
+light_color = Color(1, 0.8509804, 0.6784314, 1)
+light_energy = 2.0
+omni_range = 6.5
+
+[node name="WorkshopBounceFill0" type="OmniLight3D" parent="." unique_id=303459407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2, 79)
+light_color = Color(0.7137255, 0.77254903, 0.8, 1)
+light_energy = 6.0
+omni_range = 10.0
+
+[node name="WorkshopBounceFill1" type="OmniLight3D" parent="." unique_id=34280727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 2, 86)
+light_color = Color(0.7137255, 0.77254903, 0.8, 1)
+light_energy = 6.0
+omni_range = 10.0
+
+[node name="AuthoredEnvironment" type="WorldEnvironment" parent="." unique_id=1040534185]
+environment = SubResource("Environment_4yivy")
+
+[node name="SectorIndirectLight" type="LightmapGI" parent="." unique_id=576698503]
+bounces = 2
+max_texture_size = 2048
+environment_mode = 3
+environment_custom_color = Color(0.64705884, 0.7176471, 0.7607843, 1)
+environment_custom_energy = 0.65
+light_data = ExtResource("384_xkebp")

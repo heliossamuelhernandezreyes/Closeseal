@@ -2,6 +2,8 @@ extends Node3D
 const POSE = preload("res://src/shooter/combat_pose.gd")
 const GROUND_POSE = preload("res://src/shooter/ground_pose.gd")
 const MOTION = preload("res://src/shooter/motion_profile.gd")
+const TRANSITION = preload("res://src/shooter/pose_transition.gd")
+var transition: SkeletonModifier3D
 var skeleton: Skeleton3D
 var animation: AnimationPlayer
 var tree: AnimationTree
@@ -45,6 +47,7 @@ func _ready() -> void:
 	add_child(model)
 	skeleton = model.find_child("Skeleton3D", true, false)
 	apply_skin(model, skin_name)
+	dynamic_lighting(model)
 	animation = AnimationPlayer.new()
 	animation.name = "CombatAnimations"
 	add_child(animation)
@@ -83,12 +86,16 @@ func _ready() -> void:
 	weapon = load("res://assets/shooter/serious/akm.glb").instantiate()
 	weapon.name = "Weapon"
 	add_child(weapon)
+	dynamic_lighting(weapon)
 	weapon.position = Vector3(0.14, 1.42, -0.42)
 	magazine = weapon.find_child("Magazine", true, false)
 	magazine_rest = magazine.transform
 	muzzle = Node3D.new()
 	weapon.add_child(muzzle)
 	muzzle.position = Vector3(0, 0.0, -0.49)
+	transition=TRANSITION.new()
+	transition.rig=self
+	skeleton.add_child(transition)
 	combat = POSE.new()
 	combat.rig = self
 	skeleton.add_child(combat)
@@ -107,17 +114,27 @@ static func apply_skin(node: Node, variant: String) -> void:
 	material.roughness_texture = load(prefix + "roughness.jpg")
 	material.ao_enabled = true
 	material.ao_texture = load(prefix + "ao.jpg")
-	material.metallic = 0.08
+	material.albedo_color=Color(0.78,0.83,0.88) if variant=="military" else Color(0.88,0.79,0.72)
+	material.metallic = 0.04
+	material.metallic_specular = 0.28
+	# Per-pixel near fade preserves legs and silhouette instead of hiding the whole rig.
+	material.distance_fade_mode=BaseMaterial3D.DISTANCE_FADE_PIXEL_DITHER
+	material.distance_fade_min_distance=0.24
+	material.distance_fade_max_distance=0.85
 	material.emission_enabled = true
 	material.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
 	material.emission_texture = load(prefix + "emission.jpg")
 	material.emission = Color("8ac4d1") if variant == "military" else Color("d98763")
-	material.emission_energy_multiplier = 0.65
+	material.emission_energy_multiplier = 0.30
 	_bind_material(node, material)
 
 static func _bind_material(node: Node, material: Material) -> void:
 	if node is MeshInstance3D: node.material_override = material
 	for child in node.get_children(): _bind_material(child, material)
+
+static func dynamic_lighting(node: Node) -> void:
+	if node is MeshInstance3D:node.gi_mode=GeometryInstance3D.GI_MODE_DYNAMIC
+	for child in node.get_children():dynamic_lighting(child)
 
 func set_motion(speed: float, in_air := false, direction := Vector2(0, -1)) -> void:
 	motion_speed = speed

@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/container_side_diff.jpg" id="1_wdl50"]
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/container_side_nor_gl.jpg" id="2_u3f8r"]
+[ext_resource type="Texture2D" path="res://assets/shooter/serious/textures/container_side_rough.jpg" id="3_6lify"]
+
+[resource]
+albedo_color = Color(0.62, 0.75, 0.7, 1)
+albedo_texture = ExtResource("1_wdl50")
+metallic = 0.28
+roughness_texture = ExtResource("3_6lify")
+normal_enabled = true
+normal_scale = 0.65
+normal_texture = ExtResource("2_u3f8r")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+uv1_world_triplanar = true

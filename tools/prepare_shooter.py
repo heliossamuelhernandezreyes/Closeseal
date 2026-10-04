@@ -40,6 +40,9 @@ def _populate(target):
     for path in ["assets/shooter", "src/shooter", "src/map", "src/prototype"]:
         shutil.copytree(ROOT / path, target / path, dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns("*.import", "*.uid", "kenney", "sources.lock.json"))
+    # Native lightmap atlases use a layered importer, not the default 2D EXR importer.
+    for metadata in (ROOT / "assets/shooter/sector07").glob("*.exr.import"):
+        shutil.copy(metadata, target / "assets/shooter/sector07" / metadata.name)
     (target / "maps").mkdir(exist_ok=True)
     shutil.copy(ROOT / "maps/nexo_combat_01.json", target / "maps/nexo_combat_01.json")
     (target / "tools").mkdir(exist_ok=True)
@@ -51,6 +54,7 @@ def _populate(target):
     for folder in ["recipes", "scenarios"]:
         (target / "authoring" / folder).mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / "authoring" / folder / "shooter_third_person.json", target / "authoring" / folder / "shooter_third_person.json")
+    shutil.copy(ROOT / "authoring/recipes/sector07_presentation.json", target / "authoring/recipes/sector07_presentation.json")
     shutil.copytree(ROOT / "authoring/production", target / "authoring/production")
     (target / "project.godot").write_text('''config_version=5
 [application]
@@ -68,6 +72,8 @@ renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 textures/default_filters/use_nearest_mipmap_filter=false
+anti_aliasing/quality/msaa_3d=1
+lights_and_shadows/directional_shadow/size=2048
 [input_devices]
 pointing/emulate_mouse_from_touch=false
 ''')
