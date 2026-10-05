@@ -1,0 +1,227 @@
+{
+  "checks": {
+    "01-spawn_body_pixels": {
+      "detail": 20012,
+      "ok": true
+    },
+    "01-spawn_pixel_camera_stable": {
+      "detail": null,
+      "ok": true
+    },
+    "01-spawn_player_camera_current": {
+      "detail": null,
+      "ok": true
+    },
+    "01-spawn_rendered_distance": {
+      "detail": {
+        "actual": 3.49976992607117,
+        "allowed": 3.5,
+        "smooth": 3.49977291610596
+      },
+      "ok": true
+    },
+    "01-spawn_swept_segment": {
+      "detail": null,
+      "ok": true
+    },
+    "01-spawn_weapon_pixels": {
+      "detail": 196,
+      "ok": true
+    },
+    "02-aim_body_pixels": {
+      "detail": 54724,
+      "ok": true
+    },
+    "02-aim_pixel_camera_stable": {
+      "detail": null,
+      "ok": true
+    },
+    "02-aim_player_camera_current": {
+      "detail": null,
+      "ok": true
+    },
+    "02-aim_rendered_distance": {
+      "detail": {
+        "actual": 2.25001382827759,
+        "allowed": 2.25001406669617,
+        "smooth": 2.25001406669617
+      },
+      "ok": true
+    },
+    "02-aim_swept_segment": {
+      "detail": null,
+      "ok": true
+    },
+    "02-aim_weapon_pixels": {
+      "detail": 716,
+      "ok": true
+    },
+    "03-left_body_pixels": {
+      "detail": 15760,
+      "ok": true
+    },
+    "03-left_pixel_camera_stable": {
+      "detail": null,
+      "ok": true
+    },
+    "03-left_player_camera_current": {
+      "detail": null,
+      "ok": true
+    },
+    "03-left_rendered_distance": {
+      "detail": {
+        "actual": 3.49931645393372,
+        "allowed": 3.4999828338623,
+        "smooth": 3.49931954378251
+      },
+      "ok": true
+    },
+    "03-left_swept_segment": {
+      "detail": null,
+      "ok": true
+    },
+    "03-left_weapon_pixels": {
+      "detail": 104,
+      "ok": true
+    },
+    "04-crouch_body_pixels": {
+      "detail": 12872,
+      "ok": true
+    },
+    "04-crouch_pixel_camera_stable": {
+      "detail": null,
+      "ok": true
+    },
+    "04-crouch_player_camera_current": {
+      "detail": null,
+      "ok": true
+    },
+    "04-crouch_rendered_distance": {
+      "detail": {
+        "actual": 3.50000047683716,
+        "allowed": 3.49999952316284,
+        "smooth": 3.49999936287356
+      },
+      "ok": true
+    },
+    "04-crouch_swept_segment": {
+      "detail": null,
+      "ok": true
+    },
+    "04-crouch_weapon_pixels": {
+      "detail": 252,
+      "ok": true
+    },
+    "05-reload_player_camera_current": {
+      "detail": null,
+      "ok": true
+    },
+    "05-reload_rendered_distance": {
+      "detail": {
+        "actual": 3.50000047683716,
+        "allowed": 3.49999952316284,
+        "smooth": 3.4999995217485
+      },
+      "ok": true
+    },
+    "05-reload_swept_segment": {
+      "detail": null,
+      "ok": true
+    },
+    "06-wall_player_camera_current": {
+      "detail": null,
+      "ok": true
+    },
+    "06-wall_rendered_distance": {
+      "detail": {
+        "actual": 0.464844942092896,
+        "allowed": 0.464843690395355,
+        "smooth": 0.464843690395355
+      },
+      "ok": true
+    },
+    "06-wall_swept_segment": {
+      "detail": null,
+      "ok": true
+    },
+    "07-release_player_camera_current": {
+      "detail": null,
+      "ok": true
+    },
+    "07-release_rendered_distance": {
+      "detail": {
+        "actual": 3.42819499969482,
+        "allowed": 3.49999952316284,
+        "smooth": 3.42819661008086
+      },
+      "ok": true
+    },
+    "07-release_swept_segment": {
+      "detail": null,
+      "ok": true
+    },
+    "08-recovered_body_pixels": {
+      "detail": 15836,
+      "ok": true
+    },
+    "08-recovered_pixel_camera_stable": {
+      "detail": null,
+      "ok": true
+    },
+    "08-recovered_player_camera_current": {
+      "detail": null,
+      "ok": true
+    },
+    "08-recovered_rendered_distance": {
+      "detail": {
+        "actual": 3.49999284744263,
+        "allowed": 3.49999952316284,
+        "smooth": 3.49999430581954
+      },
+      "ok": true
+    },
+    "08-recovered_swept_segment": {
+      "detail": null,
+      "ok": true
+    },
+    "08-recovered_weapon_pixels": {
+      "detail": 144,
+      "ok": true
+    },
+    "aim_stays_third_person": {
+      "detail": null,
+      "ok": true
+    },
+    "recovered_actual_camera": {
+      "detail": null,
+      "ok": true
+    },
+    "release_is_damped": {
+      "detail": {
+        "allowed": 3.49999952316284,
+        "compressed": 0.464843690395355,
+        "controlled": 0.887616693973541
+      },
+      "ok": true
+    },
+    "spawn_is_third_person": {
+      "detail": 3.4997730255127,
+      "ok": true
+    },
+    "spawn_marker_does_not_cover_body": {
+      "detail": null,
+      "ok": true
+    },
+    "wall_has_no_camera_overlap": {
+      "detail": null,
+      "ok": true
+    },
+    "wall_retracts_actual_camera": {
+      "detail": null,
+      "ok": true
+    }
+  },
+  "failures": [],
+  "ok": true,
+  "scope": "Linux player-camera renders and actual transforms; no Android camera or FPS claim"
+}

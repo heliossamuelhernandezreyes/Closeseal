@@ -54,10 +54,11 @@ jobs:
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_finish_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-finish.log
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_presentation_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-presentation.log
           xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_combat_polish_acceptance.gd -- --captures="$PWD/shooter-evidence" 2>&1 | tee shooter-combat-polish.log
+          xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-shooter --script res://tools/shooter_camera_acceptance.gd -- --captures="$PWD/shooter-evidence/camera" 2>&1 | tee shooter-camera.log
           python .arcont-tools/tools/production_toolchain.py finish shooter-evidence/finish-record.json > shooter-evidence/arcont-finish-review.json
           python .arcont-tools/tools/production_toolchain.py audio assets/shooter/audio/banks/bank.json --project . --directory assets/shooter/audio/banks > shooter-evidence/audio-review.json
           python tools/shooter_motion_smoke.py --arcont .arcont-tools --project /tmp/nexo-shooter
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log shooter-mobility.log shooter-slice.log shooter-visual.log shooter-finish.log shooter-presentation.log shooter-combat-polish.log; then exit 1; fi
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' shooter-bake.log shooter-acceptance.log shooter-mobility.log shooter-slice.log shooter-visual.log shooter-finish.log shooter-presentation.log shooter-combat-polish.log shooter-camera.log; then exit 1; fi
           python -c 'import json; r=json.load(open("shooter-evidence/acceptance.json")); assert r["ok"],r["failures"]'
       - name: Replay real third-person player through ARCONT
         env:
@@ -100,6 +101,7 @@ jobs:
             shooter-finish.log
             shooter-presentation.log
             shooter-combat-polish.log
+            shooter-camera.log
             shooter-evidence/
           include-hidden-files: true
           retention-days: 30

@@ -205,6 +205,9 @@ func _process(delta: float) -> void:
 	damage_flash = maxf(0.0, damage_flash - delta)
 	message_time = maxf(0.0, message_time - delta)
 	if not playing: return
+	# Sector 07 starts on the extraction point. Its decorative console/label
+	# must not cover the player; objective position and interaction stay intact.
+	extraction_marker.visible = extraction_marker.global_position.distance_to(player.global_position) > 2.0
 	elapsed += delta
 	for pickup in pickups:
 		if pickup.visible:

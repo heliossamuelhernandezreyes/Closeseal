@@ -552,7 +552,7 @@
     "src/prototype/greybox_battlefield.tscn": "8e14fbd3412565dd5bcd498ccf4b71018782da52eca2a97eb0f78ef6df784afb",
     "src/prototype/map_visual_kit.gd": "6f61cdd1651d98ec8a71fe67c45a1d4b3a921d73e665a5ee82171ccd3aeadde3",
     "src/prototype/tactical_hud.gd": "c18ceed1fe794f636496c04c38ac1d7c9ac11a4f127d90c1eb48ae1548e4bac8",
-    "src/shooter/camera_motion.gd": "6feecc162b96692397165be3580ece4544277ce14d92539f06982d1f8261ebe5",
+    "src/shooter/camera_motion.gd": "8c6b16c04bc4abcde3fdd4b6e2160abe3199fa0cbd9694b85294628282ef06bf",
     "src/shooter/character_rig.gd": "6aa4b99c842dcf59aff4ed37147428a16bcea08114b5ab6041bfce1d6c82b390",
     "src/shooter/combat_effects.gd": "cd4893b7509cec3d93c1d1f166ccc18f9de7f2ddc57cc17c6a4bede27f8c2e1c",
     "src/shooter/combat_pose.gd": "47542dc7ea5b0fe91ce26274c89a9bc672bc0ac37817fd3023754f230cf5b27b",
@@ -566,7 +566,7 @@
     "src/shooter/pose_transition.gd": "3e8ac9f91e88eb3ab1f3ad833965514befe932dc8a301a107b08dfc1ad5ff229",
     "src/shooter/runtime_metrics.gd": "a6a3e308c86cd2d119071c9fbae459bf10281a9308993ba094b23444024a15f5",
     "src/shooter/sector_presentation.gd": "08c8468c256d64827c547b5e1549ec39d31f19b9bca918c362d5f2553314af5d",
-    "src/shooter/shooter_arena.gd": "924fb6ecb8674dc183f8f9a9d6c51cb53532dd2d3a65d88225b19d167db4873f",
+    "src/shooter/shooter_arena.gd": "7ced0b9fe1b8a8ff519b7ecc670c2a5fdb10c699fd2280c77171d8f09469c689",
     "src/shooter/shooter_arena.tscn": "ece7c9b90fa99881a06122adac4e4669f2d58204e221163149cd5e1715bda451",
     "src/shooter/shooter_hud.gd": "b18c0496c2c1c687bfd081dcbb338e60c7b952b6d5214887e3447ab4ff5ca1f9",
     "src/shooter/viewmodel.gd": "a891c046a809013e28bd8b47545f5d6acc9a1e98ee3fa4ecc438373b21ca1db6",
@@ -588,7 +588,8 @@
     "tools/shooter_rest_retarget.gd": "845caff2891b76a5b12ba834429076db78d120dd958fee1a7afe650ae214be26",
     "tools/shooter_sector_authoring.gd": "77e36258391dd0e98274b5888e900ffe733ae8663a6160afcbe020671561de43",
     "tools/shooter_slice_acceptance.gd": "d7479bbdd30a5b04719dd7f6c0a64c91fcf4c43f63e7db64e9b9959c0597dc6b",
-    "tools/shooter_visual_acceptance.gd": "c4d8be4ed9936a1a2ecaa20ff9c82f992f0ab5c770e00ea7c4d8338f68042181"
+    "tools/shooter_visual_acceptance.gd": "c4d8be4ed9936a1a2ecaa20ff9c82f992f0ab5c770e00ea7c4d8338f68042181",
+    "tools/shooter_camera_acceptance.gd": "2e1536a2b365561988fc11269919cd772d6913b32e5e44e5095087dc46e4d8a9"
   },
   "steps": [
     {

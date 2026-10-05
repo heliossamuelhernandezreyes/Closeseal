@@ -1,0 +1,70 @@
+{
+  "source_commit": "c4549f7270d72a381a006caf47fcbf0b96243c09",
+  "ok": false,
+  "checks": {
+    "01-spawn_rendered_distance": {
+      "detail": {
+        "actual": -0.00225157476961613,
+        "allowed": 3.5,
+        "smooth": 3.49775092673876
+      },
+      "ok": false
+    },
+    "02-aim_rendered_distance": {
+      "detail": {
+        "actual": 0.0,
+        "allowed": 2.25034332275391,
+        "smooth": 2.25034332275391
+      },
+      "ok": false
+    },
+    "03-left_rendered_distance": {
+      "detail": {
+        "actual": -0.00610151328146458,
+        "allowed": 3.49958062171936,
+        "smooth": 3.49347823272782
+      },
+      "ok": false
+    },
+    "04-crouch_rendered_distance": {
+      "detail": {
+        "actual": -1.53916607814608e-05,
+        "allowed": 3.49999952316284,
+        "smooth": 3.49998227129779
+      },
+      "ok": false
+    },
+    "05-reload_rendered_distance": {
+      "detail": {
+        "actual": -2.85416135170635e-08,
+        "allowed": 3.49999952316284,
+        "smooth": 3.49999799613959
+      },
+      "ok": false
+    },
+    "06-wall_rendered_distance": {
+      "detail": {
+        "actual": 0.0,
+        "allowed": 0.464843690395355,
+        "smooth": 0.464843690395355
+      },
+      "ok": false
+    },
+    "07-release_rendered_distance": {
+      "detail": {
+        "actual": -0.842476546764374,
+        "allowed": 3.49999952316284,
+        "smooth": 2.65752531575629
+      },
+      "ok": false
+    },
+    "08-recovered_rendered_distance": {
+      "detail": {
+        "actual": -0.000683937105350196,
+        "allowed": 3.49999952316284,
+        "smooth": 3.49931511099111
+      },
+      "ok": false
+    }
+  }
+}
