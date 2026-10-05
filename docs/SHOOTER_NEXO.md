@@ -281,3 +281,34 @@ The ARM64 preview is version 0.8.0 (code 9), with package
 alongside earlier previews. Extract the delivered ZIP and install its APK;
 measure at least 15 active minutes on the Poco X7 Pro and copy the in-game
 performance report. Visual polish remains below the requested AAA reference.
+
+
+## 0.8.1 — restore the rendered third-person camera
+
+The 0.8 camera smoother incorrectly treated SpringArm3D's child position as an
+extra parent offset. Writing `distance - allowed` placed the rendered camera
+near the player's head although the arm and reported distance still read
+3.5 metres. SpringArm3D assigns an absolute local Z to its child; the smoother
+now writes the safe, smoothed distance directly. Retraction remains immediate
+and release remains damped. The extraction console and label are hidden while the player stands within
+two metres of the objective, preventing overlap at spawn. Its position,
+collision and interaction contract remain intact. No map or asset geometry changes.
+
+The new native camera regression samples the current player camera after draw,
+checks its actual world projection along the swept arm, and captures spawn,
+ADS, both shoulders, crouch, reload, wall compression and recovery. Controlled
+readback comparisons disable player shadows and freeze the camera and poses.
+They require silhouette pixels and rifle pixels in normal/ADS views; the
+opposite shoulder may hide the rifle behind the torso. The former implementation
+fails all eight rendered-distance checks. Existing node visibility and arm-length
+checks alone were insufficient to detect this bug.
+
+The supplied Poco report records 25,596 frames over 522.37 active seconds,
+about 49 FPS overall, with minute-window averages around 43–57 FPS and a
+467 ms maximum interval. It does not measure the corrected APK or establish
+a thermal cause. Evidence is in `docs/evidence/nexo-camera-081/`.
+
+The new ARM64 package is `org.closeseal.nexo.preview081`, version 0.8.1/code 10.
+It installs alongside older previews because the earlier ephemeral preview
+signing key is unavailable. The new preview key is retained privately in `Nexo-Preview081-Signing.zip` for
+future builds; never commit signing material to either repository.

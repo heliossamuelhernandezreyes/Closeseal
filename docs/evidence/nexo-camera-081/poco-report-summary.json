@@ -1,0 +1,43 @@
+{
+  "device": "2412DPC0AG",
+  "scope": "android-device",
+  "engine": "4.7.2-stable ed1daf0bf",
+  "renderer": "Mali-G720 MC7",
+  "resolution": [
+    1280,
+    720
+  ],
+  "frames_recorded": 25596,
+  "seconds": 522.371843619044,
+  "p50_ms": 20.125,
+  "p95_ms": 26.125,
+  "p99_ms": 30.625,
+  "average_fps": 48.999578198297165,
+  "windows_mean_ms": [
+    19.5951337749993,
+    21.5231983500717,
+    23.2376542779714,
+    22.3140870211974,
+    17.5541137759579,
+    17.5894088511137,
+    20.9706390635919,
+    21.4020142653352,
+    21.3847400101163
+  ],
+  "window_max_ms": [
+    467.362,
+    263.921,
+    72.787,
+    179.548,
+    55.192,
+    82.566,
+    168.534,
+    34.044,
+    83.301
+  ],
+  "feedback": "Player reported an odd first-person view without hands after 0.8 delivery.",
+  "limits": [
+    "User-submitted wall-frame intervals. No build identity in supplied report; 0.8 association is inferred from this conversation.",
+    "Not a 0.8.1 Android measurement. No thermal, touch latency or direct CPU/GPU timings."
+  ]
+}

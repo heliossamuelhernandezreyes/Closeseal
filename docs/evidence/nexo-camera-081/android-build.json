@@ -1,0 +1,9 @@
+{
+  "version": "0.8.1",
+  "package": "org.closeseal.nexo.preview081",
+  "bytes": 150673142,
+  "sha256": "fb17db2e776f10839e68d90e061938268b1654c2be78f6871fcb1db18b601021",
+  "signature_v2_v3_verified": true,
+  "zip_alignment_verified": true,
+  "android_installation_tested": false
+}

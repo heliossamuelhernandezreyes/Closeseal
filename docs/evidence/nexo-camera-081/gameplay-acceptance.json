@@ -1,0 +1,382 @@
+{
+  "checks": {
+    "active_enemy_can_damage_player": {
+      "details": 64.0,
+      "ok": true
+    },
+    "active_enemy_navigation_and_fire": {
+      "details": {
+        "distance_m": 7.91389965824783,
+        "shots": 6
+      },
+      "ok": true
+    },
+    "all_enemy_spawns_clear_and_navigable": {
+      "details": [
+        {
+          "blockers": [],
+          "index": 0,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(10.0, 0.0, 70.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 1,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(-12.0, 0.0, 49.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 2,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(8.0, 0.0, 18.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 3,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(-24.0, 0.0, 5.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 4,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(24.0, 0.0, -11.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 5,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(-66.0, 0.0, -29.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 6,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(-44.0, 0.0, -61.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 7,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(-78.0, 0.0, -68.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 8,
+          "navigation_distance": 0.30000251531601,
+          "ok": true,
+          "position": "(-69.0, 0.2, -93.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 9,
+          "navigation_distance": 0.400000095367432,
+          "ok": true,
+          "position": "(-3.0, 4.0, -45.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 10,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(5.0, 0.0, -80.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 11,
+          "navigation_distance": 0.41230833530426,
+          "ok": true,
+          "position": "(62.0, 0.0, 52.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 12,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(78.0, 0.0, 71.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 13,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(53.0, 0.0, 90.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 14,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(76.0, 0.0, -48.0)",
+          "reachable": true
+        },
+        {
+          "blockers": [],
+          "index": 15,
+          "navigation_distance": 0.399999976158142,
+          "ok": true,
+          "position": "(-64.0, 0.0, 72.0)",
+          "reachable": true
+        }
+      ],
+      "ok": true
+    },
+    "authored_map": {
+      "details": {
+        "asset_instances": 82,
+        "authored_lights": 13,
+        "custom_meshes": 2,
+        "environment_objects": 625,
+        "errors": [],
+        "heightfields": 0,
+        "landforms": 0,
+        "objectives": 0,
+        "route_segments": 0,
+        "scatter_instances": 0,
+        "structures": 0,
+        "terrain_triangles": 0
+      },
+      "ok": true
+    },
+    "barrel_cannot_shoot_through_near_cover": {
+      "details": {
+        "enemy_health": 90.0,
+        "hit_cover": true
+      },
+      "ok": true
+    },
+    "body_damage": {
+      "details": 56.0,
+      "ok": true
+    },
+    "boundary_collision": {
+      "details": "(127.16, 0.000195, 19.74757)",
+      "ok": true
+    },
+    "bullets_blocked_by_cover": {
+      "details": null,
+      "ok": true
+    },
+    "camera_recovers_distance": {
+      "details": 3.5,
+      "ok": true
+    },
+    "camera_retracts_before_wall": {
+      "details": 1.5859375,
+      "ok": true
+    },
+    "camera_shoulder_clears_side_wall": {
+      "details": 0.258235692977905,
+      "ok": true
+    },
+    "enemy_cannot_see_through_cover": {
+      "details": null,
+      "ok": true
+    },
+    "enemy_death": {
+      "details": null,
+      "ok": true
+    },
+    "enemy_line_of_sight": {
+      "details": null,
+      "ok": true
+    },
+    "enemy_searches_last_seen": {
+      "details": null,
+      "ok": true
+    },
+    "facade_texture_has_mipmaps": {
+      "details": null,
+      "ok": true
+    },
+    "fire_recoil_animation": {
+      "details": null,
+      "ok": true
+    },
+    "four_finger_controls": {
+      "details": null,
+      "ok": true
+    },
+    "four_finger_release": {
+      "details": null,
+      "ok": true
+    },
+    "free_orbit_preserves_body_heading": {
+      "details": null,
+      "ok": true
+    },
+    "injured_enemy_seeks_navigable_cover": {
+      "details": {
+        "path_points": 5,
+        "target": "(-10.3419, 0.0, 88.9563)"
+      },
+      "ok": true
+    },
+    "input_release": {
+      "details": null,
+      "ok": true
+    },
+    "left_shoulder_available": {
+      "details": -0.609827101230621,
+      "ok": true
+    },
+    "magazine_removal": {
+      "details": null,
+      "ok": true
+    },
+    "map_dimensions": {
+      "details": null,
+      "ok": true
+    },
+    "military_assets": {
+      "details": null,
+      "ok": true
+    },
+    "mission_defeat": {
+      "details": null,
+      "ok": true
+    },
+    "mission_victory": {
+      "details": null,
+      "ok": true
+    },
+    "physical_ramp_ascent": {
+      "details": "(0.0, 4.000463, -41.78271)",
+      "ok": true
+    },
+    "player_jump": {
+      "details": 1.28585207462311,
+      "ok": true
+    },
+    "reload_animation": {
+      "details": null,
+      "ok": true
+    },
+    "reload_conserves_ammo": {
+      "details": null,
+      "ok": true
+    },
+    "reload_prevents_shots": {
+      "details": null,
+      "ok": true
+    },
+    "skeletal_run_changes_leg_pose": {
+      "details": {
+        "cycle_seconds": 0.64,
+        "maximum_angle_rad": 1.15866601467133,
+        "samples": 16
+      },
+      "ok": true
+    },
+    "third_person_full_body": {
+      "details": null,
+      "ok": true
+    },
+    "third_person_weapon_grips": {
+      "details": "(0.0, 0.002612)",
+      "ok": true
+    },
+    "three_objectives_navigable": {
+      "details": [
+        {
+          "end": "(-69.00001, 0.4, -67.00001)",
+          "points": 58,
+          "reaches": true
+        },
+        {
+          "end": "(0.0, 4.4, -44.0)",
+          "points": 51,
+          "reaches": true
+        },
+        {
+          "end": "(68.0, 0.4, 57.0)",
+          "points": 25,
+          "reaches": true
+        }
+      ],
+      "ok": true
+    },
+    "three_points_secured": {
+      "details": {
+        "captures": [
+          {
+            "began": "A",
+            "id": "A",
+            "position": "(-69.0, 0.000859, -67.0)",
+            "timer": 0.0
+          },
+          {
+            "began": "B",
+            "id": "B",
+            "position": "(0.0, 3.999687, -44.0)",
+            "timer": 0.0
+          },
+          {
+            "began": "C",
+            "id": "C",
+            "position": "(68.0, 0.000859, 57.0)",
+            "timer": 0.0
+          }
+        ],
+        "secured": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      "ok": true
+    },
+    "touch_movement": {
+      "details": null,
+      "ok": true
+    },
+    "touch_release": {
+      "details": null,
+      "ok": true
+    },
+    "visible_weapon_matches_reticle": {
+      "details": null,
+      "ok": true
+    },
+    "weapon_grips_aligned": {
+      "details": "(0.0, 0.0)",
+      "ok": true
+    }
+  },
+  "engine": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "ok": true
+}

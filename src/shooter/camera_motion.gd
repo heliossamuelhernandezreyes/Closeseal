@@ -40,14 +40,15 @@ func clear_shoulder(offset: float) -> float:
 	return signf(offset)*maxf(0.0,absf(offset)*sweep[0]-(0.02 if sweep[0]<1.0 else 0.0))
 
 func render_tick(delta: float) -> void:
-	var allowed: float = actor.spring_arm.get_hit_length()
+	var allowed: float = maxf(0.0, actor.spring_arm.get_hit_length())
 	if not was_initialized or allowed < distance:
 		distance = allowed
 		was_initialized = true
 	else:
 		distance = lerpf(distance, allowed, 1.0-exp(-delta*9.0))
-	# The camera remains on the already swept segment while the spring arm extends.
-	actor.camera.position.z = minf(0.0, distance-allowed)
+	# SpringArm3D writes the child's absolute local Z, not an extra parent offset.
+	# Keep the rendered camera at the smoothed distance inside the swept segment.
+	actor.camera.position.z = distance
 	var speed := Vector2(actor.velocity.x, actor.velocity.z).length()
 	var moving: bool = actor.arena.playing and actor.is_on_floor() and actor.mobility.state == "free"
 	bob_weight = lerpf(bob_weight, minf(speed/7.2,1.0) if moving else 0.0, 1.0-exp(-delta*10.0))
