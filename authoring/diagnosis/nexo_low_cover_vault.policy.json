@@ -1,0 +1,124 @@
+{
+  "protocol": "arcont-agent-diagnosis-policy",
+  "version": 1,
+  "id": "nexo_low_cover_vault",
+  "description": "Diagnose a nearby oversized collidable box when the accepted low-cover/vault route loses its low-cover state and never reaches vault.",
+  "hypotheses": [
+    {
+      "id": "oversized_low_cover",
+      "code": "low_cover_height_out_of_vault_range",
+      "summary": "The nearest collidable box at the failed cover checkpoint is taller than the accepted vault range.",
+      "priority": 100,
+      "when": [
+        {
+          "left": {"$evidence": "/signals/cover_low"},
+          "op": "equals",
+          "right": false
+        },
+        {
+          "left": {"$evidence": "/signals/cover_crouched"},
+          "op": "equals",
+          "right": false
+        },
+        {
+          "left": {"$evidence": "/signals/vault_state"},
+          "op": "not-equals",
+          "right": "vault"
+        },
+        {
+          "left": {"$evidence": "/signals/vault_route_completed"},
+          "op": "equals",
+          "right": false
+        }
+      ],
+      "candidate": {
+        "source": "/world/objects",
+        "filters": [
+          {
+            "left": {"$candidate": "/type"},
+            "op": "equals",
+            "right": "box"
+          },
+          {
+            "left": {"$candidate": "/collision"},
+            "op": "equals",
+            "right": true
+          }
+        ],
+        "nearest_xz_to": "/observations/cover_position",
+        "position_pointer": "/position",
+        "max_distance": 4.0,
+        "stable_patch_prefix": "/map/authoring/objects"
+      },
+      "require": [
+        {
+          "left": {"$candidate": "/size/1"},
+          "op": "gt",
+          "right": {"$evidence": "/limits/max_vault_height"}
+        }
+      ],
+      "details": {
+        "object_id": {"$candidate": "/id"},
+        "observed_height": {"$candidate": "/size/1"},
+        "observed_center_y": {"$candidate": "/position/1"},
+        "accepted_height": {"$evidence": "/baseline/height"},
+        "accepted_center_y": {"$evidence": "/baseline/center_y"},
+        "cover_position": {"$evidence": "/observations/cover_position"},
+        "land_position": {"$evidence": "/observations/land_position"}
+      },
+      "repair_plan": {
+        "id": "nexo_repair_low_cover",
+        "goal": "Restore the diagnosed Nexo low-cover collider using revision-checked stable-ID editing.",
+        "capability": "map-forge.editor.control",
+        "inspect_request": {
+          "protocol_version": 1,
+          "operation": "inspect",
+          "map_id": {"$evidence": "/context/map_id"}
+        },
+        "repair_request": {
+          "protocol_version": 1,
+          "operation": "patch",
+          "map_id": {"$evidence": "/context/map_id"},
+          "if_revision": {
+            "$from": "inspect_target",
+            "pointer": "/result/revision"
+          },
+          "dry_run": false,
+          "patch": [
+            {
+              "op": "test",
+              "path": {"$candidate_path": "/size/1"},
+              "value": {"$candidate": "/size/1"}
+            },
+            {
+              "op": "test",
+              "path": {"$candidate_path": "/position/1"},
+              "value": {"$candidate": "/position/1"}
+            },
+            {
+              "op": "replace",
+              "path": {"$candidate_path": "/size/1"},
+              "value": {"$evidence": "/baseline/height"}
+            },
+            {
+              "op": "replace",
+              "path": {"$candidate_path": "/position/1"},
+              "value": {"$evidence": "/baseline/center_y"}
+            }
+          ]
+        },
+        "expect": [
+          {
+            "pointer": "/result/committed",
+            "op": "equals",
+            "value": true
+          },
+          {
+            "pointer": "/result/revision",
+            "op": "exists"
+          }
+        ]
+      }
+    }
+  ]
+}
