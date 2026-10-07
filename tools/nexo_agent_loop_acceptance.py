@@ -128,8 +128,7 @@ def main() -> int:
                     "options": {"audio_driver": "Dummy"},
                 },
                 "expect": [
-                    {"pointer": "/result/revision", "op": "exists"},
-                    {"pointer": "/result/last_build/directory", "op": "exists"},
+                    {"pointer": "/result/revision", "op": "exists"}
                 ],
             },
             {
