@@ -1,0 +1,44 @@
+{
+  "protocol": "arcont-project-intent",
+  "version": 1,
+  "project_id": "nexo",
+  "title": "Nexo",
+  "genre": "third-person shooter",
+  "targets": ["Android", "Windows"],
+  "visual_style": "dark realistic urban combat",
+  "references": [
+    "fast and fluid mobile shooter locomotion",
+    "cinematic cover and over-cover combat"
+  ],
+  "goals": [
+    "Build a convincing playable third-person combat vertical slice",
+    "Use Nexo as a production test bed for ARCONT capabilities"
+  ],
+  "priorities": [
+    "movement feel",
+    "combat feel",
+    "cover traversal",
+    "visual quality",
+    "target-device performance"
+  ],
+  "scope": "A bounded third-person shooter vertical slice with real movement, cover, vaulting, combat, authored environment and repeatable playtest evidence.",
+  "performance": {
+    "target_fps": 60,
+    "resolution": "1280x720",
+    "platform_notes": "Android target-device evidence is required before claiming performance or thermal quality."
+  },
+  "asset_policy": {
+    "user_assets": true,
+    "public_assets": true,
+    "commercial_use_required": true,
+    "allow_network_discovery": false,
+    "allowed_licenses": ["CC0", "MIT", "OFL-1.1"]
+  },
+  "constraints": [
+    "Production game code remains in Closeseal, not ARCONT.",
+    "Do not claim AAA quality from technical acceptance alone.",
+    "Do not infer asset license rights without traceable provenance.",
+    "Do not merge production changes without explicit authorization."
+  ],
+  "notes": "This project intent is persistent project-owned context for fresh ARCONT-compatible agents."
+}

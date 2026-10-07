@@ -1,0 +1,75 @@
+name: Nexo ARCONT Universal Bridge
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  universal-bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Nexo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Checkout pinned ARCONT Universal Bridge
+        uses: actions/checkout@v4
+        with:
+          repository: heliossamuelhernandezreyes/Arcont
+          ref: dc33ff384402f998c6f9ed9b7e3be37149f01e22
+          path: .arcont-agent
+
+      - name: Install exact Godot
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip
+          curl -L --fail --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot-bin
+          chmod +x /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+
+      - name: Stage current Nexo slice
+        env:
+          GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: |
+          python -m unittest discover -s tests -p 'test_shooter_build.py'
+          python tools/verify_shooter_assets.py
+          python tools/verify_shooter_sector.py
+          python tools/prepare_shooter.py --stage /tmp/nexo-bridge-shooter
+          cp project.intent.json /tmp/nexo-bridge-shooter/project.intent.json
+          "$GODOT_BIN" --headless --path /tmp/nexo-bridge-shooter --editor --import > bridge-import.log 2>&1
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' bridge-import.log; then exit 1; fi
+          python tools/configure_shooter_imports.py --stage /tmp/nexo-bridge-shooter
+          "$GODOT_BIN" --headless --path /tmp/nexo-bridge-shooter --editor --import > bridge-mipmap-import.log 2>&1
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' bridge-mipmap-import.log; then exit 1; fi
+          "$GODOT_BIN" --headless --path /tmp/nexo-bridge-shooter --script res://tools/shooter_bake.gd > bridge-bake.log 2>&1
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' bridge-bake.log; then exit 1; fi
+
+      - name: Run Nexo through ARCONT Universal Bridge
+        env:
+          GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: |
+          xvfb-run -a -s '-screen 0 1280x720x24' python tools/nexo_bridge_acceptance.py \
+            --arcont .arcont-agent \
+            --project /tmp/nexo-bridge-shooter \
+            --evidence "$PWD/nexo-bridge-evidence"
+
+      - name: Preserve Universal Bridge evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexo-arcont-universal-bridge-${{ github.sha }}
+          path: |
+            bridge-import.log
+            bridge-mipmap-import.log
+            bridge-bake.log
+            nexo-bridge-evidence/
+          include-hidden-files: true
+          retention-days: 30
