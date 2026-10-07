@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 0b9423b882000ed8761963d8ddb95113a1be4afe
+          ref: dc33ff384402f998c6f9ed9b7e3be37149f01e22
           path: .arcont-agent
 
       - name: Install exact Godot
