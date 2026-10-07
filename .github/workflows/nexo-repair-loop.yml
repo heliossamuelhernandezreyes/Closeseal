@@ -18,11 +18,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Checkout pinned ARCONT execution loop
+      - name: Checkout pinned ARCONT diagnosis and execution stack
         uses: actions/checkout@v4
         with:
           repository: heliossamuelhernandezreyes/Arcont
-          ref: 444e554cc4344a65f4eb83289e15967cabee8926
+          ref: 5d5d09b516374782ecd5df5ae112f53b1a9d21f3
           path: .arcont-agent
       - name: Install exact Godot
         run: |

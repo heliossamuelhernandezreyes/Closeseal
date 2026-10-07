@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
-"""Controlled Nexo fault -> diagnosis -> ARCONT repair -> replay acceptance.
+"""Controlled Nexo fault -> ARCONT diagnosis -> repair -> replay acceptance.
 
-The checkout is never intentionally left broken. A disposable staged Nexo copy is
-used for every mutation. ARCONT performs the map edits and revisioned Godot
-authoring; this harness only supplies a deterministic diagnosis policy so the
-closed loop can be tested in CI without an LLM.
+The checkout is never intentionally left broken. A disposable staged Nexo copy
+is used for every mutation. Nexo supplies raw structured evidence plus a
+declarative diagnosis policy; ARCONT selects the hypothesis/candidate and
+compiles the revision-checked repair plan.
 """
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
-import math
 import os
 import shutil
 import subprocess
@@ -24,6 +23,7 @@ FAULT_HEIGHT = 1.70
 FAULT_CENTER_Y = 0.85
 CANONICAL_HEIGHT = 1.14
 CANONICAL_CENTER_Y = 0.57
+MAX_VAULT_HEIGHT = 1.35
 
 
 def sha256(path: Path) -> str:
@@ -75,6 +75,31 @@ def run_agent(arcont: Path, project: Path, plan: dict, evidence: Path, name: str
     return report
 
 
+def run_diagnosis(arcont: Path, policy: Path, raw_evidence: dict, evidence_dir: Path) -> dict:
+    evidence_path = evidence_dir / "03-diagnosis-evidence.json"
+    evidence_path.write_text(json.dumps(raw_evidence, indent=2), encoding="utf-8")
+    command = [
+        sys.executable,
+        str(arcont / "tools/arcont_agent.py"),
+        "diagnose",
+        "--policy",
+        str(policy),
+        "--evidence",
+        str(evidence_path),
+        "--require-match",
+    ]
+    completed = subprocess.run(command, text=True, capture_output=True, timeout=120, check=False)
+    (evidence_dir / "03-diagnosis.stdout.json").write_text(completed.stdout, encoding="utf-8")
+    (evidence_dir / "03-diagnosis.stderr.log").write_text(completed.stderr, encoding="utf-8")
+    try:
+        report = json.loads(completed.stdout)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError({"invalid_diagnosis_json": completed.stderr[-3000:]}) from exc
+    if completed.returncode or not report.get("ok") or not report.get("matched"):
+        raise RuntimeError({"diagnosis_failed": report, "stderr": completed.stderr[-3000:]})
+    return report
+
+
 def step_output(report: dict, step_id: str) -> dict:
     for step in report.get("steps", []):
         if step.get("id") == step_id:
@@ -92,24 +117,6 @@ def find_object(data: dict, identity: str) -> dict:
         if item.get("id") == identity:
             return item
     raise KeyError(identity)
-
-
-def nearest_collision_box(data: dict, position: list[float]) -> dict:
-    px, _, pz = map(float, position)
-    candidates = []
-    for item in data.get("authoring", {}).get("objects", []):
-        if item.get("type") != "box" or item.get("collision") is not True:
-            continue
-        center = item.get("position")
-        size = item.get("size")
-        if not (isinstance(center, list) and len(center) >= 3 and isinstance(size, list) and len(size) >= 3):
-            continue
-        horizontal = math.hypot(float(center[0]) - px, float(center[2]) - pz)
-        candidates.append((horizontal, -float(size[0]) * float(size[2]), item))
-    if not candidates:
-        raise RuntimeError("no collidable box candidates near failed cover checkpoint")
-    candidates.sort(key=lambda value: (value[0], value[1]))
-    return candidates[0][2]
 
 
 def runtime_recipe(project: Path) -> dict:
@@ -149,26 +156,10 @@ def map_fault_plan(original: dict) -> dict:
                     "if_revision": {"$from": "inspect_map", "pointer": "/result/revision"},
                     "dry_run": False,
                     "patch": [
-                        {
-                            "op": "test",
-                            "path": f"/map/authoring/objects/@{FAULT_OBJECT_ID}/size/1",
-                            "value": original["size"][1],
-                        },
-                        {
-                            "op": "test",
-                            "path": f"/map/authoring/objects/@{FAULT_OBJECT_ID}/position/1",
-                            "value": original["position"][1],
-                        },
-                        {
-                            "op": "replace",
-                            "path": f"/map/authoring/objects/@{FAULT_OBJECT_ID}/size/1",
-                            "value": FAULT_HEIGHT,
-                        },
-                        {
-                            "op": "replace",
-                            "path": f"/map/authoring/objects/@{FAULT_OBJECT_ID}/position/1",
-                            "value": FAULT_CENTER_Y,
-                        },
+                        {"op": "test", "path": f"/map/authoring/objects/@{FAULT_OBJECT_ID}/size/1", "value": original["size"][1]},
+                        {"op": "test", "path": f"/map/authoring/objects/@{FAULT_OBJECT_ID}/position/1", "value": original["position"][1]},
+                        {"op": "replace", "path": f"/map/authoring/objects/@{FAULT_OBJECT_ID}/size/1", "value": FAULT_HEIGHT},
+                        {"op": "replace", "path": f"/map/authoring/objects/@{FAULT_OBJECT_ID}/position/1", "value": FAULT_CENTER_Y},
                     ],
                 },
                 "expect": [
@@ -214,11 +205,7 @@ def first_playtest_plan(recipe: dict, session: dict) -> dict:
                 "id": "inspect_authored",
                 "kind": "invoke",
                 "capability": "godot.authoring.control",
-                "request": {
-                    "protocol_version": 1,
-                    "operation": "inspect",
-                    "document_id": recipe["id"],
-                },
+                "request": {"protocol_version": 1, "operation": "inspect", "document_id": recipe["id"]},
             },
             {
                 "id": "playtest",
@@ -240,86 +227,34 @@ def first_playtest_plan(recipe: dict, session: dict) -> dict:
     }
 
 
-def diagnose_fault(project: Path, playtest_output: dict) -> dict:
+def raw_diagnosis_evidence(project: Path, playtest_output: dict) -> dict:
     states = checkpoint_states(playtest_output)
     cover = states["cover_settle"]["state"]
     vault = states["vault_midpoint"]["state"]
     land = states["land"]["state"]
     data = json.loads((project / "maps/nexo_combat_01.json").read_text(encoding="utf-8"))
-    obstacle = nearest_collision_box(data, cover["position"])
-    top_y = float(obstacle["position"][1]) + float(obstacle["size"][1]) * 0.5
-
-    signals = {
-        "cover_is_not_low": cover.get("cover_low") is not True or cover.get("crouched") is not True,
-        "vault_state_not_reached": vault.get("movement_state") != "vault",
-        "vault_route_not_completed": land.get("position", [0, 0, 999])[2] > 99.8 or land.get("vault_aborted") is True,
-    }
-    if not signals["cover_is_not_low"] or not signals["vault_state_not_reached"]:
-        raise RuntimeError({"controlled_fault_not_observed": signals, "states": states})
-    if obstacle.get("id") != FAULT_OBJECT_ID:
-        raise RuntimeError({"unexpected_obstacle_diagnosis": obstacle.get("id"), "expected": FAULT_OBJECT_ID})
-
+    route_completed = (
+        isinstance(land.get("position"), list)
+        and len(land["position"]) >= 3
+        and land["position"][2] <= 99.8
+        and land.get("vault_aborted") is False
+    )
     return {
-        "ok": True,
-        "code": "low_cover_height_out_of_vault_range",
-        "signals": signals,
-        "object_id": obstacle["id"],
-        "observed": {
-            "center_y": obstacle["position"][1],
-            "height": obstacle["size"][1],
-            "top_y": top_y,
-            "cover_low": cover.get("cover_low"),
-            "cover_crouched": cover.get("crouched"),
+        "signals": {
+            "cover_low": bool(cover.get("cover_low")),
+            "cover_crouched": bool(cover.get("crouched")),
             "vault_state": vault.get("movement_state"),
+            "vault_route_completed": route_completed,
+        },
+        "observations": {
+            "cover_position": cover.get("position"),
+            "vault_position": vault.get("position"),
             "land_position": land.get("position"),
         },
-        "repair": {
-            "position_y": CANONICAL_CENTER_Y,
-            "height": CANONICAL_HEIGHT,
-            "reason": "restore the known accepted low-cover geometry selected by stable object ID",
-        },
-    }
-
-
-def repair_map_plan(diagnosis: dict) -> dict:
-    identity = diagnosis["object_id"]
-    return {
-        "protocol": "arcont-agent-plan",
-        "version": 1,
-        "id": "nexo_repair_low_cover",
-        "goal": "Restore the diagnosed low-cover obstacle using revision-checked stable-ID editing.",
-        "permissions": {"project_write": True},
-        "capability_allowlist": ["map-forge.editor.control"],
-        "steps": [
-            {
-                "id": "inspect_faulted_map",
-                "kind": "invoke",
-                "capability": "map-forge.editor.control",
-                "request": {"protocol_version": 1, "operation": "inspect", "map_id": "nexo_combat_01"},
-            },
-            {
-                "id": "repair_cover",
-                "kind": "invoke",
-                "capability": "map-forge.editor.control",
-                "request": {
-                    "protocol_version": 1,
-                    "operation": "patch",
-                    "map_id": "nexo_combat_01",
-                    "if_revision": {"$from": "inspect_faulted_map", "pointer": "/result/revision"},
-                    "dry_run": False,
-                    "patch": [
-                        {"op": "test", "path": f"/map/authoring/objects/@{identity}/size/1", "value": FAULT_HEIGHT},
-                        {"op": "test", "path": f"/map/authoring/objects/@{identity}/position/1", "value": FAULT_CENTER_Y},
-                        {"op": "replace", "path": f"/map/authoring/objects/@{identity}/size/1", "value": diagnosis["repair"]["height"]},
-                        {"op": "replace", "path": f"/map/authoring/objects/@{identity}/position/1", "value": diagnosis["repair"]["position_y"]},
-                    ],
-                },
-                "expect": [
-                    {"pointer": "/result/committed", "op": "equals", "value": True},
-                    {"pointer": "/result/revision", "op": "exists"},
-                ],
-            },
-        ],
+        "context": {"map_id": "nexo_combat_01"},
+        "limits": {"max_vault_height": MAX_VAULT_HEIGHT},
+        "baseline": {"height": CANONICAL_HEIGHT, "center_y": CANONICAL_CENTER_Y},
+        "world": {"objects": data.get("authoring", {}).get("objects", [])},
     }
 
 
@@ -336,11 +271,7 @@ def recovery_playtest_plan(recipe: dict, session: dict) -> dict:
                 "id": "inspect_old_authoring",
                 "kind": "invoke",
                 "capability": "godot.authoring.control",
-                "request": {
-                    "protocol_version": 1,
-                    "operation": "inspect",
-                    "document_id": recipe["id"],
-                },
+                "request": {"protocol_version": 1, "operation": "inspect", "document_id": recipe["id"]},
             },
             {
                 "id": "rebuild",
@@ -362,11 +293,7 @@ def recovery_playtest_plan(recipe: dict, session: dict) -> dict:
                 "id": "inspect_repaired_authoring",
                 "kind": "invoke",
                 "capability": "godot.authoring.control",
-                "request": {
-                    "protocol_version": 1,
-                    "operation": "inspect",
-                    "document_id": recipe["id"],
-                },
+                "request": {"protocol_version": 1, "operation": "inspect", "document_id": recipe["id"]},
             },
             {
                 "id": "playtest",
@@ -396,10 +323,9 @@ def prepare_stage(source: Path, stage: Path, godot: str, evidence: Path) -> None
     run([sys.executable, str(source / "tools/prepare_shooter.py"), "--stage", str(stage)], cwd=source, log=evidence / "prepare-stage.log")
 
     # The staged slice normally consumes a pre-baked sector. This experiment
-    # deliberately edits the canonical map, so force the existing dynamic
-    # MapVisualKit path instead of allowing stale derived geometry.
-    derived = stage / "assets/shooter/sector07/sector_world.tscn"
-    derived.unlink(missing_ok=True)
+    # deliberately edits the canonical map, so force the dynamic MapVisualKit
+    # path instead of allowing stale derived geometry.
+    (stage / "assets/shooter/sector07/sector_world.tscn").unlink(missing_ok=True)
 
     shutil.copy(source / "map-forge.authoring.json", stage / "map-forge.authoring.json")
     for name in ("map_forge_adapter.py", "validate_maps.py", "validate_environment.py"):
@@ -424,6 +350,7 @@ def main() -> int:
     evidence = args.evidence.resolve()
     evidence.mkdir(parents=True, exist_ok=True)
     godot = os.environ.get("GODOT_BIN", "godot")
+    policy_path = source / "authoring/diagnosis/nexo_low_cover_vault.policy.json"
 
     prepare_stage(source, stage, godot, evidence)
 
@@ -445,10 +372,19 @@ def main() -> int:
     fault_recipe = runtime_recipe(stage)
     fault_observation = run_agent(arcont, stage, first_playtest_plan(fault_recipe, session), evidence, "02-observe-fault")
     fault_playtest = step_output(fault_observation, "playtest")
-    diagnosis = diagnose_fault(stage, fault_playtest)
-    (evidence / "03-diagnosis.json").write_text(json.dumps(diagnosis, indent=2), encoding="utf-8")
 
-    repair_edit = run_agent(arcont, stage, repair_map_plan(diagnosis), evidence, "04-repair-map")
+    raw_evidence = raw_diagnosis_evidence(stage, fault_playtest)
+    diagnosis = run_diagnosis(arcont, policy_path, raw_evidence, evidence)
+    hypothesis = diagnosis["hypothesis"]
+    if hypothesis["code"] != "low_cover_height_out_of_vault_range":
+        raise RuntimeError({"unexpected_hypothesis": hypothesis["code"]})
+    if hypothesis["candidate"].get("id") != FAULT_OBJECT_ID:
+        raise RuntimeError({"unexpected_candidate": hypothesis["candidate"].get("id"), "expected": FAULT_OBJECT_ID})
+
+    repair_plan = hypothesis.get("repair_plan")
+    if not isinstance(repair_plan, dict):
+        raise RuntimeError("ARCONT diagnosis did not compile a repair plan")
+    repair_edit = run_agent(arcont, stage, repair_plan, evidence, "04-repair-map")
     if sha256(map_path) != canonical_sha:
         raise RuntimeError({
             "repair_did_not_restore_canonical_map_bytes": {
@@ -466,7 +402,8 @@ def main() -> int:
     land = states["land"]["state"]
 
     assertions = {
-        "fault_was_detected": diagnosis["ok"],
+        "arcont_selected_hypothesis": diagnosis.get("matched") is True,
+        "arcont_selected_fault_object": hypothesis["candidate"].get("id") == FAULT_OBJECT_ID,
         "canonical_map_restored_byte_for_byte": sha256(map_path) == canonical_sha,
         "cover_low_recovered": cover.get("movement_state") == "cover" and cover.get("cover_low") is True and cover.get("crouched") is True,
         "vault_recovered": vault.get("movement_state") == "vault",
@@ -484,13 +421,25 @@ def main() -> int:
             "object_id": FAULT_OBJECT_ID,
             "canonical_height": CANONICAL_HEIGHT,
             "fault_height": FAULT_HEIGHT,
-            "diagnosis": diagnosis,
             "map_plan_sha256": fault_edit["plan_sha256"],
             "observation_plan_sha256": fault_observation["plan_sha256"],
             "playtest_passed": fault_playtest["result"].get("passed"),
         },
+        "diagnosis": {
+            "policy_id": diagnosis["policy_id"],
+            "policy_sha256": diagnosis["policy_sha256"],
+            "evidence_sha256": diagnosis["evidence_sha256"],
+            "hypothesis": {
+                "id": hypothesis["id"],
+                "code": hypothesis["code"],
+                "summary": hypothesis["summary"],
+                "candidate": hypothesis["candidate"],
+                "candidate_distance_xz": hypothesis["candidate_distance_xz"],
+                "details": hypothesis["details"],
+            },
+            "compiled_repair_plan_sha256": repair_edit["plan_sha256"],
+        },
         "repair": {
-            "map_plan_sha256": repair_edit["plan_sha256"],
             "verification_plan_sha256": recovery["plan_sha256"],
             "canonical_map_sha256": canonical_sha,
             "assertions": assertions,
@@ -499,7 +448,8 @@ def main() -> int:
         },
         "limits": [
             "Controlled disposable-stage repair experiment; production repository content is not committed by the loop.",
-            "Diagnosis policy is deterministic CI logic, not an autonomous LLM planner.",
+            "Game-specific diagnosis knowledge is declarative policy data; ARCONT owns hypothesis/candidate selection and repair-plan compilation.",
+            "This is deterministic policy reasoning, not yet free-form LLM hypothesis generation.",
             "Linux/Xvfb evidence does not establish Android handset FPS, thermals, or subjective animation quality.",
         ],
     }
