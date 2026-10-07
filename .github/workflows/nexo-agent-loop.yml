@@ -1,0 +1,96 @@
+name: Nexo ARCONT Agent Loop
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  agent-loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout Nexo
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Checkout pinned ARCONT agent loop
+        uses: actions/checkout@v4
+        with:
+          repository: heliossamuelhernandezreyes/Arcont
+          ref: 444e554cc4344a65f4eb83289e15967cabee8926
+          path: .arcont-agent
+      - name: Install exact Godot
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2t64 unzip
+          curl -L --fail --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot-bin
+          chmod +x /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+      - name: Stage current Nexo slice
+        env:
+          GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: |
+          python -m unittest discover -s tests -p 'test_shooter_build.py'
+          python tools/verify_shooter_assets.py
+          python tools/verify_shooter_sector.py
+          python tools/prepare_shooter.py --stage /tmp/nexo-agent-shooter
+          "$GODOT_BIN" --headless --path /tmp/nexo-agent-shooter --editor --import > agent-import.log 2>&1
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' agent-import.log; then exit 1; fi
+          python tools/configure_shooter_imports.py --stage /tmp/nexo-agent-shooter
+          "$GODOT_BIN" --headless --path /tmp/nexo-agent-shooter --editor --import > agent-mipmap-import.log 2>&1
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' agent-mipmap-import.log; then exit 1; fi
+          "$GODOT_BIN" --headless --path /tmp/nexo-agent-shooter --script res://tools/shooter_bake.gd > agent-bake.log 2>&1
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' agent-bake.log; then exit 1; fi
+      - name: Run existing mobility acceptance
+        env:
+          GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: |
+          mkdir -p nexo-agent-evidence/mobility
+          xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-agent-shooter --script res://tools/shooter_mobility_acceptance.gd -- --captures="$PWD/nexo-agent-evidence/mobility" 2>&1 | tee agent-mobility.log
+          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' agent-mobility.log; then exit 1; fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("nexo-agent-evidence/mobility/mobility-acceptance.json")
+          if not p.exists():
+              candidates=list(Path("nexo-agent-evidence/mobility").glob("*.json"))
+              if not candidates: raise SystemExit("mobility acceptance JSON missing")
+              p=candidates[0]
+          r=json.loads(p.read_text())
+          assert r["ok"], r.get("failures")
+          checks=r["checks"]
+          for name in [
+              "movement_auto_vaults_without_jump_input",
+              "automatic_vault_lands_with_collision",
+              "low_cover_fire_preserves_lateral_movement",
+          ]:
+              assert checks[name]["ok"], (name, checks[name])
+          print(json.dumps({"ok":True,"checks":{n:checks[n] for n in [
+              "movement_auto_vaults_without_jump_input",
+              "automatic_vault_lands_with_collision",
+              "low_cover_fire_preserves_lateral_movement",
+          ]}}, indent=2))
+          PY
+      - name: Run Nexo through ARCONT bounded agent loop
+        env:
+          GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
+        run: |
+          python tools/nexo_agent_loop_acceptance.py             --arcont .arcont-agent             --project /tmp/nexo-agent-shooter             --evidence "$PWD/nexo-agent-evidence/agent-loop"
+      - name: Preserve Nexo agent-loop evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexo-arcont-agent-loop-${{ github.sha }}
+          path: |
+            agent-import.log
+            agent-mipmap-import.log
+            agent-bake.log
+            agent-mobility.log
+            nexo-agent-evidence/
+          include-hidden-files: true
+          retention-days: 30
