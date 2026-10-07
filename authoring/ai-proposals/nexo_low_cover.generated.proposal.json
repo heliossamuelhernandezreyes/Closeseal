@@ -1,0 +1,87 @@
+{
+  "protocol": "arcont-agent-hypothesis-proposal",
+  "version": 1,
+  "id": "gpt56_nexo_cover_fault",
+  "goal": "Restore the failed Nexo low-cover traversal by correcting the evidence-supported nearby collider geometry.",
+  "provenance": {
+    "author_type": "model",
+    "model": "GPT-5.6 Sol",
+    "note": "Generated from the observed failed cover/vault evidence; no pre-existing Nexo diagnosis policy is consumed by this test."
+  },
+  "hypothesis": {
+    "id": "oversized_low_cover",
+    "code": "low_cover_height_out_of_vault_range",
+    "summary": "The nearest collidable box to the failed low-cover checkpoint is above the accepted vault height and is the strongest bounded geometric cause of the failed traversal.",
+    "priority": 100,
+    "when": [
+      {
+        "left": {"$evidence": "/signals/cover_low"},
+        "op": "equals",
+        "right": false
+      },
+      {
+        "left": {"$evidence": "/signals/cover_crouched"},
+        "op": "equals",
+        "right": false
+      },
+      {
+        "left": {"$evidence": "/signals/vault_state"},
+        "op": "not-equals",
+        "right": "vault"
+      },
+      {
+        "left": {"$evidence": "/signals/vault_route_completed"},
+        "op": "equals",
+        "right": false
+      }
+    ],
+    "candidate": {
+      "source": "/world/objects",
+      "filters": [
+        {
+          "left": {"$candidate": "/type"},
+          "op": "equals",
+          "right": "box"
+        },
+        {
+          "left": {"$candidate": "/collision"},
+          "op": "equals",
+          "right": true
+        }
+      ],
+      "nearest_xz_to": "/observations/cover_position",
+      "position_pointer": "/position",
+      "max_distance": 4.0
+    },
+    "require": [
+      {
+        "left": {"$candidate": "/size/1"},
+        "op": "gt",
+        "right": {"$evidence": "/limits/max_vault_height"}
+      }
+    ],
+    "details": {
+      "object_id": {"$candidate": "/id"},
+      "observed_height": {"$candidate": "/size/1"},
+      "observed_center_y": {"$candidate": "/position/1"},
+      "accepted_height": {"$evidence": "/baseline/height"},
+      "accepted_center_y": {"$evidence": "/baseline/center_y"},
+      "cover_position": {"$evidence": "/observations/cover_position"},
+      "land_position": {"$evidence": "/observations/land_position"}
+    },
+    "repair": {
+      "kind": "map-forge-stable-object-patch",
+      "map_id": {"$evidence": "/context/map_id"},
+      "changes": [
+        {
+          "candidate_pointer": "/size/1",
+          "value": {"$evidence": "/baseline/height"}
+        },
+        {
+          "candidate_pointer": "/position/1",
+          "value": {"$evidence": "/baseline/center_y"}
+        }
+      ]
+    }
+  }
+}
