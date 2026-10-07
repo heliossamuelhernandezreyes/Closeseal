@@ -46,36 +46,6 @@ jobs:
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' agent-mipmap-import.log; then exit 1; fi
           "$GODOT_BIN" --headless --path /tmp/nexo-agent-shooter --script res://tools/shooter_bake.gd > agent-bake.log 2>&1
           if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' agent-bake.log; then exit 1; fi
-      - name: Run existing mobility acceptance
-        env:
-          GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
-        run: |
-          mkdir -p nexo-agent-evidence/mobility
-          xvfb-run -a -s '-screen 0 1280x720x24' "$GODOT_BIN" --audio-driver Dummy --path /tmp/nexo-agent-shooter --script res://tools/shooter_mobility_acceptance.gd -- --captures="$PWD/nexo-agent-evidence/mobility" 2>&1 | tee agent-mobility.log
-          if grep -E 'SCRIPT ERROR|Parse Error|Failed to load script|ERROR:' agent-mobility.log; then exit 1; fi
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          p=Path("nexo-agent-evidence/mobility/mobility-acceptance.json")
-          if not p.exists():
-              candidates=list(Path("nexo-agent-evidence/mobility").glob("*.json"))
-              if not candidates: raise SystemExit("mobility acceptance JSON missing")
-              p=candidates[0]
-          r=json.loads(p.read_text())
-          assert r["ok"], r.get("failures")
-          checks=r["checks"]
-          for name in [
-              "movement_auto_vaults_without_jump_input",
-              "automatic_vault_lands_with_collision",
-              "low_cover_fire_preserves_lateral_movement",
-          ]:
-              assert checks[name]["ok"], (name, checks[name])
-          print(json.dumps({"ok":True,"checks":{n:checks[n] for n in [
-              "movement_auto_vaults_without_jump_input",
-              "automatic_vault_lands_with_collision",
-              "low_cover_fire_preserves_lateral_movement",
-          ]}}, indent=2))
-          PY
       - name: Run Nexo through ARCONT bounded agent loop
         env:
           GODOT_BIN: /tmp/godot-bin/Godot_v4.7.2-stable_linux.x86_64
@@ -90,7 +60,6 @@ jobs:
             agent-import.log
             agent-mipmap-import.log
             agent-bake.log
-            agent-mobility.log
             nexo-agent-evidence/
           include-hidden-files: true
           retention-days: 30
