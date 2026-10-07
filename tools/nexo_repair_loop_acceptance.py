@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Controlled Nexo fault -> ARCONT diagnosis -> repair -> replay acceptance.
+"""Controlled Nexo fault -> model proposal gate -> ARCONT repair -> replay.
 
 The checkout is never intentionally left broken. A disposable staged Nexo copy
-is used for every mutation. Nexo supplies raw structured evidence plus a
-declarative diagnosis policy; ARCONT selects the hypothesis/candidate and
-compiles the revision-checked repair plan.
+is used for every mutation. Nexo supplies raw structured evidence. A
+model-authored hypothesis proposal is validated by ARCONT, which owns the safe
+policy compilation, candidate selection and revision-checked repair plan.
 """
 from __future__ import annotations
 
@@ -75,28 +75,29 @@ def run_agent(arcont: Path, project: Path, plan: dict, evidence: Path, name: str
     return report
 
 
-def run_diagnosis(arcont: Path, policy: Path, raw_evidence: dict, evidence_dir: Path) -> dict:
-    evidence_path = evidence_dir / "03-diagnosis-evidence.json"
+def run_model_proposal(arcont: Path, proposal: Path, raw_evidence: dict, evidence_dir: Path) -> dict:
+    evidence_path = evidence_dir / "03-model-evidence.json"
     evidence_path.write_text(json.dumps(raw_evidence, indent=2), encoding="utf-8")
     command = [
         sys.executable,
         str(arcont / "tools/arcont_agent.py"),
-        "diagnose",
-        "--policy",
-        str(policy),
+        "evaluate-proposal",
+        "--proposal",
+        str(proposal),
         "--evidence",
         str(evidence_path),
         "--require-match",
     ]
     completed = subprocess.run(command, text=True, capture_output=True, timeout=120, check=False)
-    (evidence_dir / "03-diagnosis.stdout.json").write_text(completed.stdout, encoding="utf-8")
-    (evidence_dir / "03-diagnosis.stderr.log").write_text(completed.stderr, encoding="utf-8")
+    (evidence_dir / "03-model-proposal.stdout.json").write_text(completed.stdout, encoding="utf-8")
+    (evidence_dir / "03-model-proposal.stderr.log").write_text(completed.stderr, encoding="utf-8")
     try:
         report = json.loads(completed.stdout)
     except json.JSONDecodeError as exc:
-        raise RuntimeError({"invalid_diagnosis_json": completed.stderr[-3000:]}) from exc
-    if completed.returncode or not report.get("ok") or not report.get("matched"):
-        raise RuntimeError({"diagnosis_failed": report, "stderr": completed.stderr[-3000:]})
+        raise RuntimeError({"invalid_model_proposal_json": completed.stderr[-3000:]}) from exc
+    diagnosis = report.get("diagnosis", {})
+    if completed.returncode or not report.get("ok") or not diagnosis.get("matched"):
+        raise RuntimeError({"model_proposal_rejected": report, "stderr": completed.stderr[-3000:]})
     return report
 
 
@@ -350,7 +351,10 @@ def main() -> int:
     evidence = args.evidence.resolve()
     evidence.mkdir(parents=True, exist_ok=True)
     godot = os.environ.get("GODOT_BIN", "godot")
-    policy_path = source / "authoring/diagnosis/nexo_low_cover_vault.policy.json"
+    proposal_path = source / "authoring/ai-proposals/nexo_low_cover.generated.proposal.json"
+    legacy_policy = source / "authoring/diagnosis/nexo_low_cover_vault.policy.json"
+    if legacy_policy.exists():
+        raise RuntimeError("model-hypothesis acceptance must not consume the prepared Nexo diagnosis policy")
 
     prepare_stage(source, stage, godot, evidence)
 
@@ -374,7 +378,8 @@ def main() -> int:
     fault_playtest = step_output(fault_observation, "playtest")
 
     raw_evidence = raw_diagnosis_evidence(stage, fault_playtest)
-    diagnosis = run_diagnosis(arcont, policy_path, raw_evidence, evidence)
+    proposal_gate = run_model_proposal(arcont, proposal_path, raw_evidence, evidence)
+    diagnosis = proposal_gate["diagnosis"]
     hypothesis = diagnosis["hypothesis"]
     if hypothesis["code"] != "low_cover_height_out_of_vault_range":
         raise RuntimeError({"unexpected_hypothesis": hypothesis["code"]})
@@ -402,6 +407,7 @@ def main() -> int:
     land = states["land"]["state"]
 
     assertions = {
+        "arcont_accepted_model_proposal": proposal_gate.get("ok") is True,
         "arcont_selected_hypothesis": diagnosis.get("matched") is True,
         "arcont_selected_fault_object": hypothesis["candidate"].get("id") == FAULT_OBJECT_ID,
         "canonical_map_restored_byte_for_byte": sha256(map_path) == canonical_sha,
@@ -425,9 +431,12 @@ def main() -> int:
             "observation_plan_sha256": fault_observation["plan_sha256"],
             "playtest_passed": fault_playtest["result"].get("passed"),
         },
-        "diagnosis": {
-            "policy_id": diagnosis["policy_id"],
-            "policy_sha256": diagnosis["policy_sha256"],
+        "model_proposal": {
+            "proposal_id": proposal_gate["proposal_id"],
+            "proposal_sha256": proposal_gate["proposal_sha256"],
+            "compiled_policy_sha256": proposal_gate["compiled_policy_sha256"],
+            "provenance": proposal_gate["provenance"],
+            "repair_primitive": proposal_gate["repair_primitive"],
             "evidence_sha256": diagnosis["evidence_sha256"],
             "hypothesis": {
                 "id": hypothesis["id"],
@@ -448,8 +457,9 @@ def main() -> int:
         },
         "limits": [
             "Controlled disposable-stage repair experiment; production repository content is not committed by the loop.",
-            "Game-specific diagnosis knowledge is declarative policy data; ARCONT owns hypothesis/candidate selection and repair-plan compilation.",
-            "This is deterministic policy reasoning, not yet free-form LLM hypothesis generation.",
+            "No prepared Nexo diagnosis policy is present in this acceptance branch.",
+            "The proposal was authored by GPT-5.6 Sol from observed evidence, then safety-gated and compiled by ARCONT.",
+            "GitHub Actions does not call an LLM at runtime; this proves the model-proposal protocol and safe execution path, not unattended model availability inside CI.",
             "Linux/Xvfb evidence does not establish Android handset FPS, thermals, or subjective animation quality.",
         ],
     }
